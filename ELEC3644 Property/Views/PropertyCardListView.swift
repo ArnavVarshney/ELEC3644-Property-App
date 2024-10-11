@@ -12,11 +12,17 @@ struct PropertyCardListView: View {
 
     var body: some View {
         ScrollView(showsIndicators: false) {
-            VStack {
+            LazyVStack {
                 ForEach(properties) { property in
-                    PropertyCardView(property: property)
+                    NavigationLink(destination: PropertyDetailView(property: property)) {
+                        PropertyCardView(property: property)
+                    }
                 }
             }
         }
     }
+}
+
+#Preview {
+    PropertyCardListView(properties: properties)
 }

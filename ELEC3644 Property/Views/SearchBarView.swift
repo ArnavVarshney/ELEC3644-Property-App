@@ -11,13 +11,18 @@ struct SearchBarView: View {
     @Binding var searchText: String
 
     var body: some View {
-        HStack(alignment: .center, spacing: 10) {
+        HStack(alignment: .center, spacing: 16) {
             Image(systemName: "magnifyingglass")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 18, height: 18)
-            TextField("What are you looking for?", text: $searchText)
-                .font(.system(size: 14, weight: .medium))
+                .padding(10)
+            VStack(alignment: .leading, spacing: 0) {
+                Text("Where to?")
+                    .font(.system(size: 14, weight: .medium))
+                Text("Anywhere · Any week · Any guests")
+                    .font(.system(size: 12, weight: .medium))
+            }
             Spacer()
             Button {} label: {
                 Image(systemName: "slider.horizontal.3")
@@ -28,10 +33,18 @@ struct SearchBarView: View {
                     .foregroundColor(Color.black)
                     .overlay(
                         RoundedRectangle(cornerRadius: 1000).inset(by: 1)
-                            .strokeBorder(Color.gray, lineWidth: 1)
+                            .strokeBorder(.neutral40, lineWidth: 1)
                     )
             }
-        }.padding(.horizontal, 12).padding(.vertical, 8)
+        }
+        .padding(12)
+        .cornerRadius(24)
+        .overlay(
+            RoundedRectangle(cornerRadius: 48)
+                .stroke(.neutral40, lineWidth: 1)
+        )
+        .shadow(color: .neutral40, radius: 8)
+        .padding(.horizontal, 24)
     }
 }
 

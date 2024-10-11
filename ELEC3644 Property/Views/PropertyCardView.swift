@@ -12,22 +12,34 @@ struct PropertyCardView: View {
 
     var body: some View {
         VStack {
-            Image("Property1")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 328, height: 310)
-                .clipped()
-                .cornerRadius(12)
-            HStack {
+            TabView {
+                ForEach(1 ..< 6) { _ in
+                    Image("Property1")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 328, height: 310)
+                        .scaledToFit()
+                        .cornerRadius(12)
+                        .clipped()
+                }
+            }
+            .tabViewStyle(PageTabViewStyle())
+            .frame(width: .infinity, height: 310)
+            .padding(.bottom, 4)
+
+            HStack(alignment: .top) {
                 VStack(alignment: .leading) {
                     Text(property.name)
                         .font(.system(size: 14, weight: .medium))
                         .foregroundColor(.neutral100)
+                        .padding(.bottom, 1)
                     Text("\(property.saleableArea)sqft")
                         .font(.system(size: 14, weight: .regular))
                         .foregroundColor(.neutral70)
                     Text("\(property.subDistrict), \(property.area)")
-                        .font(.system(size: 14, weight: .regular)).foregroundColor(.neutral70)
+                        .font(.system(size: 14, weight: .regular))
+                        .foregroundColor(.neutral70)
+                        .padding(.bottom, 1)
                     Text("HKD \(property.netPrice)")
                         .font(.system(size: 14, weight: .medium))
                         .foregroundColor(.neutral100)
@@ -46,8 +58,10 @@ struct PropertyCardView: View {
                         }
                     }
                 }
-            }.frame(width: 328)
-        }.padding(.bottom, 16)
+            }
+            .padding(.horizontal, 36)
+            .padding(.bottom, 12)
+        }
     }
 }
 
@@ -75,7 +89,6 @@ struct PropertyCardView: View {
                                         estate: "Grandview Garden")
         var body: some View {
             PropertyCardView(property: property)
-                .padding()
         }
     }
 

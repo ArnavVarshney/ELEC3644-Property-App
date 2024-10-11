@@ -7,16 +7,7 @@
 
 import SwiftUI
 
-private var menuItems = [
-    MenuItem(title: "Buy", icon: "house"),
-    MenuItem(title: "Rent", icon: "house.fill"),
-    MenuItem(title: "Lease", icon: "text.document.fill"),
-    MenuItem(title: "Transaction", icon: "chart.line.uptrend.xyaxis"),
-    MenuItem(title: "Estate", icon: "building"),
-    MenuItem(title: "Agents", icon: "person.crop.circle"),
-]
-
-private var properties: [Property] = [
+var properties: [Property] = [
     Property(name: "Grandview Garden - 1E",
              address: "8 Nam Long Shan Road",
              area: "HK Island",
@@ -81,30 +72,42 @@ private var properties: [Property] = [
 
 struct ExploreView: View {
     @State private var searchText: String = ""
-    @State private var tags: [Tag] = [
-        Tag(label: "Location"),
-        Tag(label: "Price"),
-        Tag(label: "SchoolNet"),
-        Tag(label: "Room"),
-        Tag(label: "University"),
-        Tag(label: "More"),
-    ]
+    @State private var currentMenu: MenuItem? = MenuItem.buy
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
-                SearchBarView(searchText: $searchText)
-                Divider()
+                VStack {
+                    SearchBarView(searchText: $searchText)
+                    MenuItemListView(selectedMenu: $currentMenu)
+                }
+                .background(.neutral10)
+                .shadow(color: .neutral20, radius: 4, x: 0, y: 4)
+                .padding(.bottom, 12)
 
-                MenuItemListView(menuItems: menuItems)
-                Divider()
+                GeometryReader {
+                    let size = $0.size
 
-                TagListView(tags: $tags)
-                Divider()
-
-                PropertyCardListView(properties: properties)
-                Spacer()
-            }.padding(.horizontal, 24)
+                    ScrollView(.horizontal) {
+                        LazyHStack(spacing: 0) {
+                            PropertyCardListView(properties: properties)
+                                .id(MenuItem.buy)
+                                .frame(width: size.width)
+                            ForEach(MenuItem.allCases.dropFirst(), id: \.self) { menuItem in
+                                Text(menuItem.rawValue)
+                                    .id(menuItem.rawValue)
+                                    .frame(width: size.width, height: size.height)
+                            }
+                        }
+                    }
+                    .scrollPosition(id: $currentMenu)
+                    .scrollIndicators(.hidden)
+                    .scrollTargetBehavior(.paging)
+                    .scrollClipDisabled()
+                }
+            }
+            .toolbarBackground(.yellow, for: .navigationBar)
+            .toolbarVisibility(.visible, for: .navigationBar)
         }
     }
 }

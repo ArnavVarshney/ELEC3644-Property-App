@@ -12,16 +12,19 @@ struct MenuItemView: View {
 
     var body: some View {
         VStack {
-            Image(systemName: item.icon)
+            Image(systemName: item.systemImage)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 24, height: 24)
-            Text(item.title)
+            Text(item.rawValue)
                 .font(.system(size: 12, weight: .medium))
-        }.padding(.all, 8).frame(height: 60)
+        }
+        .padding(.all, 8)
+        .frame(height: 60)
+        .padding(.bottom, 4)
     }
 }
 
 #Preview {
-    MenuItemView(item: MenuItem(title: "test", icon: "home"))
+    MenuItemView(item: MenuItem.buy)
 }

@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		ABB22F952CB653F900768C9A /* ELEC3644 Property App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ELEC3644 Property App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ABB22F952CB653F900768C9A /* ELEC3644 Property.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ELEC3644 Property.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		ABB22F972CB653F900768C9A /* ELEC3644 Property App */ = {
+		ABB22F972CB653F900768C9A /* ELEC3644 Property */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "ELEC3644 Property App";
+			path = "ELEC3644 Property";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -32,7 +32,7 @@
 		ABB22F8C2CB653F900768C9A = {
 			isa = PBXGroup;
 			children = (
-				ABB22F972CB653F900768C9A /* ELEC3644 Property App */,
+				ABB22F972CB653F900768C9A /* ELEC3644 Property */,
 				ABB22F962CB653F900768C9A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -40,7 +40,7 @@
 		ABB22F962CB653F900768C9A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				ABB22F952CB653F900768C9A /* ELEC3644 Property App.app */,
+				ABB22F952CB653F900768C9A /* ELEC3644 Property.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -48,9 +48,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		ABB22F942CB653F900768C9A /* ELEC3644 Property App */ = {
+		ABB22F942CB653F900768C9A /* ELEC3644 Property */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = ABB22FA32CB653FA00768C9A /* Build configuration list for PBXNativeTarget "ELEC3644 Property App" */;
+			buildConfigurationList = ABB22FA32CB653FA00768C9A /* Build configuration list for PBXNativeTarget "ELEC3644 Property" */;
 			buildPhases = (
 				ABB22F912CB653F900768C9A /* Sources */,
 				ABB22F922CB653F900768C9A /* Frameworks */,
@@ -61,13 +61,13 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				ABB22F972CB653F900768C9A /* ELEC3644 Property App */,
+				ABB22F972CB653F900768C9A /* ELEC3644 Property */,
 			);
-			name = "ELEC3644 Property App";
+			name = "ELEC3644 Property";
 			packageProductDependencies = (
 			);
 			productName = "ELEC3644 Property App";
-			productReference = ABB22F952CB653F900768C9A /* ELEC3644 Property App.app */;
+			productReference = ABB22F952CB653F900768C9A /* ELEC3644 Property.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -85,7 +85,7 @@
 					};
 				};
 			};
-			buildConfigurationList = ABB22F902CB653F900768C9A /* Build configuration list for PBXProject "ELEC3644 Property App" */;
+			buildConfigurationList = ABB22F902CB653F900768C9A /* Build configuration list for PBXProject "ELEC3644 Property" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -99,7 +99,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				ABB22F942CB653F900768C9A /* ELEC3644 Property App */,
+				ABB22F942CB653F900768C9A /* ELEC3644 Property */,
 			);
 		};
 /* End PBXProject section */
@@ -251,7 +251,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"ELEC3644 Property App/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"ELEC3644 Property/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -279,7 +279,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"ELEC3644 Property App/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"ELEC3644 Property/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -303,7 +303,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		ABB22F902CB653F900768C9A /* Build configuration list for PBXProject "ELEC3644 Property App" */ = {
+		ABB22F902CB653F900768C9A /* Build configuration list for PBXProject "ELEC3644 Property" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				ABB22FA12CB653FA00768C9A /* Debug */,
@@ -312,7 +312,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		ABB22FA32CB653FA00768C9A /* Build configuration list for PBXNativeTarget "ELEC3644 Property App" */ = {
+		ABB22FA32CB653FA00768C9A /* Build configuration list for PBXNativeTarget "ELEC3644 Property" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				ABB22FA42CB653FA00768C9A /* Debug */,
