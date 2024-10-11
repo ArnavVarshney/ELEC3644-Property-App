@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-//
+
 @main
 struct ELEC3644_Property_App: App {
     var body: some Scene {
