@@ -191,7 +191,7 @@ struct PropertyDetailView: View {
             .font(.system(size: 16, weight: .medium))
             .foregroundColor(.neutral10)
             .padding()
-            .background(Color.primary.opacity(0.6))
+            .background(Color.primary60)
             .cornerRadius(10)
     }
 }

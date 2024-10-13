@@ -106,8 +106,6 @@ struct ExploreView: View {
                     .scrollClipDisabled()
                 }
             }
-            .toolbarBackground(.yellow, for: .navigationBar)
-            .toolbarVisibility(.visible, for: .navigationBar)
         }
     }
 }

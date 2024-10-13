@@ -30,7 +30,7 @@ struct SearchBarView: View {
                     .scaledToFit()
                     .frame(width: 18, height: 18)
                     .padding(10)
-                    .foregroundColor(Color.black)
+                    .foregroundColor(.neutral100)
                     .overlay(
                         RoundedRectangle(cornerRadius: 1000).inset(by: 1)
                             .strokeBorder(.neutral40, lineWidth: 1)

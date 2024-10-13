@@ -8,30 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var selectedTab: BottomNavigation = .explore
     var body: some View {
-        NavigationStack {
-            TabView {
-                Tab("Explore", systemImage: "magnifyingglass") {
-                    ExploreView()
-                }
-
-                Tab("Wishlists", systemImage: "heart") {
-                    WishlistsView()
-                }
-
-                Tab("Trips", systemImage: "airplane") {
-                    TripsView()
-                }
-
-                Tab("Inbox", systemImage: "envelope") {
-                    InboxView()
-                }
-
-                Tab("Profile", systemImage: "person") {
-                    ProfileView()
-                }
+        ZStack {
+            NavigationStack {
+                selectedTab.destinationView
+                    .toolbar(.hidden, for: .tabBar)
+                    .toolbarBackground(.hidden, for: .tabBar)
             }
-            .tint(.primary60)
+
+            VStack {
+                Spacer()
+                BottomNavigationView(selectedNavigation: $selectedTab)
+            }
         }
     }
 }

@@ -24,7 +24,7 @@ struct BackButtonModifier: ViewModifier {
                                 .frame(width: 18, height: 18)
                                 .foregroundColor(.neutral100)
                                 .padding(18)
-                                .background(Color.neutral10)
+                                .background(.neutral10)
                                 .clipShape(Circle())
                         }
                     }

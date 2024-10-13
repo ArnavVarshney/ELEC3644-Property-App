@@ -15,12 +15,12 @@ struct TagView: View {
         Button {
             isPresented = true
         } label: {
-            Text(tag.content ?? tag.label)
+            Text(tag.content?.isEmpty == false ? tag.content! : tag.label)
                 .font(.system(size: 12, weight: .medium))
-                .foregroundStyle(Color.white)
+                .foregroundStyle(.neutral10)
                 .padding(.horizontal, 8)
                 .padding(.vertical, 4)
-                .background(tag.content == nil ? .neutral100 : .primary60)
+                .background(tag.content?.isEmpty == false ? .primary60 : .neutral100)
                 .cornerRadius(12)
         }.sheet(isPresented: $isPresented) {
             if tag.label == "Location" {

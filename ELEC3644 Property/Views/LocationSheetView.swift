@@ -10,9 +10,19 @@ import SwiftUI
 struct LocationSheetView: View {
     @Binding var tag: Tag
 
-    @State var selectArea: String = ""
+    @State var selectArea: String = "HK Island"
     @State var selectDistrict: String = ""
     @State var selectSubdistrict: String = ""
+
+    @Environment(\.dismiss) var dismiss
+
+    var districtChoices: [String] {
+        Location.districts[selectArea] ?? []
+    }
+
+    var subDistrictChoices: [String] {
+        Location.subDistricts[selectDistrict] ?? []
+    }
 
     var body: some View {
         NavigationView {
@@ -22,20 +32,13 @@ struct LocationSheetView: View {
                         Text(area)
                     }
                 }
-                .onChange(of: selectArea) {
-                    selectDistrict = Location.districts[selectArea]?.first ?? ""
-                    selectSubdistrict = Location.subDistricts[selectDistrict]?.first ?? ""
-                }
                 Picker("District", selection: $selectDistrict) {
-                    ForEach(Location.districts[selectArea] ?? [], id: \.self) { district in
+                    ForEach(districtChoices, id: \.self) { district in
                         Text(district)
                     }
                 }
-                .onChange(of: selectDistrict) {
-                    selectSubdistrict = ""
-                }
                 Picker("Sub-district", selection: $selectSubdistrict) {
-                    ForEach(Location.subDistricts[selectDistrict] ?? [], id: \.self) { subDistrict in
+                    ForEach(subDistrictChoices, id: \.self) { subDistrict in
                         Text(subDistrict)
                     }
                 }
@@ -45,7 +48,10 @@ struct LocationSheetView: View {
                 ToolbarItem(placement: .primaryAction) {
                     Button("Select") {
                         tag.content = selectSubdistrict
-                    }.foregroundColor(.primary60)
+                        dismiss()
+                    }
+//                    .disabled(buttonDisabled)
+//                    .foregroundColor(buttonDisabled ? .neutral60 : .primary60)
                 }
             }
         }
