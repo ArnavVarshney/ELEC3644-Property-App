@@ -11,6 +11,7 @@ struct PropertyDetailView: View {
         latitudinalMeters: 1000,
         longitudinalMeters: 1000
     ))
+    @State private var places: [MKMapItem] = []
 
     var body: some View {
         VStack {
@@ -149,10 +150,48 @@ struct PropertyDetailView: View {
     private var MapView: some View {
         Map(position: $position) {
             Marker("Here!", coordinate: location)
+            ForEach(places, id: \.self) { place in
+                Marker(place.placemark.name ?? "POI", systemImage: poiIcon(for: place.pointOfInterestCategory), coordinate: place.placemark.coordinate)
+            }
         }
         .onAppear(perform: geocodeAddress)
         .frame(height: 280)
         .padding(.horizontal, 24)
+    }
+
+    private func poiIcon(for category: MKPointOfInterestCategory?) -> String {
+        switch category {
+        case .hospital:
+            return "cross.fill"
+        case .school:
+            return "graduationcap"
+        case .publicTransport:
+            return "bus"
+        case .restaurant:
+            return "fork.knife"
+        default:
+            return "mappin.circle.fill"
+        }
+    }
+
+    private func performSearch() {
+        let request = MKLocalSearch.Request()
+        let queries = ["hospital", "transportation", "food", "school"]
+        for query in queries {
+            request.naturalLanguageQuery = query
+            request.region = MKCoordinateRegion(
+                center: location,
+                latitudinalMeters: 5000,
+                longitudinalMeters: 5000
+            )
+
+            let search = MKLocalSearch(request: request)
+            search.start { response, _ in
+                if let response = response {
+                    self.places += response.mapItems
+                }
+            }
+        }
     }
 
     private func geocodeAddress() {
@@ -167,6 +206,7 @@ struct PropertyDetailView: View {
                     latitudinalMeters: 1000,
                     longitudinalMeters: 1000
                 ))
+                performSearch()
             }
         }
     }
