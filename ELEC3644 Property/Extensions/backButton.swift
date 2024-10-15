@@ -24,8 +24,9 @@ struct BackButtonModifier: ViewModifier {
                                 .frame(width: 18, height: 18)
                                 .foregroundColor(.neutral100)
                                 .padding(18)
-                                .background(.neutral10)
+                                .background(.neutral20)
                                 .clipShape(Circle())
+                                .shadow(color: .neutral30, radius: 4, x: 0, y: 4)
                         }
                     }
                 }
@@ -37,5 +38,15 @@ struct BackButtonModifier: ViewModifier {
 extension View {
     func backButton() -> some View {
         self.modifier(BackButtonModifier())
+    }
+}
+
+#Preview {
+    NavigationView {
+        VStack {
+            Text("Hello")
+            Spacer()
+        }
+        .backButton()
     }
 }

@@ -43,8 +43,8 @@ struct SearchBarView: View {
             RoundedRectangle(cornerRadius: 48)
                 .stroke(.neutral40, lineWidth: 1)
         )
-        .shadow(color: .neutral40, radius: 8)
         .padding(.horizontal, 24)
+        .shadow(color: .neutral20, radius: 4, x: 0, y: 4)
     }
 }
 

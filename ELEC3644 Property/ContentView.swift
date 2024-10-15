@@ -10,17 +10,15 @@ import SwiftUI
 struct ContentView: View {
     @State var selectedTab: BottomNavigation = .explore
     var body: some View {
-        ZStack {
-            NavigationStack {
+        NavigationView {
+            ZStack {
                 selectedTab.destinationView
                     .toolbar(.hidden, for: .tabBar)
                     .toolbarBackground(.hidden, for: .tabBar)
-            }
 
-            VStack {
-                Spacer()
                 BottomNavigationView(selectedNavigation: $selectedTab)
             }
+            .ignoresSafeArea(.keyboard, edges: .bottom)
         }
     }
 }

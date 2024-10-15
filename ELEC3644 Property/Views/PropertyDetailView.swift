@@ -1,33 +1,39 @@
+//
+//  PropertyDetailView.swift
+//  ELEC3644 Property
+//
+//  Created by Filbert Tejalaksana on 15/10/2024.
+//
+
 import MapKit
 import SwiftUI
 
 struct PropertyDetailView: View {
-    let property: Property
-    @Environment(\.dismiss) var dismiss
+    var property: Property
+    @ObservedObject var viewModel: PropertyDetailViewModel
 
-    @State private var location: CLLocationCoordinate2D = .init(latitude: 0, longitude: 0)
-    @State private var position: MapCameraPosition = .region(MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 0, longitude: 0),
-        latitudinalMeters: 1000,
-        longitudinalMeters: 1000
-    ))
-    @State private var places: [MKMapItem] = []
+    init(property: Property) {
+        self.property = property
+        self.viewModel = .init(property: property)
+    }
 
     var body: some View {
         VStack {
             ScrollView {
-                PropertyImageView
-                PropertyDetails
-                MapView
+                PropertyImageView()
+                PropertyDetails(property: $viewModel.property)
+                MapView(location: $viewModel.location, position: $viewModel.position, places: $viewModel.places, poiIcon: viewModel.poiIcon)
                 Spacer()
             }
             .ignoresSafeArea()
-
-            RequestPropertyView
-        }.backButton()
+            PropertyDetailBottomBarView(property: $viewModel.property)
+        }
+        .backButton()
     }
+}
 
-    private var PropertyImageView: some View {
+struct PropertyImageView: View {
+    var body: some View {
         TabView {
             ForEach(1 ..< 6) { _ in
                 Image("Property1")
@@ -40,201 +46,56 @@ struct PropertyDetailView: View {
         .frame(height: 310)
         .padding(.bottom, 4)
     }
+}
 
-    private var PropertyDetails: some View {
+struct PropertyDetails: View {
+    @Binding var property: Property
+
+    var body: some View {
         VStack(alignment: .leading, spacing: 12) {
+            HeaderView(property: property)
+            Divider()
+            DetailRows(details: propertyDetails())
+            Divider()
+        }
+        .padding(.horizontal, 24)
+    }
+
+    private func propertyDetails() -> [(String, String)] {
+        return [
+            ("Estate", property.estate),
+            ("Saleable Area", "\(property.saleableArea)"),
+            ("Saleable Area/Sqft", "\(property.saleableAreaPricePerSquareFoot)"),
+            ("Gross Floor Area", "\(property.grossFloorArea)"),
+            ("Gross Floor Area/Sqft", "\(property.grossFloorAreaPricePerSquareFoot)"),
+            ("Primary School Net", property.schoolNet.primary),
+            ("Secondary School Net", property.schoolNet.secondary),
+            ("Building Age", "\(property.buildingAge)"),
+            ("Building Direction", property.buildingDirection)
+        ]
+    }
+}
+
+struct HeaderView: View {
+    let property: Property
+
+    var body: some View {
+        VStack(alignment: .leading) {
             Text(property.name)
                 .font(.system(size: 32, weight: .medium))
                 .foregroundColor(.neutral100)
                 .padding(.bottom, 1)
-
             Text("\(property.address), \(property.subDistrict)")
                 .font(.system(size: 14, weight: .regular))
                 .foregroundColor(.neutral100)
-
             Text("\(property.district), \(property.area)")
                 .font(.system(size: 14, weight: .regular))
                 .foregroundColor(.neutral70)
-
-            Divider()
-
-            VStack {
-                HStack {
-                    Text("Estate: ")
-                        .font(.system(size: 14, weight: .regular))
-                        .foregroundColor(.neutral70)
-                    Spacer()
-                    Text(property.estate)
-                        .font(.system(size: 14, weight: .regular))
-                        .foregroundColor(.neutral100)
-                }
-                HStack {
-                    Text("Saleable Area: ")
-                        .font(.system(size: 14, weight: .regular))
-                        .foregroundColor(.neutral70)
-                    Spacer()
-                    Text("\(property.saleableArea)")
-                        .font(.system(size: 14, weight: .regular))
-                        .foregroundColor(.neutral100)
-                }
-                HStack {
-                    Text("Saleable Area/Sqft: ")
-                        .font(.system(size: 14, weight: .regular))
-                        .foregroundColor(.neutral70)
-                    Spacer()
-                    Text("\(property.saleableAreaPricePerSquareFoot)")
-                        .font(.system(size: 14, weight: .regular))
-                        .foregroundColor(.neutral100)
-                }
-                HStack {
-                    Text("Gross Floor Area: ")
-                        .font(.system(size: 14, weight: .regular))
-                        .foregroundColor(.neutral70)
-                    Spacer()
-                    Text("\(property.saleableArea)")
-                        .font(.system(size: 14, weight: .regular))
-                        .foregroundColor(.neutral100)
-                }
-                HStack {
-                    Text("Gross Floor Area/Sqft: ")
-                        .font(.system(size: 14, weight: .regular))
-                        .foregroundColor(.neutral70)
-                    Spacer()
-                    Text("\(property.saleableAreaPricePerSquareFoot)")
-                        .font(.system(size: 14, weight: .regular))
-                        .foregroundColor(.neutral100)
-                }
-                HStack {
-                    Text("Primary School Net: ")
-                        .font(.system(size: 14, weight: .regular))
-                        .foregroundColor(.neutral70)
-                    Spacer()
-                    Text(property.schoolNet.primary)
-                        .font(.system(size: 14, weight: .regular))
-                        .foregroundColor(.neutral100)
-                }
-                HStack {
-                    Text("Secondary School Net: ")
-                        .font(.system(size: 14, weight: .regular))
-                        .foregroundColor(.neutral70)
-                    Spacer()
-                    Text(property.schoolNet.secondary)
-                        .font(.system(size: 14, weight: .regular))
-                        .foregroundColor(.neutral100)
-                }
-                HStack {
-                    Text("Building Age: ")
-                        .font(.system(size: 14, weight: .regular))
-                        .foregroundColor(.neutral70)
-                    Spacer()
-                    Text("\(property.buildingAge)")
-                        .font(.system(size: 14, weight: .regular))
-                        .foregroundColor(.neutral100)
-                }
-                HStack {
-                    Text("Building Direction: ")
-                        .font(.system(size: 14, weight: .regular))
-                        .foregroundColor(.neutral70)
-                    Spacer()
-                    Text("\(property.buildingDirection)")
-                        .font(.system(size: 14, weight: .regular))
-                        .foregroundColor(.neutral100)
-                }
-            }
-
-            Divider()
         }
-        .padding(.horizontal, 24)
-    }
-
-    private var MapView: some View {
-        Map(position: $position) {
-            Marker("Here!", coordinate: location)
-            ForEach(places, id: \.self) { place in
-                Marker(place.placemark.name ?? "POI", systemImage: poiIcon(for: place.pointOfInterestCategory), coordinate: place.placemark.coordinate)
-            }
-        }
-        .onAppear(perform: geocodeAddress)
-        .frame(height: 280)
-        .padding(.horizontal, 24)
-    }
-
-    private func poiIcon(for category: MKPointOfInterestCategory?) -> String {
-        switch category {
-        case .hospital:
-            return "cross.fill"
-        case .school:
-            return "graduationcap"
-        case .publicTransport:
-            return "bus"
-        case .restaurant:
-            return "fork.knife"
-        default:
-            return "mappin.circle.fill"
-        }
-    }
-
-    private func performSearch() {
-        let request = MKLocalSearch.Request()
-        let queries = ["hospital", "transportation", "food", "school"]
-        for query in queries {
-            request.naturalLanguageQuery = query
-            request.region = MKCoordinateRegion(
-                center: location,
-                latitudinalMeters: 5000,
-                longitudinalMeters: 5000
-            )
-
-            let search = MKLocalSearch(request: request)
-            search.start { response, _ in
-                if let response = response {
-                    self.places += response.mapItems
-                }
-            }
-        }
-    }
-
-    private func geocodeAddress() {
-        let geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(property.address) { placemarks, error in
-            if let error = error {
-                print("Geocoding error: \(error.localizedDescription)")
-            } else if let placemark = placemarks?.first, let marker = placemark.location {
-                location = marker.coordinate
-                position = .region(MKCoordinateRegion(
-                    center: marker.coordinate,
-                    latitudinalMeters: 1000,
-                    longitudinalMeters: 1000
-                ))
-                performSearch()
-            }
-        }
-    }
-
-    private var RequestPropertyView: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Text("$\(property.netPrice) HKD")
-                    .font(.system(size: 16, weight: .bold))
-                Text("20 year installments")
-                    .font(.system(size: 14, weight: .regular))
-            }
-            Spacer()
-            requestButton
-        }
-        .padding()
-        .background(Color(.systemGray6))
-    }
-
-    private var requestButton: some View {
-        Text("Request")
-            .font(.system(size: 16, weight: .medium))
-            .foregroundColor(.neutral10)
-            .padding()
-            .background(Color.primary60)
-            .cornerRadius(10)
     }
 }
+
+
 
 #Preview {
     struct PropertyDetail_Preview: View {
@@ -260,11 +121,9 @@ struct PropertyDetailView: View {
             buildingDirection: "South East",
             estate: "Grandview Garden"
         )
-
         var body: some View {
             PropertyDetailView(property: property)
         }
     }
-
     return PropertyDetail_Preview()
 }

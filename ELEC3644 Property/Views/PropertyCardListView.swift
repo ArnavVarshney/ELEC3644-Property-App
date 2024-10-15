@@ -24,5 +24,12 @@ struct PropertyCardListView: View {
 }
 
 #Preview {
-    PropertyCardListView(properties: properties)
+    struct PropertyCardListView_Preview: View {
+        @EnvironmentObject var viewModel: PropertyViewModel
+        var body: some View {
+            PropertyCardListView(properties: viewModel.properties)
+        }
+    }
+    return PropertyCardListView_Preview()
+        .environmentObject(PropertyViewModel())
 }
