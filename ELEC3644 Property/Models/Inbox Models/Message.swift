@@ -7,17 +7,17 @@
 
 import Foundation
 
-struct Message: Identifiable, Decodable{
+struct Message: Identifiable, Decodable {
     let id: Int
     let datetime: Date?
     let sender: String
     let msg: String
-    var dateStr:String{
-        if let d = datetime{
+    var dateStr: String {
+        if let d = datetime {
             let df = DateFormatter()
             df.dateFormat = "yyyy-MM-dd"
             return df.string(from: d)
-        }else{
+        } else {
             return "None"
         }
     }

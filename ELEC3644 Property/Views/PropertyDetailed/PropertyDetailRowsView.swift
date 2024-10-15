@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DetailRows: View {
+struct PropertyDetailRowsView: View {
     let details: [(String, String)]
 
     var body: some View {

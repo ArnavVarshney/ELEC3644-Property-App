@@ -11,15 +11,14 @@ struct InboxItemView: View {
     let name: String
     let date: String
     var body: some View {
-        VStack{
-            HStack{
+        VStack {
+            HStack {
                 Text(name)
                 Spacer()
                 Text(date)
-                
             }
         }
-        .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+        .padding(/*@START_MENU_TOKEN@*/ .all/*@END_MENU_TOKEN@*/)
     }
 }
 

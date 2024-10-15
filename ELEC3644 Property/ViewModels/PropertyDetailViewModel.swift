@@ -16,11 +16,12 @@ class PropertyDetailViewModel: ObservableObject {
         longitudinalMeters: 1000
     ))
     @Published var places: [MKMapItem] = []
-    
-    var property: Property
+    @Published var property: Property
+    @Published var transactions: [Transaction]
     
     init(property: Property) {
         self.property = property
+        self.transactions = property.transactionHistory
         geocodeAddress()
     }
     
@@ -48,8 +49,8 @@ class PropertyDetailViewModel: ObservableObject {
             request.naturalLanguageQuery = query
             request.region = MKCoordinateRegion(
                 center: location,
-                latitudinalMeters: 5000,
-                longitudinalMeters: 5000
+                latitudinalMeters: 1000,
+                longitudinalMeters: 1000
             )
             let search = MKLocalSearch(request: request)
             search.start { response, _ in
@@ -60,7 +61,7 @@ class PropertyDetailViewModel: ObservableObject {
         }
     }
     
-    func poiIcon(for category: MKPointOfInterestCategory?) -> String {
+    static func poiIcon(for category: MKPointOfInterestCategory?) -> String {
         switch category {
         case .hospital:
             return "cross.fill"
@@ -73,5 +74,28 @@ class PropertyDetailViewModel: ObservableObject {
         default:
             return "mappin.circle.fill"
         }
+    }
+    
+    static func threeClosestByCategory(from category: MKPointOfInterestCategory, currentLocation: CLLocationCoordinate2D, places: [MKMapItem]) -> [MKMapItem] {
+        let filteredPlaces = places.filter { $0.pointOfInterestCategory == category }
+        
+        let sortedPlaces = filteredPlaces.sorted { item1, item2 -> Bool in
+            let distance1 = PropertyDetailViewModel.distance(from: currentLocation, to: item1.placemark.coordinate)
+            let distance2 = PropertyDetailViewModel.distance(from: currentLocation, to: item2.placemark.coordinate)
+            return distance1 < distance2
+        }
+        
+        return Array(sortedPlaces.prefix(3))
+    }
+        
+    static func distance(from: CLLocationCoordinate2D, to: CLLocationCoordinate2D) -> CLLocationDistance {
+        let fromLocation = CLLocation(latitude: from.latitude, longitude: from.longitude)
+        let toLocation = CLLocation(latitude: to.latitude, longitude: to.longitude)
+        return fromLocation.distance(from: toLocation) / 1000
+    }
+    
+    static func getDistance(from: CLLocationCoordinate2D, to: CLLocationCoordinate2D) -> String {
+        let distance = PropertyDetailViewModel.distance(from: from, to: to)
+        return String(format: "%.2f", distance) + " km"
     }
 }

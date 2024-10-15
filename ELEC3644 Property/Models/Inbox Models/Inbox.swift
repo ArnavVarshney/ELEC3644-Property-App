@@ -7,29 +7,28 @@
 
 import Foundation
 
-class Inbox: ObservableObject{
+class Inbox: ObservableObject {
     @Published var chats: [Chat] = []
-    
-    init(){
+
+    init() {
         let df = DateFormatter()
         df.dateFormat = "yyyy-MM-dd"
         let pathString = Bundle.main.path(forResource: "inbox", ofType: "json")
-        
-        if let path = pathString{
-            do{
+
+        if let path = pathString {
+            do {
                 let data = try Data(contentsOf: URL(fileURLWithPath: path))
                 let decoder = JSONDecoder()
                 decoder.dateDecodingStrategy = .formatted(df)
-                do{
+                do {
                     let decoded = try decoder.decode([Chat].self, from: data)
                     self.chats = decoded
-                }catch{
+                } catch {
                     print(error)
                 }
-            }catch{
+            } catch {
                 print(error)
             }
         }
     }
 }
-

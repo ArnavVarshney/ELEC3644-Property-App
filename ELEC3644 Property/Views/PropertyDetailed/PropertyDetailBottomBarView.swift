@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct PropertyDetailBottomBarView: View {
-    @Binding var property: Property
+    @StateObject var viewModel: PropertyDetailViewModel
 
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                Text("$\(property.netPrice) HKD")
+                Text("$\(viewModel.property.netPrice) HKD")
                     .font(.system(size: 16, weight: .bold))
                 Text("20 year installments")
                     .font(.system(size: 14, weight: .regular))
@@ -39,7 +39,7 @@ struct PropertyDetailBottomBarView: View {
     struct PropertyDetailBottomBar_Preview: View {
         @EnvironmentObject var viewModel: PropertyViewModel
         var body: some View {
-            PropertyDetailBottomBarView(property: $viewModel.properties[0])
+            PropertyDetailBottomBarView(viewModel: PropertyDetailViewModel(property: viewModel.properties.first!))
         }
     }
     return PropertyDetailBottomBar_Preview()

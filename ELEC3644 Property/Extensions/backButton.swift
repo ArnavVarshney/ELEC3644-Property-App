@@ -31,7 +31,6 @@ struct BackButtonModifier: ViewModifier {
                     }
                 }
             }
-            .toolbarBackground(.hidden, for: .navigationBar)
     }
 }
 

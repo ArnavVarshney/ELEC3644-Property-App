@@ -28,6 +28,7 @@ struct WishlistsView: View {
         Text("Wishlists View")
             .font(.largeTitle)
             .padding()
+            .navigationTitle("Wishlists")
     }
 }
 
@@ -36,18 +37,12 @@ struct TripsView: View {
         Text("Trips View")
             .font(.largeTitle)
             .padding()
-    }
-}
-
-struct ProfileView: View {
-    var body: some View {
-        Text("Profile View")
-            .font(.largeTitle)
-            .padding()
+            .navigationTitle("Trips")
     }
 }
 
 #Preview {
     ContentView()
         .environmentObject(Inbox())
+        .environmentObject(PropertyViewModel())
 }

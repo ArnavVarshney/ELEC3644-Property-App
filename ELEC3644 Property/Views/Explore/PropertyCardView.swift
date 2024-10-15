@@ -13,8 +13,8 @@ struct PropertyCardView: View {
     var body: some View {
         VStack {
             TabView {
-                ForEach(1 ..< 6) { _ in
-                    Image("Property1")
+                ForEach(1 ..< 6) { index in
+                    Image("Property\(index)")
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 328, height: 310)
@@ -67,30 +67,13 @@ struct PropertyCardView: View {
 
 #Preview {
     struct PropertyCard_Preview: View {
-        private var property = Property(name: "Grandview Garden - 1E",
-                                        address: "8 Nam Long Shan Road",
-                                        area: "HK Island",
-                                        district: "Central and Western",
-                                        subDistrict: "Sheung Wan",
-                                        facilities: [
-                                            Facility(desc: "mtr", measure: 8, measureUnit: "min(s)"),
-                                        ],
-                                        schoolNet: SchoolNet(
-                                            primary: "11",
-                                            secondary: "Central and Western District"
-                                        ),
-                                        saleableArea: 305,
-                                        saleableAreaPricePerSquareFoot: 14262,
-                                        grossFloorArea: 417,
-                                        grossFloorAreaPricePerSquareFoot: 10432,
-                                        netPrice: "7.4m",
-                                        buildingAge: 39,
-                                        buildingDirection: "South East",
-                                        estate: "Grandview Garden")
+        @EnvironmentObject var propertyViewModel: PropertyViewModel
+
         var body: some View {
-            PropertyCardView(property: property)
+            PropertyCardView(property: propertyViewModel.properties[0])
         }
     }
 
     return PropertyCard_Preview()
+        .environmentObject(PropertyViewModel())
 }
