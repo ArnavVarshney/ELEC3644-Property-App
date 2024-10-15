@@ -39,14 +39,6 @@ struct TripsView: View {
     }
 }
 
-struct InboxView: View {
-    var body: some View {
-        Text("Inbox View")
-            .font(.largeTitle)
-            .padding()
-    }
-}
-
 struct ProfileView: View {
     var body: some View {
         Text("Profile View")
@@ -57,4 +49,5 @@ struct ProfileView: View {
 
 #Preview {
     ContentView()
+        .environmentObject(Inbox())
 }
