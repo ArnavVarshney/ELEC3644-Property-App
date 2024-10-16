@@ -41,7 +41,7 @@ struct ChatView: View {
             ToolbarItem(placement: .topBarLeading) {
                 Button("Back") {
                     dismiss()
-                }.foregroundColor(.blue)
+                }.foregroundColor(.primary60)
             }
         }
     }

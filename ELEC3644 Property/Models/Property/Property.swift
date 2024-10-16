@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct Property: Identifiable, Hashable {
-    let id = UUID()
+struct Property: Identifiable, Hashable, Decodable {
+    var id = UUID()
     let name: String
     let address: String
     let area: String
@@ -31,8 +31,8 @@ struct Property: Identifiable, Hashable {
     var transactionHistory: [Transaction]
 }
 
-struct Transaction: Identifiable, Hashable {
-    let id = UUID()
+struct Transaction: Identifiable, Hashable, Decodable {
+    var id = UUID()
     let date: Date
     let price: Int
 }

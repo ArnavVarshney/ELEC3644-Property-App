@@ -11,5 +11,13 @@ struct User: Hashable, Decodable {
     var id = UUID()
     var name: String
     var email: String
-    var avatar: String
+    var avatarUrl: String
+    var reviews: [Review]
+}
+
+struct Review: Hashable, Decodable {
+    var id = UUID()
+    var author: String
+    var rating: Double
+    var comment: String
 }

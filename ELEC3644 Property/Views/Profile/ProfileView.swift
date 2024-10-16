@@ -8,11 +8,41 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @EnvironmentObject var userViewModel: UserViewModel
+
+    var user: User {
+        userViewModel.user
+    }
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            VStack(alignment: .leading) {
+                HStack(spacing: 12) {
+                    UserAvatarView(user: user)
+                    VStack(alignment: .leading) {
+                        Text(user.name)
+                            .font(.headline)
+                        Text(user.email)
+                            .font(.subheadline)
+                    }
+                    Spacer()
+                    NavigationLink(destination: ProfileDetailed(userViewModel: userViewModel), label: {
+                        Image(systemName: "chevron.right")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 18, height: 18)
+                            .padding(10)
+                    })
+                }
+                Spacer()
+            }
+            .padding(.horizontal, 24)
+            .navigationTitle("Profile")
+        }
     }
 }
 
 #Preview {
     ProfileView()
+        .environmentObject(UserViewModel())
 }

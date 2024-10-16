@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct Facility: Identifiable, Hashable {
-    let id = UUID()
+struct Facility: Identifiable, Hashable, Decodable {
+    var id = UUID()
     let desc: String
     let measure: Int
     let measureUnit: String

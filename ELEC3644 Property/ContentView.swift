@@ -45,4 +45,5 @@ struct TripsView: View {
     ContentView()
         .environmentObject(Inbox())
         .environmentObject(PropertyViewModel())
+        .environmentObject(UserViewModel())
 }

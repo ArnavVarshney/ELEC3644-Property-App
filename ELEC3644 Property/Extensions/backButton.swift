@@ -14,20 +14,20 @@ struct BackButtonModifier: ViewModifier {
         content
             .navigationBarBackButtonHidden(true)
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button(action: {
-                        self.dismiss()
-                    }) {
-                        HStack(spacing: 5) {
+                ToolbarItemGroup(placement: .navigationBarLeading) {
+                    HStack {
+                        Button(action: {
+                            self.dismiss()
+                        }) {
                             Image(systemName: "arrow.backward")
                                 .resizable()
                                 .frame(width: 18, height: 18)
                                 .foregroundColor(.neutral100)
-                                .padding(18)
-                                .background(.neutral20)
-                                .clipShape(Circle())
+                                .padding(24)
+                                .background(Circle().fill(Color.neutral20))
                                 .shadow(color: .neutral30, radius: 4, x: 0, y: 4)
                         }
+                        Spacer()
                     }
                 }
             }
@@ -41,11 +41,12 @@ extension View {
 }
 
 #Preview {
-    NavigationView {
+    NavigationStack {
         VStack {
             Text("Hello")
             Spacer()
         }
         .backButton()
+        .navigationTitle("Test")
     }
 }

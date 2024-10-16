@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Location: Identifiable, Hashable {
+struct Location: Identifiable, Hashable, Decodable {
     var id = UUID()
     var area: String
     var district: String

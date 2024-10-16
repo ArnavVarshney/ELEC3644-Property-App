@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct SchoolNet: Identifiable, Hashable {
-    let id = UUID()
+struct SchoolNet: Identifiable, Hashable, Decodable {
+    var id = UUID()
     let primary: String
     let secondary: String
 }
