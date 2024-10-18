@@ -7,8 +7,10 @@
 
 import Foundation
 
-struct Chat: Identifiable, Decodable {
-    let id: Int
+struct Chat: Identifiable, Codable {
+    var id = UUID()
     let name: String
     var data: [Message]
+
+    private enum CodingKeys: String, CodingKey { case name, data }
 }

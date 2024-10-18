@@ -7,11 +7,13 @@
 
 import Foundation
 
-struct Location: Identifiable, Hashable, Decodable {
+struct Location: Identifiable, Hashable, Codable {
     var id = UUID()
     var area: String
     var district: String
     var subDistrict: String
+
+    private enum CodingKeys: String, CodingKey { case area, district, subDistrict }
 
     static let areas: [String] = [
         "HK Island",

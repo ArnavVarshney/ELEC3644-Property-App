@@ -7,17 +7,21 @@
 
 import Foundation
 
-struct User: Hashable, Decodable {
+struct User: Identifiable, Codable {
     var id = UUID()
     var name: String
     var email: String
     var avatarUrl: String
     var reviews: [Review]
+
+    private enum CodingKeys: String, CodingKey { case name, email, avatarUrl, reviews }
 }
 
-struct Review: Hashable, Decodable {
+struct Review: Identifiable, Codable {
     var id = UUID()
     var author: String
     var rating: Double
     var comment: String
+
+    private enum CodingKeys: String, CodingKey { case author, rating, comment }
 }

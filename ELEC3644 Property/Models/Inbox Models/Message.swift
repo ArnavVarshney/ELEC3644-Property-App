@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct Message: Identifiable, Decodable {
-    let id: Int
+struct Message: Identifiable, Codable {
+    var id = UUID()
     let datetime: Date?
     let sender: String
     let msg: String
@@ -21,4 +21,6 @@ struct Message: Identifiable, Decodable {
             return "None"
         }
     }
+
+    private enum CodingKeys: String, CodingKey { case datetime, sender, msg }
 }

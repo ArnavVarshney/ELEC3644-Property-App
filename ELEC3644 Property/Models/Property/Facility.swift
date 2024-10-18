@@ -7,9 +7,11 @@
 
 import Foundation
 
-struct Facility: Identifiable, Hashable, Decodable {
+struct Facility: Identifiable, Hashable, Codable {
     var id = UUID()
     let desc: String
     let measure: Int
     let measureUnit: String
+
+    private enum CodingKeys: String, CodingKey { case desc, measure, measureUnit }
 }

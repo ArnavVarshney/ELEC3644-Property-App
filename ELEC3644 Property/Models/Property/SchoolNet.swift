@@ -7,8 +7,10 @@
 
 import Foundation
 
-struct SchoolNet: Identifiable, Hashable, Decodable {
+struct SchoolNet: Identifiable, Hashable, Codable {
     var id = UUID()
     let primary: String
     let secondary: String
+
+    private enum CodingKeys: String, CodingKey { case primary, secondary }
 }

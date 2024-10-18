@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Property: Identifiable, Hashable, Decodable {
+struct Property: Identifiable, Hashable, Codable {
     var id = UUID()
     let name: String
     let address: String
@@ -29,10 +29,18 @@ struct Property: Identifiable, Hashable, Decodable {
     let estate: String
 
     var transactionHistory: [Transaction]
+
+    private enum CodingKeys: String, CodingKey {
+        case name, address, area, district, subDistrict, facilities, schoolNet,
+             saleableArea, saleableAreaPricePerSquareFoot, grossFloorArea, grossFloorAreaPricePerSquareFoot,
+             netPrice, buildingAge, buildingDirection, estate, transactionHistory
+    }
 }
 
-struct Transaction: Identifiable, Hashable, Decodable {
+struct Transaction: Identifiable, Hashable, Codable {
     var id = UUID()
     let date: Date
     let price: Int
+
+    private enum CodingKeys: String, CodingKey { case date, price }
 }
