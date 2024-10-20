@@ -11,24 +11,30 @@ struct SearchBarView: View {
     @Binding var searchText: String
 
     var body: some View {
-        HStack(alignment: .center, spacing: 16) {
-            Image(systemName: "magnifyingglass")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 18, height: 18)
-                .padding(10)
-            VStack(alignment: .leading, spacing: 0) {
-                Text("Where to?")
-                    .font(.system(size: 14, weight: .medium))
-                Text("Anywhere · Any week · Any guests")
-                    .font(.system(size: 12, weight: .medium))
+        HStack{
+            HStack(spacing: 12) {
+                Image(systemName: "magnifyingglass")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 20, height: 20)
+                    .padding(10)
+                
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Where to?")
+                        .font(.footnote)
+                        .fontWeight(.semibold)
+                    
+                    Text("Anywhere · Any week · Any guests")
+                        .font(.caption2)
+                        .foregroundStyle(.gray)
+                }
             }
             Spacer()
             Button {} label: {
                 Image(systemName: "slider.horizontal.3")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 18, height: 18)
+                    .frame(width: 20, height: 20)
                     .padding(10)
                     .foregroundColor(.neutral100)
                     .overlay(
