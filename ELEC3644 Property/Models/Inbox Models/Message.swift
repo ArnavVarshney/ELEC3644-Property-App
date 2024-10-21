@@ -9,11 +9,12 @@ import Foundation
 
 struct Message: Identifiable, Codable {
     var id = UUID()
-    let datetime: Date?
+    let timestamp: Date?
     let sender: String
-    let msg: String
+    let receiver: String
+    let content: String
     var dateStr: String {
-        if let d = datetime {
+        if let d = timestamp {
             let df = DateFormatter()
             df.dateFormat = "yyyy-MM-dd"
             return df.string(from: d)
@@ -22,5 +23,5 @@ struct Message: Identifiable, Codable {
         }
     }
 
-    private enum CodingKeys: String, CodingKey { case datetime, sender, msg }
+    private enum CodingKeys: String, CodingKey { case timestamp, sender, receiver, content }
 }

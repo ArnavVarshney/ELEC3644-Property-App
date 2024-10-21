@@ -1,5 +1,6 @@
 {
     "user" : {
+        "id": 0,
         "name": "Abel",
         "email": "abel@gmail.com",
         "avatarUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png",
@@ -23,18 +24,21 @@
     },
     "otherUsers": [
         {
+            "id": 1,
             "name": "Bella",
             "email": "bella@gmail.com",
             "avatarUrl": "https://media.licdn.com/dms/image/v2/D5603AQG8tmfnr13yGw/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1678022788922?e=2147483647&v=beta&t=3Fe9_TaNUeNuyYO86Q51Z_1U1psHBrRWLAi-7QRc_58",
             "reviews": []
         },
         {
+            "id": 2,
             "name": "Not Abel",
             "email": "notabel@gmail.com",
             "avatarUrl": "https://media.licdn.com/dms/image/v2/C4D03AQFt9Bjg0CPk4Q/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1662615657137?e=2147483647&v=beta&t=sTx8Vlvu9gfvGVz1TO4GIavJPkqZ38kAd5-Lt8eGpq8",
             "reviews": []
         },
         {
+            "id": 3,
             "name": "Abel?",
             "email": "abelquestionmark@gmail.com",
             "avatarUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png",

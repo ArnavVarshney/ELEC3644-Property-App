@@ -3,14 +3,16 @@
       "name": "Abel",
       "data": [
           {
-              "datetime":"1970-01-01",
+              "timestamp":"1970-01-01",
               "sender":"Abel",
-              "msg":"Hi! Rent my stuff?"
+              "receiver": "Me",
+              "content":"Hi! Rent my stuff?"
           },
           {
-              "datetime":"1970-01-01",
+              "timestamp":"1970-01-01",
               "sender":"Me",
-              "msg":"Nah, I'd good"
+              "receiver": "Abel",
+              "content":"Nah, I'd good"
           }
 
       ]

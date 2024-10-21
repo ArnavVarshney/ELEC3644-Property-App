@@ -13,7 +13,6 @@ let mockPropertyImages = [
     "Property3",
     "Property4",
     "Property5",
-
 ]
 
 struct PropertyCardView: View {
@@ -27,20 +26,21 @@ struct PropertyCardView: View {
                 VStack(alignment: .leading) {
                     Text(property.name)
                         .fontWeight(.bold)
+                        .foregroundColor(.neutral100)
 
                     Text("\(property.saleableArea)sqft")
-                        .foregroundColor(.gray)
-                    
+                        .foregroundColor(.neutral60)
+
                     Text("\(property.subDistrict), \(property.area)")
-                        .foregroundColor(.gray)
-                    
+                        .foregroundColor(.neutral60)
+
                     Text("HKD \(property.netPrice)")
-                        .foregroundColor(.gray)
+                        .foregroundColor(.neutral60)
                         .fontWeight(.semibold)
                 }
-                
+
                 Spacer()
-                
+
                 VStack(alignment: .trailing) {
                     ForEach(property.facilities) { facility in
                         HStack {
@@ -48,9 +48,10 @@ struct PropertyCardView: View {
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 24, height: 24)
-                            
+
                             Text("\(facility.measure) \(facility.measureUnit)")
                                 .fontWeight(.semibold)
+                                .foregroundColor(.neutral100)
                         }
                     }
                 }

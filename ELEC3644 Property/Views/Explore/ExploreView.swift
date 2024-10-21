@@ -10,30 +10,32 @@ import SwiftUI
 struct ExploreView: View {
     @State private var searchText: String = ""
     @State private var currentMenu: MenuItem? = MenuItem.buy
+    @State private var isSearchActive: Bool = false
     @EnvironmentObject private var propertyViewModel: PropertyViewModel
 
     var body: some View {
         VStack {
             VStack {
-                SearchBarView(searchText: $searchText)
+                SearchBarView(searchText: $searchText, isActive: $isSearchActive)
                 MenuItemListView(selectedMenu: $currentMenu)
             }
             .background(.neutral10)
             .shadow(color: .neutral20, radius: 2, x: 0, y: 4)
             .padding(.bottom, 12)
+            .sheet(isPresented: $isSearchActive) {
+                SearchFieldsView(currentMenu: currentMenu)
+            }
 
-            GeometryReader {
-                let size = $0.size
-
+            GeometryReader { geometry in
                 ScrollView(.horizontal) {
                     LazyHStack(spacing: 0) {
                         PropertyCardListView(properties: propertyViewModel.properties)
                             .id(MenuItem.buy)
-                            .frame(width: size.width)
+                            .frame(width: geometry.size.width)
                         ForEach(MenuItem.allCases.dropFirst(), id: \.self) { menuItem in
                             Text(menuItem.rawValue)
                                 .id(menuItem.rawValue)
-                                .frame(width: size.width, height: size.height)
+                                .frame(width: geometry.size.width, height: geometry.size.height)
                         }
                     }
                 }

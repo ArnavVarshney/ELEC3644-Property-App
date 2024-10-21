@@ -14,10 +14,13 @@ struct ChatView: View {
 
     var body: some View {
         VStack {
-            Spacer()
-            ForEach(chat.data) { message in
-                ChatBubble(message: message)
-            }
+            ScrollView {
+                Spacer()
+                ForEach(chat.data) { message in
+                    ChatBubble(message: message)
+                }
+            }.defaultScrollAnchor(.bottom)
+
             HStack {
                 TextField("Type a message...", text: $newMessage)
                     .frame(minHeight: 30)
@@ -58,9 +61,9 @@ struct ChatBubble: View {
 
     var body: some View {
         VStack(alignment: isUser ? .trailing : .leading) {
-            Text("\(message.datetime!.formatted(.dateTime.hour().minute()))").font(.caption)
+            Text("\(message.timestamp!.formatted(.dateTime.hour().minute()))").font(.caption)
 
-            Text("\(message.msg)")
+            Text("\(message.content)")
                 .padding(12)
                 .background(isUser ? .primary60 : .neutral40)
                 .foregroundColor(isUser ? .neutral10 : .neutral100)

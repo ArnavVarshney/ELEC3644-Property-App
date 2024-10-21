@@ -9,28 +9,26 @@ import SwiftUI
 
 struct SearchBarView: View {
     @Binding var searchText: String
+    @Binding var isActive: Bool
 
     var body: some View {
-        HStack{
+        HStack {
             HStack(spacing: 12) {
                 Image(systemName: "magnifyingglass")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 20, height: 20)
                     .padding(10)
-                
-                VStack(alignment: .leading, spacing: 2) {
-                    Text("Where to?")
-                        .font(.footnote)
-                        .fontWeight(.semibold)
-                    
-                    Text("Anywhere · Any week · Any guests")
-                        .font(.caption2)
-                        .foregroundStyle(.gray)
+
+                TextField(text: $searchText) {
+                    Text("District | MTR | School Net | University | Estate")
+                        .font(.subheadline)
                 }
             }
             Spacer()
-            Button {} label: {
+            Button {
+                isActive.toggle()
+            } label: {
                 Image(systemName: "slider.horizontal.3")
                     .resizable()
                     .scaledToFit()
@@ -59,7 +57,7 @@ struct SearchBarView: View {
         @State private var searchText = ""
 
         var body: some View {
-            SearchBarView(searchText: $searchText)
+            SearchBarView(searchText: $searchText, isActive: .constant(true))
         }
     }
 
