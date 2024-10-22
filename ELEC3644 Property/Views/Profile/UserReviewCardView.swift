@@ -9,18 +9,17 @@ import SwiftUI
 
 struct UserReviewCardView: View {
     @Binding var review: Review
-    @Binding var author: User
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text("\"\(review.comment)\"")
+            Text("\"\(review.content)\"")
                 .font(.subheadline)
                 .foregroundColor(.neutral100)
             Spacer()
             HStack(alignment: .center) {
-                UserAvatarView(user: author, size: 36)
+                UserAvatarView(user: review.author, size: 36)
                 VStack(alignment: .leading) {
-                    Text(author.name)
+                    Text(review.author.name)
                         .font(.headline)
                     HStack {
                         Text(String(format: "%.2f", review.rating))
@@ -48,12 +47,13 @@ struct UserReviewCardView: View {
         @EnvironmentObject var userViewModel: UserViewModel
 
         var body: some View {
-            UserReviewCardView(
-                review: $userViewModel.user.reviews.first!,
-                author: $userViewModel.otherUsers.first(where: {
-                    $0.name.wrappedValue == $userViewModel.user.reviews.first!.author.wrappedValue
-                })!
-            )
+            if let user = $userViewModel.user.reviews.first {
+                UserReviewCardView(
+                    review: user
+                )
+            } else {
+                Text("No reviews available")
+            }
         }
     }
     return UserReviewCardView_Preview()

@@ -15,10 +15,7 @@ struct UserReviewListView: View {
             HStack(spacing: 24) {
                 ForEach($userViewModel.user.reviews, id: \.id) { review in
                     UserReviewCardView(
-                        review: review,
-                        author: $userViewModel.otherUsers.first(where: {
-                            $0.name.wrappedValue == review.author.wrappedValue
-                        })!
+                        review: review
                     )
                 }
             }
