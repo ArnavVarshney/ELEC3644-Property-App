@@ -29,8 +29,7 @@ struct BottomNavigationView: View {
       .ignoresSafeArea()
       .padding(.horizontal, 24)
       .padding(.top, 24)
-      .background(.gray.opacity(0.1))
-
+      .background(.neutral20)
     }
   }
 }
