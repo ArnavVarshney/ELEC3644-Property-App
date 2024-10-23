@@ -40,9 +40,8 @@ struct PropertyDetailGraphView: View {
     @StateObject var propertyDetailViewModel: PropertyDetailViewModel
 
     init() {
-      let propertyViewModel = PropertyViewModel()
       self._propertyDetailViewModel = StateObject(
-        wrappedValue: PropertyDetailViewModel(property: propertyViewModel.properties.first!))
+        wrappedValue: PropertyDetailViewModel(property: Mock.Properties[0]))
     }
 
     var body: some View {

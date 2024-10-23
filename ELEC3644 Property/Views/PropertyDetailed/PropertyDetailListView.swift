@@ -40,7 +40,7 @@ struct PropertyDetailListView: View {
     @EnvironmentObject var viewModel: PropertyViewModel
     var body: some View {
       PropertyDetailListView(
-        viewModel: PropertyDetailViewModel(property: viewModel.properties.first!))
+        viewModel: PropertyDetailViewModel(property: Mock.Properties[0]))
     }
   }
   return PropertyDetailListView_Preview()

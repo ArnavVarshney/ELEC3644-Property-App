@@ -40,7 +40,7 @@ struct PropertyDetailBottomBarView: View {
     @EnvironmentObject var viewModel: PropertyViewModel
     var body: some View {
       PropertyDetailBottomBarView(
-        viewModel: PropertyDetailViewModel(property: viewModel.properties.first!))
+        viewModel: PropertyDetailViewModel(property: Mock.Properties[0]))
     }
   }
   return PropertyDetailBottomBar_Preview()
