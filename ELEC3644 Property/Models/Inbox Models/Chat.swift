@@ -9,8 +9,8 @@ import Foundation
 
 struct Chat: Identifiable, Codable {
     var id = UUID()
-    let name: String
-    var data: [Message]
+    let userId: String
+    var messages: [Message]
 
-    private enum CodingKeys: String, CodingKey { case name, data }
+    private enum CodingKeys: String, CodingKey { case userId, messages }
 }

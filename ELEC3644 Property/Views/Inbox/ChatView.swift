@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ChatView: View {
     var chat: Chat
+    var currentUserId: String
     @Environment(\.dismiss) private var dismiss
     @State private var newMessage: String = ""
 
@@ -16,8 +17,8 @@ struct ChatView: View {
         VStack {
             ScrollView {
                 Spacer()
-                ForEach(chat.data) { message in
-                    ChatBubble(message: message)
+                ForEach(chat.messages) { message in
+                    ChatBubble(message: message, isUser: message.senderId == currentUserId)
                 }
             }.defaultScrollAnchor(.bottom)
 
@@ -54,25 +55,31 @@ struct ChatBubble: View {
     var message: Message
     var isUser: Bool
 
-    init(message: Message) {
-        self.message = message
-        self.isUser = message.sender == "Me"
-    }
-
     var body: some View {
         VStack(alignment: isUser ? .trailing : .leading) {
-            Text("\(message.timestamp!.formatted(.dateTime.hour().minute()))").font(.caption)
-
             Text("\(message.content)")
-                .padding(12)
-                .background(isUser ? .primary60 : .neutral40)
-                .foregroundColor(isUser ? .neutral10 : .neutral100)
-                .cornerRadius(36)
-                .frame(maxWidth: .infinity, alignment: isUser ? .trailing : .leading)
+            Text("\(message.timestamp!.formatted(.dateTime.hour().minute()))").font(.caption)
         }
+        .padding(12)
+        .background(isUser ? .primary60 : .neutral40)
+        .foregroundColor(isUser ? .neutral10 : .neutral100)
+        .cornerRadius(12)
+        .frame(width: 300)
+        .frame(maxWidth: .infinity, alignment: isUser ? .trailing : .leading)
     }
 }
 
 #Preview {
-    ChatView(chat: Inbox().chats.first!)
+    struct ChatView_Preview: View {
+        @EnvironmentObject var inboxData: InboxViewModel
+        var body: some View {
+            if inboxData.chats.first == nil {
+                Text("Loading...")
+            } else {
+                ChatView(chat: inboxData.chats.first!, currentUserId: inboxData.currentUserId)
+            }
+        }
+    }
+    return ChatView_Preview()
+        .environmentObject(InboxViewModel())
 }

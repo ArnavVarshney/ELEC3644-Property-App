@@ -10,8 +10,8 @@ import Foundation
 struct Message: Identifiable, Codable {
     var id = UUID()
     let timestamp: Date?
-    let sender: String
-    let receiver: String
+    let senderId: String
+    let receiverId: String
     let content: String
     var dateStr: String {
         if let d = timestamp {
@@ -23,5 +23,5 @@ struct Message: Identifiable, Codable {
         }
     }
 
-    private enum CodingKeys: String, CodingKey { case timestamp, sender, receiver, content }
+    private enum CodingKeys: String, CodingKey { case timestamp, senderId, receiverId, content }
 }

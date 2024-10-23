@@ -14,7 +14,7 @@ class UserViewModel: ObservableObject {
 
     init() {
         Task {
-            await fetchUser(with: currentUserId)
+            await self.fetchUser(with: self.currentUserId)
         }
     }
 
@@ -33,13 +33,22 @@ class UserViewModel: ObservableObject {
     func fetchReviewAuthors() {
         Task {
             do {
-                let reviews = try await UserViewModel.getReviews(with: currentUserId)
+                let reviews = try await UserViewModel.getReviews(with: self.currentUserId)
                 DispatchQueue.main.async {
                     self.user.reviews = reviews
                 }
             } catch {
                 print("Error fetching review author: \(error)")
             }
+        }
+    }
+
+    func getOtherUsers(with id: String) async throws {
+        do {
+            let otherUser = try await UserViewModel.getUser(with: id)
+            self.otherUsers.append(otherUser)
+        } catch {
+            print("Error fetching user data: \(error)")
         }
     }
 

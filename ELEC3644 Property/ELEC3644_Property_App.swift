@@ -9,8 +9,8 @@ import SwiftUI
 
 @main
 struct ELEC3644_Property_App: App {
-    @StateObject var inboxData = Inbox()
-    
+    @StateObject var inboxData = InboxViewModel()
+
     var body: some Scene {
         WindowGroup {
             ContentView()

@@ -43,7 +43,7 @@ struct TripsView: View {
 
 #Preview {
     ContentView()
-        .environmentObject(Inbox())
+        .environmentObject(InboxViewModel())
         .environmentObject(PropertyViewModel())
         .environmentObject(UserViewModel())
 }

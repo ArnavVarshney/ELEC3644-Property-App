@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct InboxView: View {
-    @EnvironmentObject var inboxData: Inbox
+    @EnvironmentObject var inboxData: InboxViewModel
     
     var body: some View {
         VStack {
@@ -57,9 +57,9 @@ struct InboxView: View {
             } else {
                 List(inboxData.chats) { chat in
                     NavigationLink {
-                        ChatView(chat: chat)
+                        ChatView(chat: chat, currentUserId: inboxData.currentUserId)
                     } label: {
-                        InboxItemView(name: chat.name, date: chat.data.last!.dateStr)
+                        InboxItemView(name: chat.userId, date: chat.messages.last!.dateStr)
                     }
                 }
             }
@@ -71,5 +71,5 @@ struct InboxView: View {
 
 #Preview {
     InboxView()
-        .environmentObject(Inbox())
+        .environmentObject(InboxViewModel())
 }
