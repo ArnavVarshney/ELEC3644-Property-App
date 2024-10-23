@@ -8,20 +8,20 @@
 import Foundation
 
 struct Message: Identifiable, Codable {
-    var id = UUID()
-    let timestamp: Date?
-    let senderId: String
-    let receiverId: String
-    let content: String
-    var dateStr: String {
-        if let d = timestamp {
-            let df = DateFormatter()
-            df.dateFormat = "yyyy-MM-dd"
-            return df.string(from: d)
-        } else {
-            return "None"
-        }
+  var id = UUID()
+  let timestamp: Date?
+  let senderId: String
+  let receiverId: String
+  let content: String
+  var dateStr: String {
+    if let d = timestamp {
+      let df = DateFormatter()
+      df.dateFormat = "yyyy-MM-dd"
+      return df.string(from: d)
+    } else {
+      return "None"
     }
+  }
 
-    private enum CodingKeys: String, CodingKey { case timestamp, senderId, receiverId, content }
+  private enum CodingKeys: String, CodingKey { case timestamp, senderId, receiverId, content }
 }

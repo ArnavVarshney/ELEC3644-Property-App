@@ -8,9 +8,9 @@
 import Foundation
 
 struct SchoolNet: Identifiable, Hashable, Codable {
-    var id = UUID()
-    let primary: String
-    let secondary: String
+  var id = UUID()
+  let primary: String
+  let secondary: String
 
-    private enum CodingKeys: String, CodingKey { case primary, secondary }
+  private enum CodingKeys: String, CodingKey { case primary, secondary }
 }

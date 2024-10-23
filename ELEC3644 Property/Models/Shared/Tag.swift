@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Tag: Identifiable, Hashable {
-    let id = UUID()
-    let label: String
-    var content: String?
+  let id = UUID()
+  let label: String
+  var content: String?
 }

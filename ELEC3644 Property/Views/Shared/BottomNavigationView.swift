@@ -8,40 +8,41 @@
 import SwiftUI
 
 struct BottomNavigationView: View {
-    @Binding var selectedNavigation: BottomNavigation
+  @Binding var selectedNavigation: BottomNavigation
 
-    var body: some View {
-        VStack {
-            Spacer()
-            HStack(spacing: 48) {
-                ForEach(BottomNavigation.allCases, id: \.self) { nav in
-                    Image(systemName: "\(nav.systemImage)")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 24, height: 24)
-                        .onTapGesture {
-                            withAnimation(.snappy) { selectedNavigation = nav }
-                        }
-                        .foregroundColor(nav == selectedNavigation ? .primary60 : .neutral50)
-                }
+  var body: some View {
+    VStack {
+      Spacer()
+      HStack(spacing: 48) {
+        ForEach(BottomNavigation.allCases, id: \.self) { nav in
+          Image(systemName: "\(nav.systemImage)")
+            .resizable()
+            .scaledToFit()
+            .frame(width: 24, height: 24)
+            .onTapGesture {
+              withAnimation(.snappy) { selectedNavigation = nav }
             }
-            .frame(maxWidth: .infinity)
-            .ignoresSafeArea()
-            .padding(.horizontal, 24)
-            .padding(.top, 24)
-            .background(.neutral20)
+            .foregroundColor(nav == selectedNavigation ? .primary60 : .neutral50)
         }
+      }
+      .frame(maxWidth: .infinity)
+      .ignoresSafeArea()
+      .padding(.horizontal, 24)
+      .padding(.top, 24)
+      .background(.gray.opacity(0.1))
+
     }
+  }
 }
 
 #Preview {
-    struct MenuItemList_Preview: View {
-        @State private var selected: BottomNavigation? = BottomNavigation.explore
+  struct MenuItemList_Preview: View {
+    @State private var selected: BottomNavigation? = BottomNavigation.explore
 
-        var body: some View {
-            BottomNavigationView(selectedNavigation: .constant(.explore))
-        }
+    var body: some View {
+      BottomNavigationView(selectedNavigation: .constant(.explore))
     }
+  }
 
-    return MenuItemList_Preview()
+  return MenuItemList_Preview()
 }

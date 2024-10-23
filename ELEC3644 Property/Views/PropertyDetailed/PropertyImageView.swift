@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct PropertyImageView: View {
-    var body: some View {
-        TabView {
-            ForEach(1 ..< 6) { index in
-                Image("Property\(index)")
-                    .resizable()
-                    .scaledToFill()
-            }
-        }
-        .tabViewStyle(PageTabViewStyle())
-        .indexViewStyle(.page)
-        .frame(height: 310)
-        .padding(.bottom, 4)
+  var body: some View {
+    TabView {
+      ForEach(1..<6) { index in
+        Image("Property\(index)")
+          .resizable()
+          .scaledToFill()
+      }
     }
+    .tabViewStyle(PageTabViewStyle())
+    .indexViewStyle(.page)
+    .frame(height: 310)
+    .padding(.bottom, 4)
+  }
 }

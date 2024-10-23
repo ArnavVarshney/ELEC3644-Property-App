@@ -8,45 +8,46 @@
 import SwiftUI
 
 struct BackButtonModifier: ViewModifier {
-    @Environment(\.dismiss) private var dismiss
+  @Environment(\.dismiss) private var dismiss
 
-    func body(content: Content) -> some View {
-        content
-            .navigationBarBackButtonHidden(true)
-            .toolbar {
-                ToolbarItemGroup(placement: .navigationBarLeading) {
-                    HStack {
-                        Button(action: {
-                            self.dismiss()
-                        }) {
-                            Image(systemName: "arrow.backward")
-                                .resizable()
-                                .frame(width: 18, height: 18)
-                                .foregroundColor(.neutral100)
-                                .padding(24)
-                                .background(Circle().fill(Color.neutral20))
-                                .shadow(color: .neutral30, radius: 4, x: 0, y: 4)
-                        }
-                        Spacer()
-                    }
-                }
+  func body(content: Content) -> some View {
+    content
+      .navigationBarBackButtonHidden(true)
+      .toolbar {
+        ToolbarItemGroup(placement: .navigationBarLeading) {
+          HStack {
+            Button(action: {
+              self.dismiss()
+            }) {
+              Image(systemName: "chevron.left")
+                .frame(width: 18, height: 18)
+                .foregroundColor(.black)
+                .padding(12)
+                .background(
+                  Circle()
+                    .fill(Color.white)
+                )
+                .shadow(color: .gray.opacity(0.3), radius: 4, x: 0, y: 4)
             }
-    }
+          }
+        }
+      }
+  }
 }
 
 extension View {
-    func backButton() -> some View {
-        self.modifier(BackButtonModifier())
-    }
+  func backButton() -> some View {
+    self.modifier(BackButtonModifier())
+  }
 }
 
 #Preview {
-    NavigationStack {
-        VStack {
-            Text("Hello")
-            Spacer()
-        }
-        .backButton()
-        .navigationTitle("Test")
+  NavigationStack {
+    VStack {
+      Text("Hello")
+      Spacer()
     }
+    .backButton()
+    .navigationTitle("Test")
+  }
 }

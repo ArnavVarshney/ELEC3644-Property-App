@@ -8,42 +8,45 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var selectedTab: BottomNavigation = .explore
-    var body: some View {
-        NavigationView {
-            ZStack {
-                selectedTab.destinationView
-                    .toolbar(.hidden, for: .tabBar)
-                    .toolbarBackground(.hidden, for: .tabBar)
+  @State var selectedTab: BottomNavigation = .explore
 
-                BottomNavigationView(selectedNavigation: $selectedTab)
-            }
-            .ignoresSafeArea(.keyboard, edges: .bottom)
-        }
+  var body: some View {
+    NavigationView {
+      ZStack {
+        selectedTab.destinationView
+          .toolbar(.hidden, for: .tabBar)
+          .toolbarBackground(.hidden, for: .tabBar)
+
+        BottomNavigationView(selectedNavigation: $selectedTab)
+      }
+      .ignoresSafeArea(.keyboard, edges: .bottom)
     }
+    .environmentObject(PropertyViewModel())
+    .environmentObject(UserViewModel())
+  }
 }
 
 struct WishlistsView: View {
-    var body: some View {
-        Text("Wishlists View")
-            .font(.largeTitle)
-            .padding()
-            .navigationTitle("Wishlists")
-    }
+  var body: some View {
+    Text("Wishlists View")
+      .font(.largeTitle)
+      .padding()
+      .navigationTitle("Wishlists")
+  }
 }
 
 struct TripsView: View {
-    var body: some View {
-        Text("Trips View")
-            .font(.largeTitle)
-            .padding()
-            .navigationTitle("Trips")
-    }
+  var body: some View {
+    Text("Trips View")
+      .font(.largeTitle)
+      .padding()
+      .navigationTitle("Trips")
+  }
 }
 
 #Preview {
-    ContentView()
-        .environmentObject(InboxViewModel())
-        .environmentObject(PropertyViewModel())
-        .environmentObject(UserViewModel())
+  ContentView()
+    .environmentObject(InboxViewModel())
+    .environmentObject(PropertyViewModel())
+    .environmentObject(UserViewModel())
 }
