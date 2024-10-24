@@ -1,11 +1,74 @@
 //
-//  Location.swift
-//  ELEC3644 Property
+//  Property.swift
+//  ELEC3644 Property App
 //
-//  Created by Filbert Tejalaksana on 15/10/2024.
+//  Created by Filbert Tejalaksana on 9/10/2024.
 //
 
 import Foundation
+import SwiftData
+
+struct Property: Identifiable, Hashable, Codable {
+  var id = UUID()
+  let name: String
+  let address: String
+  let area: String
+  let district: String
+  let subDistrict: String
+
+  let facilities: [Facility]
+  let schoolNet: SchoolNet
+
+  let saleableArea: Int
+  let saleableAreaPricePerSquareFoot: Int
+  let grossFloorArea: Int
+  let grossFloorAreaPricePerSquareFoot: Int
+  let netPrice: String
+
+  let buildingAge: Int
+  let buildingDirection: String
+  let estate: String
+
+  var transactionHistory: [Transaction]
+
+  private enum CodingKeys: String, CodingKey {
+    case name, address, area, district, subDistrict, facilities, schoolNet,
+      saleableArea, saleableAreaPricePerSquareFoot, grossFloorArea,
+      grossFloorAreaPricePerSquareFoot,
+      netPrice, buildingAge, buildingDirection, estate, transactionHistory
+  }
+}
+
+struct Transaction: Identifiable, Hashable, Codable {
+  var id = UUID()
+  var date: Date
+  var price: Int
+
+  private enum CodingKeys: String, CodingKey { case date, price }
+}
+
+struct SchoolNet: Identifiable, Hashable, Codable {
+  var id = UUID()
+  var primary: String
+  var secondary: String
+
+  private enum CodingKeys: String, CodingKey { case primary, secondary }
+}
+
+struct Facility: Identifiable, Hashable, Codable {
+  var id = UUID()
+  var desc: String
+  var measure: Int
+  var measureUnit: String
+
+  private enum CodingKeys: String, CodingKey { case desc, measure, measureUnit }
+}
+
+struct Tag: Identifiable, Hashable {
+  let id = UUID()
+  let label: String
+  var content: String?
+}
 
 struct Location: Identifiable, Hashable, Codable {
   var id = UUID()

@@ -25,3 +25,11 @@ struct Message: Identifiable, Codable {
 
   private enum CodingKeys: String, CodingKey { case timestamp, senderId, receiverId, content }
 }
+
+struct Chat: Identifiable, Codable {
+  var id = UUID()
+  let userId: String
+  var messages: [Message]
+
+  private enum CodingKeys: String, CodingKey { case userId, messages }
+}

@@ -32,7 +32,7 @@ struct BottomNavigationView: View {
         }
     }
     .onAppear {
-        let appearance = UITabBarAppearance()
+      let appearance = UITabBarAppearance()
       appearance.configureWithOpaqueBackground()
       UITabBar.appearance().standardAppearance = appearance
       UITabBar.appearance().scrollEdgeAppearance = appearance
@@ -43,8 +43,6 @@ struct BottomNavigationView: View {
 
 #Preview {
   struct MenuItemList_Preview: View {
-    @State private var selected: BottomNavigation? = BottomNavigation.explore
-
     var body: some View {
       BottomNavigationView()
         .environmentObject(UserViewModel())
