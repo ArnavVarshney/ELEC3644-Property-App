@@ -8,11 +8,13 @@
 import Foundation
 
 class UserViewModel: ObservableObject {
+  private let apiClient: APIClient
   var currentUserId: String = "10530025-4005-4c89-b814-b0ea9e389343"
   @Published var user: User = .init(name: "", email: "", avatarUrl: "", reviews: [])
   @Published var otherUsers: [User] = []
 
-  init() {
+  init(apiClient: APIClient = NetworkManager()) {
+    self.apiClient = apiClient
     Task {
       await self.fetchUser(with: self.currentUserId)
     }
@@ -50,6 +52,31 @@ class UserViewModel: ObservableObject {
     } catch {
       print("Error fetching user data: \(error)")
     }
+  }
+
+  static func login(with email: String, password: String) async throws -> User {
+    guard let url = URL(string: "https://chat-server.home-nas.xyz/users/login") else {
+      throw URLError(.badURL)
+    }
+
+    let body = ["email": email, "password": password]
+    let jsonData = try JSONSerialization.data(withJSONObject: body, options: [])
+
+    var request = URLRequest(url: url)
+    request.httpMethod = "POST"
+    request.httpBody = jsonData
+    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+    let (data, response) = try await URLSession.shared.data(for: request)
+
+    guard let httpResponse = response as? HTTPURLResponse,
+      (200...299).contains(httpResponse.statusCode)
+    else {
+      throw URLError(.badServerResponse)
+    }
+
+    let decoder = JSONDecoder()
+    return try decoder.decode(User.self, from: data)
   }
 
   static func getUser(with id: String) async throws -> User {

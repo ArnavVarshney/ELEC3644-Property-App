@@ -17,7 +17,7 @@ struct ContentView: View {
           .toolbar(.hidden, for: .tabBar)
           .toolbarBackground(.hidden, for: .tabBar)
 
-        BottomNavigationView(selectedNavigation: $selectedTab)
+        BottomNavigationView()
       }
       .ignoresSafeArea(.keyboard, edges: .bottom)
     }

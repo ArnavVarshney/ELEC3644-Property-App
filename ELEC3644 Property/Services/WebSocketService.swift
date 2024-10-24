@@ -13,7 +13,7 @@ class WebSocketService: ObservableObject {
   var onReceive: ((String) -> Void)?
 
   func connect() {
-    let url = URL(string: "ws://your-server-url")!
+    let url = URL(string: "ws://chat-server.home-nas.xyz")!
     let request = URLRequest(url: url)
     let session = URLSession(configuration: .default)
     webSocket = session.webSocketTask(with: request)

@@ -38,7 +38,7 @@ struct PropertyDetailView: View {
   struct PropertyDetail_Preview: View {
     @EnvironmentObject var propertyViewModel: PropertyViewModel
     var body: some View {
-        PropertyDetailView(property: Mock.Properties[0])
+      PropertyDetailView(property: Mock.Properties[0])
     }
   }
   return PropertyDetail_Preview()

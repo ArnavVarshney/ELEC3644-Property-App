@@ -8,29 +8,36 @@
 import SwiftUI
 
 struct BottomNavigationView: View {
-  @Binding var selectedNavigation: BottomNavigation
-
   var body: some View {
-    VStack {
-      Spacer()
-      HStack(spacing: 48) {
-        ForEach(BottomNavigation.allCases, id: \.self) { nav in
-          Image(systemName: "\(nav.systemImage)")
-            .resizable()
-            .scaledToFit()
-            .frame(width: 24, height: 24)
-            .onTapGesture {
-              withAnimation(.snappy) { selectedNavigation = nav }
-            }
-            .foregroundColor(nav == selectedNavigation ? .primary60 : .neutral50)
+    TabView {
+      ExploreView()
+        .tabItem {
+          Label("Explore", systemImage: "magnifyingglass")
         }
-      }
-      .frame(maxWidth: .infinity)
-      .ignoresSafeArea()
-      .padding(.horizontal, 24)
-      .padding(.top, 24)
-      .background(.neutral20)
+      WishlistsView()
+        .tabItem {
+          Label("Wishlists", systemImage: "heart.fill")
+        }
+      TripsView()
+        .tabItem {
+          Label("Trips", systemImage: "airplane")
+        }
+      InboxView()
+        .tabItem {
+          Label("Inbox", systemImage: "envelope")
+        }
+      ProfileView()
+        .tabItem {
+          Label("Profile", systemImage: "person")
+        }
     }
+    .onAppear {
+        let appearance = UITabBarAppearance()
+      appearance.configureWithOpaqueBackground()
+      UITabBar.appearance().standardAppearance = appearance
+      UITabBar.appearance().scrollEdgeAppearance = appearance
+    }
+    .tint(.black)
   }
 }
 
@@ -39,7 +46,10 @@ struct BottomNavigationView: View {
     @State private var selected: BottomNavigation? = BottomNavigation.explore
 
     var body: some View {
-      BottomNavigationView(selectedNavigation: .constant(.explore))
+      BottomNavigationView()
+        .environmentObject(UserViewModel())
+        .environmentObject(PropertyViewModel())
+        .environmentObject(InboxViewModel())
     }
   }
 
