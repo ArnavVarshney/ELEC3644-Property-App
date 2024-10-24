@@ -15,16 +15,20 @@ protocol APIClient {
 
 class NetworkManager: APIClient {
   private let urlCache: URLCache
+  private let decoder = JSONDecoder()
 
   init(urlCache: URLCache = .shared) {
     self.urlCache = urlCache
+    let df = DateFormatter()
+    df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+    self.decoder.dateDecodingStrategy = .formatted(df)
   }
 
   func get<T: Decodable>(url: URL) async throws -> T {
-    if let cachedResponse = urlCache.cachedResponse(for: URLRequest(url: url)) {
-      let decodedData = try JSONDecoder().decode(T.self, from: cachedResponse.data)
-      return decodedData
-    }
+//    if let cachedResponse = urlCache.cachedResponse(for: URLRequest(url: url)) {
+//      let decodedData = try self.decoder.decode(T.self, from: cachedResponse.data)
+//      return decodedData
+//    }
 
     let (data, response) = try await URLSession.shared.data(from: url)
 
@@ -33,7 +37,7 @@ class NetworkManager: APIClient {
       urlCache.storeCachedResponse(cachedResponse, for: URLRequest(url: url))
     }
 
-    let decodedData = try JSONDecoder().decode(T.self, from: data)
+    let decodedData = try self.decoder.decode(T.self, from: data)
     return decodedData
   }
 
@@ -44,7 +48,7 @@ class NetworkManager: APIClient {
     request.httpBody = try JSONEncoder().encode(body)
 
     let (data, _) = try await URLSession.shared.data(for: request)
-    let decodedData = try JSONDecoder().decode(T.self, from: data)
+    let decodedData = try self.decoder.decode(T.self, from: data)
     return decodedData
   }
 
@@ -55,7 +59,7 @@ class NetworkManager: APIClient {
     request.httpBody = try JSONEncoder().encode(body)
 
     let (data, _) = try await URLSession.shared.data(for: request)
-    let decodedData = try JSONDecoder().decode(T.self, from: data)
+    let decodedData = try self.decoder.decode(T.self, from: data)
     return decodedData
   }
 }

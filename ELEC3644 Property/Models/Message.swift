@@ -9,27 +9,18 @@ import Foundation
 
 struct Message: Identifiable, Codable {
   var id = UUID()
-  let timestamp: Date?
+  let timestamp: Date
   let senderId: String
   let receiverId: String
   let content: String
-  var dateStr: String {
-    if let d = timestamp {
-      let df = DateFormatter()
-      df.dateFormat = "yyyy-MM-dd"
-      return df.string(from: d)
-    } else {
-      return "None"
-    }
-  }
 
   private enum CodingKeys: String, CodingKey { case timestamp, senderId, receiverId, content }
 }
 
 struct Chat: Identifiable, Codable {
   var id = UUID()
-  let userId: String
+  let user: User
   var messages: [Message]
 
-  private enum CodingKeys: String, CodingKey { case userId, messages }
+  private enum CodingKeys: String, CodingKey { case user, messages }
 }

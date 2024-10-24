@@ -9,13 +9,13 @@ import SwiftUI
 
 struct InboxItemView: View {
   let name: String
-  let date: String
+  let date: Date
   var body: some View {
     VStack {
       HStack {
         Text(name)
         Spacer()
-        Text(date)
+        Text(date, style: .date)
       }
     }
     .padding( /*@START_MENU_TOKEN@*/.all /*@END_MENU_TOKEN@*/)
@@ -23,5 +23,5 @@ struct InboxItemView: View {
 }
 
 #Preview {
-  InboxItemView(name: "Default", date: "Default")
+  InboxItemView(name: "Default", date: Date())
 }

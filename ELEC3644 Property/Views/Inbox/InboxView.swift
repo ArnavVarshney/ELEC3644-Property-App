@@ -64,7 +64,7 @@ struct InboxView: View {
           NavigationLink {
             ChatView(chat: chat, currentUserId: inboxData.currentUserId)
           } label: {
-            InboxItemView(name: chat.userId, date: chat.messages.last!.dateStr)
+            InboxItemView(name: chat.user.name, date: chat.messages.last!.timestamp)
           }
         }
       }
