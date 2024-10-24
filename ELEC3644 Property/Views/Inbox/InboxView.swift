@@ -11,66 +11,36 @@ struct InboxView: View {
   @EnvironmentObject var inboxData: InboxViewModel
 
   var body: some View {
-    VStack {
+    NavigationStack {
       VStack {
-        HStack {
-          Spacer()
-          Button {
-            print(inboxData.chats)
-          } label: {
-            Text("Search")
-          }
+        if inboxData.chats.isEmpty {
+          Image(systemName: "bubble.left.and.text.bubble.right")
+            .font(.largeTitle)
+            .padding()
 
-          Button {
-          } label: {
-            Text("Setting")
-          }
+          Text("You don't have any messages")
+            .font(.footnote)
+            .fontWeight(.bold)
+            .padding(4)
 
-        }.foregroundColor(.neutral100)
-
-        HStack {
-          Text("Messages")
-          Spacer()
-        }
-
-        HStack {
-          Button {
-          } label: {
-            Text("All")
-          }
-
-          Button {
-          } label: {
-            Text("Hosting")
-          }
-
-          Button {
-          } label: {
-            Text("Travelling")
-          }
-
-          Button {
-          } label: {
-            Text("Support")
-          }
-
-          Spacer()
-        }.foregroundColor(.neutral100)
-      }
-      if inboxData.chats.isEmpty {
-        Text("Nothing to show...")
-      } else {
-        List(inboxData.chats) { chat in
-          NavigationLink {
-            ChatView(chat: chat, currentUserId: inboxData.currentUserId)
-          } label: {
-            InboxItemView(name: chat.user.name, date: chat.messages.last!.timestamp)
+          Text("When you receive a new message, it will appear here.")
+            .font(.footnote)
+            .foregroundColor(.neutral60)
+            .padding(4)
+        } else {
+          List(inboxData.chats) { chat in
+            NavigationLink {
+              ChatView(chat: chat, currentUserId: inboxData.currentUserId)
+            } label: {
+              InboxItemView(name: chat.user.name, date: chat.messages.last!.timestamp)
+            }
           }
         }
       }
+      .background(.neutral10)
+      .padding(.all)
+      .navigationTitle("Messages")
     }
-    .padding( /*@START_MENU_TOKEN@*/.all /*@END_MENU_TOKEN@*/)
-    .navigationTitle("Inbox")
   }
 }
 

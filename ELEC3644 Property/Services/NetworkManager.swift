@@ -25,10 +25,10 @@ class NetworkManager: APIClient {
   }
 
   func get<T: Decodable>(url: URL) async throws -> T {
-//    if let cachedResponse = urlCache.cachedResponse(for: URLRequest(url: url)) {
-//      let decodedData = try self.decoder.decode(T.self, from: cachedResponse.data)
-//      return decodedData
-//    }
+    //    if let cachedResponse = urlCache.cachedResponse(for: URLRequest(url: url)) {
+    //      let decodedData = try self.decoder.decode(T.self, from: cachedResponse.data)
+    //      return decodedData
+    //    }
 
     let (data, response) = try await URLSession.shared.data(from: url)
 
