@@ -8,20 +8,29 @@
 import SwiftUI
 
 struct InboxItemView: View {
-  let name: String
-  let date: Date
+  let user: User
+  let message: Message
   var body: some View {
-    VStack {
-      HStack {
-        Text(name)
-        Spacer()
-        Text(date, style: .date)
+    HStack {
+      UserAvatarView(user: user, size: 42)
+        .padding(.trailing, 8)
+      VStack(alignment: .leading) {
+        Text(user.name)
+          .font(.subheadline)
+          .fontWeight(.bold)
+        Text(message.content)
+          .font(.footnote)
+          .lineLimit(1)
       }
+      Spacer()
+      Text(message.timestamp, style: .time)
+        .font(.caption)
+        .foregroundColor(.neutral60)
     }
-    .padding( /*@START_MENU_TOKEN@*/.all /*@END_MENU_TOKEN@*/)
+    .padding(.vertical, 8)
   }
 }
 
 #Preview {
-  InboxItemView(name: "Default", date: Date())
+  InboxItemView(user: Mock.Chats[0].user, message: Mock.Chats[0].messages.last!)
 }

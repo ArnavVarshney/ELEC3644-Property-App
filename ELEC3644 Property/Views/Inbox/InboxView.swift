@@ -32,13 +32,13 @@ struct InboxView: View {
             NavigationLink {
               ChatView(chat: chat, currentUserId: inboxData.currentUserId)
             } label: {
-              InboxItemView(name: chat.user.name, date: chat.messages.last!.timestamp)
+              InboxItemView(user: chat.user, message: chat.messages.last!)
             }
           }
+          .listStyle(InsetListStyle())
         }
       }
       .background(.neutral10)
-      .padding(.all)
       .navigationTitle("Messages")
     }
   }
@@ -46,5 +46,5 @@ struct InboxView: View {
 
 #Preview {
   InboxView()
-    .environmentObject(InboxViewModel())
+    .environmentObject(InboxViewModel(chats: Mock.Chats))
 }

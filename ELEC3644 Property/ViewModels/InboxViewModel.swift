@@ -14,12 +14,16 @@ class InboxViewModel: ObservableObject {
   var currentUserId: String = "10530025-4005-4c89-b814-b0ea9e389343"
 
   init(
-    apiClient: APIClient = NetworkManager(), webSocketClient: WebSocketService = WebSocketService()
+    apiClient: APIClient = NetworkManager(), webSocketClient: WebSocketService = WebSocketService(),
+    chats: [Chat] = []
   ) {
+    self.chats = chats
     self.apiClient = apiClient
     self.webSocketClient = webSocketClient
-    Task {
-      await fetchChats()
+    if chats.isEmpty {
+      Task {
+        await fetchChats()
+      }
     }
   }
 
