@@ -8,6 +8,10 @@ import SwiftUI
 
 struct WishlistsView: View {
   @EnvironmentObject var userViewModel: UserViewModel
+  private let flexibleColumn = [
+    GridItem(.flexible()),
+    GridItem(.flexible()),
+  ]
 
   var user: User {
     userViewModel.user
@@ -15,35 +19,50 @@ struct WishlistsView: View {
 
   var body: some View {
     NavigationStack {
-      VStack(alignment: .leading) {
-        HStack(spacing: 12) {
-          UserAvatarView(user: user)
-          VStack(alignment: .leading) {
-            Text(user.name)
-              .font(.headline)
-            Text(user.email)
-              .font(.subheadline)
-          }
+      if user.wishlists.isEmpty {
+        VStack {
           Spacer()
-          NavigationLink(
-            destination: ProfileDetailed(userViewModel: userViewModel),
-            label: {
-              Image(systemName: "chevron.right")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 18, height: 18)
-                .padding(10)
-            })
+          Image(systemName: "heart")
+            .font(.largeTitle)
+            .padding()
+
+          Text("You don't have any wishlists")
+            .font(.footnote)
+            .fontWeight(.bold)
+            .padding(4)
+
+          Text("When you create a new wishlist, it will appear here.")
+            .font(.footnote)
+            .foregroundColor(.neutral60)
+            .padding(4)
         }
-        Spacer()
+      } else {
+        ScrollView(showsIndicators: false) {
+          LazyVGrid(columns: flexibleColumn) {
+            ForEach(user.wishlists) { wishlist in
+              NavigationLink(destination: WishlistDetailView(wishlist: wishlist)) {
+                WishlistItemView(wishlist: wishlist)
+              }
+            }
+          }
+        }
       }
-      .padding(.horizontal, 24)
+      ScrollView(showsIndicators: false) {
+        LazyVGrid(columns: flexibleColumn) {
+          ForEach(user.wishlists) { wishlist in
+            NavigationLink(destination: WishlistDetailView(wishlist: wishlist)) {
+              WishlistItemView(wishlist: wishlist)
+            }
+          }
+        }
+      }
+      .padding(.horizontal)
       .navigationTitle("Wishlists")
       .toolbar {
         ToolbarItem(placement: .navigationBarTrailing) {
           Button(
             action: {
-              ProfileView()
+
             },
             label: {
               Image(systemName: "square.and.pencil")

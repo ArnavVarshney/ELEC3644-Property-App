@@ -24,12 +24,13 @@ struct PropertyDetailView: View {
         PropertyDetailListView(viewModel: viewModel)
         PropertyDetailMapView(viewModel: viewModel)
         PropertyDetailGraphView(viewModel: viewModel)
-        Spacer()
       }
-      .ignoresSafeArea()
+      Spacer()
       PropertyDetailBottomBarView(viewModel: viewModel)
+        .padding(.bottom, 8)
     }
     .backButton()
+    .ignoresSafeArea()
     .toolbarBackground(.hidden, for: .navigationBar)
   }
 }

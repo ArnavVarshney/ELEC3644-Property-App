@@ -63,7 +63,10 @@ enum Mock {
       avatarUrl:
         "https://media.licdn.com/dms/image/v2/C4D03AQFt9Bjg0CPk4Q/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1662615657137?e=2147483647&v=beta&t=sTx8Vlvu9gfvGVz1TO4GIavJPkqZ38kAd5-Lt8eGpq8",
       reviews: nil,
-      wishlists: [Wishlist(name: "Holiday", properties: Properties)]
+      wishlists: [
+        Wishlist(name: "Holiday", properties: [Properties[0]]),
+        Wishlist(name: "Home", properties: [Properties[0]]),
+      ]
     ),
     User(
       name: "Abel Haris Harsono", email: "b@gmail.com",

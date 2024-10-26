@@ -45,7 +45,7 @@ struct BottomNavigationView: View {
   struct MenuItemList_Preview: View {
     var body: some View {
       BottomNavigationView()
-        .environmentObject(UserViewModel())
+        .environmentObject(UserViewModel(user: Mock.Users[0]))
         .environmentObject(PropertyViewModel())
         .environmentObject(InboxViewModel())
     }

@@ -13,10 +13,14 @@ class UserViewModel: ObservableObject {
   @Published var user: User = .init(name: "", email: "", avatarUrl: "", reviews: [], wishlists: [])
   @Published var otherUsers: [User] = []
 
-  init(apiClient: APIClient = NetworkManager()) {
+  init(apiClient: APIClient = NetworkManager(), user: User? = nil) {
     self.apiClient = apiClient
-    Task {
-      await self.fetchUser(with: self.currentUserId)
+    if user != nil {
+      self.user = user!
+    } else {
+      Task {
+        await self.fetchUser(with: self.currentUserId)
+      }
     }
   }
 
