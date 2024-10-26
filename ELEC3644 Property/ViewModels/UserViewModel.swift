@@ -10,7 +10,7 @@ import Foundation
 class UserViewModel: ObservableObject {
   private let apiClient: APIClient
   var currentUserId: String = "10530025-4005-4c89-b814-b0ea9e389343"
-  @Published var user: User = .init(name: "", email: "", avatarUrl: "", reviews: [])
+  @Published var user: User = .init(name: "", email: "", avatarUrl: "", reviews: [], wishlists: [])
   @Published var otherUsers: [User] = []
 
   init(apiClient: APIClient = NetworkManager()) {
