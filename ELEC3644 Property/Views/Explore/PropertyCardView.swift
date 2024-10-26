@@ -20,7 +20,7 @@ struct PropertyCardView: View {
 
   var body: some View {
     VStack(spacing: 8) {
-      ImageCarouselView(images: mockPropertyImages)
+      ImageCarouselView(imageUrls: self.property.imageUrls)
 
       HStack(alignment: .top) {
         VStack(alignment: .leading) {
@@ -67,7 +67,7 @@ struct PropertyCardView: View {
     @EnvironmentObject var propertyViewModel: PropertyViewModel
 
     var body: some View {
-      PropertyCardView(property: propertyViewModel.properties[0])
+      PropertyCardView(property: Mock.Properties[0])
     }
   }
 

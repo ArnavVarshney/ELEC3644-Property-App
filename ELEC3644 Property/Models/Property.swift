@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftData
 
 struct Property: Identifiable, Hashable, Codable {
   var id = UUID()
@@ -29,13 +28,14 @@ struct Property: Identifiable, Hashable, Codable {
   let buildingDirection: String
   let estate: String
 
+  var imageUrls: [String]
   var transactionHistory: [Transaction]
 
   private enum CodingKeys: String, CodingKey {
     case name, address, area, district, subDistrict, facilities, schoolNet,
       saleableArea, saleableAreaPricePerSquareFoot, grossFloorArea,
       grossFloorAreaPricePerSquareFoot,
-      netPrice, buildingAge, buildingDirection, estate, transactionHistory
+      netPrice, buildingAge, buildingDirection, estate, imageUrls, transactionHistory
   }
 }
 
