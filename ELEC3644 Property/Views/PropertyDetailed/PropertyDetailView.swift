@@ -20,7 +20,7 @@ struct PropertyDetailView: View {
   var body: some View {
     VStack {
       ScrollView {
-        PropertyImageView()
+        ImageCarouselView(imageUrls: self.property.imageUrls, cornerRadius: 0)
         PropertyDetailListView(viewModel: viewModel)
         PropertyDetailMapView(viewModel: viewModel)
         PropertyDetailGraphView(viewModel: viewModel)

@@ -27,7 +27,7 @@ struct PropertyCardListView: View {
   struct PropertyCardListView_Preview: View {
     @EnvironmentObject var viewModel: PropertyViewModel
     var body: some View {
-      PropertyCardListView(properties: viewModel.properties)
+      PropertyCardListView(properties: Mock.Properties)
     }
   }
   return PropertyCardListView_Preview()

@@ -9,15 +9,37 @@ import SwiftUI
 
 struct ImageCarouselView: View {
   let images: [String]
-  let height: Double = 320
-  var cornerRadius: Double = 8
+  let imageUrls: [String]
+  let height: Double
+  var cornerRadius: Double
+
+  init(
+    images: [String] = [], imageUrls: [String] = [], cornerRadius: Double = 8, height: Double = 320
+  ) {
+    self.images = images
+    self.imageUrls = imageUrls
+    self.cornerRadius = cornerRadius
+    self.height = height
+  }
 
   var body: some View {
     TabView {
-      ForEach(images, id: \.self) { image in
-        Image(image)
-          .resizable()
-          .scaledToFill()
+      if imageUrls.isEmpty {
+        ForEach(images, id: \.self) { image in
+          Image(image)
+            .resizable()
+            .scaledToFill()
+        }
+      } else {
+        ForEach(imageUrls, id: \.self) { imageUrl in
+          AsyncImage(url: URL(string: imageUrl)) { image in
+            image
+              .resizable()
+              .scaledToFill()
+          } placeholder: {
+            ProgressView()
+          }
+        }
       }
     }
     .frame(height: height)
@@ -27,5 +49,5 @@ struct ImageCarouselView: View {
 }
 
 #Preview {
-  ImageCarouselView(images: mockPropertyImages)
+  ImageCarouselView(imageUrls: Mock.Properties[0].imageUrls)
 }
