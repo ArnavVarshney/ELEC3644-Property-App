@@ -29,8 +29,7 @@ class InboxViewModel: ObservableObject {
 
   func fetchChats() async {
     do {
-      let fetchedChats: [Chat] = try await apiClient.get(
-        url: URL(string: "https://chat-server.home-nas.xyz/messages/chat/\(currentUserId)")!)
+      let fetchedChats: [Chat] = try await apiClient.get(url: "/messages/chat/\(currentUserId)")
       DispatchQueue.main.async {
         self.chats = fetchedChats
       }

@@ -8,14 +8,15 @@
 import Foundation
 
 protocol APIClient {
-  func get<T: Decodable>(url: URL) async throws -> T
-  func post<T: Decodable, U: Encodable>(url: URL, body: U) async throws -> T
-  func patch<T: Decodable, U: Encodable>(url: URL, body: U) async throws -> T
+  func get<T: Decodable>(url: String) async throws -> T
+  func post<T: Decodable, U: Encodable>(url: String, body: U) async throws -> T
+  func patch<T: Decodable, U: Encodable>(url: String, body: U) async throws -> T
 }
 
 class NetworkManager: APIClient {
   private let urlCache: URLCache
   private let decoder = JSONDecoder()
+  private let baseURL = "https://chat-server.home-nas.xyz"
 
   init(urlCache: URLCache = .shared) {
     self.urlCache = urlCache
@@ -24,25 +25,26 @@ class NetworkManager: APIClient {
     self.decoder.dateDecodingStrategy = .formatted(df)
   }
 
-  func get<T: Decodable>(url: URL) async throws -> T {
+  func get<T: Decodable>(url: String = "") async throws -> T {
     //    if let cachedResponse = urlCache.cachedResponse(for: URLRequest(url: url)) {
     //      let decodedData = try self.decoder.decode(T.self, from: cachedResponse.data)
     //      return decodedData
     //    }
-
-    let (data, response) = try await URLSession.shared.data(from: url)
+    let finalUrl = URL(string: baseURL + url)
+    let (data, response) = try await URLSession.shared.data(from: finalUrl!)
 
     if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
       let cachedResponse = CachedURLResponse(response: response, data: data)
-      urlCache.storeCachedResponse(cachedResponse, for: URLRequest(url: url))
+      urlCache.storeCachedResponse(cachedResponse, for: URLRequest(url: finalUrl!))
     }
 
     let decodedData = try self.decoder.decode(T.self, from: data)
     return decodedData
   }
 
-  func post<T: Decodable, U: Encodable>(url: URL, body: U) async throws -> T {
-    var request = URLRequest(url: url)
+  func post<T: Decodable, U: Encodable>(url: String = "", body: U) async throws -> T {
+    let finalUrl = URL(string: baseURL + url)
+    var request = URLRequest(url: finalUrl!)
     request.httpMethod = "POST"
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
     request.httpBody = try JSONEncoder().encode(body)
@@ -52,8 +54,9 @@ class NetworkManager: APIClient {
     return decodedData
   }
 
-  func patch<T: Decodable, U: Encodable>(url: URL, body: U) async throws -> T {
-    var request = URLRequest(url: url)
+  func patch<T: Decodable, U: Encodable>(url: String, body: U) async throws -> T {
+    let finalUrl = URL(string: baseURL + url)
+    var request = URLRequest(url: finalUrl!)
     request.httpMethod = "PATCH"
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
     request.httpBody = try JSONEncoder().encode(body)
