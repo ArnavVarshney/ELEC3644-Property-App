@@ -9,17 +9,12 @@ import Foundation
 
 class InboxViewModel: ObservableObject {
   private let apiClient: APIClient
-  private let webSocketClient: WebSocketService
   @Published var chats: [Chat] = []
   var currentUserId: String = "10530025-4005-4c89-b814-b0ea9e389343"
 
-  init(
-    apiClient: APIClient = NetworkManager(), webSocketClient: WebSocketService = WebSocketService(),
-    chats: [Chat] = []
-  ) {
+  init(apiClient: APIClient = NetworkManager(), chats: [Chat] = []) {
     self.chats = chats
     self.apiClient = apiClient
-    self.webSocketClient = webSocketClient
     if chats.isEmpty {
       Task {
         await fetchChats()

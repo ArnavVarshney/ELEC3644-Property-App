@@ -15,15 +15,19 @@ struct User: Identifiable, Codable {
   var reviews: [Review]
   var wishlists: [Wishlist]
 
-  private enum CodingKeys: String, CodingKey { case name, email, avatarUrl, reviews, wishlists }
+  private enum CodingKeys: String, CodingKey { case name, email, avatarUrl, reviews, wishlists, id }
 
   // both of these initializers are made to enforce that reviews will never be nil
-  init(name: String, email: String, avatarUrl: String, reviews: [Review]?, wishlists: [Wishlist]?) {
+  init(
+    name: String, email: String, avatarUrl: String, reviews: [Review]?, wishlists: [Wishlist]?,
+    id: String? = nil
+  ) {
     self.name = name
     self.email = email
     self.avatarUrl = avatarUrl
     self.reviews = reviews ?? []
     self.wishlists = wishlists ?? []
+    self.id = UUID(uuidString: id ?? "") ?? UUID()
   }
 
   init(from decoder: Decoder) throws {
