@@ -19,9 +19,8 @@ struct WishlistsView: View {
 
   var body: some View {
     NavigationStack {
-      if user.wishlists.isEmpty {
-        VStack {
-          Spacer()
+      VStack {
+        if user.wishlists.isEmpty {
           Image(systemName: "heart")
             .font(.largeTitle)
             .padding()
@@ -35,23 +34,14 @@ struct WishlistsView: View {
             .font(.footnote)
             .foregroundColor(.neutral60)
             .padding(4)
-        }
-      } else {
-        ScrollView(showsIndicators: false) {
-          LazyVGrid(columns: flexibleColumn) {
-            ForEach(user.wishlists) { wishlist in
-              NavigationLink(destination: WishlistDetailView(wishlist: wishlist)) {
-                WishlistItemView(wishlist: wishlist)
+        } else {
+          ScrollView(showsIndicators: false) {
+            LazyVGrid(columns: flexibleColumn) {
+              ForEach(user.wishlists) { wishlist in
+                NavigationLink(destination: WishlistDetailView(wishlist: wishlist)) {
+                  WishlistItemView(wishlist: wishlist)
+                }
               }
-            }
-          }
-        }
-      }
-      ScrollView(showsIndicators: false) {
-        LazyVGrid(columns: flexibleColumn) {
-          ForEach(user.wishlists) { wishlist in
-            NavigationLink(destination: WishlistDetailView(wishlist: wishlist)) {
-              WishlistItemView(wishlist: wishlist)
             }
           }
         }
@@ -75,5 +65,5 @@ struct WishlistsView: View {
 
 #Preview {
   WishlistsView()
-    .environmentObject(UserViewModel())
+    .environmentObject(UserViewModel(user: Mock.Users[0]))
 }
