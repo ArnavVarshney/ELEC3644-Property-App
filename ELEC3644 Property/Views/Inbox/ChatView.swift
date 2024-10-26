@@ -43,9 +43,16 @@ struct ChatView: View {
     .navigationBarBackButtonHidden()
     .toolbar {
       ToolbarItem(placement: .topBarLeading) {
-        Button("Back") {
+        Button(action: {
           dismiss()
-        }.foregroundColor(.primary60)
+        }) {
+          Image(systemName: "chevron.left")
+        }
+      }
+      ToolbarItem(placement: .principal) {
+        Text(chat.user.name)
+          .font(.headline)
+          .fontWeight(.bold)
       }
     }
   }
@@ -73,10 +80,13 @@ struct ChatBubble: View {
   struct ChatView_Preview: View {
     @EnvironmentObject var inboxData: InboxViewModel
     var body: some View {
-      if inboxData.chats.first == nil {
-        Text("Loading...")
-      } else {
-        ChatView(chat: inboxData.chats.first!, currentUserId: inboxData.currentUserId)
+      NavigationView {
+        if inboxData.chats.first == nil {
+          Text("Loading...")
+        } else {
+          ChatView(
+            chat: inboxData.chats.first!, currentUserId: inboxData.currentUserId)
+        }
       }
     }
   }
