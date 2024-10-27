@@ -28,13 +28,13 @@ struct ImageCarouselView: View {
     }
 
   init(
-    images: [String] = [], imageUrls: [String] = [], cornerRadius: Double = 8, height: Double = 320, property: Property
+    images: [String] = [], imageUrls: [String] = [], cornerRadius: Double = 8, height: Double = 320, property: Property? = nil
   ) {
       self.images = images
       self.imageUrls = imageUrls
       self.cornerRadius = cornerRadius
       self.height = height
-      self.property = property
+      self.property = property ?? Mock.Properties[0]
   }
 
   var body: some View {
