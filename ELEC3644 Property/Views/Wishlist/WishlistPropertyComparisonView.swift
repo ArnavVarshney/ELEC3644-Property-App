@@ -88,25 +88,6 @@ struct WishlistPropertyComparisonView: View {
 }
 
 
-//struct PropertyComparisonView:{
-//    let property: Property
-//
-//    private func propertyDetails() -> [(String, String)] {
-//      return [
-//        ("Estate", property.estate),
-//        ("Saleable Area", "\(property.saleableArea)"),
-//        ("Saleable Area/Sqft", "\(property.saleableAreaPricePerSquareFoot)"),
-//        ("Gross Floor Area", "\(property.grossFloorArea)"),
-//        ("Gross Floor Area/Sqft", "\(property.grossFloorAreaPricePerSquareFoot)"),
-//        ("Primary School Net", property.schoolNet.primary),
-//        ("Secondary School Net", property.schoolNet.secondary),
-//        ("Building Age", "\(property.buildingAge)"),
-//        ("Building Direction", property.buildingDirection),
-//      ]
-//    }
-//}
-
-
 #Preview {
     WishlistPropertyComparisonView(property1: Mock.Properties[0], property2: Mock.Properties[1]).environmentObject(UserViewModel())
 }
