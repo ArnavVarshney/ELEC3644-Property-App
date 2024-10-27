@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    
   var body: some View {
     NavigationView {
       ZStack {
@@ -16,7 +17,7 @@ struct ContentView: View {
       .ignoresSafeArea(.keyboard, edges: .bottom)
     }
     .environmentObject(PropertyViewModel())
-    .environmentObject(UserViewModel())
+//    .environmentObject(UserViewModel())
   }
 }
 
