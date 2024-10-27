@@ -4,22 +4,39 @@ on: [ push, pull_request ]
 
 jobs:
   lint:
-    name: Linting
+    name: Format
     runs-on: ubuntu-latest
     
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Lint
-        uses: mtgto/swift-format-action@main
+      - name: Restore swift build cache
+        uses: actions/cache@v4
         with:
-          all_files: false
-          auto_correct: true
-          max_warnings: -1
+          path: .build
+          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-
 
+      - name: Build Swift
+        run: |
+          if [ -d ".build" ]; then
+            if ! [ -x "$(command -v swift-format)" ]; then
+              sudo cp -f .build/release/swift-format /usr/local/bin/swift-format
+            fi
+          else
+            git clone -b main https://github.com/apple/swift-format.git
+            cd swift-format
+            swift build --disable-sandbox -c release
+            mv .build .. && cd ..
+            sudo cp -f .build/release/swift-format /usr/local/bin/swift-format
+            rm -rf swift-format
+          fi
+
+      - name: Format 
+        run: swift-format format --in-place --recursive ${{github.workspace}}
+        
       - name: Push to GitHub
         continue-on-error: true
         run: |
@@ -28,4 +45,4 @@ jobs:
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git add .
           git commit -am "chore: linting"
-          git push
+          git push 
