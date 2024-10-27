@@ -21,7 +21,7 @@ class WebSocketService: ObservableObject {
   }
 
   func connect(userId: String) {
-    guard let url = URL(string: "ws://mbp16:6969/") else { return }
+    guard let url = URL(string: "wss://chat-server.home-nas.xyz/") else { return }
     webSocketTask = URLSession.shared.webSocketTask(with: url)
     receiveMessages()
     let rawMessage = "{\"type\": \"setUser\", \"userId\": \"\(userId)\"}"
