@@ -22,3 +22,8 @@ struct WishlistDetailView: View {
     }
   }
 }
+
+
+#Preview {
+    WishlistDetailView(wishlist: Mock.Users[0].wishlists[0])
+}

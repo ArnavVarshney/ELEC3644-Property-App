@@ -10,7 +10,6 @@ struct WishlistsView: View {
   @EnvironmentObject var userViewModel: UserViewModel
   private let flexibleColumn = [
     GridItem(.flexible()),
-    GridItem(.flexible()),
   ]
 
   var user: User {
@@ -38,7 +37,7 @@ struct WishlistsView: View {
           ScrollView(showsIndicators: false) {
             LazyVGrid(columns: flexibleColumn) {
               ForEach(user.wishlists) { wishlist in
-                NavigationLink(destination: WishlistDetailView(wishlist: wishlist)) {
+                return NavigationLink(destination: WishlistDetailView(wishlist: wishlist)) {
                   WishlistItemView(wishlist: wishlist)
                 }
               }
