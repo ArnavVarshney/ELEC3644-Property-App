@@ -1,0 +1,31 @@
+name: ELEC3644 CI
+
+on: [ push, pull_request ]
+
+jobs:
+  lint:
+    name: Linting
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Lint
+        uses: mtgto/swift-format-action@main
+        with:
+          all_files: false
+          auto_correct: true
+          max_warnings: -1
+
+      - name: Push to GitHub
+        continue-on-error: true
+        run: |
+          git config --global user.name 'Swift Format'
+          git config --global user.email '<>'
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git add .
+          git commit -am "chore: linting"
+          git push
