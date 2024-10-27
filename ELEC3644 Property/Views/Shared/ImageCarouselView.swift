@@ -10,6 +10,7 @@ import SwiftUI
 struct ImageCarouselView: View {
     @EnvironmentObject var userViewModel: UserViewModel
     
+    @State var showingSheet = false
     let property: Property
   let images: [String]
   let imageUrls: [String]
@@ -42,29 +43,23 @@ struct ImageCarouselView: View {
               HStack{
                   Spacer()
                   Button {
-                      //Not favorited
-                      if propertyIdx == nil{
-                          let idxs = userViewModel.user.wishlists.enumerated().map({$1.name=="default" ? $0 : -1}).filter({$0 != -1})
-                          if idxs.isEmpty{
-                              userViewModel.user.wishlists.append(Wishlist(name: "default", properties: [property]))
-                          }else{
-                              let idx = idxs[0]
-                              userViewModel.user.wishlists[idx].properties.append(property)
-                          }
-                      }else{
+                      if propertyIdx != nil{
                           //We're going to unfavorite
                           userViewModel.user.wishlists[propertyIdx!.0].properties.remove(at: propertyIdx!.1)
                           
                           //Check for empty folder
                           userViewModel.user.wishlists = userViewModel.user.wishlists.filter({!$0.properties.isEmpty})
+                      }else{
+                          showingSheet = true
                       }
                   } label: {
                       if let _ = propertyIdx{
                           return Image(systemName: "heart.fill").foregroundColor(/*@START_MENU_TOKEN@*/.red/*@END_MENU_TOKEN@*/).bold()
                       }
                       return Image(systemName: "heart").foregroundColor(.black).bold()
+                  }.sheet(isPresented: $showingSheet){
+                      FavoriteSubmitForm(property: property).presentationDetents([.height(250.0)])
                   }
-
               }
               Spacer()
           }.padding(20.0).padding(.trailing, 5.0).zIndex(1)

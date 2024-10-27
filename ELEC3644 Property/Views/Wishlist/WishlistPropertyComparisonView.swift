@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct WishlistPropertyComparisonView: View {
+    @Environment(\.dismiss) private var dismiss
     let property1: Property
     let property2: Property
     
