@@ -20,8 +20,7 @@ class PropertyViewModel: ObservableObject {
 
   func fetchProperties() async {
     do {
-      let fetchedProperties: [Property] = try await apiClient.get(
-        url: URL(string: "https://chat-server.home-nas.xyz/properties")!)
+      let fetchedProperties: [Property] = try await apiClient.get(url: "/properties")
       DispatchQueue.main.async {
         self.properties = fetchedProperties
       }

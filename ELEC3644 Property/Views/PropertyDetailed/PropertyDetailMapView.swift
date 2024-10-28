@@ -10,33 +10,28 @@ import SwiftUI
 
 struct PropertyDetailMapView: View {
   @StateObject var viewModel: PropertyDetailViewModel
+    @State private var showEnlargeMapView = false
 
   var body: some View {
-    VStack {
-      Map(position: $viewModel.position) {
-        Marker("Here!", coordinate: viewModel.location)
-        ForEach(viewModel.places, id: \.self) { place in
-          Marker(
-            place.placemark.name ?? "POI",
-            systemImage: PropertyDetailViewModel.poiIcon(for: place.pointOfInterestCategory),
-            coordinate: place.placemark.coordinate
-          )
+      if !showEnlargeMapView{
+        VStack {
+            MapView(viewModel: viewModel, showEnlargeMapView: $showEnlargeMapView)
+          Divider()
+
+          PropertyDetailNearestListView(title: "Hospitals", category: .hospital, viewModel: viewModel)
+          PropertyDetailNearestListView(title: "Schools", category: .school, viewModel: viewModel)
+          PropertyDetailNearestListView(
+            title: "Restaurants", category: .restaurant, viewModel: viewModel)
+          PropertyDetailNearestListView(
+            title: "Transportations", category: .publicTransport, viewModel: viewModel)
+
+          Divider()
         }
+        .padding(.horizontal, 24)
+        .fullScreenCover(isPresented: $showEnlargeMapView, content:{
+            EnlargeMapView(viewModel: viewModel, showEnlargeMapView: $showEnlargeMapView)
+        })
       }
-      .frame(height: 280)
-
-      Divider()
-
-      PropertyDetailNearestListView(title: "Hospitals", category: .hospital, viewModel: viewModel)
-      PropertyDetailNearestListView(title: "Schools", category: .school, viewModel: viewModel)
-      PropertyDetailNearestListView(
-        title: "Restaurants", category: .restaurant, viewModel: viewModel)
-      PropertyDetailNearestListView(
-        title: "Transportations", category: .publicTransport, viewModel: viewModel)
-
-      Divider()
-    }
-    .padding(.horizontal, 24)
   }
 }
 

@@ -8,10 +8,19 @@
 import SwiftUI
 
 struct ChatView: View {
-  var chat: Chat
+  @ObservedObject var chat: Chat
   var currentUserId: String
+
   @Environment(\.dismiss) private var dismiss
   @State private var newMessage: String = ""
+  @StateObject private var webSocketService: WebSocketService
+
+  init(chat: Chat, currentUserId: String) {
+    self.chat = chat
+    self.currentUserId = currentUserId
+    _webSocketService = StateObject(
+      wrappedValue: WebSocketService(userId: currentUserId, chat: chat))
+  }
 
   var body: some View {
     VStack {
@@ -21,6 +30,7 @@ struct ChatView: View {
           ChatBubble(message: message, isUser: message.senderId == currentUserId)
         }
       }.defaultScrollAnchor(.bottom)
+        .scrollIndicators(.hidden)
 
       HStack {
         TextField("Type a message...", text: $newMessage)
@@ -30,24 +40,42 @@ struct ChatView: View {
           .foregroundColor(.neutral100)
           .cornerRadius(36)
           .frame(maxWidth: .infinity)
-        Image(systemName: "paperplane")
-          .resizable()
-          .scaledToFit()
-          .frame(width: 18, height: 18)
-          .padding(18)
-          .background(.neutral30)
-          .cornerRadius(36)
+
+        Button(action: sendMessage) {
+          Image(systemName: "paperplane")
+            .resizable()
+            .scaledToFit()
+            .frame(width: 18, height: 18)
+            .padding(18)
+            .background(.neutral30)
+            .cornerRadius(36)
+        }
       }.padding(.top, 24)
     }
     .padding(.horizontal, 24)
     .navigationBarBackButtonHidden()
     .toolbar {
       ToolbarItem(placement: .topBarLeading) {
-        Button("Back") {
+        Button(action: {
           dismiss()
-        }.foregroundColor(.primary60)
+        }) {
+          Image(systemName: "chevron.left")
+        }
+      }
+      ToolbarItem(placement: .principal) {
+        Text(chat.user.name)
+          .font(.headline)
+          .fontWeight(.bold)
       }
     }
+  }
+
+  private func sendMessage() {
+    guard !newMessage.isEmpty else { return }
+    let rawMessage =
+      "{\"type\": \"sendMessageToUser\", \"receiverEmail\": \"\(chat.user.email)\", \"content\": \"\(newMessage)\"}"
+    webSocketService.sendMessage(message: nil, rawMessage: rawMessage)
+    newMessage = ""
   }
 }
 
@@ -64,22 +92,10 @@ struct ChatBubble: View {
     .background(isUser ? .primary60 : .neutral40)
     .foregroundColor(isUser ? .neutral10 : .neutral100)
     .cornerRadius(12)
-    .frame(width: 300)
     .frame(maxWidth: .infinity, alignment: isUser ? .trailing : .leading)
   }
 }
 
 #Preview {
-  struct ChatView_Preview: View {
-    @EnvironmentObject var inboxData: InboxViewModel
-    var body: some View {
-      if inboxData.chats.first == nil {
-        Text("Loading...")
-      } else {
-        ChatView(chat: inboxData.chats.first!, currentUserId: inboxData.currentUserId)
-      }
-    }
-  }
-  return ChatView_Preview()
-    .environmentObject(InboxViewModel())
+    ChatView(chat: Mock.Chats.first!, currentUserId: "\(Mock.Chats.first!.user.id)")
 }

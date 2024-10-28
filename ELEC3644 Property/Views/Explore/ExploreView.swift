@@ -12,7 +12,6 @@ struct ExploreView: View {
   @State private var currentMenu: MenuItem? = MenuItem.buy
   @State private var isSearchActive: Bool = false
   @EnvironmentObject private var propertyViewModel: PropertyViewModel
-
   var body: some View {
     VStack {
       VStack {
@@ -49,5 +48,5 @@ struct ExploreView: View {
 }
 
 #Preview {
-  ExploreView().environmentObject(PropertyViewModel())
+    ExploreView().environmentObject(PropertyViewModel()).environmentObject(UserViewModel())
 }

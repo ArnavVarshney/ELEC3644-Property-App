@@ -2,55 +2,93 @@
 //  WebSocketService.swift
 //  ELEC3644 Property
 //
-//  Created by Filbert Tejalaksana on 22/10/2024.
+//  Created by Arnav Varshney on 27/10/2024.
 //
 
-import Foundation
+import Combine
+import SwiftUI
 
 class WebSocketService: ObservableObject {
-  private var webSocket: URLSessionWebSocketTask?
-  @Published var isConnected = false
-  var onReceive: ((String) -> Void)?
+  private var webSocketTask: URLSessionWebSocketTask?
+  private var cancellables = Set<AnyCancellable>()
+  var chat: Chat
+  var userId: String
 
-  func connect() {
-    let url = URL(string: "ws://chat-server.home-nas.xyz")!
-    let request = URLRequest(url: url)
-    let session = URLSession(configuration: .default)
-    webSocket = session.webSocketTask(with: request)
-    webSocket?.resume()
-    isConnected = true
-    receiveMessage()
+  init(userId: String, chat: Chat) {
+    self.chat = chat
+    self.userId = userId
+    connect(userId: userId)
   }
 
-  func disconnect() {
-    webSocket?.cancel(with: .normalClosure, reason: nil)
-    isConnected = false
+  func connect(userId: String) {
+    guard let url = URL(string: "wss://chat-server.home-nas.xyz/") else { return }
+    webSocketTask = URLSession.shared.webSocketTask(with: url)
+    receiveMessages()
+    let rawMessage = "{\"type\": \"setUser\", \"userId\": \"\(userId)\"}"
+    webSocketTask?.resume()
+    sendMessage(message: nil, rawMessage: rawMessage)
   }
 
-  private func receiveMessage() {
-    webSocket?.receive { [weak self] result in
+  func sendMessage(message: Message?, rawMessage: String?) {
+    if let message = message {
+      let messageData = try? JSONEncoder().encode(message)
+      let webSocketMessage = URLSessionWebSocketTask.Message.data(messageData!)
+      webSocketTask?.send(webSocketMessage) { error in
+        if let error = error {
+          print("WebSocket send error: \(error)")
+        }
+      }
+    } else if let rawMessage = rawMessage {
+      let webSocketMessage = URLSessionWebSocketTask.Message.string(rawMessage)
+      webSocketTask?.send(webSocketMessage) { error in
+        if let error = error {
+          print("WebSocket send error: \(error)")
+        }
+      }
+    }
+  }
+
+  private func receiveMessages() {
+    webSocketTask?.receive { [weak self] result in
       switch result {
+      case .failure(let error):
+        print("WebSocket receive error: \(error)")
       case .success(let message):
         switch message {
         case .string(let text):
-          DispatchQueue.main.async {
-            self?.onReceive?(text)
+          if let data = text.data(using: .utf8),
+            let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
+            let jsonDict = jsonObject as? [String: Any]
+          {
+            DispatchQueue.main.async {
+              if jsonDict["type"] as? String == "messageSent" {
+                let df = DateFormatter()
+                df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+                if let timestampString = jsonDict["timestamp"] as? String,
+                  let timestamp = df.date(from: timestampString)
+                {
+                  self?.chat.messages.append(
+                    Message(
+                      id: UUID(uuidString: jsonDict["id"] as! String)!,
+                      timestamp: timestamp,
+                      senderId: self?.userId ?? "",
+                      receiverId: jsonDict["receiverId"] as! String,
+                      content: jsonDict["content"] as! String
+                    )
+                  )
+                }
+              }
+            }
           }
         default:
           break
         }
-        self?.receiveMessage()
-      case .failure(let error):
-        print("WebSocket receive error: \(error)")
+        self?.receiveMessages()
       }
     }
   }
 
-  func send(_ message: String) {
-    webSocket?.send(.string(message)) { error in
-      if let error = error {
-        print("WebSocket send error: \(error)")
-      }
-    }
+  deinit {
+    webSocketTask?.cancel(with: .goingAway, reason: nil)
   }
 }

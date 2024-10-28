@@ -20,16 +20,17 @@ struct PropertyDetailView: View {
   var body: some View {
     VStack {
       ScrollView {
-        PropertyImageView()
+          ImageCarouselView(imageUrls: self.property.imageUrls, cornerRadius: 0, property: property)
         PropertyDetailListView(viewModel: viewModel)
         PropertyDetailMapView(viewModel: viewModel)
         PropertyDetailGraphView(viewModel: viewModel)
-        Spacer()
       }
-      .ignoresSafeArea()
+      Spacer()
       PropertyDetailBottomBarView(viewModel: viewModel)
+        .padding(.bottom, 8)
     }
     .backButton()
+    .ignoresSafeArea()
     .toolbarBackground(.hidden, for: .navigationBar)
   }
 }
@@ -39,6 +40,7 @@ struct PropertyDetailView: View {
     @EnvironmentObject var propertyViewModel: PropertyViewModel
     var body: some View {
       PropertyDetailView(property: Mock.Properties[0])
+            .environmentObject(UserViewModel())
     }
   }
   return PropertyDetail_Preview()

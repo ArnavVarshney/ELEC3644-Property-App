@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct BottomNavigationView: View {
+    
   var body: some View {
     TabView {
       ExploreView()
@@ -45,7 +46,7 @@ struct BottomNavigationView: View {
   struct MenuItemList_Preview: View {
     var body: some View {
       BottomNavigationView()
-        .environmentObject(UserViewModel())
+        .environmentObject(UserViewModel(user: Mock.Users[0]))
         .environmentObject(PropertyViewModel())
         .environmentObject(InboxViewModel())
     }

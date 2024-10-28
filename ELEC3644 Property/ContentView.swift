@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    
   var body: some View {
     NavigationView {
       ZStack {
@@ -17,21 +18,6 @@ struct ContentView: View {
     }
     .environmentObject(PropertyViewModel())
     .environmentObject(UserViewModel())
-  }
-}
-
-struct WishlistsView: View {
-  var body: some View {
-    Text("Wishlists View")
-      .font(.largeTitle)
-      .padding()
-      .navigationTitle("Wishlists")
-  }
-}
-
-struct TripsView: View {
-  var body: some View {
-      ProfileDetailedLookaroundView()
   }
 }
 

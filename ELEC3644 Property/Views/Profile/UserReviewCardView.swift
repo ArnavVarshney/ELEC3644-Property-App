@@ -33,7 +33,7 @@ struct UserReviewCardView: View {
       .frame(maxWidth: .infinity, alignment: .leading)
     }
     .padding(.all, 12)
-    .frame(width: 200, height: 310)
+    .frame(width: 300, height: 200)
     .background(.neutral10)
     .overlay(
       RoundedRectangle(cornerRadius: 12).inset(by: 1)
