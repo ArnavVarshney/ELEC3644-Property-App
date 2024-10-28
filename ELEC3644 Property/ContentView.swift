@@ -9,19 +9,19 @@ import SwiftUI
 
 struct ContentView: View {
 
-  var body: some View {
-    NavigationView {
-      ZStack {
-        BottomNavigationView()
-      }
-      .ignoresSafeArea(.keyboard, edges: .bottom)
+    var body: some View {
+        NavigationView {
+            ZStack {
+                BottomNavigationView()
+            }
+            .ignoresSafeArea(.keyboard, edges: .bottom)
+        }
     }
-  }
 }
 
 #Preview {
-  ContentView()
-    .environmentObject(InboxViewModel())
-    .environmentObject(PropertyViewModel())
-    .environmentObject(UserViewModel())
+    ContentView()
+        .environmentObject(InboxViewModel())
+        .environmentObject(PropertyViewModel())
+        .environmentObject(UserViewModel())
 }

@@ -9,44 +9,44 @@ import SwiftUI
 
 struct BottomNavigationView: View {
 
-  var body: some View {
-    TabView {
-      ExploreView()
-        .tabItem {
-          Label("Explore", systemImage: "magnifyingglass")
+    var body: some View {
+        TabView {
+            ExploreView()
+                .tabItem {
+                    Label("Explore", systemImage: "magnifyingglass")
+                }
+            WishlistsView()
+                .tabItem {
+                    Label("Wishlists", systemImage: "heart.fill")
+                }
+            InboxView()
+                .tabItem {
+                    Label("Inbox", systemImage: "envelope")
+                }
+            ProfileView()
+                .tabItem {
+                    Label("Profile", systemImage: "person")
+                }
         }
-      WishlistsView()
-        .tabItem {
-          Label("Wishlists", systemImage: "heart.fill")
+        .onAppear {
+            let appearance = UITabBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            UITabBar.appearance().standardAppearance = appearance
+            UITabBar.appearance().scrollEdgeAppearance = appearance
         }
-      InboxView()
-        .tabItem {
-          Label("Inbox", systemImage: "envelope")
-        }
-      ProfileView()
-        .tabItem {
-          Label("Profile", systemImage: "person")
-        }
+        .tint(.black)
     }
-    .onAppear {
-      let appearance = UITabBarAppearance()
-      appearance.configureWithOpaqueBackground()
-      UITabBar.appearance().standardAppearance = appearance
-      UITabBar.appearance().scrollEdgeAppearance = appearance
-    }
-    .tint(.black)
-  }
 }
 
 #Preview {
-  struct MenuItemList_Preview: View {
-    var body: some View {
-      BottomNavigationView()
-        .environmentObject(UserViewModel(user: Mock.Users[0]))
-        .environmentObject(PropertyViewModel())
-        .environmentObject(InboxViewModel())
+    struct MenuItemList_Preview: View {
+        var body: some View {
+            BottomNavigationView()
+                .environmentObject(UserViewModel(user: Mock.Users[0]))
+                .environmentObject(PropertyViewModel())
+                .environmentObject(InboxViewModel())
+        }
     }
-  }
 
-  return MenuItemList_Preview()
+    return MenuItemList_Preview()
 }

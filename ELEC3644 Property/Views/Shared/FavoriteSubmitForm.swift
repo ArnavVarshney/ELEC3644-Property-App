@@ -8,39 +8,42 @@
 import SwiftUI
 
 struct FavoriteSubmitForm: View {
-  @EnvironmentObject var userViewModel: UserViewModel
-  @Environment(\.dismiss) private var dismiss
-  @State var albumName: String = ""
-  let property: Property
+    @EnvironmentObject var userViewModel: UserViewModel
+    @Environment(\.dismiss) private var dismiss
+    @State var albumName: String = ""
+    let property: Property
 
-  var body: some View {
-    Form {
-      Section(header: Text("Enter album name")) {
-        TextField("Pick an album name", text: $albumName)
-      }
-      Button {
-        let temp = albumName == "" ? "Default" : albumName
-        let idxs = userViewModel.user.wishlists.enumerated().map({ $1.name == temp ? $0 : -1 })
-          .filter({ $0 != -1 })
-        if idxs.isEmpty {
-          userViewModel.user.wishlists.append(Wishlist(name: temp, properties: [property]))
-        } else {
-          let idx = idxs[0]
-          userViewModel.user.wishlists[idx].properties.append(property)
-        }
-        dismiss()
-      } label: {
-        HStack {
-          Spacer()
-          Text("Save").foregroundStyle(.blue)
-          Spacer()
-        }
-      }
+    var body: some View {
+        Form {
+            Section(header: Text("Enter album name")) {
+                TextField("Pick an album name", text: $albumName)
+            }
+            Button {
+                let temp = albumName == "" ? "Default" : albumName
+                let idxs = userViewModel.user.wishlists.enumerated().map({
+                    $1.name == temp ? $0 : -1
+                })
+                .filter({ $0 != -1 })
+                if idxs.isEmpty {
+                    userViewModel.user.wishlists.append(
+                        Wishlist(name: temp, properties: [property]))
+                } else {
+                    let idx = idxs[0]
+                    userViewModel.user.wishlists[idx].properties.append(property)
+                }
+                dismiss()
+            } label: {
+                HStack {
+                    Spacer()
+                    Text("Save").foregroundStyle(.blue)
+                    Spacer()
+                }
+            }
 
+        }
     }
-  }
 }
 
 #Preview {
-  FavoriteSubmitForm(property: Mock.Properties[0]).environmentObject(UserViewModel())
+    FavoriteSubmitForm(property: Mock.Properties[0]).environmentObject(UserViewModel())
 }

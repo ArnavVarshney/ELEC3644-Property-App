@@ -9,47 +9,47 @@ import Charts
 import SwiftUI
 
 struct PropertyDetailGraphView: View {
-  @StateObject var viewModel: PropertyDetailViewModel
+    @StateObject var viewModel: PropertyDetailViewModel
 
-  var body: some View {
-    VStack(alignment: .leading) {
-      Text("Transaction History")
-        .font(.system(size: 24, weight: .medium))
-        .foregroundColor(.neutral100)
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text("Transaction History")
+                .font(.system(size: 24, weight: .medium))
+                .foregroundColor(.neutral100)
 
-      Chart {
-        ForEach(viewModel.transactions) { transaction in
-          LineMark(
-            x: .value("Date", transaction.date, unit: .month),
-            y: .value("Price (HKD)", transaction.price)
-          )
+            Chart {
+                ForEach(viewModel.transactions) { transaction in
+                    LineMark(
+                        x: .value("Date", transaction.date, unit: .month),
+                        y: .value("Price (HKD)", transaction.price)
+                    )
+                }
+            }
+            .chartXAxisLabel("Month", position: .bottom, alignment: .center)
+            .chartYAxisLabel("Price (HKD)", position: .leading, alignment: .center)
+            .foregroundStyle(.primary60)
+            .frame(height: 200)
         }
-      }
-      .chartXAxisLabel("Month", position: .bottom, alignment: .center)
-      .chartYAxisLabel("Price (HKD)", position: .leading, alignment: .center)
-      .foregroundStyle(.primary60)
-      .frame(height: 200)
+        .padding(.horizontal, 24)
     }
-    .padding(.horizontal, 24)
-  }
 }
 
 #Preview {
-  struct PropertyDetailGraphView_Preview: View {
-    @StateObject var propertyViewModel = PropertyViewModel()
-    @StateObject var propertyDetailViewModel: PropertyDetailViewModel
+    struct PropertyDetailGraphView_Preview: View {
+        @StateObject var propertyViewModel = PropertyViewModel()
+        @StateObject var propertyDetailViewModel: PropertyDetailViewModel
 
-    init() {
-      self._propertyDetailViewModel = StateObject(
-        wrappedValue: PropertyDetailViewModel(property: Mock.Properties[0]))
+        init() {
+            self._propertyDetailViewModel = StateObject(
+                wrappedValue: PropertyDetailViewModel(property: Mock.Properties[0]))
+        }
+
+        var body: some View {
+            PropertyDetailGraphView(
+                viewModel: propertyDetailViewModel
+            ).environmentObject(propertyViewModel)
+        }
     }
 
-    var body: some View {
-      PropertyDetailGraphView(
-        viewModel: propertyDetailViewModel
-      ).environmentObject(propertyViewModel)
-    }
-  }
-
-  return PropertyDetailGraphView_Preview()
+    return PropertyDetailGraphView_Preview()
 }

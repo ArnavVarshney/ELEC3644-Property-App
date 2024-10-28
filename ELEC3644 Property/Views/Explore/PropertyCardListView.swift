@@ -8,29 +8,29 @@
 import SwiftUI
 
 struct PropertyCardListView: View {
-  let properties: [Property]
+    let properties: [Property]
 
-  var body: some View {
-    ScrollView(showsIndicators: false) {
-      LazyVStack {
-        ForEach(properties) { property in
-          NavigationLink(destination: PropertyDetailView(property: property)) {
-            PropertyCardView(property: property)
-          }
+    var body: some View {
+        ScrollView(showsIndicators: false) {
+            LazyVStack {
+                ForEach(properties) { property in
+                    NavigationLink(destination: PropertyDetailView(property: property)) {
+                        PropertyCardView(property: property)
+                    }
+                }
+            }
         }
-      }
     }
-  }
 }
 
 #Preview {
-  struct PropertyCardListView_Preview: View {
-    @EnvironmentObject var viewModel: PropertyViewModel
-    var body: some View {
-      PropertyCardListView(properties: Mock.Properties)
-        .environmentObject(UserViewModel())
+    struct PropertyCardListView_Preview: View {
+        @EnvironmentObject var viewModel: PropertyViewModel
+        var body: some View {
+            PropertyCardListView(properties: Mock.Properties)
+                .environmentObject(UserViewModel())
+        }
     }
-  }
-  return PropertyCardListView_Preview()
-    .environmentObject(PropertyViewModel())
+    return PropertyCardListView_Preview()
+        .environmentObject(PropertyViewModel())
 }
