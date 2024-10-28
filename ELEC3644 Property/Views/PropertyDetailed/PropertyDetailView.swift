@@ -23,7 +23,7 @@ struct PropertyDetailView: View {
         ImageCarouselView(imageUrls: self.property.imageUrls, cornerRadius: 0, property: property)
         PropertyDetailListView(viewModel: viewModel)
         PropertyDetailMapView()
-              .environmentObject(viewModel)
+          .environmentObject(viewModel)
         PropertyDetailGraphView(viewModel: viewModel)
       }
       Spacer()

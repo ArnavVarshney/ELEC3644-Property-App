@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var inboxData = InboxViewModel()
-    @StateObject var userData = UserViewModel()
-    @StateObject var propertyData = PropertyViewModel()
+  @StateObject var inboxData = InboxViewModel()
+  @StateObject var userData = UserViewModel()
+  @StateObject var propertyData = PropertyViewModel()
   var body: some View {
     NavigationView {
       ZStack {

@@ -9,14 +9,14 @@ import MapKit
 import SwiftUI
 
 struct PropertyDetailMapView: View {
-    @EnvironmentObject var viewModel: PropertyDetailViewModel
+  @EnvironmentObject var viewModel: PropertyDetailViewModel
   @State private var showEnlargeMapView = false
 
   var body: some View {
-      VStack {
-        MapView(showEnlargeMapView: $showEnlargeMapView)
-              .environmentObject(viewModel)
-        Divider()
+    VStack {
+      MapView(showEnlargeMapView: $showEnlargeMapView)
+        .environmentObject(viewModel)
+      Divider()
 
       PropertyDetailNearestListView(title: "Hospitals", category: .hospital, viewModel: viewModel)
       PropertyDetailNearestListView(title: "Schools", category: .school, viewModel: viewModel)
@@ -32,7 +32,7 @@ struct PropertyDetailMapView: View {
       isPresented: $showEnlargeMapView,
       content: {
         EnlargeMapView(showEnlargeMapView: $showEnlargeMapView)
-              .environmentObject(viewModel)
+          .environmentObject(viewModel)
       })
   }
 }
