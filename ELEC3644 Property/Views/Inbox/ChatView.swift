@@ -28,14 +28,14 @@ struct ChatView: View {
         Spacer()
         ForEach(chat.messages) { message in
           ChatBubble(message: message, isUser: message.senderId == currentUserId)
-            let _ = print(message)
+          let _ = print(message)
         }
       }.defaultScrollAnchor(.bottom)
         .scrollIndicators(.hidden)
 
-        HStack(alignment:.bottom) {
-          TextField("Type a message...", text: $newMessage, axis:.vertical)
-              .lineLimit(4)
+      HStack(alignment: .bottom) {
+        TextField("Type a message...", text: $newMessage, axis: .vertical)
+          .lineLimit(4)
           .frame(minHeight: 30)
           .padding(12)
           .background(.neutral30)
