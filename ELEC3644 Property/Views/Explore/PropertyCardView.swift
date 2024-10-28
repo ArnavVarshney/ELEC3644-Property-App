@@ -20,7 +20,7 @@ struct PropertyCardView: View {
 
   var body: some View {
     VStack(spacing: 8) {
-        ImageCarouselView(imageUrls: self.property.imageUrls, property: property)
+      ImageCarouselView(imageUrls: self.property.imageUrls, property: property)
 
       HStack(alignment: .top) {
         VStack(alignment: .leading) {

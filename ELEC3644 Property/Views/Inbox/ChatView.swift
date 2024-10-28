@@ -73,7 +73,7 @@ struct ChatView: View {
   private func sendMessage() {
     guard !newMessage.isEmpty else { return }
     let rawMessage =
-      "{\"type\": \"sendMessageToUser\", \"receiverEmail\": \"\(chat.user.email)\", \"content\": \"\(newMessage)\"}"
+      "{\"type\": \"sendMessageToUser\",\"content\": \"\(newMessage)\",\"receiverId\": \"\(chat.user.id.uuidString.lowercased())\",\"receiverEmail\": \"\(chat.user.email)\"}"
     webSocketService.sendMessage(message: nil, rawMessage: rawMessage)
     newMessage = ""
   }
@@ -97,5 +97,5 @@ struct ChatBubble: View {
 }
 
 #Preview {
-    ChatView(chat: Mock.Chats.first!, currentUserId: "\(Mock.Chats.first!.user.id)")
+  ChatView(chat: Mock.Chats.first!, currentUserId: "\(Mock.Chats.first!.user.id)")
 }

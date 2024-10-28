@@ -66,7 +66,7 @@ enum Mock {
       transactionHistory: [
         Transaction(date: Date(), price: 7_500_000)
       ]
-    )
+    ),
   ]
 
   static var Chats: [Chat] = [

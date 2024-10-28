@@ -39,6 +39,7 @@ class WebSocketService: ObservableObject {
         }
       }
     } else if let rawMessage = rawMessage {
+      print("[DEBUG] Sending raw message...:\(rawMessage)")
       let webSocketMessage = URLSessionWebSocketTask.Message.string(rawMessage)
       webSocketTask?.send(webSocketMessage) { error in
         if let error = error {
@@ -61,7 +62,12 @@ class WebSocketService: ObservableObject {
             let jsonDict = jsonObject as? [String: Any]
           {
             DispatchQueue.main.async {
-              if jsonDict["type"] as? String == "messageSent" {
+              switch jsonDict["type"] as? String {
+              case "messageSent":
+                print("[DEBUG - WS] Message Sent")
+                print(
+                  "[DEBUG] New Message: [\nType: \(jsonDict["type"])\nSenderID: \(jsonDict["senderId"])\nReceiverID: \(jsonDict["receiverId"])\nContent: \(jsonDict["content"])\n]"
+                )
                 let df = DateFormatter()
                 df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
                 if let timestampString = jsonDict["timestamp"] as? String,
@@ -71,12 +77,38 @@ class WebSocketService: ObservableObject {
                     Message(
                       id: UUID(uuidString: jsonDict["id"] as! String)!,
                       timestamp: timestamp,
-                      senderId: self?.userId ?? "",
+                      senderId: jsonDict["receiverId"] as! String,
                       receiverId: jsonDict["receiverId"] as! String,
                       content: jsonDict["content"] as! String
                     )
                   )
                 }
+              case "newMessage":
+                print("[DEBUG - WS] New Message")
+                print(
+                  "[DEBUG] New Message: [\nType: \(jsonDict["type"])\nSenderID: \(jsonDict["senderId"])\nReceiverID: \(jsonDict["receiverId"])\nContent: \(jsonDict["content"])\n]"
+                )
+                let df = DateFormatter()
+                df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+                if let timestampString = jsonDict["timestamp"] as? String,
+                  let timestamp = df.date(from: timestampString)
+                {
+                  self?.chat.messages.append(
+                    Message(
+                      id: UUID(uuidString: jsonDict["id"] as! String)!,
+                      timestamp: timestamp,
+                      senderId: jsonDict["receiverId"] as! String,
+                      receiverId: jsonDict["receiverId"] as! String,
+                      content: jsonDict["content"] as! String
+                    )
+                  )
+                }
+              case "connected":
+                print("[DEBUG - WS] WebSocket connected")
+              case "userSet":
+                print("[DEBUG - WS] User set successfully")
+              default:
+                print("[DEBUG - WS] Unknown message type: \(jsonDict["type"] ?? Error.self)")
               }
             }
           }

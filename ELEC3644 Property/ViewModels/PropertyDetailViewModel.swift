@@ -16,7 +16,7 @@ class PropertyDetailViewModel: ObservableObject {
       latitudinalMeters: 1000,
       longitudinalMeters: 1000
     ))
-  @Published var places: [MKMapItem] = []  //array storing 
+  @Published var places: [MKMapItem] = []  //array storing
   @Published var property: Property
   @Published var transactions: [Transaction]
 
@@ -54,7 +54,7 @@ class PropertyDetailViewModel: ObservableObject {
         latitudinalMeters: 1000,
         longitudinalMeters: 1000
       )
-      let search = MKLocalSearch(request: request) //search is like a list or collection
+      let search = MKLocalSearch(request: request)  //search is like a list or collection
       search.start { response, _ in
         if let response = response {
           self.places += response.mapItems
@@ -200,7 +200,7 @@ class PropertyDetailViewModel: ObservableObject {
 //        currentLocation: CLLocationCoordinate2D,
 //        places: [MKMapItem]
 //    ) -> [MKMapItem] {
-//        
+//
 //        // Filter and sort in one go using compactMap
 //        let sortedPlaces = places.compactMap { item -> (item: MKMapItem, distance: CLLocationDistance)? in
 //            guard item.pointOfInterestCategory == category else { return nil }

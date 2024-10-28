@@ -20,7 +20,7 @@ struct PropertyDetailView: View {
   var body: some View {
     VStack {
       ScrollView {
-          ImageCarouselView(imageUrls: self.property.imageUrls, cornerRadius: 0, property: property)
+        ImageCarouselView(imageUrls: self.property.imageUrls, cornerRadius: 0, property: property)
         PropertyDetailListView(viewModel: viewModel)
         PropertyDetailMapView(viewModel: viewModel)
         PropertyDetailGraphView(viewModel: viewModel)
@@ -40,7 +40,7 @@ struct PropertyDetailView: View {
     @EnvironmentObject var propertyViewModel: PropertyViewModel
     var body: some View {
       PropertyDetailView(property: Mock.Properties[0])
-            .environmentObject(UserViewModel())
+        .environmentObject(UserViewModel())
     }
   }
   return PropertyDetail_Preview()

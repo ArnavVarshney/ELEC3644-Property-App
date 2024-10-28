@@ -48,5 +48,5 @@ struct ExploreView: View {
 }
 
 #Preview {
-    ExploreView().environmentObject(PropertyViewModel()).environmentObject(UserViewModel())
+  ExploreView().environmentObject(PropertyViewModel()).environmentObject(UserViewModel())
 }

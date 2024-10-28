@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BottomNavigationView: View {
-    
+
   var body: some View {
     TabView {
       ExploreView()
