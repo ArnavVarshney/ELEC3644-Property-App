@@ -14,24 +14,26 @@ struct PropertyDetailMapView: View {
 
   var body: some View {
 
-      VStack {
-        MapView(viewModel: viewModel, showEnlargeMapView: $showEnlargeMapView)
-        Divider()
+    VStack {
+      MapView(viewModel: viewModel, showEnlargeMapView: $showEnlargeMapView)
+      Divider()
 
-        PropertyDetailNearestListView(title: "Hospitals", category: .hospital, viewModel: viewModel)
-        PropertyDetailNearestListView(title: "Schools", category: .school, viewModel: viewModel)
-        PropertyDetailNearestListView(
-          title: "Restaurants", category: .restaurant, viewModel: viewModel)
-        PropertyDetailNearestListView(
-          title: "Transportations", category: .publicTransport, viewModel: viewModel)
+      PropertyDetailNearestListView(title: "Hospitals", category: .hospital, viewModel: viewModel)
+      PropertyDetailNearestListView(title: "Schools", category: .school, viewModel: viewModel)
+      PropertyDetailNearestListView(
+        title: "Restaurants", category: .restaurant, viewModel: viewModel)
+      PropertyDetailNearestListView(
+        title: "Transportations", category: .publicTransport, viewModel: viewModel)
 
-        Divider()
-      }
-      .padding(.horizontal, 24)
-        .fullScreenCover(isPresented: $showEnlargeMapView, content: {
-            EnlargeMapView(viewModel: viewModel, showEnlargeMapView: $showEnlargeMapView)
-          })
-    
+      Divider()
+    }
+    .padding(.horizontal, 24)
+    .fullScreenCover(
+      isPresented: $showEnlargeMapView,
+      content: {
+        EnlargeMapView(viewModel: viewModel, showEnlargeMapView: $showEnlargeMapView)
+      })
+
   }
 }
 
