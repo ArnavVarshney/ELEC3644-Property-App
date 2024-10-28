@@ -88,23 +88,18 @@ struct EnlargeMapView: View {
   }
 }
 
-#Preview {
-  struct EnlargeMapView_Preview: View {
-    @StateObject var propertyViewModel = PropertyViewModel()
-    @StateObject var propertyDetailViewModel: PropertyDetailViewModel
-    @Binding var showEnlargeMapView: Bool
+#Preview{
+    struct EnlargeMapView_Preview: View {
+        @StateObject var propertyViewModel = PropertyViewModel()
+        @StateObject var propertyDetailViewModel = PropertyDetailViewModel(property: Mock.Properties[0])
+        @State private var showEnlargeMapView = false
 
-    init() {
-      self._propertyDetailViewModel = StateObject(
-        wrappedValue: PropertyDetailViewModel(property: Mock.Properties[0]))
+        var body: some View {
+            EnlargeMapView(showEnlargeMapView: $showEnlargeMapView)
+                .environmentObject(propertyViewModel)
+        }
     }
 
-    var body: some View {
-      EnlargeMapView(
-        showEnlargeMapView: $showEnlargeMapView
-      ).environmentObject(propertyViewModel)
-    }
-  }
-
-  return EnlargeMapView_Preview()
+    return EnlargeMapView_Preview()
 }
+
