@@ -97,6 +97,7 @@ class UserViewModel: ObservableObject {
     }
 
     let decoder = JSONDecoder()
+      
     return try decoder.decode(User.self, from: data)
   }
 

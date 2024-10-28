@@ -11,12 +11,14 @@ import SwiftUI
 struct ELEC3644_Property_App: App {
   @StateObject var inboxData = InboxViewModel()
   @StateObject var userData = UserViewModel()
+    @StateObject var propertyData = PropertyViewModel()
 
   var body: some Scene {
     WindowGroup {
       ContentView()
         .environmentObject(inboxData)
         .environmentObject(userData)
+        .environmentObject(propertyData)
     }
   }
 }

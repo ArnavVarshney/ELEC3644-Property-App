@@ -5,12 +5,10 @@
 //  Created by Arnav Varshney on 27/10/2024.
 //
 
-import Combine
 import SwiftUI
 
 class WebSocketService: ObservableObject {
   private var webSocketTask: URLSessionWebSocketTask?
-  private var cancellables = Set<AnyCancellable>()
   var chat: Chat
   var userId: String
 
@@ -63,26 +61,6 @@ class WebSocketService: ObservableObject {
           {
             DispatchQueue.main.async {
               switch jsonDict["type"] as? String {
-              case "messageSent":
-                print("[DEBUG - WS] Message Sent")
-                print(
-                  "[DEBUG] New Message: [\nType: \(jsonDict["type"])\nSenderID: \(jsonDict["senderId"])\nReceiverID: \(jsonDict["receiverId"])\nContent: \(jsonDict["content"])\n]"
-                )
-                let df = DateFormatter()
-                df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-                if let timestampString = jsonDict["timestamp"] as? String,
-                  let timestamp = df.date(from: timestampString)
-                {
-                  self?.chat.messages.append(
-                    Message(
-                      id: UUID(uuidString: jsonDict["id"] as! String)!,
-                      timestamp: timestamp,
-                      senderId: jsonDict["receiverId"] as! String,
-                      receiverId: jsonDict["receiverId"] as! String,
-                      content: jsonDict["content"] as! String
-                    )
-                  )
-                }
               case "newMessage":
                 print("[DEBUG - WS] New Message")
                 print(
@@ -97,7 +75,7 @@ class WebSocketService: ObservableObject {
                     Message(
                       id: UUID(uuidString: jsonDict["id"] as! String)!,
                       timestamp: timestamp,
-                      senderId: jsonDict["receiverId"] as! String,
+                      senderId: jsonDict["senderId"] as! String,
                       receiverId: jsonDict["receiverId"] as! String,
                       content: jsonDict["content"] as! String
                     )

@@ -19,10 +19,6 @@ struct BottomNavigationView: View {
         .tabItem {
           Label("Wishlists", systemImage: "heart.fill")
         }
-      TripsView()
-        .tabItem {
-          Label("Trips", systemImage: "airplane")
-        }
       InboxView()
         .tabItem {
           Label("Inbox", systemImage: "envelope")

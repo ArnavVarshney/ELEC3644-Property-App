@@ -16,8 +16,6 @@ struct ContentView: View {
       }
       .ignoresSafeArea(.keyboard, edges: .bottom)
     }
-    .environmentObject(PropertyViewModel())
-    .environmentObject(UserViewModel())
   }
 }
 

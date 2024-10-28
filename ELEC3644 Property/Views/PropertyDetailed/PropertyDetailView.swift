@@ -24,6 +24,7 @@ struct PropertyDetailView: View {
         PropertyDetailListView(viewModel: viewModel)
         PropertyDetailMapView(viewModel: viewModel)
         PropertyDetailGraphView(viewModel: viewModel)
+          ProfileDetailedLookaroundView()
       }
       Spacer()
       PropertyDetailBottomBarView(viewModel: viewModel)
