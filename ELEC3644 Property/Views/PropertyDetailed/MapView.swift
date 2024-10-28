@@ -10,7 +10,7 @@ import MapKit
 import SwiftUI
 
 struct MapView: View {
-  @StateObject var viewModel: PropertyDetailViewModel
+    @EnvironmentObject var viewModel: PropertyDetailViewModel
   @Binding var showEnlargeMapView: Bool
   //@State private var pressedPriceTag = false
   var body: some View {
@@ -58,21 +58,21 @@ struct MapView: View {
 }
 
 #Preview {
-//      struct MapView_Preview: View {
-//        @StateObject var propertyViewModel = PropertyViewModel()
-//        @StateObject var propertyDetailViewModel: PropertyDetailViewModel
-//  
-//        init() {
-//          self._propertyDetailViewModel = StateObject(
-//            wrappedValue: PropertyDetailViewModel(property: Mock.Properties[0]))
-//        }
-//  
-//        var body: some View {
-//            MapView(
-//            viewModel: propertyDetailViewModel
-//          ).environmentObject(propertyViewModel)
-//        }
-//      }
-//  
-//    return MapView_Preview(PropertyDetailMapView(viewModel: propertyDetailViewModel))
+        struct MapView_Preview: View {
+          @StateObject var propertyViewModel = PropertyViewModel()
+          @StateObject var propertyDetailViewModel: PropertyDetailViewModel
+          @State private var showEnlargeMapView = false
+    
+          init() {
+            self._propertyDetailViewModel = StateObject(
+              wrappedValue: PropertyDetailViewModel(property: Mock.Properties[0]))
+          }
+    
+          var body: some View {
+              MapView(showEnlargeMapView: $showEnlargeMapView)
+                    .environmentObject(propertyDetailViewModel)
+          }
+        }
+    
+        return MapView_Preview()
 }

@@ -22,7 +22,8 @@ struct PropertyDetailView: View {
       ScrollView {
         ImageCarouselView(imageUrls: self.property.imageUrls, cornerRadius: 0, property: property)
         PropertyDetailListView(viewModel: viewModel)
-        PropertyDetailMapView(viewModel: viewModel)
+        PropertyDetailMapView()
+              .environmentObject(viewModel)
         PropertyDetailGraphView(viewModel: viewModel)
       }
       Spacer()

@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
-
+    @StateObject var inboxData = InboxViewModel()
+    @StateObject var userData = UserViewModel()
+    @StateObject var propertyData = PropertyViewModel()
   var body: some View {
     NavigationView {
       ZStack {
@@ -16,8 +18,8 @@ struct ContentView: View {
       }
       .ignoresSafeArea(.keyboard, edges: .bottom)
     }
-    .environmentObject(PropertyViewModel())
-    .environmentObject(UserViewModel())
+    .environmentObject(propertyData)
+    .environmentObject(userData)
   }
 }
 

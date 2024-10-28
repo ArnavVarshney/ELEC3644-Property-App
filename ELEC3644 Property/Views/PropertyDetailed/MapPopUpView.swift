@@ -60,15 +60,16 @@ struct MapPopUpView: View {
       .cornerRadius(20)  // Rounded corners for the pop-up
       .shadow(radius: 10)  // Shadow for depth
     }
-    .edgesIgnoringSafeArea(.all)  // Ignore safe area to allow full-width pop-up
+    //.edgesIgnoringSafeArea(.all)  // Ignore safe area to allow full-width pop-up
   }
 }
+
 #Preview {
   struct MapPopUp_Preview: View {
     @EnvironmentObject var propertyViewModel: PropertyViewModel
 
     var body: some View {
-      PropertyCardView(property: Mock.Properties[0])
+        MapPopUpView(property: Mock.Properties[0])
     }
   }
 
