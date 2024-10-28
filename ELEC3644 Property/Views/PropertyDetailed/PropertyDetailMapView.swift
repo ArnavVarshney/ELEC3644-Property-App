@@ -13,27 +13,27 @@ struct PropertyDetailMapView: View {
   @State private var showEnlargeMapView = false
 
   var body: some View {
-
       VStack {
         MapView(showEnlargeMapView: $showEnlargeMapView)
               .environmentObject(viewModel)
         Divider()
 
-        PropertyDetailNearestListView(title: "Hospitals", category: .hospital, viewModel: viewModel)
-        PropertyDetailNearestListView(title: "Schools", category: .school, viewModel: viewModel)
-        PropertyDetailNearestListView(
-          title: "Restaurants", category: .restaurant, viewModel: viewModel)
-        PropertyDetailNearestListView(
-          title: "Transportations", category: .publicTransport, viewModel: viewModel)
+      PropertyDetailNearestListView(title: "Hospitals", category: .hospital, viewModel: viewModel)
+      PropertyDetailNearestListView(title: "Schools", category: .school, viewModel: viewModel)
+      PropertyDetailNearestListView(
+        title: "Restaurants", category: .restaurant, viewModel: viewModel)
+      PropertyDetailNearestListView(
+        title: "Transportations", category: .publicTransport, viewModel: viewModel)
 
-        Divider()
-      }
-      .padding(.horizontal, 24)
-        .fullScreenCover(isPresented: $showEnlargeMapView, content: {
-            EnlargeMapView(showEnlargeMapView: $showEnlargeMapView)
-                .environmentObject(viewModel)
-          })
-    
+      Divider()
+    }
+    .padding(.horizontal, 24)
+    .fullScreenCover(
+      isPresented: $showEnlargeMapView,
+      content: {
+        EnlargeMapView(showEnlargeMapView: $showEnlargeMapView)
+              .environmentObject(viewModel)
+      })
   }
 }
 
