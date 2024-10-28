@@ -58,21 +58,21 @@ struct MapView: View {
 }
 
 #Preview {
-  //    struct MapView_Preview: View {
-  //      @StateObject var propertyViewModel = PropertyViewModel()
-  //      @StateObject var propertyDetailViewModel: PropertyDetailViewModel
-  //
-  //      init() {
-  //        self._propertyDetailViewModel = StateObject(
-  //          wrappedValue: PropertyDetailViewModel(property: Mock.Properties[0]))
-  //      }
-  //
-  //      var body: some View {
-  //          MapView(
-  //          viewModel: propertyDetailViewModel
-  //        ).environmentObject(propertyViewModel)
-  //      }
-  //    }
-  //
-  //    return MapView_Preview(showEnlargeMapView: .constant(false))
+//      struct MapView_Preview: View {
+//        @StateObject var propertyViewModel = PropertyViewModel()
+//        @StateObject var propertyDetailViewModel: PropertyDetailViewModel
+//  
+//        init() {
+//          self._propertyDetailViewModel = StateObject(
+//            wrappedValue: PropertyDetailViewModel(property: Mock.Properties[0]))
+//        }
+//  
+//        var body: some View {
+//            MapView(
+//            viewModel: propertyDetailViewModel
+//          ).environmentObject(propertyViewModel)
+//        }
+//      }
+//  
+//    return MapView_Preview(PropertyDetailMapView(viewModel: propertyDetailViewModel))
 }

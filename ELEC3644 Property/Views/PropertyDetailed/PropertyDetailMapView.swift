@@ -13,7 +13,7 @@ struct PropertyDetailMapView: View {
   @State private var showEnlargeMapView = false
 
   var body: some View {
-    if !showEnlargeMapView {
+
       VStack {
         MapView(viewModel: viewModel, showEnlargeMapView: $showEnlargeMapView)
         Divider()
@@ -28,12 +28,10 @@ struct PropertyDetailMapView: View {
         Divider()
       }
       .padding(.horizontal, 24)
-      .fullScreenCover(
-        isPresented: $showEnlargeMapView,
-        content: {
-          EnlargeMapView(viewModel: viewModel, showEnlargeMapView: $showEnlargeMapView)
-        })
-    }
+        .fullScreenCover(isPresented: $showEnlargeMapView, content: {
+            EnlargeMapView(viewModel: viewModel, showEnlargeMapView: $showEnlargeMapView)
+          })
+    
   }
 }
 
