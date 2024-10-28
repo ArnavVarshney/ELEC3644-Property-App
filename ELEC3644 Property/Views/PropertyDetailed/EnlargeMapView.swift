@@ -85,11 +85,6 @@ struct EnlargeMapView: View {
           .padding()
       }
     }
-    //    .overlay(content: {
-    ////        MapPopUpView(property: viewModel.property)
-    //        Text("Placeholder")
-    //    })
-    //.frame(height: 280) // Uncomment if you want to set a fixed height for the map
   }
 }
 
