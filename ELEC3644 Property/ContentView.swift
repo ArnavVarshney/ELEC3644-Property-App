@@ -31,10 +31,7 @@ struct WishlistsView: View {
 
 struct TripsView: View {
   var body: some View {
-    Text("Trips View")
-      .font(.largeTitle)
-      .padding()
-      .navigationTitle("Trips")
+      ProfileDetailedLookaroundView()
   }
 }
 
