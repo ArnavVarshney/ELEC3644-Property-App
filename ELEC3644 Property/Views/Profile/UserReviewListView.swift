@@ -20,9 +20,7 @@ struct UserReviewListView: View {
                 }
             }
         }
-        .frame(height: 310)
-        .padding(.bottom, 4)
-        .padding(.horizontal, 24)
+        .scrollIndicators(.hidden)
     }
 }
 
