@@ -54,17 +54,17 @@ struct EnlargeMapView: View {
         }
       }
       // Back Button
-        VStack {
-            Spacer()
-          Image(systemName: "clock")
-          Spacer()
+      VStack {
+        Spacer()
+        Image(systemName: "clock")
+        Spacer()
 
-            MapPopUpView(property: viewModel.property, popUp: $popUp)
-            .padding(30)
-        }
-        .edgesIgnoringSafeArea(.bottom)  // Optional: ignore safe area if desired
-        .frame(alignment: .bottom)
+        MapPopUpView(property: viewModel.property, popUp: $popUp)
+          .padding(30)
       }
+      .edgesIgnoringSafeArea(.bottom)  // Optional: ignore safe area if desired
+      .frame(alignment: .bottom)
+    }
     .backButton()
     .ignoresSafeArea()
     .toolbarBackground(.hidden, for: .navigationBar)
