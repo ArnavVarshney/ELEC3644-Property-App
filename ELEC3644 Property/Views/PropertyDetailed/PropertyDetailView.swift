@@ -31,17 +31,20 @@ struct PropertyDetailView: View {
             PropertyDetailBottomBarView(viewModel: viewModel)
                 .padding(.bottom, 8)
         }
+        .backButton()
+        .ignoresSafeArea()
     }
+}
 
-    #Preview {
-        struct PropertyDetail_Preview: View {
-            @EnvironmentObject var propertyViewModel: PropertyViewModel
-            var body: some View {
-                PropertyDetailView(property: Mock.Properties[0])
-                    .environmentObject(UserViewModel())
-            }
+#Preview {
+    struct PropertyDetail_Preview: View {
+        @EnvironmentObject var propertyViewModel: PropertyViewModel
+        var body: some View {
+            PropertyDetailView(property: Mock.Properties[0])
+                .environmentObject(UserViewModel())
         }
-        return PropertyDetail_Preview()
-            .environmentObject(PropertyViewModel())
     }
+    return PropertyDetail_Preview()
+        .environmentObject(PropertyViewModel())
+        .environmentObject(UserViewModel())
 }

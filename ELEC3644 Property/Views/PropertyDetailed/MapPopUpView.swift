@@ -13,7 +13,7 @@ struct MapPopUpView: View {
     var body: some View {
         VStack(spacing: 8) {
             ImageCarouselView(
-                imageUrls: self.property.imageUrls, cornerRadius: 0, height: 200, property: property
+                imageUrls: self.property.imageUrls, cornerRadius: 0, height: 250, property: property
             )
 
             HStack(alignment: .top) {

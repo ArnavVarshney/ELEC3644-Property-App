@@ -14,65 +14,54 @@ struct EnlargeMapView: View {
     @State var popUp: Bool = true
 
     var body: some View {
-        ZStack(alignment: .topLeading) {
-            // The Map
-            Map(position: $viewModel.position) {
-                // Annotation for the target property
-                Annotation(viewModel.property.name, coordinate: viewModel.location) {
-                    HStack {
-                        Text(viewModel.property.netPrice)
-                            .font(.callout)
-                            .fontWeight(.bold)
-                            .foregroundColor(Color.black)
-                        Text("HKD")
-                            .font(.callout)
-                            .fontWeight(.bold)
-                            .foregroundColor(Color.black)
+        NavigationStack {
+            ZStack(alignment: .topLeading) {
+                Map(position: $viewModel.position) {
+                    // Annotation for the target property
+                    Annotation(viewModel.property.name, coordinate: viewModel.location) {
+                        HStack {
+                            Text(viewModel.property.netPrice)
+                                .font(.callout)
+                                .fontWeight(.bold)
+                                .foregroundColor(Color.black)
+                            Text("HKD")
+                                .font(.callout)
+                                .fontWeight(.bold)
+                                .foregroundColor(Color.black)
+                        }
+                        .frame(width: 125, height: 25)
+                        .background(.white)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .overlay(
+                            Capsule()
+                                .stroke(lineWidth: 0.5)
+                                .foregroundColor(.white)
+                                .shadow(color: .black.opacity(0.2), radius: 2)
+                                .clipShape(RoundedRectangle(cornerRadius: 1))
+                        )
                     }
-                    .frame(width: 125, height: 25)
-                    .background(.white)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                    .overlay(
-                        Capsule()
-                            .stroke(lineWidth: 0.5)
-                            .foregroundColor(.white)
-                            .shadow(color: .black.opacity(0.2), radius: 2)
-                            .clipShape(RoundedRectangle(cornerRadius: 1))
-                    )
-                }
-                .annotationTitles(.visible)
+                    .annotationTitles(.visible)
 
-                // Markers for other places
-                ForEach(viewModel.places, id: \.self) { place in
-                    Marker(
-                        place.placemark.name ?? "POI",
-                        systemImage: PropertyDetailViewModel.poiIcon(
-                            for: place.pointOfInterestCategory),
-                        coordinate: place.placemark.coordinate
-                    )
-                }
-            }
-            // Back Button
-            Button {
-                showEnlargeMapView.toggle()
-            } label: {
-                Image(systemName: "chevron.left")
-                    .foregroundStyle(.black)
-                    .background {
-                        Circle()
-                            .fill(.white)
-                            .frame(width: 40, height: 40)
+                    // Markers for other places
+                    ForEach(viewModel.places, id: \.self) { place in
+                        Marker(
+                            place.placemark.name ?? "POI",
+                            systemImage: PropertyDetailViewModel.poiIcon(
+                                for: place.pointOfInterestCategory),
+                            coordinate: place.placemark.coordinate
+                        )
                     }
-                    .padding(.top, 20)
-                    .padding(.leading, 35)
+                }
+                VStack {
+                    Spacer()
+                    MapPopUpView(property: viewModel.property)
+                }
+                .padding()
             }
-            VStack {
-                Spacer()
-                MapPopUpView(property: viewModel.property)
-            }
-            .padding()
+            .backButton()
         }
     }
+
 }
 
 #Preview {
