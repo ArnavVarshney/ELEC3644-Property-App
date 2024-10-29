@@ -9,7 +9,7 @@ import CoreMotion
 import SceneKit
 import SwiftUI
 
-struct ProfileDetailedLookaroundView: View {
+struct PropertyDetailLookaroundView: View {
     @State private var scene: SCNScene?
     @State private var cameraNode: SCNNode?
     @StateObject private var motionManager = MotionManager()
@@ -78,5 +78,5 @@ class MotionManager: ObservableObject {
     }
 }
 #Preview {
-    ProfileDetailedLookaroundView()
+    PropertyDetailLookaroundView()
 }

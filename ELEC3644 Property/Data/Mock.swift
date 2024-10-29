@@ -111,3 +111,11 @@ enum Mock {
         )
     ]
 }
+
+let mockPropertyImages = [
+    "Property1",
+    "Property2",
+    "Property3",
+    "Property4",
+    "Property5",
+]

@@ -7,14 +7,6 @@
 
 import SwiftUI
 
-let mockPropertyImages = [
-    "Property1",
-    "Property2",
-    "Property3",
-    "Property4",
-    "Property5",
-]
-
 struct PropertyCardView: View {
     let property: Property
 
@@ -72,4 +64,5 @@ struct PropertyCardView: View {
     }
     return PropertyCard_Preview()
         .environmentObject(PropertyViewModel())
+        .environmentObject(UserViewModel())
 }
