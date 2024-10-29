@@ -8,19 +8,19 @@
 import SwiftUI
 
 struct UserReviewListView: View {
-    @StateObject var userViewModel: UserViewModel
+    var user: User
 
     var body: some View {
         ScrollView(.horizontal) {
             HStack(spacing: 24) {
-                ForEach($userViewModel.user.reviews, id: \.id) { review in
+                ForEach(user.reviews, id: \.id) { review in
                     UserReviewCardView(
                         review: review
                     )
                 }
             }
         }
-        .frame(width: .infinity, height: 310)
+        .frame(height: 310)
         .padding(.bottom, 4)
         .padding(.horizontal, 24)
     }
@@ -31,7 +31,7 @@ struct UserReviewListView: View {
         @EnvironmentObject var userViewModel: UserViewModel
 
         var body: some View {
-            UserReviewListView(userViewModel: userViewModel)
+            UserReviewListView(user: userViewModel.user)
         }
     }
     return UserReviewListView_Preview()

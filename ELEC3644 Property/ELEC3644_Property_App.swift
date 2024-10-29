@@ -12,6 +12,7 @@ struct ELEC3644_Property_App: App {
     @StateObject var inboxData = InboxViewModel()
     @StateObject var userData = UserViewModel()
     @StateObject var propertyData = PropertyViewModel()
+    @StateObject var agentData = AgentViewModel()
 
     var body: some Scene {
         WindowGroup {
@@ -19,6 +20,7 @@ struct ELEC3644_Property_App: App {
                 .environmentObject(inboxData)
                 .environmentObject(userData)
                 .environmentObject(propertyData)
+                .environmentObject(agentData)
         }
     }
 }

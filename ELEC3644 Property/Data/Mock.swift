@@ -101,4 +101,13 @@ enum Mock {
             name: "Abel Haris Harsono", email: "b@gmail.com",
             avatarUrl: "", reviews: nil, wishlists: nil),
     ]
+    
+    static var Agents: [User] = [
+        User(
+            name: "Agent Numero Uno", email: "agent1@agency1.agents",
+            avatarUrl: "https://static.thenounproject.com/png/5147395-512.png",
+            reviews: nil,
+            wishlists: nil
+        )
+    ]
 }

@@ -64,7 +64,7 @@ class WebSocketService: ObservableObject {
                             case "newMessage":
                                 print("[DEBUG - WS] New Message")
                                 print(
-                                    "[DEBUG] New Message: [\nType: \(jsonDict["type"])\nSenderID: \(jsonDict["senderId"])\nReceiverID: \(jsonDict["receiverId"])\nContent: \(jsonDict["content"])\n]"
+                                    "[DEBUG] New Message: [\nType: \(String(describing: jsonDict["type"]))\nSenderID: \(String(describing: jsonDict["senderId"]))\nReceiverID: \(String(describing: jsonDict["receiverId"]))\nContent: \(String(describing: jsonDict["content"]))\n]"
                                 )
                                 let df = DateFormatter()
                                 df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"

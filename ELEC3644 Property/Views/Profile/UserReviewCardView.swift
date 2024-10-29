@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct UserReviewCardView: View {
-    @Binding var review: Review
+    var review: Review
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -47,7 +47,7 @@ struct UserReviewCardView: View {
         @EnvironmentObject var userViewModel: UserViewModel
 
         var body: some View {
-            if let user = $userViewModel.user.reviews.first {
+            if let user = userViewModel.user.reviews.first {
                 UserReviewCardView(
                     review: user
                 )

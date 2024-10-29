@@ -24,4 +24,5 @@ struct ContentView: View {
         .environmentObject(InboxViewModel())
         .environmentObject(PropertyViewModel())
         .environmentObject(UserViewModel())
+        .environmentObject(AgentViewModel())
 }

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PropertyCardListView: View {
+struct BuyMenuView: View {
     let properties: [Property]
 
     var body: some View {
@@ -24,13 +24,13 @@ struct PropertyCardListView: View {
 }
 
 #Preview {
-    struct PropertyCardListView_Preview: View {
+    struct BuyMenuView_Preview: View {
         @EnvironmentObject var viewModel: PropertyViewModel
         var body: some View {
-            PropertyCardListView(properties: Mock.Properties)
+            BuyMenuView(properties: Mock.Properties)
                 .environmentObject(UserViewModel())
         }
     }
-    return PropertyCardListView_Preview()
+    return BuyMenuView_Preview()
         .environmentObject(PropertyViewModel())
 }

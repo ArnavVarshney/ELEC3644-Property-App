@@ -13,7 +13,7 @@ struct ProfileView: View {
     var user: User {
         userViewModel.user
     }
-
+    
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading) {
@@ -27,13 +27,14 @@ struct ProfileView: View {
                     }
                     Spacer()
                     NavigationLink(
-                        destination: ProfileDetailed(userViewModel: userViewModel),
+                        destination: ProfileDetailedView(user: user),
                         label: {
                             Image(systemName: "chevron.right")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 18, height: 18)
                                 .padding(10)
+                                .foregroundColor(.neutral70)
                         })
                 }
                 Spacer()

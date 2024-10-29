@@ -13,6 +13,7 @@ class UserViewModel: ObservableObject {
     @Published var user: User = .init(
         name: "", email: "", avatarUrl: "", reviews: [], wishlists: [])
     @Published var otherUsers: [User] = []
+    @Published var agents: [User] = []
 
     init(apiClient: APIClient = NetworkManager(), user: User? = nil) {
         self.apiClient = apiClient
@@ -27,33 +28,12 @@ class UserViewModel: ObservableObject {
 
     func fetchUser(with id: String) async {
         do {
-            let fetchedUser = try await UserViewModel.getUser(with: id)
+            let user: User = try await apiClient.get(url: "/users/\(id)")
+            let reviews: [Review] = try await apiClient.get(url: "/reviews/user/\(id)")
             DispatchQueue.main.async {
-                self.user = fetchedUser
-                self.fetchReviewAuthors()
+                self.user = user
+                self.user.reviews = reviews
             }
-        } catch {
-            print("Error fetching user data: \(error)")
-        }
-    }
-
-    func fetchReviewAuthors() {
-        Task {
-            do {
-                let reviews = try await UserViewModel.getReviews(with: self.currentUserId)
-                DispatchQueue.main.async {
-                    self.user.reviews = reviews
-                }
-            } catch {
-                print("Error fetching review author: \(error)")
-            }
-        }
-    }
-
-    func getOtherUsers(with id: String) async throws {
-        do {
-            let otherUser = try await UserViewModel.getUser(with: id)
-            self.otherUsers.append(otherUser)
         } catch {
             print("Error fetching user data: \(error)")
         }
@@ -82,41 +62,6 @@ class UserViewModel: ObservableObject {
 
         let decoder = JSONDecoder()
         return try decoder.decode(User.self, from: data)
-    }
-
-    static func getUser(with id: String) async throws -> User {
-        guard let url = URL(string: "https://chat-server.home-nas.xyz/users/\(id)") else {
-            throw URLError(.badURL)
-        }
-
-        let (data, response) = try await URLSession.shared.data(from: url)
-
-        guard let httpResponse = response as? HTTPURLResponse,
-            (200...299).contains(httpResponse.statusCode)
-        else {
-            throw URLError(.badServerResponse)
-        }
-
-        let decoder = JSONDecoder()
-
-        return try decoder.decode(User.self, from: data)
-    }
-
-    static func getReviews(with id: String) async throws -> [Review] {
-        guard let url = URL(string: "https://chat-server.home-nas.xyz/reviews/user/\(id)") else {
-            throw URLError(.badURL)
-        }
-
-        let (data, response) = try await URLSession.shared.data(from: url)
-
-        guard let httpResponse = response as? HTTPURLResponse,
-            (200...299).contains(httpResponse.statusCode)
-        else {
-            throw URLError(.badServerResponse)
-        }
-
-        let decoder = JSONDecoder()
-        return try decoder.decode([Review].self, from: data)
     }
 
     static func averageRating(for user: User) -> Double {

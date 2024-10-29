@@ -49,6 +49,19 @@ struct Review: Identifiable, Codable {
     var rating: Double
     var content: String
 
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        author = try container.decode(User.self, forKey: .author)
+        rating = try container.decode(Double.self, forKey: .rating)
+        content = try container.decode(String.self, forKey: .content)
+    }
+    
+    init (author: User, rating: Double, content: String) {
+        self.author = author
+        self.rating = rating
+        self.content = content
+    }
+
     private enum CodingKeys: String, CodingKey { case author, rating, content }
 }
 
