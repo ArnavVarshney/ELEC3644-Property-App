@@ -17,20 +17,21 @@ struct PropertyDetailView: View {
         self.viewModel = .init(property: property)
     }
 
-  var body: some View {
-    VStack {
-      ScrollView {
-        ImageCarouselView(imageUrls: self.property.imageUrls, cornerRadius: 0, property: property)
-        PropertyDetailListView(viewModel: viewModel)
-        PropertyDetailMapView()
-          .environmentObject(viewModel)
-        PropertyDetailGraphView(viewModel: viewModel)
-      }
-      Spacer()
-      PropertyDetailBottomBarView(viewModel: viewModel)
-        .padding(.bottom, 8)
+    var body: some View {
+        VStack {
+            ScrollView {
+                ImageCarouselView(
+                    imageUrls: self.property.imageUrls, cornerRadius: 0, property: property)
+                PropertyDetailListView(viewModel: viewModel)
+                PropertyDetailMapView()
+                    .environmentObject(viewModel)
+                PropertyDetailGraphView(viewModel: viewModel)
+            }
+            Spacer()
+            PropertyDetailBottomBarView(viewModel: viewModel)
+                .padding(.bottom, 8)
+        }
     }
-}
 
     #Preview {
         struct PropertyDetail_Preview: View {

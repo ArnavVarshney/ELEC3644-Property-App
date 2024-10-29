@@ -10,9 +10,9 @@ import MapKit
 import SwiftUI
 
 struct MapView: View {
-  @EnvironmentObject var viewModel: PropertyDetailViewModel
-  @Binding var showEnlargeMapView: Bool
-  var body: some View {
+    @EnvironmentObject var viewModel: PropertyDetailViewModel
+    @Binding var showEnlargeMapView: Bool
+    var body: some View {
         VStack {
             Map(position: $viewModel.position) {
                 Annotation(viewModel.property.name, coordinate: viewModel.location) {
@@ -57,21 +57,21 @@ struct MapView: View {
 }
 
 #Preview {
-  struct MapView_Preview: View {
-    @StateObject var propertyViewModel = PropertyViewModel()
-    @StateObject var propertyDetailViewModel: PropertyDetailViewModel
-    @State private var showEnlargeMapView = false
+    struct MapView_Preview: View {
+        @StateObject var propertyViewModel = PropertyViewModel()
+        @StateObject var propertyDetailViewModel: PropertyDetailViewModel
+        @State private var showEnlargeMapView = false
 
-    init() {
-      self._propertyDetailViewModel = StateObject(
-        wrappedValue: PropertyDetailViewModel(property: Mock.Properties[0]))
+        init() {
+            self._propertyDetailViewModel = StateObject(
+                wrappedValue: PropertyDetailViewModel(property: Mock.Properties[0]))
+        }
+
+        var body: some View {
+            MapView(showEnlargeMapView: $showEnlargeMapView)
+                .environmentObject(propertyDetailViewModel)
+        }
     }
 
-    var body: some View {
-      MapView(showEnlargeMapView: $showEnlargeMapView)
-        .environmentObject(propertyDetailViewModel)
-    }
-  }
-
-  return MapView_Preview()
+    return MapView_Preview()
 }
