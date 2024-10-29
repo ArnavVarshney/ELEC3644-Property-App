@@ -51,6 +51,7 @@ struct MapView: View {
                     )
                 }
             }
+            .mapControlVisibility(.hidden)
             .frame(height: 280)
         }
     }

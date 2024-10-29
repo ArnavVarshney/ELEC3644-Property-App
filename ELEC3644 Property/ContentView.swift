@@ -13,7 +13,6 @@ struct ContentView: View {
             ZStack {
                 BottomNavigationView()
             }
-            .ignoresSafeArea(.keyboard, edges: .bottom)
         }
     }
 }

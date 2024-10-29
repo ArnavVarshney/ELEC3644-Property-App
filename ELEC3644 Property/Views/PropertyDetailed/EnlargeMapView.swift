@@ -52,6 +52,7 @@ struct EnlargeMapView: View {
                         )
                     }
                 }
+                .mapControlVisibility(.hidden)
 
                 VStack(alignment: .center) {
                     Spacer()
