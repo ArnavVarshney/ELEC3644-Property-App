@@ -12,10 +12,10 @@ struct MapPopUpView: View {
 
   var body: some View {
     GeometryReader { geometry in
-        VStack (spacing:2){
-          ImageCarouselView(imageUrls: self.property.imageUrls, height: geometry.size.height * 0.3)
+      VStack(spacing: 2) {
+        ImageCarouselView(imageUrls: self.property.imageUrls, height: geometry.size.height * 0.3)
 
-         //.frame(height: geometry.size.height * 0.4)  // Adjust height as needed
+        //.frame(height: geometry.size.height * 0.4)  // Adjust height as needed
 
         HStack(alignment: .top) {
           VStack(alignment: .leading) {
@@ -49,7 +49,7 @@ struct MapPopUpView: View {
                   .foregroundColor(.neutral100)
               }
             }
-              
+
           }
         }
         .font(.footnote)

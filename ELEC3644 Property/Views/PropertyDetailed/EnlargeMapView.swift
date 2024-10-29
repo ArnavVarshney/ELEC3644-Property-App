@@ -12,61 +12,61 @@ struct EnlargeMapView: View {
 
   @EnvironmentObject var viewModel: PropertyDetailViewModel
   @Binding var showEnlargeMapView: Bool
-    //@State var popUp: Bool = true
+  //@State var popUp: Bool = true
 
   var body: some View {
 
-  ZStack {
-    // The Map
-    Map(position: $viewModel.position) {
-      // Annotation for the target property
-      Annotation(viewModel.property.name, coordinate: viewModel.location) {
-        HStack {
-          Text(viewModel.property.netPrice)
-            .font(.callout)
-            .fontWeight(.bold)
-            .foregroundColor(Color.black)
-          Text("HKD")
-            .font(.callout)
-            .fontWeight(.bold)
-            .foregroundColor(Color.black)
+    ZStack {
+      // The Map
+      Map(position: $viewModel.position) {
+        // Annotation for the target property
+        Annotation(viewModel.property.name, coordinate: viewModel.location) {
+          HStack {
+            Text(viewModel.property.netPrice)
+              .font(.callout)
+              .fontWeight(.bold)
+              .foregroundColor(Color.black)
+            Text("HKD")
+              .font(.callout)
+              .fontWeight(.bold)
+              .foregroundColor(Color.black)
+          }
+          .padding(.horizontal, 1)
+          .padding(.vertical, 1)
+          .cornerRadius(2)
+          .background(Color.white)
+          .overlay(
+            Capsule()
+              .stroke(lineWidth: 0.5)
+              .foregroundColor(.white)
+              .shadow(color: .black.opacity(0.2), radius: 2)
+          )
         }
-        .padding(.horizontal, 1)
-        .padding(.vertical, 1)
-        .cornerRadius(2)
-        .background(Color.white)
-        .overlay(
-          Capsule()
-            .stroke(lineWidth: 0.5)
-            .foregroundColor(.white)
-            .shadow(color: .black.opacity(0.2), radius: 2)
-        )
-      }
-      .annotationTitles(.visible)
+        .annotationTitles(.visible)
 
-      // Markers for other places
-      ForEach(viewModel.places, id: \.self) { place in
-        Marker(
-          place.placemark.name ?? "POI",
-          systemImage: PropertyDetailViewModel.poiIcon(for: place.pointOfInterestCategory),
-          coordinate: place.placemark.coordinate
-        )
+        // Markers for other places
+        ForEach(viewModel.places, id: \.self) { place in
+          Marker(
+            place.placemark.name ?? "POI",
+            systemImage: PropertyDetailViewModel.poiIcon(for: place.pointOfInterestCategory),
+            coordinate: place.placemark.coordinate
+          )
+        }
       }
-    }
-    // Back Button
-      VStack{
-          
-          Image(systemName: "clock")
-          Spacer()
+      // Back Button
+      VStack {
 
-          MapPopUpView(property: viewModel.property)
-              .padding(30)
+        Image(systemName: "clock")
+        Spacer()
+
+        MapPopUpView(property: viewModel.property)
+          .padding(30)
+      }
+      .edgesIgnoringSafeArea(.bottom)  // Optional: ignore safe area if desired
     }
-      .edgesIgnoringSafeArea(.bottom) // Optional: ignore safe area if desired
-  }
-  .backButton()
-  .ignoresSafeArea()
-  .toolbarBackground(.hidden, for: .navigationBar)
+    .backButton()
+    .ignoresSafeArea()
+    .toolbarBackground(.hidden, for: .navigationBar)
   }
 }
 
