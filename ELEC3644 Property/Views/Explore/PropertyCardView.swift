@@ -29,6 +29,7 @@ struct PropertyCardView: View {
                     Text("HKD \(property.netPrice)")
                         .foregroundColor(.neutral60)
                         .fontWeight(.semibold)
+                        .padding(.top, 1)
                 }
 
                 Spacer()
@@ -50,7 +51,8 @@ struct PropertyCardView: View {
             }
             .font(.footnote)
         }
-        .padding(.horizontal)
+        .padding(.horizontal, 24)
+        .padding(.bottom, 24)
     }
 }
 
