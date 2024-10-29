@@ -17,25 +17,23 @@ struct ProfileView: View {
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading) {
-                HStack(spacing: 12) {
-                    UserAvatarView(user: user)
-                    VStack(alignment: .leading) {
-                        Text(user.name)
-                            .font(.headline)
-                        Text(user.email)
-                            .font(.subheadline)
+                NavigationLink(destination: ProfileDetailedView(user: user)) {
+                    HStack(spacing: 12) {
+                        UserAvatarView(user: user)
+                        VStack(alignment: .leading) {
+                            Text(user.name)
+                                .font(.headline)
+                            Text(user.email)
+                                .font(.subheadline)
+                        }
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 18, height: 18)
+                            .padding(10)
+                            .foregroundColor(.neutral70)
                     }
-                    Spacer()
-                    NavigationLink(
-                        destination: ProfileDetailedView(user: user),
-                        label: {
-                            Image(systemName: "chevron.right")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 18, height: 18)
-                                .padding(10)
-                                .foregroundColor(.neutral70)
-                        })
                 }
                 Spacer()
             }
