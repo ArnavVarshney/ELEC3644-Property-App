@@ -52,11 +52,45 @@ struct EnlargeMapView: View {
                         )
                     }
                 }
-                VStack {
+
+                VStack(alignment: .center) {
                     Spacer()
-                    MapPopUpView(property: viewModel.property, popUp: $popUp)
+
+                    if popUp {
+                        MapPopUpView(property: viewModel.property, popUp: $popUp)
+                            .padding(30)
+                    }
+
+                    if popUp {
+                        Button {
+                            popUp.toggle()  // Show the PopUpView
+                        } label: {
+                            Image(systemName: "xmark")  // Display xmark when popUp is true
+                                .foregroundStyle(.black)
+                                .background {
+                                    Circle()
+                                        .fill(.white)
+                                        .frame(width: 50, height: 50)
+                                }
+                                .padding(.bottom, 40)
+                                .padding(.leading, 20)
+                        }
+                    } else {
+                        Button {
+                            popUp.toggle()  // Show the PopUpView
+                        } label: {
+                            Image(systemName: "plus")  // Display plus when popUp is false
+                                .foregroundStyle(.black)
+                                .background {
+                                    Circle()
+                                        .fill(.white)
+                                        .frame(width: 50, height: 50)
+                                }
+                                .padding(.bottom, 40)
+                                .padding(.leading, 20)
+                        }
+                    }
                 }
-                .padding()
             }
             .backButton()
         }

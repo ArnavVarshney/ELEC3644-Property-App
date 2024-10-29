@@ -66,7 +66,7 @@ struct MapPopUpView: View {
         @EnvironmentObject var propertyViewModel: PropertyViewModel
 
         var body: some View {
-            MapPopUpView(property: Mock.Properties[0], popUp: true
+            MapPopUpView(property: Mock.Properties[0], popUp: .constant(true))
         }
     }
 
