@@ -34,7 +34,7 @@ struct MapView: View {
                             .stroke(lineWidth: 0.5)
                             .foregroundColor(.white)
                             .shadow(color: .black.opacity(0.2), radius: 2)
-                            .clipShape(RoundedRectangle(cornerRadius:  1))
+                            .clipShape(RoundedRectangle(cornerRadius: 1))
                     )
                     .onTapGesture {
                         withAnimation(.spring()) { showEnlargeMapView.toggle() }
