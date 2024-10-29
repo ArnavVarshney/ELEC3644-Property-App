@@ -73,39 +73,80 @@ struct ProfileDetailedView: View {
     var user: User
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var userViewModel: UserViewModel
+    var firstName: String {
+        if user.name.split(separator: " ").count > 1 {
+            return String(user.name.split(separator: " ")[0])
+        } else {
+            return user.name
+        }
+    }
 
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             HStack(spacing: 36) {
+                Spacer()
                 VStack {
                     UserAvatarView(user: user, size: 100)
-                    Text(user.name)
-                        .font(.headline)
-                        .fontWeight(.bold)
+                    Text(firstName)
+                        .font(.system(size: 24, weight: .bold))
 
                     Text(user.role)
-                        .font(.subheadline)
+                        .font(.system(size: 12, weight: .semibold))
                 }
 
-                VStack(alignment: .leading, spacing: 18) {
-                    HStack {
+                VStack(alignment: .leading, spacing: 15) {
+                    VStack(alignment: .leading, spacing: 6) {
                         Text("\(user.reviews.count)")
                             .font(.headline)
+                            .fontWeight(.bold)
+
                         Text("Reviews")
-                            .font(.subheadline)
+                            .font(.system(size: 12, weight: .semibold))
                     }
                     Divider()
-                    HStack {
-                        Text(String(format: "%.2f", UserViewModel.averageRating(for: user)))
-                            .font(.headline)
+                    VStack(alignment: .leading, spacing: 6) {
+                        HStack {
+                            Text(String(format: "%.2f", UserViewModel.averageRating(for: user)))
+                                .font(.headline)
+                                .fontWeight(.bold)
+
+                            Image(systemName: "star.fill")
+                                .resizable()
+                                .frame(width: 12, height: 12)
+                        }
                         Text("Rating")
-                            .font(.subheadline)
+                            .font(.system(size: 12, weight: .semibold))
                     }
-                }.padding(.top, 12)
-                    .frame(maxWidth: 100)
+                }
+                .padding(.top, 12)
+                .frame(maxWidth: 100)
+                Spacer()
+            }
+            .padding(24)
+
+            if user.reviews.count > 0 {
+                Text("\(firstName)'s reviews")
+                    .font(.title3)
+                    .fontWeight(.semibold)
+
+                UserReviewListView(user: user)
+                    .padding(.top, 12)
             }
 
-            UserReviewListView(user: user)
+            if user.reviews.count > 1 {
+                Button("Show all \(user.reviews.count) reviews") {
+                    // Show all reviews
+                }
+                .font(.system(size: 15, weight: .semibold))
+                .padding(12)
+                .frame(maxWidth: .infinity)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(Color.black, lineWidth: 1)
+                )
+                .padding(.top, 18)
+            }
+
             Spacer()
 
             if user.id != userViewModel.user.id {
@@ -116,18 +157,22 @@ struct ProfileDetailedView: View {
         .navigationBarBackButtonHidden()
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
-                Button("Back") {
+                Button {
                     dismiss()
-                }.foregroundColor(.primary60)
+                } label: {
+                    Image(systemName: "chevron.left")
+                        .frame(width: 18, height: 18)
+                        .foregroundColor(.black)
+                        .padding(12)
+                }
             }
         }
-        .toolbarVisibility(.visible)
     }
 }
 
 #Preview {
     struct ProfileDetailedView_Preview: View {
-        @State var user: User = Mock.Agents.first!
+        @State var user: User = Mock.Users.first!
 
         var body: some View {
             ProfileDetailedView(user: user)
