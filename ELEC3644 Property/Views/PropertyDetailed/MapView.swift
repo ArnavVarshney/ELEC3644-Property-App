@@ -12,7 +12,6 @@ import SwiftUI
 struct MapView: View {
   @EnvironmentObject var viewModel: PropertyDetailViewModel
   @Binding var showEnlargeMapView: Bool
-  //@State private var pressedPriceTag = false
   var body: some View {
 
     VStack {

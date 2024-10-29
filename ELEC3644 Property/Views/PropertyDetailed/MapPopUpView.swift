@@ -12,9 +12,10 @@ struct MapPopUpView: View {
 
   var body: some View {
     GeometryReader { geometry in
-      VStack(spacing: 8) {
-        ImageCarouselView(imageUrls: self.property.imageUrls)
-          .frame(height: geometry.size.height * 0.1)  // Adjust height as needed
+        VStack (spacing:2){
+          ImageCarouselView(imageUrls: self.property.imageUrls, height: geometry.size.height * 0.3)
+
+         //.frame(height: geometry.size.height * 0.4)  // Adjust height as needed
 
         HStack(alignment: .top) {
           VStack(alignment: .leading) {
@@ -31,7 +32,7 @@ struct MapPopUpView: View {
             Text("HKD \(property.netPrice)")
               .foregroundColor(.neutral60)
               .fontWeight(.semibold)
-          }
+          }.padding(.bottom)
 
           Spacer()
 
@@ -48,14 +49,14 @@ struct MapPopUpView: View {
                   .foregroundColor(.neutral100)
               }
             }
+              
           }
         }
         .font(.footnote)
         .padding(.horizontal)
-
-        Spacer()  // Pushes content to the top if needed
+        .padding(.top)
       }
-      .frame(width: geometry.size.width, height: geometry.size.height * 0.5)  // Set to half screen height
+      .frame(width: geometry.size.width, height: geometry.size.height * 0.45)  // Set to half screen height
       .background(Color.white)  // Background color for the pop-up
       .cornerRadius(20)  // Rounded corners for the pop-up
       .shadow(radius: 10)  // Shadow for depth

@@ -73,4 +73,5 @@ struct PropertyCardView: View {
 
   return PropertyCard_Preview()
     .environmentObject(PropertyViewModel())
+    
 }
