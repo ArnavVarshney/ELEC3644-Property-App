@@ -9,14 +9,18 @@ import SwiftUI
 
 @main
 struct ELEC3644_Property_App: App {
-  @StateObject var inboxData = InboxViewModel()
-  @StateObject var userData = UserViewModel()
+    @StateObject var inboxData = InboxViewModel()
+    @StateObject var userData = UserViewModel()
+    @StateObject var propertyData = PropertyViewModel()
+    @StateObject var agentData = AgentViewModel()
 
-  var body: some Scene {
-    WindowGroup {
-      ContentView()
-        .environmentObject(inboxData)
-        .environmentObject(userData)
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+                .environmentObject(inboxData)
+                .environmentObject(userData)
+                .environmentObject(propertyData)
+                .environmentObject(agentData)
+        }
     }
-  }
 }

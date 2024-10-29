@@ -17,40 +17,41 @@ struct MapPopUpView: View {
         ImageCarouselView(imageUrls: self.property.imageUrls, height: geometry.size.height * 0.3)
 
         //.frame(height: geometry.size.height * 0.4)  // Adjust height as needed
+                        Text("\(property.saleableArea)sqft")
+                            .foregroundColor(.neutral60)
 
-        HStack(alignment: .top) {
-          VStack(alignment: .leading) {
-            Text(property.name)
-              .fontWeight(.bold)
-              .foregroundColor(.neutral100)
+                        Text("\(property.subDistrict), \(property.area)")
+                            .foregroundColor(.neutral60)
 
-            Text("\(property.saleableArea)sqft")
-              .foregroundColor(.neutral60)
-
-            Text("\(property.subDistrict), \(property.area)")
-              .foregroundColor(.neutral60)
+                        Text("HKD \(property.netPrice)")
+                            .foregroundColor(.neutral60)
+                            .fontWeight(.semibold)
+                    }
 
             Text("HKD \(property.netPrice)")
               .foregroundColor(.neutral60)
               .fontWeight(.semibold)
           }.padding(.bottom)
+                    VStack(alignment: .trailing) {
+                        ForEach(property.facilities) { facility in
+                            HStack {
+                                Image("\(facility.desc)")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 24, height: 24)
 
-          Spacer()
+                                Text("\(facility.measure) \(facility.measureUnit)")
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(.neutral100)
+                            }
+                        }
+                    }
+                }
+                .font(.footnote)
+                .padding(.horizontal)
 
-          VStack(alignment: .trailing) {
-            ForEach(property.facilities) { facility in
-              HStack {
-                Image("\(facility.desc)")
-                  .resizable()
-                  .scaledToFit()
-                  .frame(width: 24, height: 24)
-
-                Text("\(facility.measure) \(facility.measureUnit)")
-                  .fontWeight(.semibold)
-                  .foregroundColor(.neutral100)
-              }
+                Spacer()  // Pushes content to the top if needed
             }
-
           }
         }
         .font(.footnote)
@@ -74,8 +75,7 @@ struct MapPopUpView: View {
     var body: some View {
       MapPopUpView(property: Mock.Properties[0], popUp: $popUp)
     }
-  }
 
-  return MapPopUp_Preview()
-    .environmentObject(PropertyViewModel())
+    return MapPopUp_Preview()
+        .environmentObject(PropertyViewModel())
 }

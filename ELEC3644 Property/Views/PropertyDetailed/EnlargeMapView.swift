@@ -9,7 +9,6 @@ import MapKit
 import SwiftUI
 
 struct EnlargeMapView: View {
-
   @EnvironmentObject var viewModel: PropertyDetailViewModel
   @Binding var showEnlargeMapView: Bool
   @State var popUp: Bool = true

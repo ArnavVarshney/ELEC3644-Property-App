@@ -8,44 +8,44 @@
 import SwiftUI
 
 struct InboxView: View {
-  @EnvironmentObject var inboxData: InboxViewModel
+    @EnvironmentObject var inboxData: InboxViewModel
 
-  var body: some View {
-    NavigationStack {
-      VStack {
-        if inboxData.chats.isEmpty {
-          Image(systemName: "bubble.left.and.text.bubble.right")
-            .font(.largeTitle)
-            .padding()
+    var body: some View {
+        NavigationStack {
+            VStack {
+                if inboxData.chats.isEmpty {
+                    Image(systemName: "bubble.left.and.text.bubble.right")
+                        .font(.largeTitle)
+                        .padding()
 
-          Text("You don't have any messages")
-            .font(.footnote)
-            .fontWeight(.bold)
-            .padding(4)
+                    Text("You don't have any messages")
+                        .font(.footnote)
+                        .fontWeight(.bold)
+                        .padding(4)
 
-          Text("When you receive a new message, it will appear here.")
-            .font(.footnote)
-            .foregroundColor(.neutral60)
-            .padding(4)
-        } else {
-          List(inboxData.chats) { chat in
-            NavigationLink {
-              ChatView(chat: chat, currentUserId: inboxData.currentUserId)
-                .toolbar(.hidden, for: .tabBar)
-            } label: {
-              InboxItemView(user: chat.user, message: chat.messages.last!)
+                    Text("When you receive a new message, it will appear here.")
+                        .font(.footnote)
+                        .foregroundColor(.neutral60)
+                        .padding(4)
+                } else {
+                    List(inboxData.chats) { chat in
+                        NavigationLink {
+                            ChatView(chat: chat, currentUserId: inboxData.currentUserId)
+                                .toolbar(.hidden, for: .tabBar)
+                        } label: {
+                            InboxItemView(user: chat.user, message: chat.messages.last!)
+                        }
+                    }
+                    .listStyle(InsetListStyle())
+                }
             }
-          }
-          .listStyle(InsetListStyle())
+            .background(.neutral10)
+            .navigationTitle("Messages")
         }
-      }
-      .background(.neutral10)
-      .navigationTitle("Messages")
     }
-  }
 }
 
 #Preview {
-  InboxView()
-    .environmentObject(InboxViewModel(chats: Mock.Chats))
+    InboxView()
+        .environmentObject(InboxViewModel(chats: Mock.Chats))
 }

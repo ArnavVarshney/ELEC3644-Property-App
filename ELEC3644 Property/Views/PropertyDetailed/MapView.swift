@@ -13,47 +13,47 @@ struct MapView: View {
   @EnvironmentObject var viewModel: PropertyDetailViewModel
   @Binding var showEnlargeMapView: Bool
   var body: some View {
+        VStack {
+            Map(position: $viewModel.position) {
+                Annotation(viewModel.property.name, coordinate: viewModel.location) {
+                    HStack {
+                        Text(viewModel.property.netPrice)
+                            .font(.callout)
+                            .fontWeight(.bold)
+                            .foregroundColor(Color.black)
+                        Text("HKD")
+                            .font(.callout)
+                            .fontWeight(.bold)
+                            .foregroundColor(Color.black)
+                    }
+                    .padding(.horizontal, 1)
+                    .padding(.vertical, 1)
+                    .cornerRadius(2)
+                    .background(.white)
+                    .overlay(
+                        Capsule()
+                            .stroke(lineWidth: 0.5)
+                            .foregroundColor(.white)
+                            .shadow(color: .black.opacity(0.2), radius: 2)
+                    )
+                    .onTapGesture {
+                        withAnimation(.spring()) { showEnlargeMapView.toggle() }
+                    }
+                }
+                .annotationTitles(.visible)
 
-    VStack {
-      Map(position: $viewModel.position) {
-        Annotation(viewModel.property.name, coordinate: viewModel.location) {
-          HStack {
-            Text(viewModel.property.netPrice)
-              .font(.callout)
-              .fontWeight(.bold)
-              .foregroundColor(Color.black)
-            Text("HKD")
-              .font(.callout)
-              .fontWeight(.bold)
-              .foregroundColor(Color.black)
-          }
-          .padding(.horizontal, 1)
-          .padding(.vertical, 1)
-          .cornerRadius(2)
-          .background(.white)
-          .overlay(
-            Capsule()
-              .stroke(lineWidth: 0.5)
-              .foregroundColor(.white)
-              .shadow(color: .black.opacity(0.2), radius: 2)
-          )
-          .onTapGesture {
-            withAnimation(.spring()) { showEnlargeMapView.toggle() }
-          }
+                ForEach(viewModel.places, id: \.self) { place in
+                    Marker(
+                        place.placemark.name ?? "POI",
+                        systemImage: PropertyDetailViewModel.poiIcon(
+                            for: place.pointOfInterestCategory),
+                        coordinate: place.placemark.coordinate
+                    )
+                }
+            }
+            .frame(height: 280)
         }
-        .annotationTitles(.visible)
-
-        ForEach(viewModel.places, id: \.self) { place in
-          Marker(
-            place.placemark.name ?? "POI",
-            systemImage: PropertyDetailViewModel.poiIcon(for: place.pointOfInterestCategory),
-            coordinate: place.placemark.coordinate
-          )
-        }
-      }
-      .frame(height: 280)
     }
-  }
 }
 
 #Preview {
