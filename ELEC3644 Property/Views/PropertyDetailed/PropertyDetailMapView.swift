@@ -9,13 +9,13 @@ import MapKit
 import SwiftUI
 
 struct PropertyDetailMapView: View {
-    @StateObject var viewModel: PropertyDetailViewModel
+    @EnvironmentObject var viewModel: PropertyDetailViewModel
     @State private var showEnlargeMapView = false
 
     var body: some View {
-
         VStack {
-            MapView(viewModel: viewModel, showEnlargeMapView: $showEnlargeMapView)
+            MapView(showEnlargeMapView: $showEnlargeMapView)
+                .environmentObject(viewModel)
             Divider()
 
             PropertyDetailNearestListView(
@@ -32,9 +32,9 @@ struct PropertyDetailMapView: View {
         .fullScreenCover(
             isPresented: $showEnlargeMapView,
             content: {
-                EnlargeMapView(viewModel: viewModel, showEnlargeMapView: $showEnlargeMapView)
+                EnlargeMapView(showEnlargeMapView: $showEnlargeMapView)
+                    .environmentObject(viewModel)
             })
-
     }
 }
 
@@ -49,9 +49,7 @@ struct PropertyDetailMapView: View {
         }
 
         var body: some View {
-            PropertyDetailMapView(
-                viewModel: propertyDetailViewModel
-            ).environmentObject(propertyViewModel)
+            PropertyDetailMapView().environmentObject(propertyDetailViewModel)
         }
     }
 

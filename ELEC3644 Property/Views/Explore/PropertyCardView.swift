@@ -70,7 +70,6 @@ struct PropertyCardView: View {
             PropertyCardView(property: Mock.Properties[0])
         }
     }
-
     return PropertyCard_Preview()
         .environmentObject(PropertyViewModel())
 }

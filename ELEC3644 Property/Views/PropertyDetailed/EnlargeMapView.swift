@@ -9,11 +9,13 @@ import MapKit
 import SwiftUI
 
 struct EnlargeMapView: View {
-    @StateObject var viewModel: PropertyDetailViewModel
+    @EnvironmentObject var viewModel: PropertyDetailViewModel
     @Binding var showEnlargeMapView: Bool
+    @State var popUp: Bool = true
 
     var body: some View {
-        ZStack(alignment: .topLeading) {
+
+        ZStack {
             // The Map
             Map(position: $viewModel.position) {
                 // Annotation for the target property
@@ -52,45 +54,35 @@ struct EnlargeMapView: View {
                 }
             }
             // Back Button
-            Button(action: {
-                withAnimation(.spring()) {
-                    showEnlargeMapView.toggle()  // Toggle the binding to close the view
-                }
-            }) {
-                HStack {
-                    Image(systemName: "chevron.left")  // Back arrow icon
-                        .foregroundColor(.white)
-                    Text("Back")
-                        .foregroundColor(.white)
-                        .fontWeight(.semibold)
-                }
-                .padding()
-                .background(Color.black.opacity(0.7))  // Background for the button
-                .cornerRadius(10)  // Rounded corners for the button
+            VStack {
+                Spacer()
+                Image(systemName: "clock")
+                Spacer()
+
+                MapPopUpView(property: viewModel.property, popUp: $popUp)
+                    .padding(30)
             }
-            .padding()  // Padding around the button
+            .edgesIgnoringSafeArea(.bottom)  // Optional: ignore safe area if desired
+            .frame(alignment: .bottom)
         }
-        //.frame(height: 280) // Uncomment if you want to set a fixed height for the map
+        .backButton()
+        .ignoresSafeArea()
+        .toolbarBackground(.hidden, for: .navigationBar)
     }
 }
 
 #Preview {
-    //      struct EnlargeMapView_Preview: View {
-    //        @StateObject var propertyViewModel = PropertyViewModel()
-    //        @StateObject var propertyDetailViewModel: PropertyDetailViewModel
-    //          @Binding  var showEnlargeMapView: Bool
-    //
-    //        init() {
-    //          self._propertyDetailViewModel = StateObject(
-    //            wrappedValue: PropertyDetailViewModel(property: Mock.Properties[0]))
-    //        }
-    //
-    //        var body: some View {
-    //            EnlargeMapView(
-    //              viewModel: propertyDetailViewModel, showEnlargeMapView: $showEnlargeMapView
-    //          ).environmentObject(propertyViewModel)
-    //        }
-    //      }
-    //
-    //      return EnlargeMapView_Preview()
+    struct EnlargeMapView_Preview: View {
+        @StateObject var propertyViewModel = PropertyViewModel()
+        @StateObject var propertyDetailViewModel = PropertyDetailViewModel(
+            property: Mock.Properties[0])
+        @State private var showEnlargeMapView = false
+
+        var body: some View {
+            EnlargeMapView(showEnlargeMapView: $showEnlargeMapView)
+                .environmentObject(propertyDetailViewModel)
+        }
+    }
+
+    return EnlargeMapView_Preview()
 }

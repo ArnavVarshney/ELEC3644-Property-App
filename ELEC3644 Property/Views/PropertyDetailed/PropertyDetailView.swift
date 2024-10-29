@@ -23,28 +23,25 @@ struct PropertyDetailView: View {
                 ImageCarouselView(
                     imageUrls: self.property.imageUrls, cornerRadius: 0, property: property)
                 PropertyDetailListView(viewModel: viewModel)
-                PropertyDetailMapView(viewModel: viewModel)
+                PropertyDetailMapView()
+                    .environmentObject(viewModel)
                 PropertyDetailGraphView(viewModel: viewModel)
-                ProfileDetailedLookaroundView()
             }
             Spacer()
             PropertyDetailBottomBarView(viewModel: viewModel)
                 .padding(.bottom, 8)
         }
-        .backButton()
-        .ignoresSafeArea()
-        .toolbarBackground(.hidden, for: .navigationBar)
     }
-}
 
-#Preview {
-    struct PropertyDetail_Preview: View {
-        @EnvironmentObject var propertyViewModel: PropertyViewModel
-        var body: some View {
-            PropertyDetailView(property: Mock.Properties[0])
-                .environmentObject(UserViewModel())
+    #Preview {
+        struct PropertyDetail_Preview: View {
+            @EnvironmentObject var propertyViewModel: PropertyViewModel
+            var body: some View {
+                PropertyDetailView(property: Mock.Properties[0])
+                    .environmentObject(UserViewModel())
+            }
         }
+        return PropertyDetail_Preview()
+            .environmentObject(PropertyViewModel())
     }
-    return PropertyDetail_Preview()
-        .environmentObject(PropertyViewModel())
 }
