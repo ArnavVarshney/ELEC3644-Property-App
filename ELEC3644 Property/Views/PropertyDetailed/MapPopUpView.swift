@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MapPopUpView: View {
   let property: Property
+    @Binding var popUp: Bool
 
   var body: some View {
     GeometryReader { geometry in
@@ -68,9 +69,10 @@ struct MapPopUpView: View {
 #Preview {
   struct MapPopUp_Preview: View {
     @EnvironmentObject var propertyViewModel: PropertyViewModel
+      @State var popUp:Bool = true
 
     var body: some View {
-      MapPopUpView(property: Mock.Properties[0])
+        MapPopUpView(property: Mock.Properties[0],popUp: $popUp)
     }
   }
 

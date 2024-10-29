@@ -12,7 +12,7 @@ struct EnlargeMapView: View {
 
   @EnvironmentObject var viewModel: PropertyDetailViewModel
   @Binding var showEnlargeMapView: Bool
-  //@State var popUp: Bool = true
+  @State var popUp: Bool = true
 
   var body: some View {
 
@@ -54,16 +54,17 @@ struct EnlargeMapView: View {
         }
       }
       // Back Button
-      VStack {
+        VStack {
+            Spacer()
+          Image(systemName: "clock")
+          Spacer()
 
-        Image(systemName: "clock")
-        Spacer()
-
-        MapPopUpView(property: viewModel.property)
-          .padding(30)
+            MapPopUpView(property: viewModel.property, popUp: $popUp)
+            .padding(30)
+        }
+        .edgesIgnoringSafeArea(.bottom)  // Optional: ignore safe area if desired
+        .frame(alignment: .bottom)
       }
-      .edgesIgnoringSafeArea(.bottom)  // Optional: ignore safe area if desired
-    }
     .backButton()
     .ignoresSafeArea()
     .toolbarBackground(.hidden, for: .navigationBar)
