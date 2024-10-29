@@ -25,7 +25,7 @@ struct ReviewFieldView: View {
                         .background(.neutral20)
                         .cornerRadius(12)
                 }
-                
+
                 HStack {
                     Text("Rating:")
                     ForEach(1...5, id: \.self) { star in
@@ -36,7 +36,7 @@ struct ReviewFieldView: View {
                             }
                     }
                 }
-                
+
                 Button(action: submitReview) {
                     Text("Submit Review")
                         .frame(maxWidth: .infinity)
@@ -48,20 +48,22 @@ struct ReviewFieldView: View {
                 .disabled(reviewText.isEmpty || rating == 0)
             }
             .padding()
-        }}
-    
+        }
+    }
+
     private func submitReview() {
-        let newReview = Review(author: userViewModel.user,
-                            rating: Double(rating),
-                            content: reviewText)
-        
+        let newReview = Review(
+            author: userViewModel.user,
+            rating: Double(rating),
+            content: reviewText)
+
         Task {
             await agentViewModel.writeReview(review: newReview, reviewedUserId: user.id)
             reviewText = ""
             rating = 0
         }
-        
-        if let reviewedUser = agentViewModel.agents.firstIndex(where: { $0.id == user.id}) {
+
+        if let reviewedUser = agentViewModel.agents.firstIndex(where: { $0.id == user.id }) {
             agentViewModel.agents[reviewedUser].reviews.append(newReview)
         }
     }
@@ -96,8 +98,8 @@ struct ProfileDetailedView: View {
 
             UserReviewListView(user: user)
             Spacer()
-            
-            if (user.id != userViewModel.user.id) {
+
+            if user.id != userViewModel.user.id {
                 ReviewFieldView(user: user)
             }
         }
@@ -117,7 +119,7 @@ struct ProfileDetailedView: View {
 #Preview {
     struct ProfileDetailedView_Preview: View {
         @State var user: User = Mock.Agents.first!
-        
+
         var body: some View {
             ProfileDetailedView(user: user)
         }

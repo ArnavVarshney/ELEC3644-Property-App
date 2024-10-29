@@ -13,7 +13,7 @@ struct ProfileView: View {
     var user: User {
         userViewModel.user
     }
-    
+
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading) {

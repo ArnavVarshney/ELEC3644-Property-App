@@ -55,8 +55,8 @@ struct Review: Identifiable, Codable {
         rating = try container.decode(Double.self, forKey: .rating)
         content = try container.decode(String.self, forKey: .content)
     }
-    
-    init (author: User, rating: Double, content: String) {
+
+    init(author: User, rating: Double, content: String) {
         self.author = author
         self.rating = rating
         self.content = content

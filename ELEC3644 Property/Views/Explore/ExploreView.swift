@@ -13,7 +13,7 @@ struct ExploreView: View {
     @State private var isSearchActive: Bool = false
     @EnvironmentObject private var propertyViewModel: PropertyViewModel
     @EnvironmentObject private var agentViewModel: AgentViewModel
-    
+
     var body: some View {
         VStack {
             VStack {

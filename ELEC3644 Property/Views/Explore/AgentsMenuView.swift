@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AgentMenuView: View {
     @EnvironmentObject var agentViewModel: AgentViewModel
-    
+
     var body: some View {
         ScrollView(showsIndicators: false) {
             LazyVStack {
@@ -25,12 +25,13 @@ struct AgentMenuView: View {
                             HStack {
                                 Image(systemName: "star.fill")
                                     .frame(width: 16, height: 16)
-                                Text("\(UserViewModel.averageRating(for: agent), specifier: "%.2f")")
+                                Text(
+                                    "\(UserViewModel.averageRating(for: agent), specifier: "%.2f")")
                             }
                         }
-                        
+
                         Spacer()
-                        
+
                         NavigationLink(destination: ProfileDetailedView(user: agent)) {
                             Image(systemName: "chevron.right")
                                 .resizable()
@@ -49,7 +50,7 @@ struct AgentMenuView: View {
 #Preview {
     struct AgentMenuView_Preview: View {
         @EnvironmentObject var viewModel: AgentViewModel
-        
+
         var body: some View {
             AgentMenuView()
                 .environmentObject(viewModel)

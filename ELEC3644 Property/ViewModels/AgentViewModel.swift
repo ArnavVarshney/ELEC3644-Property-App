@@ -21,15 +21,16 @@ class AgentViewModel: ObservableObject {
     func fetchAgents() async {
         do {
             let fetchedAgents: [User] = try await apiClient.get(url: "/users/agents")
-            
+
             // Fetch reviews for each agent
             var agentsWithReviews: [User] = []
             for var agent in fetchedAgents {
-                let reviews: [Review] = try await apiClient.get(url: "/reviews/user/\(agent.id.uuidString.lowercased())")
+                let reviews: [Review] = try await apiClient.get(
+                    url: "/reviews/user/\(agent.id.uuidString.lowercased())")
                 agent.reviews = reviews
                 agentsWithReviews.append(agent)
             }
-            
+
             DispatchQueue.main.async {
                 self.agents = agentsWithReviews
             }
@@ -57,12 +58,12 @@ class AgentViewModel: ObservableObject {
                 "authorId": review.author.id.uuidString.lowercased(),
                 "content": review.content,
                 "reviewedUserId": reviewedUserId.uuidString.lowercased(),
-                "rating": String(review.rating)
+                "rating": String(review.rating),
             ]
 
             print("[DEBUG] Post body: \(postBody)")
             let newReview: Review = try await apiClient.post(url: "/reviews", body: postBody)
-            
+
             // Update the local data
             DispatchQueue.main.async {
                 if let index = self.agents.firstIndex(where: { $0.id == reviewedUserId }) {
