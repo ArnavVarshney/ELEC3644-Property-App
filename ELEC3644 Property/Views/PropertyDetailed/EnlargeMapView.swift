@@ -9,7 +9,7 @@ import MapKit
 import SwiftUI
 
 struct EnlargeMapView: View {
-    @Environment(\.dismiss) var dismiss
+    //@Environment(\.dismiss) var dismiss
     @EnvironmentObject var viewModel: PropertyDetailViewModel
     @Binding var showEnlargeMapView: Bool
     @State var popUp: Bool = true
@@ -31,15 +31,15 @@ struct EnlargeMapView: View {
                             .fontWeight(.bold)
                             .foregroundColor(Color.black)
                     }
-                    .padding(.horizontal, 1)
-                    .padding(.vertical, 1)
-                    .cornerRadius(2)
-                    .background(Color.white)
+                    .frame(width: 125, height: 25)
+                    .background(.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
                     .overlay(
                         Capsule()
                             .stroke(lineWidth: 0.5)
                             .foregroundColor(.white)
                             .shadow(color: .black.opacity(0.2), radius: 2)
+                            .clipShape(RoundedRectangle(cornerRadius:  1))
                     )
                 }
                 .annotationTitles(.visible)
@@ -56,7 +56,7 @@ struct EnlargeMapView: View {
             }
             // Back Button
             Button {
-                dismiss()
+                showEnlargeMapView.toggle()
             } label: {
                 Image(systemName: "chevron.left")
                     .foregroundStyle(.black)
