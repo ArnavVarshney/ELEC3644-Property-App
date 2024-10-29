@@ -9,74 +9,67 @@ import SwiftUI
 
 struct MapPopUpView: View {
     let property: Property
-    @Binding var popUp: Bool
 
     var body: some View {
-        GeometryReader { geometry in
-            VStack(spacing: 2) {
-                ImageCarouselView(
-                    imageUrls: self.property.imageUrls, height: geometry.size.height * 0.3)
+        VStack(spacing: 8) {
+            ImageCarouselView(
+                imageUrls: self.property.imageUrls, cornerRadius: 0, height: 200, property: property
+            )
 
-                //.frame(height: geometry.size.height * 0.4)  // Adjust height as needed
+            HStack(alignment: .top) {
+                VStack(alignment: .leading) {
+                    Text(property.name)
+                        .fontWeight(.bold)
+                        .foregroundColor(.neutral100)
 
-                HStack(alignment: .top) {
-                    VStack(alignment: .leading) {
-                        Text(property.name)
-                            .fontWeight(.bold)
-                            .foregroundColor(.neutral100)
+                    Text("\(property.saleableArea)sqft")
+                        .foregroundColor(.neutral60)
 
-                        Text("\(property.saleableArea)sqft")
-                            .foregroundColor(.neutral60)
+                    Text("\(property.subDistrict), \(property.area)")
+                        .foregroundColor(.neutral60)
 
-                        Text("\(property.subDistrict), \(property.area)")
-                            .foregroundColor(.neutral60)
+                    Text("HKD \(property.netPrice)")
+                        .foregroundColor(.neutral60)
+                        .fontWeight(.semibold)
+                }
 
-                        Text("HKD \(property.netPrice)")
-                            .foregroundColor(.neutral60)
-                            .fontWeight(.semibold)
-                    }.padding(.bottom)
+                Spacer()
 
-                    Spacer()
+                VStack(alignment: .trailing) {
+                    ForEach(property.facilities) { facility in
+                        HStack {
+                            Image("\(facility.desc)")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 24, height: 24)
 
-                    VStack(alignment: .trailing) {
-                        ForEach(property.facilities) { facility in
-                            HStack {
-                                Image("\(facility.desc)")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 24, height: 24)
-
-                                Text("\(facility.measure) \(facility.measureUnit)")
-                                    .fontWeight(.semibold)
-                                    .foregroundColor(.neutral100)
-                            }
+                            Text("\(facility.measure) \(facility.measureUnit)")
+                                .fontWeight(.semibold)
+                                .foregroundColor(.neutral100)
                         }
-
                     }
                 }
-                .font(.footnote)
-                .padding(.horizontal)
-                .padding(.top)
             }
-            .frame(width: geometry.size.width, height: geometry.size.height * 0.45)  // Set to half screen height
-            .background(Color.white)  // Background color for the pop-up
-            .cornerRadius(20)  // Rounded corners for the pop-up
-            .shadow(radius: 10)  // Shadow for depth
+            .font(.footnote)
+            .padding(.horizontal)
         }
-        //.edgesIgnoringSafeArea(.all)  // Ignore safe area to allow full-width pop-up
+        .padding(.bottom)
+        .background(.white)
+        .cornerRadius(16)
+        .shadow(color: .black.opacity(0.2), radius: 8, x: 0, y: 4)
     }
 }
 
 #Preview {
     struct MapPopUp_Preview: View {
         @EnvironmentObject var propertyViewModel: PropertyViewModel
-        @State var popUp: Bool = true
 
         var body: some View {
-            MapPopUpView(property: Mock.Properties[0], popUp: $popUp)
+            MapPopUpView(property: Mock.Properties[0])
         }
     }
 
     return MapPopUp_Preview()
         .environmentObject(PropertyViewModel())
+        .environmentObject(UserViewModel())
 }

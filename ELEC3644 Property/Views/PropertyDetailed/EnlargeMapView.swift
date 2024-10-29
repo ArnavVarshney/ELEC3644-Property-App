@@ -9,13 +9,11 @@ import MapKit
 import SwiftUI
 
 struct EnlargeMapView: View {
-    //@Environment(\.dismiss) var dismiss
     @EnvironmentObject var viewModel: PropertyDetailViewModel
     @Binding var showEnlargeMapView: Bool
     @State var popUp: Bool = true
 
     var body: some View {
-
         ZStack(alignment: .topLeading) {
             // The Map
             Map(position: $viewModel.position) {
@@ -70,19 +68,10 @@ struct EnlargeMapView: View {
             }
             VStack {
                 Spacer()
-                Image(systemName: "clock")
-                Spacer()
-
-                MapPopUpView(property: viewModel.property, popUp: $popUp)
-                    .padding(30)
-                    .frame(minHeight: 10, maxHeight: 300)
+                MapPopUpView(property: viewModel.property)
             }
-            //.edgesIgnoringSafeArea(.bottom)  // Optional: ignore safe area if desired
-            .frame(alignment: .bottom)
+            .padding()
         }
-        //        .backButton()
-        //        .ignoresSafeArea()
-        //        .toolbarBackground(.hidden, for: .navigationBar)
     }
 }
 
@@ -96,6 +85,8 @@ struct EnlargeMapView: View {
         var body: some View {
             EnlargeMapView(showEnlargeMapView: $showEnlargeMapView)
                 .environmentObject(propertyDetailViewModel)
+                .environmentObject(propertyViewModel)
+                .environmentObject(UserViewModel())
         }
     }
 
