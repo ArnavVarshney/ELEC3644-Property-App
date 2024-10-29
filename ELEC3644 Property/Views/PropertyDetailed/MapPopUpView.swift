@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MapPopUpView: View {
     let property: Property
+    @Binding var popUp: Bool
 
     var body: some View {
         VStack(spacing: 8) {
@@ -65,7 +66,7 @@ struct MapPopUpView: View {
         @EnvironmentObject var propertyViewModel: PropertyViewModel
 
         var body: some View {
-            MapPopUpView(property: Mock.Properties[0])
+            MapPopUpView(property: Mock.Properties[0], popUp: true
         }
     }
 

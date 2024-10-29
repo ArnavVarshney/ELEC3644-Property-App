@@ -54,7 +54,7 @@ struct EnlargeMapView: View {
                 }
                 VStack {
                     Spacer()
-                    MapPopUpView(property: viewModel.property)
+                    MapPopUpView(property: viewModel.property, popUp: $popUp)
                 }
                 .padding()
             }
