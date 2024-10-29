@@ -76,25 +76,34 @@ struct ProfileDetailedView: View {
 
     var body: some View {
         VStack {
-            UserAvatarView(user: user, size: 48)
-            Text(user.name)
-                .font(.headline)
-            Text(user.email)
-                .font(.subheadline)
-            HStack(spacing: 24) {
-                HStack {
-                    Text("\(user.reviews.count)")
+            HStack(spacing: 36) {
+                VStack {
+                    UserAvatarView(user: user, size: 100)
+                    Text(user.name)
                         .font(.headline)
-                    Text("Reviews")
+                        .fontWeight(.bold)
+
+                    Text(user.role)
                         .font(.subheadline)
                 }
-                HStack {
-                    Text(String(format: "%.2f", UserViewModel.averageRating(for: user)))
-                        .font(.headline)
-                    Text("Rating")
-                        .font(.subheadline)
-                }
-            }.padding(.top, 12)
+
+                VStack(alignment: .leading, spacing: 18) {
+                    HStack {
+                        Text("\(user.reviews.count)")
+                            .font(.headline)
+                        Text("Reviews")
+                            .font(.subheadline)
+                    }
+                    Divider()
+                    HStack {
+                        Text(String(format: "%.2f", UserViewModel.averageRating(for: user)))
+                            .font(.headline)
+                        Text("Rating")
+                            .font(.subheadline)
+                    }
+                }.padding(.top, 12)
+                    .frame(maxWidth: 100)
+            }
 
             UserReviewListView(user: user)
             Spacer()

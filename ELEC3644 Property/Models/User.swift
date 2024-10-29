@@ -14,6 +14,7 @@ struct User: Identifiable, Codable {
     var avatarUrl: String
     var reviews: [Review]
     var wishlists: [Wishlist]
+    var role: String = "Guest"
 
     private enum CodingKeys: String, CodingKey {
         case name, email, avatarUrl, reviews, wishlists, id
@@ -40,6 +41,12 @@ struct User: Identifiable, Codable {
         avatarUrl = try container.decode(String.self, forKey: .avatarUrl)
         reviews = try container.decodeIfPresent([Review].self, forKey: .reviews) ?? []
         wishlists = try container.decodeIfPresent([Wishlist].self, forKey: .wishlists) ?? []
+        if email.contains("agent") {
+            role = "Agent"
+        } else if email.contains("host") {
+            role = "Host"
+        }
+
     }
 }
 

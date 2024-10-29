@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Translation
 
 struct ChatView: View {
     @ObservedObject var chat: Chat
@@ -84,6 +85,7 @@ struct ChatView: View {
 struct ChatBubble: View {
     var message: Message
     var isUser: Bool
+    @State private var showTranslation: Bool = false
 
     var body: some View {
         VStack(alignment: isUser ? .trailing : .leading) {
@@ -94,7 +96,23 @@ struct ChatBubble: View {
         .background(isUser ? .primary60 : .neutral40)
         .foregroundColor(isUser ? .neutral10 : .neutral100)
         .cornerRadius(12)
+        .contextMenu {
+            Button(action: {
+                UIPasteboard.general.string = message.content
+            }) {
+                Text("Copy")
+                Image(systemName: "doc.on.doc")
+            }
+            Button(action: {
+                showTranslation.toggle()
+            }) {
+                Text("Translate")
+                Image(systemName: "globe")
+            }
+        }
+        .translationPresentation(isPresented: $showTranslation, text: message.content)
         .frame(maxWidth: .infinity, alignment: isUser ? .trailing : .leading)
+
     }
 }
 
