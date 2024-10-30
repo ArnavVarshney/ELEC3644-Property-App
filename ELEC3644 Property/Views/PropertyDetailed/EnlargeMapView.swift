@@ -15,7 +15,7 @@ struct EnlargeMapView: View {
 
     var body: some View {
         NavigationStack {
-            ZStack(alignment: .topLeading) {
+            ZStack(alignment: .center) {
                 Map(position: $viewModel.position) {
                     // Annotation for the target property
                     Annotation(viewModel.property.name, coordinate: viewModel.location) {
@@ -59,41 +59,26 @@ struct EnlargeMapView: View {
 
                     if popUp {
                         MapPopUpView(property: viewModel.property, popUp: $popUp)
-                            .frame(height: 300)
-                            .padding(.bottom, 40)
+                            .frame(height: 270)
+                            .padding(.bottom, 35)
                             .padding(.horizontal, 20)
                     }
 
-                    if popUp {
-                        Button {
-                            popUp.toggle()  // Show the PopUpView
-                        } label: {
-                            Image(systemName: "xmark")  // Display xmark when popUp is true
-                                .foregroundStyle(.black)
-                                .background {
-                                    Circle()
-                                        .fill(.white)
-                                        .frame(width: 50, height: 50)
-                                }
-                                .padding(.bottom)
-                            //.padding(.leading, 20)
-                        }
-                    } else {
-                        Button {
-                            popUp.toggle()  // Show the PopUpView
-                        } label: {
-                            Image(systemName: "plus")  // Display plus when popUp is false
-                                .foregroundStyle(.black)
-                                .background {
-                                    Circle()
-                                        .fill(.white)
-                                        .frame(width: 50, height: 50)
-                                }
-                                .padding(.bottom, 10)
-                            //.padding(.leading)
-                        }
+                    Button {
+                        popUp.toggle()  // Show the PopUpView
+                    } label: {
+                        Image(systemName: popUp ? "xmark" : "plus")  // Display xmark when popUp is true
+                            .foregroundStyle(.black)
+                            .background {
+                                Circle()
+                                    .fill(.white)
+                                    .frame(width: 50, height: 50)
+                            }
+                            .padding(.bottom)
+                        //.padding(.leading, 20)
                     }
                 }
+
             }
             .backButton()
         }
