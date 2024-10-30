@@ -10,6 +10,7 @@ import SwiftUI
 struct ListingView: View {
     @EnvironmentObject private var propertyViewModel: PropertyViewModel
     @EnvironmentObject private var agentViewModel: AgentViewModel
+    @State private var showListingModal: Bool = false
 
     var body: some View {
         NavigationStack {
@@ -22,12 +23,15 @@ struct ListingView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        print("Add new listing")
+                        showListingModal = true
                     }) {
                         Image(systemName: "plus")
                             .foregroundColor(.black)
                     }
                 }
+            }
+            .sheet(isPresented: $showListingModal) {
+                PropertyListingForm()
             }
         }
 
