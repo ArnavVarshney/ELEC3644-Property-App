@@ -137,6 +137,7 @@ struct ProfileDetailedView: View {
                 Button("Show all \(user.reviews.count) reviews") {
                     // Show all reviews
                 }
+                .foregroundColor(.black)
                 .font(.system(size: 15, weight: .semibold))
                 .padding(12)
                 .frame(maxWidth: .infinity)
