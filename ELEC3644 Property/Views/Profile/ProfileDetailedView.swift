@@ -12,7 +12,7 @@ struct ReviewFieldView: View {
     @State private var rating: Int = 0
     @EnvironmentObject private var agentViewModel: AgentViewModel
     @EnvironmentObject private var userViewModel: UserViewModel
-    
+
     @Environment(\.dismiss) private var dismiss
 
     var user: User
@@ -44,7 +44,7 @@ struct ReviewFieldView: View {
                     .padding(.vertical, 4)
                 }
                 Divider()
-                
+
                 Button(action: {
                     submitReview()
                     dismiss()
@@ -161,7 +161,7 @@ struct ProfileDetailedView: View {
                 )
                 .padding(.top, 18)
             }
-            
+
             if user.id != userViewModel.user.id {
                 Button("Write a review") {
                     showWriteReviewModal = true

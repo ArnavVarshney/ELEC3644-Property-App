@@ -5,8 +5,8 @@
 //  Created by Filbert Tejalaksana on 30/10/2024.
 //
 
-import SwiftUI
 import PhotosUI
+import SwiftUI
 
 struct PropertyListingForm: View {
     @State private var propertyName = ""
@@ -16,53 +16,69 @@ struct PropertyListingForm: View {
     @State private var selectedSubDistrict = ""
     @State private var estate = ""
     @State private var buildingDirection = ""
-    
+
     @State private var saleableArea = ""
     @State private var saleableAreaTotalPrice = ""
     @State private var grossFloorArea = ""
     @State private var grossFloorAreaTotalPrice = ""
     @State private var netPrice = ""
     @State private var buildingAge = ""
-    
+
     @State private var primarySchoolNet = ""
     @State private var secondarySchoolNet = ""
-    
+
     @State private var facilities: [(description: String, measure: String, unit: String)] = []
     @State private var facilityDescription = ""
     @State private var facilityMeasure = ""
     @State private var facilityUnit = ""
-    
+
     @State private var selectedItems: [PhotosPickerItem] = []
     @State private var selectedImages: [UIImage] = []
-    
+
     @State private var selectedTab = 0
-    
+
     private var saleableAreaPricePerSqFt: String {
         guard let area = Double(saleableArea), area > 0,
-              let total = Double(netPrice)
+            let total = Double(netPrice)
         else { return "0" }
         return String(format: "%.2f", total / area)
     }
-    
+
     private var grossFloorAreaPricePerSqFt: String {
         guard let area = Double(grossFloorArea), area > 0,
-              let total = Double(netPrice)
+            let total = Double(netPrice)
         else { return "0" }
         return String(format: "%.2f", total / area)
     }
-    
+
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
                 TabView(selection: $selectedTab) {
-                    BasicInfoSection(propertyName: $propertyName, address: $address, estate: $estate, buildingDirection: $buildingDirection, buildingAge: $buildingAge, selectedArea: $selectedArea, selectedDistrict: $selectedDistrict, selectedSubDistrict: $selectedSubDistrict)
-                        .tag(0)
-                    PropertyDetailsSection(netPrice: $netPrice, saleableArea: $saleableArea, saleableAreaPricePerSqFt: saleableAreaPricePerSqFt, grossFloorArea: $grossFloorArea, grossFloorAreaPricePerSqFt: grossFloorAreaPricePerSqFt)
-                        .tag(1)
-                    SchoolNetSection(primarySchoolNet: $primarySchoolNet, secondarySchoolNet: $secondarySchoolNet)
-                        .tag(2)
-                    FacilitiesSection(facilities: $facilities, facilityDescription: $facilityDescription, facilityMeasure: $facilityMeasure, facilityUnit: $facilityUnit, addFacility: addFacility)
-                        .tag(3)
+                    BasicInfoSection(
+                        propertyName: $propertyName, address: $address, estate: $estate,
+                        buildingDirection: $buildingDirection, buildingAge: $buildingAge,
+                        selectedArea: $selectedArea, selectedDistrict: $selectedDistrict,
+                        selectedSubDistrict: $selectedSubDistrict
+                    )
+                    .tag(0)
+                    PropertyDetailsSection(
+                        netPrice: $netPrice, saleableArea: $saleableArea,
+                        saleableAreaPricePerSqFt: saleableAreaPricePerSqFt,
+                        grossFloorArea: $grossFloorArea,
+                        grossFloorAreaPricePerSqFt: grossFloorAreaPricePerSqFt
+                    )
+                    .tag(1)
+                    SchoolNetSection(
+                        primarySchoolNet: $primarySchoolNet, secondarySchoolNet: $secondarySchoolNet
+                    )
+                    .tag(2)
+                    FacilitiesSection(
+                        facilities: $facilities, facilityDescription: $facilityDescription,
+                        facilityMeasure: $facilityMeasure, facilityUnit: $facilityUnit,
+                        addFacility: addFacility
+                    )
+                    .tag(3)
                     ImagesSection(selectedItems: $selectedItems, selectedImages: $selectedImages)
                         .tag(4)
                 }
@@ -84,9 +100,9 @@ struct PropertyListingForm: View {
                             withAnimation {
                                 selectedTab -= 1
                             }
-                        } label : {
+                        } label: {
                             Text("Previous")
-                                .underline(true, color:.neutral100)
+                                .underline(true, color: .neutral100)
                         }
                         .font(.system(size: 16, weight: .medium))
                         .foregroundColor(.neutral100)
@@ -121,7 +137,7 @@ struct PropertyListingForm: View {
             .navigationTitle("List a Property")
         }
     }
-    
+
     private func addFacility() {
         if !facilityDescription.isEmpty && !facilityMeasure.isEmpty && !facilityUnit.isEmpty {
             facilities.append((facilityDescription, facilityMeasure, facilityUnit))
@@ -130,10 +146,9 @@ struct PropertyListingForm: View {
             facilityUnit = ""
         }
     }
-    
+
     private func submitForm() {}
 }
-
 
 struct PropertyDetailsSection: View {
     @Binding var netPrice: String
@@ -141,10 +156,10 @@ struct PropertyDetailsSection: View {
     var saleableAreaPricePerSqFt: String
     @Binding var grossFloorArea: String
     var grossFloorAreaPricePerSqFt: String
-    
+
     var body: some View {
         Form {
-            Section() {
+            Section {
                 TextField("Net Price", text: $netPrice)
                     .keyboardType(.decimalPad)
             }
@@ -158,7 +173,7 @@ struct PropertyDetailsSection: View {
                         .foregroundColor(.secondary)
                 }
             }
-            
+
             Section(header: Text("Gross Floor Area")) {
                 TextField("Area (sq ft)", text: $grossFloorArea)
                     .keyboardType(.decimalPad)
@@ -172,7 +187,6 @@ struct PropertyDetailsSection: View {
         }
     }
 }
-
 
 struct PropertyListingForm_Previews: PreviewProvider {
     static var previews: some View {

@@ -9,36 +9,36 @@ import SwiftUI
 
 struct PropertyDetailListView: View {
     @StateObject var viewModel: PropertyDetailViewModel
-    
+
     var body: some View {
-            VStack(alignment: .leading, spacing: 12) {
-                PropertyDetailHeaderView(property: viewModel.property)
-                HStack {
-                    Spacer()
-                    NavigationLink {
-                        PropertyDetailLookaroundView()
-                    } label: {
-                        HStack(spacing: 0) {
-                            Image(systemName: "vision.pro")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 20, height: 20)
-                                .padding(10)
-                                .foregroundColor(.neutral100)
-                            Text("VR View")
-                                .font(.system(size: 10, weight: .regular))
-                                .foregroundColor(.neutral60)
-                        }
+        VStack(alignment: .leading, spacing: 12) {
+            PropertyDetailHeaderView(property: viewModel.property)
+            HStack {
+                Spacer()
+                NavigationLink {
+                    PropertyDetailLookaroundView()
+                } label: {
+                    HStack(spacing: 0) {
+                        Image(systemName: "vision.pro")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 20, height: 20)
+                            .padding(10)
+                            .foregroundColor(.neutral100)
+                        Text("VR View")
+                            .font(.system(size: 10, weight: .regular))
+                            .foregroundColor(.neutral60)
                     }
                 }
-                Divider()
-                PropertyDetailRowsView(details: propertyDetails())
-                Divider()
             }
-            .padding(.horizontal, 24)
-            .toolbar(.hidden, for: .tabBar)
+            Divider()
+            PropertyDetailRowsView(details: propertyDetails())
+            Divider()
+        }
+        .padding(.horizontal, 24)
+        .toolbar(.hidden, for: .tabBar)
     }
-    
+
     private func propertyDetails() -> [(String, String)] {
         return [
             ("Estate", viewModel.property.estate),

@@ -22,7 +22,7 @@ struct PropertyDetailLookaroundView: View {
 
         sphereNode = SCNNode(geometry: sphereGeometry)
     }
-    
+
     var body: some View {
         GeometryReader { geometry in
             SceneView(
@@ -78,7 +78,7 @@ class MotionManager: ObservableObject {
             print("Device motion is not available.")
             return
         }
-        
+
         motionManager.startDeviceMotionUpdates(to: .main) { [weak self] motion, error in
             guard let motion = motion, error == nil else {
                 print("Error: \(error?.localizedDescription ?? "Unknown error")")

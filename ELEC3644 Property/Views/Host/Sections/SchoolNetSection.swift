@@ -10,7 +10,7 @@ import SwiftUI
 struct SchoolNetSection: View {
     @Binding var primarySchoolNet: String
     @Binding var secondarySchoolNet: String
-    
+
     var body: some View {
         Form {
             Section(header: Text("School Net")) {
