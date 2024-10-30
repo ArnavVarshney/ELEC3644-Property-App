@@ -86,6 +86,7 @@ struct ProfileDetailedView: View {
     @State private var showWriteReviewModal: Bool = false
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var userViewModel: UserViewModel
+
     var firstName: String {
         if user.name.split(separator: " ").count > 1 {
             return String(user.name.split(separator: " ")[0])
@@ -95,17 +96,27 @@ struct ProfileDetailedView: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack(spacing: 36) {
-                Spacer()
+        VStack {
+            HStack(spacing: 60) {
                 VStack {
                     UserAvatarView(user: user, size: 100)
                     Text(firstName)
                         .font(.system(size: 24, weight: .bold))
 
-                    Text(user.role)
-                        .font(.system(size: 12, weight: .semibold))
+                    switch userViewModel.userRole {
+                    case .agent:
+                        Text("Agent")
+                            .font(.system(size: 12, weight: .semibold))
+                    case .host:
+                        Text("Host")
+                            .font(.system(size: 12, weight: .semibold))
+                    default:
+                        Text("Guest")
+                            .font(.system(size: 12, weight: .semibold))
+                    }
                 }
+                .padding(.leading, 36)
+                .padding(.vertical, 24)
 
                 VStack(alignment: .leading, spacing: 15) {
                     VStack(alignment: .leading, spacing: 6) {
@@ -131,16 +142,21 @@ struct ProfileDetailedView: View {
                             .font(.system(size: 12, weight: .semibold))
                     }
                 }
-                .padding(.top, 12)
+                .padding(.trailing, 36)
                 .frame(maxWidth: 100)
-                Spacer()
             }
-            .padding(24)
+            .background(.white)
+            .cornerRadius(24)
+            .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
+            .padding(.vertical, 24)
 
             if user.reviews.count > 0 {
-                Text("\(firstName)'s reviews")
-                    .font(.title3)
-                    .fontWeight(.semibold)
+                HStack {
+                    Text("\(firstName)'s reviews")
+                        .font(.title3)
+                        .fontWeight(.semibold)
+                    Spacer()
+                }
 
                 UserReviewListView(user: user)
                     .padding(.top, 12)

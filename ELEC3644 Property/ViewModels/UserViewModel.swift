@@ -14,6 +14,7 @@ class UserViewModel: ObservableObject {
         name: "", email: "", avatarUrl: "", reviews: [], wishlists: [])
     @Published var otherUsers: [User] = []
     @Published var agents: [User] = []
+    @Published var userRole: UserRole = .guest
 
     init(apiClient: APIClient = NetworkManager(), user: User? = nil) {
         self.apiClient = apiClient
@@ -22,6 +23,11 @@ class UserViewModel: ObservableObject {
         } else {
             Task {
                 await self.fetchUser(with: self.currentUserId)
+            }
+        }
+        if user != nil {
+            if user!.email.contains("agent") {
+                self.userRole = .agent
             }
         }
     }
