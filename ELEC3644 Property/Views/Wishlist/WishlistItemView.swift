@@ -33,7 +33,7 @@ struct WishlistItemView: View {
                 RoundedRectangle(cornerRadius: 16)
                     .stroke(.neutral20, lineWidth: 4)
             )
-            .shadow(color: .gray.opacity(0.3), radius: 4, x: 0, y: 4)
+            .addShadow()
             .padding(.bottom, 2)
 
             VStack(alignment: .leading) {

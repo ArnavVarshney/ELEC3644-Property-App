@@ -57,7 +57,7 @@ struct MapPopUpView: View {
         .padding(.bottom, 10)
         .background(.white)
         .cornerRadius(16)
-        .shadow(color: .black.opacity(0.2), radius: 8, x: 0, y: 4)
+        .addShadow()
     }
 }
 

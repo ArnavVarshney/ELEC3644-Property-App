@@ -47,7 +47,7 @@ struct SearchBarView: View {
                 .stroke(.gray, lineWidth: 1)
         )
         .padding(.horizontal, 24)
-        .shadow(color: .neutral20, radius: 4, x: 0, y: 4)
+        .addShadow()
     }
 }
 

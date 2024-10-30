@@ -33,7 +33,7 @@ struct MapView: View {
                         Capsule()
                             .stroke(lineWidth: 0.5)
                             .foregroundColor(.white)
-                            .shadow(color: .black.opacity(0.2), radius: 2)
+                            .addShadow()
                             .clipShape(RoundedRectangle(cornerRadius: 1))
                     )
                     .onTapGesture {

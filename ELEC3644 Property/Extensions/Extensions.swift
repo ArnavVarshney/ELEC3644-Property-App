@@ -37,9 +37,20 @@ struct BackButtonModifier: ViewModifier {
     }
 }
 
+struct AddShadow: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .shadow(color: .gray.opacity(0.3), radius: 4, x: 0, y: 4)
+    }
+}
+
 extension View {
     func backButton() -> some View {
         self.modifier(BackButtonModifier())
+    }
+
+    func addShadow() -> some View {
+        self.modifier(AddShadow())
     }
 }
 
