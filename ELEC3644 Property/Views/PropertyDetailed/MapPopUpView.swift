@@ -14,7 +14,7 @@ struct MapPopUpView: View {
     var body: some View {
         VStack(spacing: 8) {
             ImageCarouselView(
-                imageUrls: self.property.imageUrls, cornerRadius: 0, height: 250, property: property
+                imageUrls: self.property.imageUrls, cornerRadius: 0, height: 200, property: property
             )
 
             HStack(alignment: .top) {
@@ -54,7 +54,7 @@ struct MapPopUpView: View {
             .font(.footnote)
             .padding(.horizontal)
         }
-        .padding(.bottom)
+        .padding(.bottom, 10)
         .background(.white)
         .cornerRadius(16)
         .shadow(color: .black.opacity(0.2), radius: 8, x: 0, y: 4)
