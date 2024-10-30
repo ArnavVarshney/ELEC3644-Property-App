@@ -8,17 +8,21 @@
 import SwiftUI
 
 struct BottomNavigationView: View {
+    @EnvironmentObject var userViewModel: UserViewModel
 
     var body: some View {
+        let _ = print(userViewModel.userRole)
         TabView {
-            ExploreView()
-                .tabItem {
-                    Label("Explore", systemImage: "magnifyingglass")
-                }
-            WishlistsView()
-                .tabItem {
-                    Label("Wishlists", systemImage: "heart.fill")
-                }
+            if userViewModel.userRole == .guest {
+                ExploreView()
+                    .tabItem {
+                        Label("Explore", systemImage: "magnifyingglass")
+                    }
+                WishlistsView()
+                    .tabItem {
+                        Label("Wishlists", systemImage: "heart.fill")
+                    }
+            }
             InboxView()
                 .tabItem {
                     Label("Inbox", systemImage: "envelope")

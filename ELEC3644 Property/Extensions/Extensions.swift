@@ -5,6 +5,7 @@
 //  Created by Filbert Tejalaksana on 11/10/2024.
 //
 
+import AVKit
 import SwiftUI
 
 struct BackButtonModifier: ViewModifier {
@@ -42,20 +43,11 @@ extension View {
     }
 }
 
-extension Message {
-    static func fromDict(_ dict: [String: Any]) -> Message? {
-        guard let id = dict["id"] as? String,
-            let content = dict["content"] as? String,
-            let senderId = dict["senderId"] as? String,
-            let receiverId = dict["receiverId"] as? String,
-            let timestamp = dict["timestamp"] as? Date
-        else {
-            return nil
-        }
-        return Message(
-            id: UUID(uuidString: id)!, timestamp: timestamp, senderId: senderId,
-            receiverId: receiverId,
-            content: content)
+extension AVPlayerViewController {
+    override open func viewDidLoad() {
+        super.viewDidLoad()
+        self.showsPlaybackControls = false
+        self.videoGravity = .resizeAspect
     }
 }
 

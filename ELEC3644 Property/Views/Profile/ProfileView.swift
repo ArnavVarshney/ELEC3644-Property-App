@@ -16,7 +16,7 @@ struct ProfileView: View {
 
     var body: some View {
         NavigationStack {
-            VStack(alignment: .leading) {
+            VStack {
                 NavigationLink(destination: ProfileDetailedView(user: user)) {
                     HStack(spacing: 12) {
                         UserAvatarView(user: user)
@@ -36,6 +36,25 @@ struct ProfileView: View {
                     }
                 }
                 Spacer()
+                NavigationLink(destination: HostTransitionScreen()) {
+                    HStack {
+                        Image(systemName: "link")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 24, height: 24)
+                            .foregroundColor(.white)
+                            .symbolEffect(.variableColor)
+                            .padding(.leading, 16)
+                        Text("Switch to hosting")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .padding(.vertical, 16)
+                            .padding(.trailing, 16)
+                    }
+                    .background(.black)
+                    .cornerRadius(36)
+                    .padding(.vertical, 24)
+                }
             }
             .padding(.horizontal, 24)
             .navigationTitle("Profile")
