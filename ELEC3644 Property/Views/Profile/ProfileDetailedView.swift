@@ -209,8 +209,8 @@ struct ReviewsListModal: View {
                                 }
                                 Spacer()
                             }
-                             Text(review.content)
-                                .padding(.top, 12 )
+                            Text(review.content)
+                                .padding(.top, 12)
                         }
                         .padding(.vertical)
                         Divider()
