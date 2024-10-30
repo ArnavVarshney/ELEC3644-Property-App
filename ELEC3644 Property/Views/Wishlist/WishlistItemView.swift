@@ -18,12 +18,15 @@ struct WishlistItemView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            AsyncImage(url: URL(string: firstProperty.imageUrls[1])) { image in
+            AsyncImage(url: URL(string: firstProperty.imageUrls[0])) { image in
                 image
                     .resizable()
                     .scaledToFill()
             } placeholder: {
-                ProgressView()
+                let index = Int.random(in: 0..<mockPropertyImages.count)
+                Image(mockPropertyImages[index])
+                    .resizable()
+                    .scaledToFill()
             }
             .clipShape(RoundedRectangle(cornerRadius: 16))
             .overlay(
