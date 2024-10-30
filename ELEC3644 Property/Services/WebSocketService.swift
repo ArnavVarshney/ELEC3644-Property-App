@@ -5,10 +5,12 @@
 //  Created by Arnav Varshney on 27/10/2024.
 //
 
+import Foundation
 import SwiftUI
 
 class WebSocketService: ObservableObject {
     private var webSocketTask: URLSessionWebSocketTask?
+    private var pingTimer: Timer?
     var chat: Chat
     var userId: String
 
@@ -83,8 +85,11 @@ class WebSocketService: ObservableObject {
                                 }
                             case "connected":
                                 print("[DEBUG - WS] WebSocket connected")
+                                self?.startPingTimer()
                             case "userSet":
                                 print("[DEBUG - WS] User set successfully")
+                            case "pong":
+                                print("[DEBUG - WS] Received pong")
                             default:
                                 print(
                                     "[DEBUG - WS] Unknown message type: \(jsonDict["type"] ?? Error.self)"
@@ -98,6 +103,17 @@ class WebSocketService: ObservableObject {
                 self?.receiveMessages()
             }
         }
+    }
+
+    private func startPingTimer() {
+        pingTimer = Timer.scheduledTimer(withTimeInterval: 30.0, repeats: true) { [weak self] _ in
+            self?.sendPing()
+        }
+    }
+
+    private func sendPing() {
+        let pingMessage = "{\"type\": \"ping\"}"
+        sendMessage(message: nil, rawMessage: pingMessage)
     }
 
     deinit {
