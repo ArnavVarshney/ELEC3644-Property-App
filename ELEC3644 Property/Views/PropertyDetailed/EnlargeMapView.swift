@@ -59,7 +59,9 @@ struct EnlargeMapView: View {
 
                     if popUp {
                         MapPopUpView(property: viewModel.property, popUp: $popUp)
-                            .padding(30)
+                            .frame(height:300)
+                            .padding(.bottom, 40)
+                            .padding(.horizontal, 20)
                     }
 
                     if popUp {
@@ -73,8 +75,8 @@ struct EnlargeMapView: View {
                                         .fill(.white)
                                         .frame(width: 50, height: 50)
                                 }
-                                .padding(.bottom, 40)
-                                .padding(.leading, 20)
+                                .padding(.bottom)
+                                //.padding(.leading, 20)
                         }
                     } else {
                         Button {
@@ -87,8 +89,8 @@ struct EnlargeMapView: View {
                                         .fill(.white)
                                         .frame(width: 50, height: 50)
                                 }
-                                .padding(.bottom, 40)
-                                .padding(.leading, 20)
+                                .padding(.bottom, 10)
+                                //.padding(.leading)
                         }
                     }
                 }
@@ -96,7 +98,6 @@ struct EnlargeMapView: View {
             .backButton()
         }
     }
-
 }
 
 #Preview {
@@ -113,6 +114,5 @@ struct EnlargeMapView: View {
                 .environmentObject(UserViewModel())
         }
     }
-
     return EnlargeMapView_Preview()
 }
