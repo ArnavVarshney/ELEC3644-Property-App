@@ -28,7 +28,7 @@ struct HostTransitionScreen: View {
                         )
                 }
                 Text(
-                    userViewModel.userRole != .host
+                    userViewModel.userRole == .host
                         ? "Switching to hosting" : "Switching to exploring"
                 )
                 .font(.system(size: 12, weight: .semibold))
