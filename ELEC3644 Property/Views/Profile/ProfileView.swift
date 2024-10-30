@@ -45,11 +45,15 @@ struct ProfileView: View {
                             .foregroundColor(.white)
                             .symbolEffect(.variableColor)
                             .padding(.leading, 16)
-                        Text("Switch to hosting")
-                            .font(.headline)
-                            .foregroundColor(.white)
-                            .padding(.vertical, 16)
-                            .padding(.trailing, 16)
+                        Text(
+                            userViewModel.userRole == .host
+                                ? "Switch to exploring" : "Switch to hosting"
+                        )
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .padding(.vertical, 16)
+                        .padding(.trailing, 16)
+                        .addShadow()
                     }
                     .background(.black)
                     .cornerRadius(36)

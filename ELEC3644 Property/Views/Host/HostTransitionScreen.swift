@@ -27,23 +27,31 @@ struct HostTransitionScreen: View {
                                 .padding(.horizontal, 48)
                         )
                 }
-                Text("Switching to hosting")
-                    .font(.system(size: 12, weight: .semibold))
+                Text(
+                    userViewModel.userRole != .host
+                        ? "Switching to hosting" : "Switching to exploring"
+                )
+                .font(.system(size: 12, weight: .semibold))
             }
             .onAppear {
-                userViewModel.userRole = .host
+                if userViewModel.userRole != .host {
+                    userViewModel.userRole = .host
+                } else {
+                    userViewModel.userRole = .guest
+                }
                 NotificationCenter.default.addObserver(
                     forName: .AVPlayerItemDidPlayToEndTime, object: avPlayer.currentItem,
                     queue: .main
                 ) { _ in
+                    avPlayer.seek(to: .zero)
                     navigateToExplore = true
                 }
                 avPlayer.play()
             }
         }
-        .navigationBarHidden(true)
+        .navigationBarBackButtonHidden(true)
         .navigationDestination(isPresented: $navigateToExplore) {
-            ExploreView()
+            ProfileView()
                 .interactiveDismissDisabled(true)
                 .navigationBarBackButtonHidden(true)
         }
