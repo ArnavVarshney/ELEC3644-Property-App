@@ -91,7 +91,23 @@ enum Mock {
             name: "Filbert Tejalaksana", email: "a@gmail.com",
             avatarUrl:
                 "https://media.licdn.com/dms/image/v2/C4D03AQFt9Bjg0CPk4Q/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1662615657137?e=2147483647&v=beta&t=sTx8Vlvu9gfvGVz1TO4GIavJPkqZ38kAd5-Lt8eGpq8",
-            reviews: nil,
+            reviews: [
+                Review(
+                    author: User(
+                        name: "Abel Haris Harsono", email: "b@gmail.com",
+                        avatarUrl: "", reviews: nil, wishlists: nil),
+                    rating: 2, content: "Testing"),
+                Review(
+                    author: User(
+                        name: "Abel Haris Harsono", email: "b@gmail.com",
+                        avatarUrl: "", reviews: nil, wishlists: nil),
+                    rating: 2, content: "Testing"),
+                Review(
+                    author: User(
+                        name: "Abel Haris Harsono", email: "b@gmail.com",
+                        avatarUrl: "", reviews: nil, wishlists: nil),
+                    rating: 2, content: "Testing")
+            ],
             wishlists: [
                 Wishlist(name: "Holiday", properties: [Properties[0], Properties[1]]),
                 Wishlist(name: "Home", properties: [Properties[0]]),

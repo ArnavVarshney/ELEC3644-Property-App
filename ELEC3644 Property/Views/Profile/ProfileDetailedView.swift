@@ -71,6 +71,7 @@ struct ReviewFieldView: View {
 
 struct ProfileDetailedView: View {
     var user: User
+    @State private var showReviewsModal: Bool = false
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var userViewModel: UserViewModel
     var firstName: String {
@@ -135,9 +136,10 @@ struct ProfileDetailedView: View {
 
             if user.reviews.count > 1 {
                 Button("Show all \(user.reviews.count) reviews") {
-                    // Show all reviews
+                    showReviewsModal = true
                 }
                 .font(.system(size: 15, weight: .semibold))
+                .foregroundColor(.neutral100)
                 .padding(12)
                 .frame(maxWidth: .infinity)
                 .overlay(
@@ -165,6 +167,66 @@ struct ProfileDetailedView: View {
                         .foregroundColor(.black)
                         .padding(12)
                 }
+            }
+        }.sheet(isPresented: $showReviewsModal) {
+            ReviewsListModal(user: user)
+        }
+    }
+}
+
+struct ReviewsListModal: View {
+    var user: User
+    @EnvironmentObject private var userViewModel: UserViewModel
+    @Environment(\.dismiss) var dismiss
+    
+    var body: some View {
+        NavigationStack {
+            ScrollView {
+                VStack(alignment: .leading) {
+                    ForEach (user.reviews, id: \.id) {review in
+                        VStack(alignment: .leading) {
+                            HStack {
+                                UserAvatarView(user: review.author, size: 36)
+                                VStack(alignment:.leading, spacing: 0) {
+                                    var reviewerFirstName: String {
+                                        if review.author.name.split(separator: " ").count > 1 {
+                                            return String(review.author.name.split(separator: " ")[0])
+                                        } else {
+                                            return user.name
+                                        }
+                                    }
+                                    Text(reviewerFirstName)
+                                        .font(.system(size: 18, weight: .bold))
+                                    HStack {
+                                        Image(systemName: "star.fill")
+                                            .resizable()
+                                            .frame(width: 12, height: 12)
+                                        Text("\(Int(review.rating))")
+                                            .font(.system(size: 12, weight: .semibold))
+                                    }
+                                }
+                                Spacer()
+                            }
+                            .padding(.bottom, 12)
+                            Text(review.content)
+                        }
+                    }
+                    Spacer()
+                }
+                .navigationTitle("\(user.reviews.count) Review\(user.reviews.count > 1 ? "s" : "")")
+                .padding(.horizontal, 24)
+                .toolbar(content: {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button {
+                            dismiss()
+                        } label: {
+                            Image(systemName: "chevron.left")
+                                .frame(width: 18, height: 18)
+                                .foregroundColor(.black)
+                                .padding(12)
+                        }
+                    }
+                })
             }
         }
     }
