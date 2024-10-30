@@ -15,7 +15,7 @@ struct ExploreView: View {
     @EnvironmentObject private var agentViewModel: AgentViewModel
 
     var body: some View {
-        VStack {
+        NavigationStack {
             VStack {
                 SearchBarView(searchText: $searchText, isActive: $isSearchActive)
                 MenuItemListView(selectedMenu: $currentMenu)

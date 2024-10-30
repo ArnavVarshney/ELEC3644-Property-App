@@ -138,6 +138,7 @@ struct ProfileDetailedView: View {
                 Button("Show all \(user.reviews.count) reviews") {
                     showReviewsModal = true
                 }
+                .foregroundColor(.black)
                 .font(.system(size: 15, weight: .semibold))
                 .foregroundColor(.neutral100)
                 .padding(12)
