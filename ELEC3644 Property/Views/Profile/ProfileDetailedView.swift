@@ -179,19 +179,20 @@ struct ReviewsListModal: View {
     var user: User
     @EnvironmentObject private var userViewModel: UserViewModel
     @Environment(\.dismiss) var dismiss
-    
+
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading) {
-                    ForEach (user.reviews, id: \.id) {review in
+                    ForEach(user.reviews, id: \.id) { review in
                         VStack(alignment: .leading) {
                             HStack {
                                 UserAvatarView(user: review.author, size: 36)
-                                VStack(alignment:.leading, spacing: 0) {
+                                VStack(alignment: .leading, spacing: 0) {
                                     var reviewerFirstName: String {
                                         if review.author.name.split(separator: " ").count > 1 {
-                                            return String(review.author.name.split(separator: " ")[0])
+                                            return String(
+                                                review.author.name.split(separator: " ")[0])
                                         } else {
                                             return user.name
                                         }

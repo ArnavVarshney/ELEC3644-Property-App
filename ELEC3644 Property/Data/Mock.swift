@@ -106,7 +106,7 @@ enum Mock {
                     author: User(
                         name: "Abel Haris Harsono", email: "b@gmail.com",
                         avatarUrl: "", reviews: nil, wishlists: nil),
-                    rating: 2, content: "Testing")
+                    rating: 2, content: "Testing"),
             ],
             wishlists: [
                 Wishlist(name: "Holiday", properties: [Properties[0], Properties[1]]),
