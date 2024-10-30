@@ -209,9 +209,11 @@ struct ReviewsListModal: View {
                                 }
                                 Spacer()
                             }
-                            .padding(.bottom, 12)
-                            Text(review.content)
+                             Text(review.content)
+                                .padding(.top, 12 )
                         }
+                        .padding(.vertical)
+                        Divider()
                     }
                     Spacer()
                 }
@@ -222,7 +224,7 @@ struct ReviewsListModal: View {
                         Button {
                             dismiss()
                         } label: {
-                            Image(systemName: "chevron.left")
+                            Image(systemName: "xmark")
                                 .frame(width: 18, height: 18)
                                 .foregroundColor(.black)
                                 .padding(12)
