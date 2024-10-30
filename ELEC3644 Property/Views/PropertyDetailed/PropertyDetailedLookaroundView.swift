@@ -12,8 +12,17 @@ import SwiftUI
 struct PropertyDetailLookaroundView: View {
     @State private var scene: SCNScene?
     @State private var cameraNode: SCNNode?
+    @State private var sphereNode: SCNNode
     @StateObject private var motionManager = MotionManager()
 
+    init() {
+        let sphereGeometry = SCNSphere(radius: 10)
+        sphereGeometry.firstMaterial?.diffuse.contents = UIImage(named: "PropertyLookaround")
+        sphereGeometry.firstMaterial?.isDoubleSided = true
+
+        sphereNode = SCNNode(geometry: sphereGeometry)
+    }
+    
     var body: some View {
         GeometryReader { geometry in
             SceneView(
@@ -24,7 +33,9 @@ struct PropertyDetailLookaroundView: View {
         }
         .onAppear(perform: setupScene)
         .onReceive(motionManager.$attitude) { attitude in
-            updateCameraRotation(with: attitude)
+            if let attitude = attitude {
+                updateSphereRotation(with: attitude)
+            }
         }
         .ignoresSafeArea()
     }
@@ -32,11 +43,6 @@ struct PropertyDetailLookaroundView: View {
     private func setupScene() {
         scene = SCNScene()
 
-        let sphereGeometry = SCNSphere(radius: 10)
-        sphereGeometry.firstMaterial?.diffuse.contents = UIImage(named: "PropertyLookaround")
-        sphereGeometry.firstMaterial?.isDoubleSided = true
-
-        let sphereNode = SCNNode(geometry: sphereGeometry)
         sphereNode.position = SCNVector3(x: 0, y: 0, z: -10)
         scene?.rootNode.addChildNode(sphereNode)
 
@@ -48,28 +54,37 @@ struct PropertyDetailLookaroundView: View {
         motionManager.startUpdates()
     }
 
-    private func updateCameraRotation(with attitude: CMAttitude) {
-        let rotationRate = 1.0
-        cameraNode?.eulerAngles = SCNVector3(
+    private func updateSphereRotation(with attitude: CMAttitude) {
+        let rotationRate = -1.0
+        let rotation = SCNVector3(
             x: Float(attitude.pitch * rotationRate),
             y: Float(attitude.yaw * rotationRate),
             z: Float(attitude.roll * rotationRate)
         )
+        sphereNode.eulerAngles = rotation
     }
 }
 
 class MotionManager: ObservableObject {
     private let motionManager = CMMotionManager()
-    @Published var attitude = CMAttitude()
+    @Published var attitude: CMAttitude?
 
     init() {
         motionManager.deviceMotionUpdateInterval = 1.0 / 60.0
     }
 
     func startUpdates() {
-        motionManager.startDeviceMotionUpdates(to: .main) { motion, error in
-            guard let motion = motion, error == nil else { return }
-            self.attitude = motion.attitude
+        guard motionManager.isDeviceMotionAvailable else {
+            print("Device motion is not available.")
+            return
+        }
+        
+        motionManager.startDeviceMotionUpdates(to: .main) { [weak self] motion, error in
+            guard let motion = motion, error == nil else {
+                print("Error: \(error?.localizedDescription ?? "Unknown error")")
+                return
+            }
+            self?.attitude = motion.attitude
         }
     }
 
@@ -77,6 +92,7 @@ class MotionManager: ObservableObject {
         motionManager.stopDeviceMotionUpdates()
     }
 }
+
 #Preview {
     PropertyDetailLookaroundView()
 }

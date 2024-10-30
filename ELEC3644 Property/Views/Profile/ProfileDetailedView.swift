@@ -12,6 +12,9 @@ struct ReviewFieldView: View {
     @State private var rating: Int = 0
     @EnvironmentObject private var agentViewModel: AgentViewModel
     @EnvironmentObject private var userViewModel: UserViewModel
+    
+    @Environment(\.dismiss) private var dismiss
+
     var user: User
 
     var body: some View {
@@ -26,18 +29,26 @@ struct ReviewFieldView: View {
                         .cornerRadius(12)
                 }
 
-                HStack {
-                    Text("Rating:")
-                    ForEach(1...5, id: \.self) { star in
-                        Image(systemName: star <= rating ? "star.fill" : "star")
-                            .foregroundColor(star <= rating ? .primary60 : .neutral60)
-                            .onTapGesture {
-                                rating = star
-                            }
+                Section {
+                    HStack(alignment: .center) {
+                        Text("Rating:")
+                        Spacer()
+                        ForEach(1...5, id: \.self) { star in
+                            Image(systemName: star <= rating ? "star.fill" : "star")
+                                .foregroundColor(star <= rating ? .primary60 : .neutral60)
+                                .onTapGesture {
+                                    rating = star
+                                }
+                        }
                     }
+                    .padding(.vertical, 4)
                 }
-
-                Button(action: submitReview) {
+                Divider()
+                
+                Button(action: {
+                    submitReview()
+                    dismiss()
+                }) {
                     Text("Submit Review")
                         .frame(maxWidth: .infinity)
                         .padding()
@@ -72,6 +83,7 @@ struct ReviewFieldView: View {
 struct ProfileDetailedView: View {
     var user: User
     @State private var showReviewsModal: Bool = false
+    @State private var showWriteReviewModal: Bool = false
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var userViewModel: UserViewModel
     var firstName: String {
@@ -149,12 +161,23 @@ struct ProfileDetailedView: View {
                 )
                 .padding(.top, 18)
             }
-
-            Spacer()
-
+            
             if user.id != userViewModel.user.id {
-                ReviewFieldView(user: user)
+                Button("Write a review") {
+                    showWriteReviewModal = true
+                }
+                .foregroundColor(.black)
+                .font(.system(size: 15, weight: .semibold))
+                .foregroundColor(.neutral100)
+                .padding(12)
+                .frame(maxWidth: .infinity)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(Color.black, lineWidth: 1)
+                )
+                .padding(.top, 4)
             }
+            Spacer()
         }
         .padding(.horizontal, 24)
         .navigationBarBackButtonHidden()
@@ -171,6 +194,10 @@ struct ProfileDetailedView: View {
             }
         }.sheet(isPresented: $showReviewsModal) {
             ReviewsListModal(user: user)
+        }.sheet(isPresented: $showWriteReviewModal) {
+            ReviewFieldView(user: user)
+                .presentationDetents([.height(300)])
+                .presentationDragIndicator(.visible)
         }
     }
 }
@@ -189,15 +216,7 @@ struct ReviewsListModal: View {
                             HStack {
                                 UserAvatarView(user: review.author, size: 36)
                                 VStack(alignment: .leading, spacing: 0) {
-                                    var reviewerFirstName: String {
-                                        if review.author.name.split(separator: " ").count > 1 {
-                                            return String(
-                                                review.author.name.split(separator: " ")[0])
-                                        } else {
-                                            return user.name
-                                        }
-                                    }
-                                    Text(reviewerFirstName)
+                                    Text(review.author.name)
                                         .font(.system(size: 18, weight: .bold))
                                     HStack {
                                         Image(systemName: "star.fill")

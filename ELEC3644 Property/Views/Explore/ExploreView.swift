@@ -31,14 +31,21 @@ struct ExploreView: View {
                         BuyMenuView(properties: propertyViewModel.properties)
                             .id(MenuItem.buy)
                             .frame(width: geometry.size.width)
+                        RentMenuView()
+                            .id(MenuItem.rent)
+                            .frame(width: geometry.size.width)
+                        LeaseMenuView()
+                            .id(MenuItem.lease)
+                            .frame(width: geometry.size.width)
+                        TransactionMenuView()
+                            .id(MenuItem.transaction)
+                            .frame(width: geometry.size.width)
+                        EstateMenuView()
+                            .id(MenuItem.estate)
+                            .frame(width: geometry.size.width)
                         AgentMenuView()
                             .id(MenuItem.agents)
                             .frame(width: geometry.size.width)
-                        ForEach(MenuItem.allCases, id: \.self) { menuItem in
-                            Text(menuItem.rawValue)
-                                .id(menuItem.rawValue)
-                                .frame(width: geometry.size.width, height: geometry.size.height)
-                        }
                     }
                 }
                 .scrollPosition(id: $currentMenu)
@@ -47,6 +54,27 @@ struct ExploreView: View {
                 .scrollDisabled(true)
             }
         }
+    }
+}
+
+struct RentMenuView: View {
+    var body: some View {
+        Text("Rent")
+    }
+}
+struct LeaseMenuView: View {
+    var body: some View {
+        Text("Lease")
+    }
+}
+struct TransactionMenuView: View {
+    var body: some View {
+        Text("Transaction")
+    }
+}
+struct EstateMenuView: View {
+    var body: some View {
+        Text("Estate")
     }
 }
 

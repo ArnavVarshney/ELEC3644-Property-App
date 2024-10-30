@@ -64,7 +64,36 @@ enum Mock {
                 "https://chat-server.home-nas.xyz/images/Property5.jpg",
             ],
             transactionHistory: [
-                Transaction(date: Date(), price: 7_500_000)
+                Transaction(
+                    date: Date(timeIntervalSince1970: 1_609_459_200),
+                    price: Int.random(in: 6_000_000...8_500_000)),
+                Transaction(
+                    date: Date(timeIntervalSince1970: 1_612_137_600),
+                    price: Int.random(in: 6_000_000...8_500_000)),
+                Transaction(
+                    date: Date(timeIntervalSince1970: 1_614_556_800),
+                    price: Int.random(in: 6_000_000...8_500_000)),
+                Transaction(
+                    date: Date(timeIntervalSince1970: 1_617_235_200),
+                    price: Int.random(in: 6_000_000...8_500_000)),
+                Transaction(
+                    date: Date(timeIntervalSince1970: 1_619_827_200),
+                    price: Int.random(in: 6_000_000...8_500_000)),
+                Transaction(
+                    date: Date(timeIntervalSince1970: 1_622_505_600),
+                    price: Int.random(in: 6_000_000...8_500_000)),
+                Transaction(
+                    date: Date(timeIntervalSince1970: 1_625_097_600),
+                    price: Int.random(in: 6_000_000...8_500_000)),
+                Transaction(
+                    date: Date(timeIntervalSince1970: 1_627_776_000),
+                    price: Int.random(in: 6_000_000...8_500_000)),
+                Transaction(
+                    date: Date(timeIntervalSince1970: 1_630_454_400),
+                    price: Int.random(in: 6_000_000...8_500_000)),
+                Transaction(
+                    date: Date(timeIntervalSince1970: 1_633_046_400),
+                    price: Int.random(in: 6_000_000...8_500_000)),
             ]
         ),
     ]
