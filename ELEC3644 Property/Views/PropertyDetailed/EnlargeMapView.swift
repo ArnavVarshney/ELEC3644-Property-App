@@ -59,7 +59,7 @@ struct EnlargeMapView: View {
 
                     if popUp {
                         MapPopUpView(property: viewModel.property, popUp: $popUp)
-                            .frame(height:300)
+                            .frame(height: 300)
                             .padding(.bottom, 40)
                             .padding(.horizontal, 20)
                     }
@@ -76,7 +76,7 @@ struct EnlargeMapView: View {
                                         .frame(width: 50, height: 50)
                                 }
                                 .padding(.bottom)
-                                //.padding(.leading, 20)
+                            //.padding(.leading, 20)
                         }
                     } else {
                         Button {
@@ -90,7 +90,7 @@ struct EnlargeMapView: View {
                                         .frame(width: 50, height: 50)
                                 }
                                 .padding(.bottom, 10)
-                                //.padding(.leading)
+                            //.padding(.leading)
                         }
                     }
                 }
