@@ -38,6 +38,7 @@ struct PropertyDetailLookaroundView: View {
             }
         }
         .ignoresSafeArea()
+        .backButton()
     }
 
     private func setupScene() {
@@ -58,8 +59,8 @@ struct PropertyDetailLookaroundView: View {
         let rotationRate = -1.0
         let rotation = SCNVector3(
             x: Float(attitude.pitch * rotationRate),
-            y: Float(attitude.yaw * rotationRate),
-            z: Float(attitude.roll * rotationRate)
+            y: Float(attitude.roll * rotationRate),
+            z: Float(attitude.yaw * rotationRate)
         )
         sphereNode.eulerAngles = rotation
     }
