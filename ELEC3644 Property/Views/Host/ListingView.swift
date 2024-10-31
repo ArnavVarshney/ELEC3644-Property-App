@@ -15,8 +15,7 @@ struct ListingView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                BuyMenuView(properties: propertyViewModel.properties)
-                    .id(MenuItem.buy)
+                ListingListView(properties: propertyViewModel.properties)
                     .frame(width: UIScreen.main.bounds.width)
             }
             .navigationTitle("Your listings")
