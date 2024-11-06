@@ -8,38 +8,72 @@
 import SwiftUI
 
 struct WishlistDetailView: View {
+    @Environment(\.dismiss) private var dismiss
+
     let wishlist: Wishlist
+    var pickedProperties: [Property] {
+        var picked: [Property] = []
+        for idx in pickedPropertiesIdx {
+            picked.append(wishlist.properties[idx])
+        }
+        return picked
+    }
+
     @State var pickedPropertiesIdx: [Int] = []
-    @State var showingSheet = false
+    @State var showingChoice = true
 
+    //TODO: Try adding border on the invisible background
     var body: some View {
-        ScrollView(showsIndicators: false) {
-            LazyVStack {
-                ForEach(wishlist.properties.indices, id: \.self) { idx in
-                    Button {
-                        if pickedPropertiesIdx.contains(idx) {
-                            pickedPropertiesIdx.removeAll(where: { $0 == idx })
-                        } else {
-                            pickedPropertiesIdx.append(idx)
-                            if pickedPropertiesIdx.count == 2 {
-                                showingSheet = true
+        NavigationStack {
+            ZStack {
+                if showingChoice {
+                    HStack {
+                        VStack(alignment: .leading) {
+                            ForEach(wishlist.properties.indices, id: \.self) { idx in
+                                Button {
+                                    if pickedPropertiesIdx.contains(idx) {
+                                        pickedPropertiesIdx.remove(
+                                            at: pickedPropertiesIdx.firstIndex(of: idx)!)
+                                    } else {
+                                        if pickedPropertiesIdx.count >= 2 {
+                                            pickedPropertiesIdx.removeLast()
+                                        }
+                                        pickedPropertiesIdx.append(idx)
+                                    }
+                                } label: {
+                                    //TODO: Replace with images and property name only later
+                                    Text(wishlist.properties[idx].name)
+                                        .font(.footnote).padding(10).foregroundStyle(.black).frame(
+                                            width: 100)
+                                }.border(
+                                    pickedPropertiesIdx.contains(idx) ? .blue : .clear, width: 3)
                             }
-                        }
-                    } label: {
-                        if pickedPropertiesIdx.contains(idx) {
-                            WishlistItemView(wishlist: wishlist).border(.blue, width: 3)
-                        } else {
-                            WishlistItemView(wishlist: wishlist)
-                        }
-                    }.sheet(isPresented: $showingSheet) {
-                        pickedPropertiesIdx.removeLast()
-                    } content: {
-                        WishlistPropertyComparisonView(
-                            property1: wishlist.properties[pickedPropertiesIdx[0]],
-                            property2: wishlist.properties[pickedPropertiesIdx[1]])
-                    }
-
+                            Spacer()
+                        }.background(Color.white.opacity(0.7))
+                        Spacer()
+                    }.zIndex(1)
                 }
+                WishlistPropertyComparisonView(properties: pickedProperties)
+            }
+        }
+        .navigationBarBackButtonHidden()
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "arrow.backward.circle")
+                }
+            }
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    withAnimation {
+                        showingChoice.toggle()
+                    }
+                } label: {
+                    Image(systemName: showingChoice ? "minus.circle" : "plus.circle")
+                }
+
             }
         }
     }

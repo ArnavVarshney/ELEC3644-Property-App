@@ -8,69 +8,38 @@
 import SwiftUI
 
 struct ImageCarouselView: View {
-    @EnvironmentObject var userViewModel: UserViewModel
-
-    @State var showingSheet = false
     let property: Property
     let images: [String]
     let imageUrls: [String]
     let height: Double
+    let favoritable: Bool
     var cornerRadius: Double
-    var propertyIdx: (Int, Int)? {
-        for (i, wishlist) in userViewModel.user.wishlists.enumerated() {
-            for (j, property) in wishlist.properties.enumerated() {
-                if property.id == self.property.id {
-                    return (i, j)
-                }
-            }
-        }
-        return nil
-    }
 
     init(
         images: [String] = [], imageUrls: [String] = [], cornerRadius: Double = 8,
         height: Double = 320,
-        property: Property? = nil
+        property: Property? = nil,
+        favoritable: Bool = false
     ) {
         self.images = images
         self.imageUrls = imageUrls
         self.cornerRadius = cornerRadius
         self.height = height
         self.property = property ?? Mock.Properties[0]
+        self.favoritable = favoritable
     }
 
     var body: some View {
         ZStack {
-            VStack {
-                HStack {
-                    Spacer()
-                    Button {
-                        if propertyIdx != nil {
-                            //We're going to unfavorite
-                            userViewModel.user.wishlists[propertyIdx!.0].properties.remove(
-                                at: propertyIdx!.1)
-
-                            //Check for empty folder
-                            userViewModel.user.wishlists = userViewModel.user.wishlists.filter({
-                                !$0.properties.isEmpty
-                            })
-                        } else {
-                            showingSheet = true
-                        }
-                    } label: {
-                        if propertyIdx != nil {
-                            return Image(systemName: "heart.fill")
-                                .foregroundColor( /*@START_MENU_TOKEN@*/
-                                    .red /*@END_MENU_TOKEN@*/
-                                ).bold()
-                        }
-                        return Image(systemName: "heart").foregroundColor(.black).bold()
-                    }.sheet(isPresented: $showingSheet) {
-                        FavoriteSubmitForm(property: property).presentationDetents([.height(250.0)])
+            if favoritable {
+                VStack {
+                    HStack {
+                        Spacer()
+                        favoriteIcon(property: property)
                     }
-                }
-                Spacer()
-            }.padding(20.0).padding(.trailing, 5.0).zIndex(1)
+                    Spacer()
+                }.padding(5).zIndex(1)
+            }
 
             TabView {
                 if imageUrls.isEmpty {
@@ -98,6 +67,8 @@ struct ImageCarouselView: View {
 }
 
 #Preview {
-    ImageCarouselView(imageUrls: Mock.Properties[0].imageUrls, property: Mock.Properties[0])
-        .environmentObject(UserViewModel())
+    ImageCarouselView(
+        imageUrls: Mock.Properties[0].imageUrls, property: Mock.Properties[0], favoritable: true
+    )
+    .environmentObject(UserViewModel())
 }
