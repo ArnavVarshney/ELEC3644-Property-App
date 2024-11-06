@@ -9,86 +9,116 @@ import SwiftUI
 
 struct WishlistPropertyComparisonView: View {
     @Environment(\.dismiss) private var dismiss
-    let property1: Property
-    let property2: Property
+    let properties: [Property]
 
     var body: some View {
         NavigationStack {
-            ScrollView {
-                //Graphical data
-                Grid {
-                    GridRow {
-                        NavigationLink {
-                            PropertyDetailView(property: property1)
-                        } label: {
-                            ImageCarouselView(imageUrls: property1.imageUrls, property: property1)
+            if !properties.isEmpty{
+                ScrollView {
+                    //Graphical data
+                    Grid {
+                        GridRow {
+                            ForEach(properties.indices, id:\.self){
+                                idx in
+                                let property = properties[idx]
+                                NavigationLink {
+                                    PropertyDetailView(property: property)
+                                } label: {
+                                    ImageCarouselView(imageUrls: property.imageUrls, property: property)
+                                }
+                            }
                         }
-                        NavigationLink {
-                            PropertyDetailView(property: property2)
-                        } label: {
-                            ImageCarouselView(imageUrls: property2.imageUrls, property: property2)
-                        }
-                    }
 
-                    //Textual data
-                }
-                Grid {
-                    Divider()
-                    GridRow {
-                        Text("Name")
-                        Text(property1.name)
-                        Text(property2.name)
+                        //Textual data
                     }
-                    Divider()
-                    GridRow {
-                        Text("Estate")
-                        Text(property1.estate)
-                        Text(property2.estate)
+                    Grid(alignment: .leading) {
+                        Divider()
+                        GridRow {
+                            Text("Name")
+                            ForEach(properties.indices, id:\.self){
+                                idx in
+                                let property = properties[idx]
+                                Text(property.name)
+                            }
+                        }
+                        Divider()
+                        GridRow {
+                            Text("Estate")
+                            ForEach(properties.indices, id:\.self){
+                                idx in
+                                let property = properties[idx]
+                                Text(property.estate)
+                            }
+                        }
+                        Divider()
+                        GridRow {
+                            Text("Saleable Area/Sqft")
+                            ForEach(properties.indices, id:\.self){
+                                idx in
+                                let property = properties[idx]
+                                Text("\(property.saleableAreaPricePerSquareFoot)")
+                            }
+                        }
+                        Divider()
+                        GridRow {
+                            Text("Gross Floor Area")
+                            ForEach(properties.indices, id:\.self){
+                                idx in
+                                let property = properties[idx]
+                                Text("\(property.grossFloorArea)")
+                            }
+                        }
+                        Divider()
+                        GridRow {
+                            Text("Primary School Net")
+                            ForEach(properties.indices, id:\.self){
+                                idx in
+                                let property = properties[idx]
+                                Text("\(property.schoolNet.primary)")
+                            }
+                        }
+                        Divider()
+                        GridRow {
+                            Text("Secondary School Net")
+                            ForEach(properties.indices, id:\.self){
+                                idx in
+                                let property = properties[idx]
+                                Text("\(property.schoolNet.secondary)")
+                            }
+                        }
+                        Divider()
+                        GridRow {
+                            Text("Building Age")
+                            ForEach(properties.indices, id:\.self){
+                                idx in
+                                let property = properties[idx]
+                                Text("\(property.buildingAge)")
+                            }
+                        }
+                        Divider()
                     }
-                    Divider()
-                    GridRow {
-                        Text("Saleable Area/Sqft")
-                        Text("\(property1.saleableAreaPricePerSquareFoot)")
-                        Text("\(property2.saleableAreaPricePerSquareFoot)")
-                    }
-                    Divider()
-                    GridRow {
-                        Text("Gross Floor Area")
-                        Text("\(property1.grossFloorArea)")
-                        Text("\(property2.grossFloorArea)")
-                    }
-                    Divider()
-                    GridRow {
-                        Text("Primary School Net")
-                        Text("\(property1.schoolNet.primary)")
-                        Text("\(property2.schoolNet.primary)")
-                    }
-                    Divider()
-                    GridRow {
-                        Text("Secondary School Net")
-                        Text("\(property1.schoolNet.secondary)")
-                        Text("\(property2.schoolNet.secondary)")
-                    }
-                    Divider()
-                    GridRow {
-                        Text("Building Age")
-                        Text("\(property1.buildingAge)")
-                        Text("\(property2.buildingAge)")
-                    }
-                    Divider()
-                    GridRow {
-                        Text("Building Age")
-                        Text("\(property1.buildingAge)")
-                        Text("\(property2.buildingAge)")
-                    }
-                    Divider()
                 }
             }
-        }
+            else{
+                Image(systemName: "hifispeaker.badge.plus")
+                    .font(.largeTitle)
+                    .padding()
+
+                Text("Nothing to view or compare")
+                    .font(.footnote)
+                    .fontWeight(.bold)
+                    .padding(4)
+
+                Text("Try to pick and choose from your displayed wishlist")
+                    .font(.footnote)
+                    .foregroundColor(.neutral60)
+                    .padding(4)
+            }
+        }.padding()
     }
 }
 
 #Preview {
-    WishlistPropertyComparisonView(property1: Mock.Properties[0], property2: Mock.Properties[1])
+    WishlistPropertyComparisonView(properties: [Mock.Properties[0], Mock.Properties[1]])
         .environmentObject(UserViewModel())
 }
