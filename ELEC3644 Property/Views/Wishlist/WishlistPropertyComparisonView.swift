@@ -13,18 +13,19 @@ struct WishlistPropertyComparisonView: View {
 
     var body: some View {
         NavigationStack {
-            if !properties.isEmpty{
+            if !properties.isEmpty {
                 ScrollView {
                     //Graphical data
                     Grid {
                         GridRow {
-                            ForEach(properties.indices, id:\.self){
+                            ForEach(properties.indices, id: \.self) {
                                 idx in
                                 let property = properties[idx]
                                 NavigationLink {
                                     PropertyDetailView(property: property)
                                 } label: {
-                                    ImageCarouselView(imageUrls: property.imageUrls, property: property)
+                                    ImageCarouselView(
+                                        imageUrls: property.imageUrls, property: property)
                                 }
                             }
                         }
@@ -35,7 +36,7 @@ struct WishlistPropertyComparisonView: View {
                         Divider()
                         GridRow {
                             Text("Name")
-                            ForEach(properties.indices, id:\.self){
+                            ForEach(properties.indices, id: \.self) {
                                 idx in
                                 let property = properties[idx]
                                 Text(property.name)
@@ -44,7 +45,7 @@ struct WishlistPropertyComparisonView: View {
                         Divider()
                         GridRow {
                             Text("Estate")
-                            ForEach(properties.indices, id:\.self){
+                            ForEach(properties.indices, id: \.self) {
                                 idx in
                                 let property = properties[idx]
                                 Text(property.estate)
@@ -53,7 +54,7 @@ struct WishlistPropertyComparisonView: View {
                         Divider()
                         GridRow {
                             Text("Saleable Area/Sqft")
-                            ForEach(properties.indices, id:\.self){
+                            ForEach(properties.indices, id: \.self) {
                                 idx in
                                 let property = properties[idx]
                                 Text("\(property.saleableAreaPricePerSquareFoot)")
@@ -62,7 +63,7 @@ struct WishlistPropertyComparisonView: View {
                         Divider()
                         GridRow {
                             Text("Gross Floor Area")
-                            ForEach(properties.indices, id:\.self){
+                            ForEach(properties.indices, id: \.self) {
                                 idx in
                                 let property = properties[idx]
                                 Text("\(property.grossFloorArea)")
@@ -71,7 +72,7 @@ struct WishlistPropertyComparisonView: View {
                         Divider()
                         GridRow {
                             Text("Primary School Net")
-                            ForEach(properties.indices, id:\.self){
+                            ForEach(properties.indices, id: \.self) {
                                 idx in
                                 let property = properties[idx]
                                 Text("\(property.schoolNet.primary)")
@@ -80,7 +81,7 @@ struct WishlistPropertyComparisonView: View {
                         Divider()
                         GridRow {
                             Text("Secondary School Net")
-                            ForEach(properties.indices, id:\.self){
+                            ForEach(properties.indices, id: \.self) {
                                 idx in
                                 let property = properties[idx]
                                 Text("\(property.schoolNet.secondary)")
@@ -89,7 +90,7 @@ struct WishlistPropertyComparisonView: View {
                         Divider()
                         GridRow {
                             Text("Building Age")
-                            ForEach(properties.indices, id:\.self){
+                            ForEach(properties.indices, id: \.self) {
                                 idx in
                                 let property = properties[idx]
                                 Text("\(property.buildingAge)")
@@ -98,8 +99,7 @@ struct WishlistPropertyComparisonView: View {
                         Divider()
                     }
                 }
-            }
-            else{
+            } else {
                 Image(systemName: "hifispeaker.badge.plus")
                     .font(.largeTitle)
                     .padding()
