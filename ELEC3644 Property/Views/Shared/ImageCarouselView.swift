@@ -31,7 +31,7 @@ struct ImageCarouselView: View {
 
     var body: some View {
         ZStack {
-            if favoritable{
+            if favoritable {
                 VStack {
                     HStack {
                         Spacer()
@@ -66,8 +66,9 @@ struct ImageCarouselView: View {
     }
 }
 
-
 #Preview {
-    ImageCarouselView(imageUrls: Mock.Properties[0].imageUrls, property: Mock.Properties[0], favoritable: true)
-        .environmentObject(UserViewModel())
+    ImageCarouselView(
+        imageUrls: Mock.Properties[0].imageUrls, property: Mock.Properties[0], favoritable: true
+    )
+    .environmentObject(UserViewModel())
 }

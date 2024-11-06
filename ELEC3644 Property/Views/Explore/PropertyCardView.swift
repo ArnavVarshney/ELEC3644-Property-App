@@ -12,7 +12,8 @@ struct PropertyCardView: View {
 
     var body: some View {
         VStack(spacing: 8) {
-            ImageCarouselView(imageUrls: self.property.imageUrls, property: property, favoritable: true)
+            ImageCarouselView(
+                imageUrls: self.property.imageUrls, property: property, favoritable: true)
 
             HStack(alignment: .top) {
                 VStack(alignment: .leading) {

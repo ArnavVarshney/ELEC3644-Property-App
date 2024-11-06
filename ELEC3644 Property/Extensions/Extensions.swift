@@ -62,11 +62,10 @@ extension AVPlayerViewController {
     }
 }
 
-
-struct favoriteIcon: View{
+struct favoriteIcon: View {
     @EnvironmentObject var userViewModel: UserViewModel
     @State var showingSheet = false
-    
+
     let property: Property
     var propertyIdx: (Int, Int)? {
         for (i, wishlist) in userViewModel.user.wishlists.enumerated() {
@@ -78,9 +77,8 @@ struct favoriteIcon: View{
         }
         return nil
     }
-    
-    
-    var body: some View{
+
+    var body: some View {
         Button {
             if propertyIdx != nil {
                 withAnimation {
@@ -113,7 +111,6 @@ struct favoriteIcon: View{
         }
     }
 }
-
 
 #Preview {
     NavigationStack {
