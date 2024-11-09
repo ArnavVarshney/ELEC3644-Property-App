@@ -66,7 +66,6 @@ struct ImageCarouselView: View {
     }
 }
 
-
 struct favoriteIcon: View {
     @EnvironmentObject var userViewModel: UserViewModel
     @State var showingSheet = false
@@ -101,24 +100,27 @@ struct favoriteIcon: View {
             }
         } label: {
             if propertyIdx != nil {
-                ZStack{
-                Image(systemName: "heart.fill").resizable().scaledToFit().foregroundColor(.red).bold()
-                Image(systemName: "heart").resizable().scaledToFit().foregroundColor(.black).bold().zIndex(1)
+                ZStack {
+                    Image(systemName: "heart.fill").resizable().scaledToFit().foregroundColor(.red)
+                        .bold()
+                    Image(systemName: "heart").resizable().scaledToFit().foregroundColor(.black)
+                        .bold().zIndex(1)
+                }
+            } else {
+                ZStack {
+                    Image(systemName: "heart.fill").resizable().scaledToFit().foregroundColor(
+                        .white
+                    ).bold()
+                    Image(systemName: "heart").resizable().scaledToFit().foregroundColor(.black)
+                        .bold().zIndex(1)
                 }
             }
-            else{
-                ZStack{
-                    Image(systemName: "heart.fill").resizable().scaledToFit().foregroundColor(.white).bold()
-                    Image(systemName: "heart").resizable().scaledToFit().foregroundColor(.black).bold().zIndex(1)
-            }
-            }
         }.frame(width: 20, height: 20)
-        .sheet(isPresented: $showingSheet) {
-            FavoriteSubmitForm(property: property).presentationDetents([.height(250.0)])
-        }
+            .sheet(isPresented: $showingSheet) {
+                FavoriteSubmitForm(property: property).presentationDetents([.height(250.0)])
+            }
     }
 }
-
 
 #Preview {
     ImageCarouselView(

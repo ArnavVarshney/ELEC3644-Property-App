@@ -30,7 +30,7 @@ struct WishlistDetailView: View {
                     HStack {
                         VStack(alignment: .leading, spacing: 0.3) {
                             ForEach(wishlist.properties.indices, id: \.self) { idx in
-                                Button{
+                                Button {
                                     if pickedPropertiesIdx.contains(idx) {
                                         pickedPropertiesIdx.remove(
                                             at: pickedPropertiesIdx.firstIndex(of: idx)!)
@@ -40,11 +40,12 @@ struct WishlistDetailView: View {
                                         }
                                         pickedPropertiesIdx.append(idx)
                                     }
-                                }label:{
+                                } label: {
                                     //TODO: Replace with images and property name only later
                                     Text(wishlist.properties[idx].name)
                                         .font(.footnote).padding(5).foregroundStyle(.black).frame(
-                                            width: 100, height: 70).bold()
+                                            width: 100, height: 70
+                                        ).bold()
                                 }.border(
                                     pickedPropertiesIdx.contains(idx) ? .blue : .gray, width: 3)
                             }
