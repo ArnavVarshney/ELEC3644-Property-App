@@ -62,56 +62,6 @@ extension AVPlayerViewController {
     }
 }
 
-struct favoriteIcon: View {
-    @EnvironmentObject var userViewModel: UserViewModel
-    @State var showingSheet = false
-
-    let property: Property
-    var propertyIdx: (Int, Int)? {
-        for (i, wishlist) in userViewModel.user.wishlists.enumerated() {
-            for (j, property) in wishlist.properties.enumerated() {
-                if property.id == self.property.id {
-                    return (i, j)
-                }
-            }
-        }
-        return nil
-    }
-
-    var body: some View {
-        Button {
-            if propertyIdx != nil {
-                withAnimation {
-                    //We're going to unfavorite
-                    userViewModel.user.wishlists[propertyIdx!.0].properties.remove(
-                        at: propertyIdx!.1)
-
-                    //Check for empty folder
-                    userViewModel.user.wishlists = userViewModel.user.wishlists.filter({
-                        !$0.properties.isEmpty
-                    })
-                }
-            } else {
-                showingSheet = true
-            }
-        } label: {
-            if propertyIdx != nil {
-                return Image(systemName: "heart.fill")
-                    .foregroundColor( /*@START_MENU_TOKEN@*/
-                        .red /*@END_MENU_TOKEN@*/
-                    ).bold()
-            }
-            return Image(systemName: "heart").foregroundColor(.black).bold()
-        }
-        .padding(2)
-        .background(propertyIdx != nil ? Color.clear : Color.white)
-        .clipShape(.circle)
-        .sheet(isPresented: $showingSheet) {
-            FavoriteSubmitForm(property: property).presentationDetents([.height(250.0)])
-        }
-    }
-}
-
 #Preview {
     NavigationStack {
         VStack {
