@@ -66,6 +66,60 @@ struct ImageCarouselView: View {
     }
 }
 
+
+struct favoriteIcon: View {
+    @EnvironmentObject var userViewModel: UserViewModel
+    @State var showingSheet = false
+
+    let property: Property
+    var propertyIdx: (Int, Int)? {
+        for (i, wishlist) in userViewModel.user.wishlists.enumerated() {
+            for (j, property) in wishlist.properties.enumerated() {
+                if property.id == self.property.id {
+                    return (i, j)
+                }
+            }
+        }
+        return nil
+    }
+
+    var body: some View {
+        Button {
+            if propertyIdx != nil {
+                withAnimation {
+                    //We're going to unfavorite
+                    userViewModel.user.wishlists[propertyIdx!.0].properties.remove(
+                        at: propertyIdx!.1)
+
+                    //Check for empty folder
+                    userViewModel.user.wishlists = userViewModel.user.wishlists.filter({
+                        !$0.properties.isEmpty
+                    })
+                }
+            } else {
+                showingSheet = true
+            }
+        } label: {
+            if propertyIdx != nil {
+                ZStack{
+                Image(systemName: "heart.fill").resizable().scaledToFit().foregroundColor(.red).bold()
+                Image(systemName: "heart").resizable().scaledToFit().foregroundColor(.black).bold().zIndex(1)
+                }
+            }
+            else{
+                ZStack{
+                    Image(systemName: "heart.fill").resizable().scaledToFit().foregroundColor(.white).bold()
+                    Image(systemName: "heart").resizable().scaledToFit().foregroundColor(.black).bold().zIndex(1)
+            }
+            }
+        }.frame(width: 20, height: 20)
+        .sheet(isPresented: $showingSheet) {
+            FavoriteSubmitForm(property: property).presentationDetents([.height(250.0)])
+        }
+    }
+}
+
+
 #Preview {
     ImageCarouselView(
         imageUrls: Mock.Properties[0].imageUrls, property: Mock.Properties[0], favoritable: true

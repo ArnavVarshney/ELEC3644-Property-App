@@ -28,9 +28,9 @@ struct WishlistDetailView: View {
             ZStack {
                 if showingChoice {
                     HStack {
-                        VStack(alignment: .leading) {
+                        VStack(alignment: .leading, spacing: 0.3) {
                             ForEach(wishlist.properties.indices, id: \.self) { idx in
-                                Button {
+                                Button{
                                     if pickedPropertiesIdx.contains(idx) {
                                         pickedPropertiesIdx.remove(
                                             at: pickedPropertiesIdx.firstIndex(of: idx)!)
@@ -40,16 +40,16 @@ struct WishlistDetailView: View {
                                         }
                                         pickedPropertiesIdx.append(idx)
                                     }
-                                } label: {
+                                }label:{
                                     //TODO: Replace with images and property name only later
                                     Text(wishlist.properties[idx].name)
-                                        .font(.footnote).padding(10).foregroundStyle(.black).frame(
-                                            width: 100)
+                                        .font(.footnote).padding(5).foregroundStyle(.black).frame(
+                                            width: 100, height: 70).bold()
                                 }.border(
-                                    pickedPropertiesIdx.contains(idx) ? .blue : .clear, width: 3)
+                                    pickedPropertiesIdx.contains(idx) ? .blue : .gray, width: 3)
                             }
                             Spacer()
-                        }.background(Color.white.opacity(0.7))
+                        }.background(Color.white.opacity(0.8))
                         Spacer()
                     }.zIndex(1)
                 }
