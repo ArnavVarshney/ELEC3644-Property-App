@@ -35,7 +35,9 @@ struct LoginView: View {
                 }
             }
             .alert(isPresented: $showAlert) {
-                Alert(title: Text("Login Failed"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+                Alert(
+                    title: Text("Login Failed"), message: Text(alertMessage),
+                    dismissButton: .default(Text("OK")))
             }
             .navigationTitle("Login")
             .onAppear {
@@ -65,14 +67,14 @@ struct LoginView: View {
             do {
                 // Call the login method from UserViewModel
                 let user = try await UserViewModel.login(with: username, password: password)
-                
+
                 // Update user data in view model
                 viewModel.user = user
                 isLoggedIn = true
-                
+
                 // Save user ID to UserDefaults
-                UserDefaults.standard.set(user.id, forKey: "currentUserID") // Assuming 'id' is a property of User
-                
+                UserDefaults.standard.set(user.id, forKey: "currentUserID")  // Assuming 'id' is a property of User
+
             } catch {
                 alertMessage = "Invalid email or password."
                 showAlert = true
