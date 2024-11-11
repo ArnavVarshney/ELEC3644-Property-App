@@ -86,20 +86,10 @@ struct favoriteIcon: View {
         Button {
             if propertyIdx != nil {
                 //Update db
-                Task {
-                    await userViewModel.postWishlist(
-                        property: property,
-                        folderName: userViewModel.user.wishlists[propertyIdx!.0].name, delete: true)
+                Task{
+                    await userViewModel.postWishlist(property: property, folderName: userViewModel.user.wishlists[propertyIdx!.0].name, delete: true)
                     await userViewModel.fetchWishlist(with: userViewModel.currentUserId)
                 }
-                //                    //We're going to unfavorite
-                //                    userViewModel.user.wishlists[propertyIdx!.0].properties.remove(
-                //                        at: propertyIdx!.1)
-                //
-                //                    //Check for empty folder
-                //                    userViewModel.user.wishlists = userViewModel.user.wishlists.filter({
-                //                        !$0.properties.isEmpty
-                //                    })
             } else {
                 showingSheet = true
             }

@@ -20,19 +20,7 @@ struct FavoriteSubmitForm: View {
             }
             Button(action: {
                 let temp = albumName == "" ? "Default" : albumName
-                //                let idxs = userViewModel.user.wishlists.enumerated().map({
-                //                    $1.name == temp ? $0 : -1
-                //                })
-                //                .filter({ $0 != -1 })
-                //                if idxs.isEmpty {
-                //                    userViewModel.user.wishlists.append(
-                //                        Wishlist(name: temp, properties: [property]))
-                //                } else {
-                //                    let idx = idxs[0]
-                //                    userViewModel.user.wishlists[idx].properties.append(property)
-                //                }
-
-                Task {
+                Task{
                     await userViewModel.postWishlist(property: property, folderName: temp)
                     await userViewModel.fetchWishlist(with: userViewModel.currentUserId)
                 }
