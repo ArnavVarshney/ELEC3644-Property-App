@@ -18,23 +18,17 @@ struct FavoriteSubmitForm: View {
             Section(header: Text("Enter album name")) {
                 TextField("Pick an album name", text: $albumName)
             }
-            Button {
+            Button(action: {
+                let temp = albumName == "" ? "Default" : albumName
+                Task {
+                    await userViewModel.postWishlist(property: property, folderName: temp)
+                    await userViewModel.fetchWishlist(with: userViewModel.currentUserId)
+                }
+
                 withAnimation {
-                    let temp = albumName == "" ? "Default" : albumName
-                    let idxs = userViewModel.user.wishlists.enumerated().map({
-                        $1.name == temp ? $0 : -1
-                    })
-                    .filter({ $0 != -1 })
-                    if idxs.isEmpty {
-                        userViewModel.user.wishlists.append(
-                            Wishlist(name: temp, properties: [property]))
-                    } else {
-                        let idx = idxs[0]
-                        userViewModel.user.wishlists[idx].properties.append(property)
-                    }
                     dismiss()
                 }
-            } label: {
+            }) {
                 HStack {
                     Spacer()
                     Text("Save").foregroundStyle(.blue)

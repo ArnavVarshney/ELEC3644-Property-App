@@ -23,6 +23,7 @@ class UserViewModel: ObservableObject {
         } else {
             Task {
                 await self.fetchUser(with: self.currentUserId)
+                await fetchWishlist(with: self.currentUserId)
             }
         }
         if user != nil {
@@ -42,6 +43,36 @@ class UserViewModel: ObservableObject {
             }
         } catch {
             print("Error fetching user data: \(error)")
+        }
+    }
+
+    func fetchWishlist(with id: String) async {
+        do {
+            let json: [String: [Property]] = try await apiClient.get(url: "/wishlists/\(id)")
+            let folderNames = json.keys
+            let wishlists = folderNames.map { Wishlist(name: $0, properties: json[$0]!) }
+            DispatchQueue.main.async {
+                self.user.wishlists = wishlists
+            }
+        } catch {
+            print("Error fetching user's wishlist data: \(error)")
+        }
+    }
+
+    func postWishlist(property: Property, folderName: String, delete: Bool = false) async {
+        do {
+            let data = [
+                "userId": currentUserId, "propertyId": "\(property.dbId)".lowercased(),
+                "folderName": folderName.lowercased(),
+            ]
+
+            if delete {
+                let _: DeleteResponse = try await apiClient.delete(url: "/wishlists", body: data)
+            } else {
+                let _: [String: String] = try await apiClient.post(url: "/wishlists", body: data)
+            }
+        } catch {
+            print("Error pushing user's wishlist data: \(error)")
         }
     }
 
@@ -75,4 +106,9 @@ class UserViewModel: ObservableObject {
         let totalRating = user.reviews.reduce(0) { $0 + $1.rating }
         return Double(totalRating) / Double(user.reviews.count)
     }
+}
+
+struct DeleteResponse: Codable {
+    let affected: Int?
+    let message: String?
 }

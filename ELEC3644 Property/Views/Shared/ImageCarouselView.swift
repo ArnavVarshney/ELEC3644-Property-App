@@ -74,7 +74,7 @@ struct favoriteIcon: View {
     var propertyIdx: (Int, Int)? {
         for (i, wishlist) in userViewModel.user.wishlists.enumerated() {
             for (j, property) in wishlist.properties.enumerated() {
-                if property.id == self.property.id {
+                if property.dbId == self.property.dbId {
                     return (i, j)
                 }
             }
@@ -85,15 +85,12 @@ struct favoriteIcon: View {
     var body: some View {
         Button {
             if propertyIdx != nil {
-                withAnimation {
-                    //We're going to unfavorite
-                    userViewModel.user.wishlists[propertyIdx!.0].properties.remove(
-                        at: propertyIdx!.1)
-
-                    //Check for empty folder
-                    userViewModel.user.wishlists = userViewModel.user.wishlists.filter({
-                        !$0.properties.isEmpty
-                    })
+                //Update db
+                Task {
+                    await userViewModel.postWishlist(
+                        property: property,
+                        folderName: userViewModel.user.wishlists[propertyIdx!.0].name, delete: true)
+                    await userViewModel.fetchWishlist(with: userViewModel.currentUserId)
                 }
             } else {
                 showingSheet = true
