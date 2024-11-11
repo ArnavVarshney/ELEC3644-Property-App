@@ -9,6 +9,11 @@ import SwiftUI
 
 struct UserReviewCardView: View {
     var review: Review
+    var relativeTime: String {
+        let formatter = RelativeDateTimeFormatter()
+        formatter.unitsStyle = .full
+        return formatter.localizedString(for: review.timestamp, relativeTo: Date())
+    }
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -17,22 +22,23 @@ struct UserReviewCardView: View {
                 .foregroundColor(.neutral100)
             Spacer()
             HStack(alignment: .center) {
-                UserAvatarView(user: review.author, size: 36)
+                UserAvatarView(user: review.author, size: 48)
+                    .padding(.trailing, 8)
                 VStack(alignment: .leading) {
                     Text(review.author.name)
-                        .font(.headline)
-                    HStack {
-                        Text(String(format: "%.2f", review.rating))
-                            .font(.headline)
-                            .foregroundColor(.primary60)
-                        Image(systemName: "star.fill")
-                            .foregroundColor(.primary60)
-                    }
+                        .font(.footnote)
+                        .fontWeight(.bold)
+                    Text(relativeTime)
+                        .font(.footnote)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.neutral60)
+
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         }
-        .padding(.all, 12)
+        .padding(.vertical, 24)
+        .padding(.horizontal, 16)
         .frame(width: 300, height: 200)
         .background(.neutral10)
         .overlay(

@@ -52,21 +52,24 @@ struct Review: Identifiable, Codable {
     var author: User
     var rating: Double
     var content: String
+    var timestamp = Date()
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         author = try container.decode(User.self, forKey: .author)
         rating = try container.decode(Double.self, forKey: .rating)
         content = try container.decode(String.self, forKey: .content)
+        timestamp = try container.decode(Date.self, forKey: .timestamp)
     }
 
-    init(author: User, rating: Double, content: String) {
+    init(author: User, rating: Double, content: String, timestamp: Date = Date()) {
         self.author = author
         self.rating = rating
         self.content = content
+        self.timestamp = timestamp
     }
 
-    private enum CodingKeys: String, CodingKey { case author, rating, content }
+    private enum CodingKeys: String, CodingKey { case author, rating, content, timestamp }
 }
 
 struct Wishlist: Identifiable, Codable {
