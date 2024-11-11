@@ -27,9 +27,12 @@ struct ChatView: View {
         VStack {
             ScrollView {
                 Spacer()
-                ForEach(chat.messages) { message in
-                    ChatBubble(message: message, isUser: message.senderId == currentUserId)
-                    let _ = print(message)
+                ForEach(groupedMessages, id: \.key) { date, messages in
+                    DateHeader(date: date)
+                    ForEach(messages) { message in
+                        ChatBubble(message: message, isUser: message.senderId == currentUserId)
+                        let _ = print(message)
+                    }
                 }
             }.defaultScrollAnchor(.bottom)
                 .scrollIndicators(.hidden)
@@ -73,12 +76,30 @@ struct ChatView: View {
         }
     }
 
+    private var groupedMessages: [(key: Date, value: [Message])] {
+        Dictionary(grouping: chat.messages) { message in
+            Calendar.current.startOfDay(for: message.timestamp)
+        }
+        .sorted { $0.key < $1.key }
+    }
+
     private func sendMessage() {
         guard !newMessage.isEmpty else { return }
         let rawMessage =
             "{\"type\": \"sendMessageToUser\",\"content\": \"\(newMessage)\",\"receiverId\": \"\(chat.user.id.uuidString.lowercased())\",\"receiverEmail\": \"\(chat.user.email)\"}"
         webSocketService.sendMessage(message: nil, rawMessage: rawMessage)
         newMessage = ""
+    }
+}
+
+struct DateHeader: View {
+    let date: Date
+
+    var body: some View {
+        Text(date, style: .date)
+            .font(.subheadline)
+            .foregroundColor(.gray)
+            .padding(.vertical, 8)
     }
 }
 
