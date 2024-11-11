@@ -14,7 +14,7 @@ struct WishlistsView: View {
     ]
 
     var user: User {
-        userViewModel.user
+        return userViewModel.user
     }
 
     var body: some View {
@@ -60,6 +60,10 @@ struct WishlistsView: View {
                             Image(systemName: "square.and.pencil")
                         })
                 }
+            }
+        }.onAppear{
+            Task{
+                await userViewModel.fetchWishlist(with: userViewModel.currentUserId)
             }
         }
     }
