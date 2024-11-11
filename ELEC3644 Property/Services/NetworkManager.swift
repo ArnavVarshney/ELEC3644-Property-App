@@ -11,6 +11,7 @@ protocol APIClient {
     func get<T: Decodable>(url: String) async throws -> T
     func post<T: Decodable, U: Encodable>(url: String, body: U) async throws -> T
     func patch<T: Decodable, U: Encodable>(url: String, body: U) async throws -> T
+    func delete<T: Decodable, U: Encodable>(url: String, body: U) async throws -> T
 }
 
 class NetworkManager: APIClient {
@@ -46,6 +47,18 @@ class NetworkManager: APIClient {
         let finalUrl = URL(string: baseURL + url)
         var request = URLRequest(url: finalUrl!)
         request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = try JSONEncoder().encode(body)
+
+        let (data, _) = try await URLSession.shared.data(for: request)
+        let decodedData = try self.decoder.decode(T.self, from: data)
+        return decodedData
+    }
+    
+    func delete<T: Decodable, U: Encodable>(url: String = "", body: U) async throws -> T {
+        let finalUrl = URL(string: baseURL + url)
+        var request = URLRequest(url: finalUrl!)
+        request.httpMethod = "DELETE"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = try JSONEncoder().encode(body)
 
