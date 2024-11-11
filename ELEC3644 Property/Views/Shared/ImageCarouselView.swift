@@ -86,8 +86,10 @@ struct favoriteIcon: View {
         Button {
             if propertyIdx != nil {
                 //Update db
-                Task{
-                    await userViewModel.postWishlist(property: property, folderName: userViewModel.user.wishlists[propertyIdx!.0].name, delete: true)
+                Task {
+                    await userViewModel.postWishlist(
+                        property: property,
+                        folderName: userViewModel.user.wishlists[propertyIdx!.0].name, delete: true)
                     await userViewModel.fetchWishlist(with: userViewModel.currentUserId)
                 }
             } else {
