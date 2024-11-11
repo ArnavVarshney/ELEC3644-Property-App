@@ -92,11 +92,28 @@ struct ChatView: View {
     }
 }
 
+private func formattedDate(_ date: Date) -> String {
+    let calendar = Calendar.current
+    if calendar.isDateInToday(date) {
+        return "Today"
+    } else if calendar.isDateInYesterday(date) {
+        return "Yesterday"
+    } else if calendar.isDate(date, equalTo: Date(), toGranularity: .weekOfYear) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE"
+        return dateFormatter.string(from: date)
+    } else {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "E, MMM d"
+        return dateFormatter.string(from: date)
+    }
+}
+
 struct DateHeader: View {
     let date: Date
 
     var body: some View {
-        Text(date, style: .date)
+        Text(formattedDate(date))
             .font(.subheadline)
             .foregroundColor(.gray)
             .padding(.vertical, 8)
