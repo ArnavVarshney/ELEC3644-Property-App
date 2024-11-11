@@ -32,7 +32,6 @@ struct UserReviewCardView: View {
                         .font(.footnote)
                         .fontWeight(.semibold)
                         .foregroundColor(.neutral60)
-
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)

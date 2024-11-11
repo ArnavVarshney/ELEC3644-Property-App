@@ -19,7 +19,9 @@ struct UserReviewListView: View {
                     )
                 }
             }
+            .scrollTargetLayout()
         }
+        .scrollTargetBehavior(.viewAligned)
         .scrollIndicators(.hidden)
     }
 }
