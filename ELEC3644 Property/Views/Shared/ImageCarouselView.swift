@@ -99,26 +99,20 @@ struct favoriteIcon: View {
                 showingSheet = true
             }
         } label: {
-            if propertyIdx != nil {
-                ZStack {
-                    Image(systemName: "heart.fill").resizable().scaledToFit().foregroundColor(.red)
-                        .bold()
-                    Image(systemName: "heart").resizable().scaledToFit().foregroundColor(.black)
-                        .bold().zIndex(1)
-                }
-            } else {
-                ZStack {
-                    Image(systemName: "heart.fill").resizable().scaledToFit().foregroundColor(
-                        .white
-                    ).bold()
-                    Image(systemName: "heart").resizable().scaledToFit().foregroundColor(.black)
-                        .bold().zIndex(1)
-                }
-            }
-        }.frame(width: 20, height: 20)
-            .sheet(isPresented: $showingSheet) {
-                FavoriteSubmitForm(property: property).presentationDetents([.height(250.0)])
-            }
+            Image(systemName: propertyIdx != nil ? "heart.fill" : "heart")
+                .frame(width: 6, height: 6)
+                .foregroundColor(propertyIdx != nil ? .red : .black)
+                .padding(12)
+                .background(
+                    Circle()
+                        .fill(Color.white)
+                )
+                .shadow(color: .gray.opacity(0.3), radius: 4, x: 0, y: 4)
+        }
+        .padding(3)
+        .sheet(isPresented: $showingSheet) {
+            FavoriteSubmitForm(property: property).presentationDetents([.height(250.0)])
+        }
     }
 }
 
