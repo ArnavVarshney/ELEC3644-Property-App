@@ -61,8 +61,8 @@ struct WishlistsView: View {
                         })
                 }
             }
-        }.onAppear{
-            Task{
+        }.onAppear {
+            Task {
                 await userViewModel.fetchWishlist(with: userViewModel.currentUserId)
             }
         }

@@ -45,30 +45,33 @@ class UserViewModel: ObservableObject {
             print("Error fetching user data: \(error)")
         }
     }
-    
-    func fetchWishlist(with id: String)async{
-        do{
-            let json: [String : [Property]] = try await apiClient.get(url: "/wishlists/\(id)")
+
+    func fetchWishlist(with id: String) async {
+        do {
+            let json: [String: [Property]] = try await apiClient.get(url: "/wishlists/\(id)")
             let folderNames = json.keys
-            let wishlists = folderNames.map{Wishlist(name: $0, properties: json[$0]!)}
+            let wishlists = folderNames.map { Wishlist(name: $0, properties: json[$0]!) }
             DispatchQueue.main.async {
                 self.user.wishlists = wishlists
             }
-        } catch{
+        } catch {
             print("Error fetching user's wishlist data: \(error)")
         }
     }
-    
-    func postWishlist(property: Property, folderName: String, delete: Bool = false) async{
-        do{
-            let data = ["userId" : currentUserId, "propertyId":"\(property.dbId)".lowercased(), "folderName":folderName.lowercased()]
-            
-            if delete{
+
+    func postWishlist(property: Property, folderName: String, delete: Bool = false) async {
+        do {
+            let data = [
+                "userId": currentUserId, "propertyId": "\(property.dbId)".lowercased(),
+                "folderName": folderName.lowercased(),
+            ]
+
+            if delete {
                 let _: DeleteResponse = try await apiClient.delete(url: "/wishlists", body: data)
-            }else{
-                let _:[String: String] = try await apiClient.post(url: "/wishlists", body: data)
+            } else {
+                let _: [String: String] = try await apiClient.post(url: "/wishlists", body: data)
             }
-        } catch{
+        } catch {
             print("Error pushing user's wishlist data: \(error)")
         }
     }
@@ -105,7 +108,7 @@ class UserViewModel: ObservableObject {
     }
 }
 
-struct DeleteResponse: Codable{
+struct DeleteResponse: Codable {
     let affected: Int?
     let message: String?
 }

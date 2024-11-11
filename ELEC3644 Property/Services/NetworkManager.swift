@@ -54,7 +54,7 @@ class NetworkManager: APIClient {
         let decodedData = try self.decoder.decode(T.self, from: data)
         return decodedData
     }
-    
+
     func delete<T: Decodable, U: Encodable>(url: String = "", body: U) async throws -> T {
         let finalUrl = URL(string: baseURL + url)
         var request = URLRequest(url: finalUrl!)

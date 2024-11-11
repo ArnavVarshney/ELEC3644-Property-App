@@ -38,7 +38,7 @@ struct Property: Identifiable, Hashable, Codable {
             grossFloorAreaPricePerSquareFoot,
             netPrice, buildingAge, buildingDirection, estate, imageUrls, transactionHistory
         case dbId = "id"
-        
+
     }
 }
 
