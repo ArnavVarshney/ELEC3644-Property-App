@@ -23,35 +23,61 @@ struct ExploreView: View {
             .padding(.bottom, 12)
             .sheet(isPresented: $isSearchActive) {
                 SearchFieldsView(currentMenu: currentMenu)
+                    .presentationDetents([.height(620)])
             }
 
-            GeometryReader { geometry in
-                ScrollView(.horizontal) {
-                    LazyHStack(spacing: 0) {
-                        BuyMenuView(properties: propertyViewModel.properties)
-                            .id(MenuItem.buy)
-                            .frame(width: geometry.size.width)
-                        RentMenuView()
-                            .id(MenuItem.rent)
-                            .frame(width: geometry.size.width)
-                        LeaseMenuView()
-                            .id(MenuItem.lease)
-                            .frame(width: geometry.size.width)
-                        TransactionMenuView()
-                            .id(MenuItem.transaction)
-                            .frame(width: geometry.size.width)
-                        EstateMenuView()
-                            .id(MenuItem.estate)
-                            .frame(width: geometry.size.width)
-                        AgentMenuView()
-                            .id(MenuItem.agents)
-                            .frame(width: geometry.size.width)
+            ZStack {
+                GeometryReader { geometry in
+                    ScrollView(.horizontal) {
+                        LazyHStack(spacing: 0) {
+                            BuyMenuView(properties: propertyViewModel.properties)
+                                .id(MenuItem.buy)
+                                .frame(width: geometry.size.width)
+                            RentMenuView()
+                                .id(MenuItem.rent)
+                                .frame(width: geometry.size.width)
+                            LeaseMenuView()
+                                .id(MenuItem.lease)
+                                .frame(width: geometry.size.width)
+                            TransactionMenuView()
+                                .id(MenuItem.transaction)
+                                .frame(width: geometry.size.width)
+                            EstateMenuView()
+                                .id(MenuItem.estate)
+                                .frame(width: geometry.size.width)
+                            AgentMenuView()
+                                .id(MenuItem.agents)
+                                .frame(width: geometry.size.width)
+                        }
+                    }
+                    .scrollPosition(id: $currentMenu)
+                    .scrollIndicators(.hidden)
+                    .scrollTargetBehavior(.paging)
+                    .scrollDisabled(true)
+                }
+                VStack {
+                    Spacer()
+                    NavigationLink(destination: EnlargeMapView_V2()) {
+                        HStack {
+                            Image(systemName: "map")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 24, height: 24)
+                                .foregroundColor(.white)
+                                .symbolEffect(.variableColor)
+                                .padding(.leading, 16)
+                            Text("Map")
+                                .font(.headline)
+                                .foregroundColor(.white)
+                                .padding(.vertical, 16)
+                                .padding(.trailing, 16)
+                                .addShadow()
+                        }
+                        .background(.black)
+                        .cornerRadius(36)
+                        .padding(.vertical, 24)
                     }
                 }
-                .scrollPosition(id: $currentMenu)
-                .scrollIndicators(.hidden)
-                .scrollTargetBehavior(.paging)
-                .scrollDisabled(true)
             }
         }
     }

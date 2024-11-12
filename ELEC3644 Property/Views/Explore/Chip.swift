@@ -24,7 +24,6 @@ struct Chip: View {
                 .background(isSelected ? Color.primary60 : Color.neutral30)
                 .cornerRadius(40)
                 .foregroundColor(isSelected ? Color.neutral10 : Color.neutral80)
-                .scaleEffect(isSelected ? 1.1 : 1.0)
                 .animation(.snappy, value: isSelected)
                 .lineLimit(1)
         }

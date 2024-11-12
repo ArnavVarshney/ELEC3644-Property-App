@@ -16,18 +16,33 @@ struct EstateSearchFieldsView: View {
     let facilitiesList = ["Playground", "Clubhouse", "Security", "Shopping Center", "School"]
 
     var body: some View {
-        VStack(alignment: .leading) {
-            Text("Estate Type")
-                .font(.headline)
-            ChipGrid(items: estateTypesList, selectedItems: $estateTypes)
+        VStack(spacing: 16) {
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Estate Type")
+                    .fontWeight(.semibold)
+                    .padding(.bottom, 4)
+                ChipGrid(items: estateTypesList, selectedItems: $estateTypes)
+            }
 
-            Text("Facilities")
-                .font(.headline)
-            ChipGrid(items: facilitiesList, selectedItems: $facilities)
+            Divider()
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Facilities")
+                    .fontWeight(.semibold)
+                    .padding(.bottom, 4)
+                ChipGrid(items: facilitiesList, selectedItems: $facilities)
+            }
 
-            Text("Year Built")
-                .font(.headline)
-            IntSlider(range: $yearBuilt, bottomRange: 1970, topRange: 2023, step: 1)
+            Divider()
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Year Built")
+                    .fontWeight(.semibold)
+                    .padding(.bottom, 4)
+                IntSlider(range: $yearBuilt, bottomRange: 1970, topRange: 2023, step: 1)
+            }
         }
     }
+}
+
+#Preview {
+    EstateSearchFieldsView()
 }

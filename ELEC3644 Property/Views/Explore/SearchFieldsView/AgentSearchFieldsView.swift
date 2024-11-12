@@ -16,22 +16,27 @@ struct AgentSearchFieldsView: View {
     let languagesList = ["English", "Cantonese", "Mandarin", "French", "Spanish"]
 
     var body: some View {
-        VStack(alignment: .leading) {
-            VStack {
+        VStack(spacing: 16) {
+            VStack(alignment: .leading, spacing: 12) {
                 Text("Years of Experience")
-                    .font(.headline)
+                    .fontWeight(.semibold)
+                    .padding(.bottom, 4)
                 IntSlider(range: $experience, bottomRange: 0, topRange: 30, step: 1)
             }
 
-            VStack {
+            Divider()
+            VStack(alignment: .leading, spacing: 12) {
                 Text("Specializations")
-                    .font(.headline)
+                    .fontWeight(.semibold)
+                    .padding(.bottom, 4)
                 ChipGrid(items: specializationsList, selectedItems: $specializations)
             }
 
-            VStack {
+            Divider()
+            VStack(alignment: .leading, spacing: 12) {
                 Text("Languages")
-                    .font(.headline)
+                    .fontWeight(.semibold)
+                    .padding(.bottom, 4)
                 ChipGrid(items: languagesList, selectedItems: $languages)
             }
         }

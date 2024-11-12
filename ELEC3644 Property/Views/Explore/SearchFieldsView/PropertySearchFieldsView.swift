@@ -18,10 +18,11 @@ struct PropertySearchFieldsView: View {
     let amenitiesList = ["Parking", "Pool", "Gym", "Elevator", "Balcony", "Pet-friendly"]
 
     var body: some View {
-        VStack(alignment: .leading) {
-            VStack {
+        VStack(spacing: 16) {
+            VStack(alignment: .leading, spacing: 12) {
                 Text("Property Type")
-                    .font(.headline)
+                    .fontWeight(.semibold)
+                    .padding(.bottom, 4)
                 Picker("Property Type", selection: $propertyType) {
                     ForEach(propertyTypes, id: \.self) {
                         Text($0)
@@ -29,8 +30,12 @@ struct PropertySearchFieldsView: View {
                 }
                 .pickerStyle(SegmentedPickerStyle())
             }
-            VStack {
+
+            Divider()
+            VStack(alignment: .leading, spacing: 12) {
                 Text("Price Range")
+                    .fontWeight(.semibold)
+                    .padding(.bottom, 4)
                     .font(.headline)
                 IntSlider(range: $priceRange, bottomRange: 0, topRange: 1_000_000, step: 1000)
                 Stepper(value: $bedrooms, in: 1...10) {
@@ -40,9 +45,12 @@ struct PropertySearchFieldsView: View {
                     Text("\(bathrooms) bathroom(s)")
                 }
             }
-            VStack {
+
+            Divider()
+            VStack(alignment: .leading, spacing: 12) {
                 Text("Amenities")
-                    .font(.headline)
+                    .fontWeight(.semibold)
+                    .padding(.bottom, 4)
                 ChipGrid(items: amenitiesList, selectedItems: $amenities)
             }
         }

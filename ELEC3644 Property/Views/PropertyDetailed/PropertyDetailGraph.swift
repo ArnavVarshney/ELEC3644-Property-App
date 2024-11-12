@@ -10,23 +10,47 @@ import SwiftUI
 
 struct PropertyDetailGraphView: View {
     @StateObject var viewModel: PropertyDetailViewModel
+    @State private var selectedDate: Date?
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Transaction History")
-                .font(.system(size: 24, weight: .medium))
-                .foregroundColor(.neutral100)
+            HStack {
+                Text("Transaction History")
+                    .font(.system(size: 24, weight: .medium))
+                    .foregroundColor(.neutral100)
+                Spacer()
+                VStack(alignment: .trailing) {
+                    if let selectedDate {
+                        Text(
+                            "\(viewModel.transactions.filter { $0.date <= selectedDate }.max(by: { $0.date < $1.date })?.price ?? 0)"
+                        )
+                        .font(.system(size: 12, weight: .medium))
+                        .foregroundColor(.neutral100)
+                        Text("\(selectedDate, style: .date)")
+                            .font(.system(size: 12, weight: .medium))
+                            .foregroundColor(.neutral100)
+                    }
+                }
+            }
 
             Chart {
                 ForEach(viewModel.transactions) { transaction in
-                    LineMark(
+                    BarMark(
                         x: .value("Date", transaction.date, unit: .month),
                         y: .value("Price (HKD)", transaction.price)
                     )
                 }
+                if let selectedDate {
+                    RectangleMark(x: .value("Date", selectedDate, unit: .day))
+                        .foregroundStyle(.neutral40)
+                        .zIndex(-1)
+                }
             }
             .chartXAxisLabel("Month", position: .bottom, alignment: .center)
-            .chartYAxisLabel("Price (HKD)", position: .leading, alignment: .center)
+            .chartYAxisLabel(position: .leading, alignment: .center) {
+                Text("Price (HKD)")
+                    .rotationEffect(.degrees(180))
+            }
             .chartYAxis {
                 AxisMarks(position: .leading) {
                     let value = $0.as(Int.self)!
@@ -38,8 +62,11 @@ struct PropertyDetailGraphView: View {
                 }
             }
             .chartYScale(domain: .automatic(includesZero: false))
+            .chartXSelection(value: $selectedDate)
+
             .foregroundStyle(.primary60)
             .frame(height: 200)
+
         }
         .padding(.horizontal, 24)
     }
