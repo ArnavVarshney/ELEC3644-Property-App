@@ -23,6 +23,7 @@ struct ExploreView: View {
             .padding(.bottom, 12)
             .sheet(isPresented: $isSearchActive) {
                 SearchFieldsView(currentMenu: currentMenu)
+                    .presentationDetents([.height(620)])
             }
 
             GeometryReader { geometry in

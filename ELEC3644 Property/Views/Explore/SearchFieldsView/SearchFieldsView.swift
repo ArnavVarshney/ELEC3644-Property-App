@@ -12,7 +12,7 @@ struct SearchFieldsView: View {
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
-        NavigationStack {
+        NavigationStack() {
             VStack(alignment: .leading) {
                 switch currentMenu {
                 case .buy, .rent:
@@ -25,18 +25,35 @@ struct SearchFieldsView: View {
                     EmptyView()
                 }
                 Spacer()
-            }
-            .padding()
-            .background(Color.neutral10)
-            .navigationBarItems(
-                leading: Button(
-                    "Cancel",
-                    action: {
+
+                Divider()
+                HStack {
+                    Button {
                         dismiss()
+                    } label: {
+                        Text("Cancel")
+                            .font(.system(size: 16))
+                            .foregroundColor(.neutral100)
+                            .padding()
+                            .cornerRadius(10)
                     }
-                ).foregroundColor(.primary60),
-                trailing: Button("Done", action: {}).foregroundColor(.primary60)
-            )
+                    
+                    Spacer()
+                    
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Search")
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundColor(.neutral10)
+                            .padding()
+                            .background(Color.primary60)
+                            .cornerRadius(10)
+                    }
+                }
+            }
+            .padding(.all, 16)
+            .background(Color.neutral10)
             .navigationTitle(currentMenu?.rawValue ?? "")
             .navigationBarTitleDisplayMode(.inline)
         }
