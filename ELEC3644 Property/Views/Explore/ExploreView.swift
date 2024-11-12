@@ -26,7 +26,7 @@ struct ExploreView: View {
                     .presentationDetents([.height(620)])
             }
 
-            ZStack{
+            ZStack {
                 GeometryReader { geometry in
                     ScrollView(.horizontal) {
                         LazyHStack(spacing: 0) {
@@ -55,7 +55,7 @@ struct ExploreView: View {
                     .scrollTargetBehavior(.paging)
                     .scrollDisabled(true)
                 }
-                VStack{
+                VStack {
                     Spacer()
                     NavigationLink(destination: EnlargeMapView_V2()) {
                         HStack {
@@ -67,11 +67,11 @@ struct ExploreView: View {
                                 .symbolEffect(.variableColor)
                                 .padding(.leading, 16)
                             Text("Map")
-                            .font(.headline)
-                            .foregroundColor(.white)
-                            .padding(.vertical, 16)
-                            .padding(.trailing, 16)
-                            .addShadow()
+                                .font(.headline)
+                                .foregroundColor(.white)
+                                .padding(.vertical, 16)
+                                .padding(.trailing, 16)
+                                .addShadow()
                         }
                         .background(.black)
                         .cornerRadius(36)
