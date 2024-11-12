@@ -23,7 +23,7 @@ struct AgentSearchFieldsView: View {
                     .padding(.bottom, 4)
                 IntSlider(range: $experience, bottomRange: 0, topRange: 30, step: 1)
             }
-            
+
             Divider()
             VStack(alignment: .leading, spacing: 12) {
                 Text("Specializations")
@@ -31,7 +31,7 @@ struct AgentSearchFieldsView: View {
                     .padding(.bottom, 4)
                 ChipGrid(items: specializationsList, selectedItems: $specializations)
             }
-            
+
             Divider()
             VStack(alignment: .leading, spacing: 12) {
                 Text("Languages")

@@ -11,7 +11,7 @@ import SwiftUI
 struct PropertyDetailGraphView: View {
     @StateObject var viewModel: PropertyDetailViewModel
     @State private var selectedDate: Date?
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -21,10 +21,12 @@ struct PropertyDetailGraphView: View {
                 Spacer()
                 VStack(alignment: .trailing) {
                     if let selectedDate {
-                        Text("\(viewModel.transactions.filter { $0.date <= selectedDate }.max(by: { $0.date < $1.date })?.price ?? 0)")
-                            .font(.system(size: 12, weight: .medium))
-                            .foregroundColor(.neutral100)
-                    Text("\(selectedDate, style: .date)")
+                        Text(
+                            "\(viewModel.transactions.filter { $0.date <= selectedDate }.max(by: { $0.date < $1.date })?.price ?? 0)"
+                        )
+                        .font(.system(size: 12, weight: .medium))
+                        .foregroundColor(.neutral100)
+                        Text("\(selectedDate, style: .date)")
                             .font(.system(size: 12, weight: .medium))
                             .foregroundColor(.neutral100)
                     }

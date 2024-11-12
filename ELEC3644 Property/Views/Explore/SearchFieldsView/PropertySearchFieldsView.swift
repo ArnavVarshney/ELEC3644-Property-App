@@ -13,10 +13,10 @@ struct PropertySearchFieldsView: View {
     @State private var bathrooms: Int = 1
     @State private var propertyType: String = "Any"
     @State private var amenities: Set<String> = []
-    
+
     let propertyTypes = ["Any", "House", "Apartment", "Townhouse", "Villa"]
     let amenitiesList = ["Parking", "Pool", "Gym", "Elevator", "Balcony", "Pet-friendly"]
-    
+
     var body: some View {
         VStack(spacing: 16) {
             VStack(alignment: .leading, spacing: 12) {
@@ -30,9 +30,10 @@ struct PropertySearchFieldsView: View {
                 }
                 .pickerStyle(SegmentedPickerStyle())
             }
-            
+
             Divider()
-            VStack(alignment: .leading, spacing: 12) {                Text("Price Range")
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Price Range")
                     .fontWeight(.semibold)
                     .padding(.bottom, 4)
                     .font(.headline)
@@ -44,9 +45,10 @@ struct PropertySearchFieldsView: View {
                     Text("\(bathrooms) bathroom(s)")
                 }
             }
-            
+
             Divider()
-            VStack(alignment: .leading, spacing: 12) {                Text("Amenities")
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Amenities")
                     .fontWeight(.semibold)
                     .padding(.bottom, 4)
                 ChipGrid(items: amenitiesList, selectedItems: $amenities)

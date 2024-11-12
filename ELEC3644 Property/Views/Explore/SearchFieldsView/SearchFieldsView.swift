@@ -12,7 +12,7 @@ struct SearchFieldsView: View {
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
-        NavigationStack() {
+        NavigationStack {
             VStack(alignment: .leading) {
                 switch currentMenu {
                 case .buy, .rent:
@@ -37,9 +37,9 @@ struct SearchFieldsView: View {
                             .padding()
                             .cornerRadius(10)
                     }
-                    
+
                     Spacer()
-                    
+
                     Button {
                         dismiss()
                     } label: {
