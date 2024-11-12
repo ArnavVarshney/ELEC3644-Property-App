@@ -31,12 +31,13 @@ struct Property: Identifiable, Hashable, Codable {
 
     var imageUrls: [String]
     var transactionHistory: [Transaction]
+    var agent: User
 
     private enum CodingKeys: String, CodingKey {
         case name, address, area, district, subDistrict, facilities, schoolNet,
             saleableArea, saleableAreaPricePerSquareFoot, grossFloorArea,
             grossFloorAreaPricePerSquareFoot,
-            netPrice, buildingAge, buildingDirection, estate, imageUrls, transactionHistory
+            netPrice, buildingAge, buildingDirection, estate, imageUrls, transactionHistory, agent
         case dbId = "id"
 
     }

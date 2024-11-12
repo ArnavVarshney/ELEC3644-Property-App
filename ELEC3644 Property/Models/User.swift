@@ -11,7 +11,7 @@ enum UserRole: String, Codable {
     case guest, host, agent
 }
 
-struct User: Identifiable, Codable {
+struct User: Hashable, Identifiable, Codable {
     var id = UUID()
     var name: String
     var email: String
@@ -47,7 +47,7 @@ struct User: Identifiable, Codable {
     }
 }
 
-struct Review: Identifiable, Codable {
+struct Review: Hashable, Identifiable, Codable {
     var id = UUID()
     var author: User
     var rating: Double
@@ -72,7 +72,7 @@ struct Review: Identifiable, Codable {
     private enum CodingKeys: String, CodingKey { case author, rating, content, timestamp }
 }
 
-struct Wishlist: Identifiable, Codable {
+struct Wishlist: Hashable, Identifiable, Codable {
     var id = UUID()
     var name: String
     var properties: [Property]

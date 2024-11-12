@@ -36,7 +36,8 @@ enum Mock {
             ],
             transactionHistory: [
                 Transaction(date: Date(), price: 7_500_000)
-            ]
+            ],
+            agent: Mock.Agents[1]
         ),
         Property(
             name: "The Pavilia Hill 2",
@@ -94,7 +95,8 @@ enum Mock {
                 Transaction(
                     date: Date(timeIntervalSince1970: 1_633_046_400),
                     price: Int.random(in: 6_000_000...8_500_000)),
-            ]
+            ],
+            agent: Mock.Agents[0]
         ),
     ]
 
@@ -153,7 +155,13 @@ enum Mock {
             avatarUrl: "https://static.thenounproject.com/png/5147395-512.png",
             reviews: nil,
             wishlists: nil
-        )
+        ),
+        User(
+            name: "Agent Numero Dos", email: "agent2@agency2.agents",
+            avatarUrl: "https://static.thenounproject.com/png/5147395-512.png",
+            reviews: nil,
+            wishlists: nil
+        ),
     ]
 }
 

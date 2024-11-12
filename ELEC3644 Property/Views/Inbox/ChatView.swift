@@ -11,16 +11,18 @@ import Translation
 struct ChatView: View {
     @ObservedObject var chat: Chat
     var currentUserId: String
+    var initialMessage: String?
 
     @Environment(\.dismiss) private var dismiss
     @State private var newMessage: String = ""
     @StateObject private var webSocketService: WebSocketService
 
-    init(chat: Chat, currentUserId: String) {
+    init(chat: Chat, currentUserId: String, initialMessage: String? = nil) {
         self.chat = chat
         self.currentUserId = currentUserId
         _webSocketService = StateObject(
             wrappedValue: WebSocketService(userId: currentUserId, chat: chat))
+        self.initialMessage = initialMessage
     }
 
     var body: some View {
@@ -73,6 +75,9 @@ struct ChatView: View {
                     .font(.headline)
                     .fontWeight(.bold)
             }
+        }
+        .onAppear {
+            self.newMessage = initialMessage ?? ""
         }
     }
 

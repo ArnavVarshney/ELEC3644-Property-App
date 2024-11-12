@@ -9,6 +9,7 @@ import SwiftUI
 
 struct PropertyDetailBottomBarView: View {
     @StateObject var viewModel: PropertyDetailViewModel
+    @EnvironmentObject var inboxData: InboxViewModel
 
     var body: some View {
         HStack {
@@ -19,19 +20,32 @@ struct PropertyDetailBottomBarView: View {
                     .font(.system(size: 14, weight: .regular))
             }
             Spacer()
-            requestButton
+            NavigationLink(
+                destination: ChatView(
+                    chat: chat(), currentUserId: inboxData.currentUserId,
+                    initialMessage:
+                        "Hi, I'm interested in \(viewModel.property.name). Can you provide more details?"
+                ),
+                label: {
+                    Text("Request")
+                        .font(.system(size: 16, weight: .medium))
+                        .foregroundColor(.neutral10)
+                        .padding()
+                        .background(Color.primary60)
+                        .cornerRadius(10)
+                })
         }
         .padding()
         .background(Color(.systemGray6))
     }
 
-    private var requestButton: some View {
-        Text("Request")
-            .font(.system(size: 16, weight: .medium))
-            .foregroundColor(.neutral10)
-            .padding()
-            .background(Color.primary60)
-            .cornerRadius(10)
+    private func chat() -> Chat {
+        for chat in inboxData.chats {
+            if chat.user.id == viewModel.property.agent.id {
+                return chat
+            }
+        }
+        return Chat(user: viewModel.property.agent, messages: [])
     }
 }
 
@@ -45,4 +59,5 @@ struct PropertyDetailBottomBarView: View {
     }
     return PropertyDetailBottomBar_Preview()
         .environmentObject(PropertyViewModel())
+        .environmentObject(InboxViewModel())
 }
