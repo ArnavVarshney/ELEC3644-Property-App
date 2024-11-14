@@ -53,7 +53,7 @@ struct WishlistsView: View {
             }
         }.onAppear {
             Task {
-                //                await userViewModel.fetchWishlist(with: userViewModel.currentUserId)
+                await userViewModel.fetchWishlist(with: userViewModel.currentUserId)
             }
         }
     }
