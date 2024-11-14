@@ -62,6 +62,25 @@ extension AVPlayerViewController {
     }
 }
 
+extension Int {
+    func toCurrencyFormat() -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .currency
+        numberFormatter.minimumFractionDigits = 0
+        numberFormatter.maximumFractionDigits = 2
+        numberFormatter.locale = Locale(identifier: "en_HK")
+        return numberFormatter.string(from: NSNumber(value: self))!
+    }
+
+    func toCompactCurrencyFormat() -> String {
+        return "HK$ \(self.formatted(.number.notation(.compactName)))"
+    }
+
+    func toCompactFormat() -> String {
+        return self.formatted(.number.notation(.compactName))
+    }
+}
+
 #Preview {
     NavigationStack {
         VStack {
