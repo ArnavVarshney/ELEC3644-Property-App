@@ -18,7 +18,7 @@ struct FoldersView: View {
     var user: User {
         return userViewModel.user
     }
-    
+
     var body: some View {
         NavigationStack {
             VStack {

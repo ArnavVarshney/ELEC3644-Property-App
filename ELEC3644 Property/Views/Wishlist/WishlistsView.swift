@@ -19,30 +19,32 @@ struct WishlistsView: View {
 
     var body: some View {
         NavigationStack {
-            HStack{
-                VStack(alignment:.leading){
+            HStack {
+                VStack(alignment: .leading) {
                     Text("Wishlists").bold()
-                    Text("A place to view what you saved").font(.footnote).foregroundColor(.neutral60)
+                    Text("A place to view what you saved").font(.footnote).foregroundColor(
+                        .neutral60)
                 }
                 Image("wishlist").resizable().scaledToFit().frame(width: 250, height: 250)
             }.padding(.horizontal)
-            List{
+            List {
                 NavigationLink {
                     FoldersView()
                 } label: {
-                    HStack{
+                    HStack {
                         Image(systemName: "heart")
-                        VStack(alignment:.leading){
+                        VStack(alignment: .leading) {
                             Text("Folders").bold()
-                            Text("Look at what you had in mind").font(.footnote).foregroundColor(.neutral60)
+                            Text("Look at what you had in mind").font(.footnote).foregroundColor(
+                                .neutral60)
                         }
                     }
-                }.alignmentGuide(.listRowSeparatorLeading){_ in 0}
-                NavigationLink{
+                }.alignmentGuide(.listRowSeparatorLeading) { _ in 0 }
+                NavigationLink {
                 } label: {
-                    HStack{
+                    HStack {
                         Image(systemName: "calendar.day.timeline.trailing")
-                        VStack(alignment:.leading){
+                        VStack(alignment: .leading) {
                             Text("Property Comparison").bold()
                             Text("Compare your wishes").font(.footnote).foregroundColor(.neutral60)
                         }
@@ -51,7 +53,7 @@ struct WishlistsView: View {
             }
         }.onAppear {
             Task {
-//                await userViewModel.fetchWishlist(with: userViewModel.currentUserId)
+                //                await userViewModel.fetchWishlist(with: userViewModel.currentUserId)
             }
         }
     }
