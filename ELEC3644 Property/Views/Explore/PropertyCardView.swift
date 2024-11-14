@@ -27,7 +27,7 @@ struct PropertyCardView: View {
                     Text("\(property.subDistrict), \(property.area)")
                         .foregroundColor(.neutral60)
 
-                    Text("HKD \(property.netPrice)")
+                    Text("\(property.netPrice.toCompactCurrencyFormat())")
                         .foregroundColor(.neutral60)
                         .fontWeight(.semibold)
                         .padding(.top, 1)
