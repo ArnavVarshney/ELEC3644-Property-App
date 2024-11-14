@@ -20,7 +20,7 @@ struct EnlargeMapView: View {
                     // Annotation for the target property
                     Annotation(viewModel.property.name, coordinate: viewModel.location) {
                         HStack {
-                            Text(viewModel.property.netPrice)
+                            Text(String(viewModel.property.netPrice))
                                 .font(.callout)
                                 .fontWeight(.bold)
                                 .foregroundColor(Color.black)

@@ -23,7 +23,7 @@ struct Property: Identifiable, Hashable, Codable {
     let saleableAreaPricePerSquareFoot: Int
     let grossFloorArea: Int
     let grossFloorAreaPricePerSquareFoot: Int
-    let netPrice: String
+    let netPrice: Int
 
     let buildingAge: Int
     let buildingDirection: String
