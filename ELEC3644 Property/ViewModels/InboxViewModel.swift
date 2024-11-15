@@ -9,8 +9,8 @@ import Foundation
 
 class InboxViewModel: ObservableObject {
     private let apiClient: APIClient
+    private let userViewModel = UserViewModel.shared
     @Published var chats: [Chat] = []
-    var currentUserId: String = "10530025-4005-4c89-b814-b0ea9e389343"
 
     init(apiClient: APIClient = NetworkManager(), chats: [Chat] = []) {
         self.chats = chats
@@ -25,7 +25,7 @@ class InboxViewModel: ObservableObject {
     func fetchChats() async {
         do {
             let fetchedChats: [Chat] = try await apiClient.get(
-                url: "/messages/chat/\(currentUserId)")
+                url: "/messages/chat/\(userViewModel.currentUserId)")
             DispatchQueue.main.async {
                 self.chats = fetchedChats
             }

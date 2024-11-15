@@ -10,6 +10,7 @@ import SwiftUI
 struct PropertyDetailBottomBarView: View {
     @StateObject var viewModel: PropertyDetailViewModel
     @EnvironmentObject var inboxData: InboxViewModel
+    @EnvironmentObject var userViewModel: UserViewModel
 
     var body: some View {
         HStack {
@@ -22,7 +23,7 @@ struct PropertyDetailBottomBarView: View {
             Spacer()
             NavigationLink(
                 destination: ChatView(
-                    chat: chat(), currentUserId: inboxData.currentUserId,
+                    chat: chat(), currentUserId: userViewModel.currentUserId,
                     initialMessage:
                         "Hi, I'm interested in \(viewModel.property.name). Can you provide more details?"
                 ),

@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct LoginView: View {
-    @StateObject private var viewModel = UserViewModel()
+    @EnvironmentObject var viewModel: UserViewModel
     @State private var username: String = ""
     @State private var password: String = ""
     @State private var isLoggedIn: Bool = false
@@ -70,11 +70,8 @@ struct LoginView: View {
 
                 // Update user data in view model
                 viewModel.user = user
+                viewModel.currentUserId = user.id.uuidString
                 isLoggedIn = true
-
-                // Save user ID to UserDefaults
-                UserDefaults.standard.set(user.id, forKey: "currentUserID")  // Assuming 'id' is a property of User
-
             } catch {
                 alertMessage = "Invalid email or password."
                 showAlert = true

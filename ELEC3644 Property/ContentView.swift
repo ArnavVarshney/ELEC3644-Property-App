@@ -19,6 +19,6 @@ struct ContentView: View {
     ContentView()
         .environmentObject(InboxViewModel())
         .environmentObject(PropertyViewModel())
-        .environmentObject(UserViewModel())
+        .environmentObject(UserViewModel(user: Mock.Users[0]))
         .environmentObject(AgentViewModel())
 }

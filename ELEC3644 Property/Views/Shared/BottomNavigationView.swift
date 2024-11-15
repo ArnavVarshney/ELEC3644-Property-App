@@ -31,10 +31,17 @@ struct BottomNavigationView: View {
                 .tabItem {
                     Label("Inbox", systemImage: "envelope")
                 }
-            ProfileView()
-                .tabItem {
-                    Label("Profile", systemImage: "person")
-                }
+            if userViewModel.currentUserId.isEmpty {
+                LoginView()
+                    .tabItem {
+                        Label("Log in", systemImage: "person")
+                    }
+            } else {
+                ProfileView()
+                    .tabItem {
+                        Label("Profile", systemImage: "person")
+                    }
+            }
         }
         .onAppear {
             let appearance = UITabBarAppearance()

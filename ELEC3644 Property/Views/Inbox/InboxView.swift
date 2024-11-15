@@ -9,6 +9,7 @@ import SwiftUI
 
 struct InboxView: View {
     @EnvironmentObject var inboxData: InboxViewModel
+    @EnvironmentObject var userViewModel: UserViewModel
 
     var body: some View {
         NavigationStack {
@@ -30,7 +31,7 @@ struct InboxView: View {
                 } else {
                     List(inboxData.chats) { chat in
                         NavigationLink {
-                            ChatView(chat: chat, currentUserId: inboxData.currentUserId)
+                            ChatView(chat: chat, currentUserId: userViewModel.currentUserId)
                                 .toolbar(.hidden, for: .tabBar)
                         } label: {
                             InboxItemView(user: chat.user, message: chat.messages.last!)
@@ -48,4 +49,5 @@ struct InboxView: View {
 #Preview {
     InboxView()
         .environmentObject(InboxViewModel(chats: Mock.Chats))
+        .environmentObject(UserViewModel())
 }

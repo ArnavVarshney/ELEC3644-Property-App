@@ -10,6 +10,7 @@ import SwiftUI
 struct PropertyDetailAgentView: View {
     @StateObject var viewModel: PropertyDetailViewModel
     @EnvironmentObject var inboxData: InboxViewModel
+    @EnvironmentObject var userViewModel: UserViewModel
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -49,7 +50,7 @@ struct PropertyDetailAgentView: View {
 
                 NavigationLink(
                     destination: ChatView(
-                        chat: chat(), currentUserId: inboxData.currentUserId
+                        chat: chat(), currentUserId: userViewModel.currentUserId
                     ),
                     label: {
                         HStack {

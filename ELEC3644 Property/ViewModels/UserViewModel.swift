@@ -9,7 +9,8 @@ import Foundation
 
 class UserViewModel: ObservableObject {
     private let apiClient: APIClient
-    var currentUserId: String = "10530025-4005-4c89-b814-b0ea9e389343"
+    static let shared = UserViewModel()
+    @Published var currentUserId: String = ""
     @Published var user: User = .init(
         name: "", email: "", phone: "", avatarUrl: "", reviews: [], wishlists: [])
     @Published var otherUsers: [User] = []
@@ -79,7 +80,7 @@ class UserViewModel: ObservableObject {
     static func login(with email: String, password: String) async throws -> User {
         let apiClient = NetworkManager()
         let data = ["email": email, "password": password]
-        let user: User = try await apiClient.post(url: "/login", body: data)
+        let user: User = try await apiClient.post(url: "/users/login", body: data)
         return user
     }
 
