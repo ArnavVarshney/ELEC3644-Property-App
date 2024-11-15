@@ -36,12 +36,13 @@ struct Property: Identifiable, Hashable, Codable {
     let amenities: [String]
     let propertyType: String
     let contractType: String
-    
+
     private enum CodingKeys: String, CodingKey {
         case name, address, area, district, subDistrict, facilities, schoolNet,
             saleableArea, saleableAreaPricePerSquareFoot, grossFloorArea,
             grossFloorAreaPricePerSquareFoot,
-            netPrice, buildingAge, buildingDirection, estate, imageUrls, transactionHistory, agent, propertyType, contractType, amenities
+            netPrice, buildingAge, buildingDirection, estate, imageUrls, transactionHistory, agent,
+            propertyType, contractType, amenities
         case dbId = "id"
 
     }
