@@ -37,7 +37,10 @@ enum Mock {
             transactionHistory: [
                 Transaction(date: Date(), price: 7_500_000)
             ],
-            agent: Mock.Agents[1]
+            agent: Mock.Agents[1],
+            amenities: ["pet-friendly"],
+            propertyType: "apartment",
+            contractType: "buying"
         ),
         Property(
             name: "The Pavilia Hill 2",
@@ -96,7 +99,10 @@ enum Mock {
                     date: Date(timeIntervalSince1970: 1_633_046_400),
                     price: Int.random(in: 6_000_000...8_500_000)),
             ],
-            agent: Mock.Agents[0]
+            agent: Mock.Agents[0],
+            amenities: ["gym", "balcony"],
+            propertyType: "townhouse",
+            contractType: "leasing"
         ),
     ]
 
