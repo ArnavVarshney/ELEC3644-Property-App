@@ -78,6 +78,10 @@ struct ChatView: View {
         }
         .onAppear {
             self.newMessage = initialMessage ?? ""
+            webSocketService.connect(userId: currentUserId)
+        }
+        .onDisappear {
+            webSocketService.disconnect()
         }
     }
 

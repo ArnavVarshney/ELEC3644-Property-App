@@ -17,7 +17,7 @@ class WebSocketService: ObservableObject {
     init(userId: String, chat: Chat) {
         self.chat = chat
         self.userId = userId
-        connect(userId: userId)
+//        connect(userId: userId)
     }
 
     func connect(userId: String) {
@@ -27,6 +27,10 @@ class WebSocketService: ObservableObject {
         let rawMessage = "{\"type\": \"setUser\", \"userId\": \"\(userId)\"}"
         webSocketTask?.resume()
         sendMessage(message: nil, rawMessage: rawMessage)
+    }
+    
+    func disconnect() {
+        webSocketTask?.cancel(with: .goingAway, reason: nil)
     }
 
     func sendMessage(message: Message?, rawMessage: String?) {
