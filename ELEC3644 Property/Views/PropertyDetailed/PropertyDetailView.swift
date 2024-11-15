@@ -26,6 +26,7 @@ struct PropertyDetailView: View {
                 PropertyDetailMapView()
                     .environmentObject(viewModel)
                 PropertyDetailGraphView(viewModel: viewModel)
+                PropertyDetailAgentView(viewModel: viewModel)
             }
             Spacer()
             PropertyDetailBottomBarView(viewModel: viewModel)
@@ -47,4 +48,5 @@ struct PropertyDetailView: View {
     return PropertyDetail_Preview()
         .environmentObject(PropertyViewModel())
         .environmentObject(UserViewModel())
+        .environmentObject(InboxViewModel())
 }

@@ -11,7 +11,7 @@ class UserViewModel: ObservableObject {
     private let apiClient: APIClient
     var currentUserId: String = "10530025-4005-4c89-b814-b0ea9e389343"
     @Published var user: User = .init(
-        name: "", email: "", avatarUrl: "", reviews: [], wishlists: [])
+        name: "", email: "", phone: "", avatarUrl: "", reviews: [], wishlists: [])
     @Published var otherUsers: [User] = []
     @Published var agents: [User] = []
     @Published var userRole: UserRole = .guest

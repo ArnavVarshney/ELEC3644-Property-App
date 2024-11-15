@@ -126,22 +126,26 @@ enum Mock {
     static var Users: [User] = [
         User(
             name: "Filbert Tejalaksana", email: "a@gmail.com",
+            phone: "852 12345678",
             avatarUrl:
                 "https://media.licdn.com/dms/image/v2/C4D03AQFt9Bjg0CPk4Q/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1662615657137?e=2147483647&v=beta&t=sTx8Vlvu9gfvGVz1TO4GIavJPkqZ38kAd5-Lt8eGpq8",
             reviews: [
                 Review(
                     author: User(
                         name: "Abel Haris Harsono", email: "b@gmail.com",
+                        phone: "852 12345678",
                         avatarUrl: "", reviews: nil, wishlists: nil),
                     rating: 2, content: "Testing"),
                 Review(
                     author: User(
                         name: "Abel Haris Harsono", email: "b@gmail.com",
+                        phone: "852 12345678",
                         avatarUrl: "", reviews: nil, wishlists: nil),
                     rating: 2, content: "Testing"),
                 Review(
                     author: User(
                         name: "Abel Haris Harsono", email: "b@gmail.com",
+                        phone: "852 12345678",
                         avatarUrl: "", reviews: nil, wishlists: nil),
                     rating: 2, content: "Testing"),
             ],
@@ -152,18 +156,21 @@ enum Mock {
         ),
         User(
             name: "Abel Haris Harsono", email: "b@gmail.com",
+            phone: "852 12345678",
             avatarUrl: "", reviews: nil, wishlists: nil),
     ]
 
     static var Agents: [User] = [
         User(
             name: "Agent Numero Uno", email: "agent1@agency1.agents",
+            phone: "852 12345678",
             avatarUrl: "https://static.thenounproject.com/png/5147395-512.png",
             reviews: nil,
             wishlists: nil
         ),
         User(
             name: "Agent Numero Dos", email: "agent2@agency2.agents",
+            phone: "852 12345678",
             avatarUrl: "https://static.thenounproject.com/png/5147395-512.png",
             reviews: nil,
             wishlists: nil
