@@ -10,22 +10,9 @@
 		ABB22F952CB653F900768C9A /* ELEC3644 Property.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ELEC3644 Property.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		DED939142CE35C8400827958 /* Exceptions for "ELEC3644 Property" folder in "ELEC3644 Property" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"ELEC3644-Property-Info.plist",
-			);
-			target = ABB22F942CB653F900768C9A /* ELEC3644 Property */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		ABB22F972CB653F900768C9A /* ELEC3644 Property */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				DED939142CE35C8400827958 /* Exceptions for "ELEC3644 Property" folder in "ELEC3644 Property" target */,
-			);
 			path = "ELEC3644 Property";
 			sourceTree = "<group>";
 		};

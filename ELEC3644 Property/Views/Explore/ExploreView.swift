@@ -30,13 +30,13 @@ struct ExploreView: View {
                 GeometryReader { geometry in
                     ScrollView(.horizontal) {
                         LazyHStack(spacing: 0) {
-                            BuyMenuView(properties: propertyViewModel.properties)
+                            ListingMenuView(properties: propertyViewModel.getByContractType(contractType: "buying"))
                                 .id(MenuItem.buy)
                                 .frame(width: geometry.size.width)
-                            RentMenuView()
+                            ListingMenuView(properties: propertyViewModel.getByContractType(contractType: "renting"))
                                 .id(MenuItem.rent)
                                 .frame(width: geometry.size.width)
-                            LeaseMenuView()
+                            ListingMenuView(properties: propertyViewModel.getByContractType(contractType: "leasing"))
                                 .id(MenuItem.lease)
                                 .frame(width: geometry.size.width)
                             TransactionMenuView()
