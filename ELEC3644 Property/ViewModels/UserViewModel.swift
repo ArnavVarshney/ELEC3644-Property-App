@@ -77,28 +77,10 @@ class UserViewModel: ObservableObject {
     }
 
     static func login(with email: String, password: String) async throws -> User {
-        guard let url = URL(string: "https://chat-server.home-nas.xyz/users/login") else {
-            throw URLError(.badURL)
-        }
-
-        let body = ["email": email, "password": password]
-        let jsonData = try JSONSerialization.data(withJSONObject: body, options: [])
-
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.httpBody = jsonData
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
-        let (data, response) = try await URLSession.shared.data(for: request)
-
-        guard let httpResponse = response as? HTTPURLResponse,
-            (200...299).contains(httpResponse.statusCode)
-        else {
-            throw URLError(.badServerResponse)
-        }
-
-        let decoder = JSONDecoder()
-        return try decoder.decode(User.self, from: data)
+        let apiClient = NetworkManager()
+        let data = ["email": email, "password": password]
+        let user: User = try await apiClient.post(url: "/login", body: data)
+        return user
     }
 
     static func averageRating(for user: User) -> Double {
