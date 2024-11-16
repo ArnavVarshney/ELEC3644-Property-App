@@ -8,14 +8,6 @@ import SwiftUI
 
 struct WishlistsView: View {
     @EnvironmentObject var userViewModel: UserViewModel
-    private let flexibleColumn = [
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-    ]
-
-    var user: User {
-        return userViewModel.user
-    }
 
     var body: some View {
         NavigationStack {

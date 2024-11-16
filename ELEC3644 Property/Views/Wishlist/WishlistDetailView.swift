@@ -22,8 +22,8 @@ enum ScreenState {
 struct WishlistDetailView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var userViewModel: UserViewModel
-
-    @Binding var wishlist: Wishlist
+    
+    @State var wishlist: Wishlist
     var properties: [Property] {
         var picked: [Property] = []
         for idx in pickedPropertiesIdx {
@@ -31,7 +31,8 @@ struct WishlistDetailView: View {
         }
         return picked
     }
-
+    
+    //State management
     @State var state: ScreenState = .view
     @State var pickedPropertiesIdx: [Int] = []
     @State var showingLowerButton = false
@@ -63,7 +64,25 @@ struct WishlistDetailView: View {
 
     var body: some View {
         NavigationStack() {
-            if !wishlist.properties.isEmpty{
+            if wishlist.properties.isEmpty {
+                VStack{
+                    Spacer()
+                    Image(systemName: "heart")
+                        .font(.largeTitle)
+                        .padding()
+
+                    Text("This wishlist is empty")
+                        .font(.footnote)
+                        .fontWeight(.bold)
+                        .padding(4)
+
+                    Text("You removed everything here. You can go browsing again!")
+                        .font(.footnote)
+                        .foregroundColor(.neutral60)
+                        .padding(4)
+                    Spacer()
+                }
+            }else{
                 List {
                     ForEach(wishlist.properties.indices, id: \.self) { idx in
                         if !tickable{
@@ -71,20 +90,14 @@ struct WishlistDetailView: View {
                                 PropertyDetailView(property: wishlist.properties[idx])
                             }label:{
                                 WishlistItemCard(
-                                    pickedPropertiesIdx: $pickedPropertiesIdx,
-                                    property: wishlist.properties[idx], picking: tickable, idx: idx)
+                                    property: wishlist.properties[idx], picking: tickable, picked: pickedPropertiesIdx.contains(idx))
                             }
                         }else{
                             Button {
-                                if state == .view {
-                                    isActive = true
-                                } else {
-                                    pick(idx)
-                                }
+                                pick(idx)
                             } label: {
                                 WishlistItemCard(
-                                    pickedPropertiesIdx: $pickedPropertiesIdx,
-                                    property: wishlist.properties[idx], picking: tickable, idx: idx)
+                                    property: wishlist.properties[idx], picking: tickable, picked: pickedPropertiesIdx.contains(idx))
                             }
                         }
                     }
@@ -130,43 +143,18 @@ struct WishlistDetailView: View {
                         }
                     }
                 }
-                Spacer()
-                if showingLowerButton{
-                    switch state {
-                    case .compare:
-                        if properties.count == 2{
-                            NavigationLink{
-                                WishlistPropertyComparisonView(properties: properties)
-                            }label:{
-                                Text("Compare 2 items ")
-                            }
-                        }
-                    case .delete:
-                        if properties.count > 0{
-                            Button{
-                                for (i, property) in properties.enumerated() {
-                                    Task {
-                                        await userViewModel.postWishlist(
-                                            property: property,
-                                            folderName: wishlist.name, delete: true)
-                                    }
-                                }
-                                transition(to: .view)
-                            }label:{
-                                Text("Remove \(properties.count) item\(properties.count > 1 ? "s": "") ")
-                            }
-                        }
-                    default:
-                        EmptyView()
-                    }
-                }
-            }else{
-                Text("You removed all of them!")
+            }
+            
+            Spacer()
+            if showingLowerButton{
+                LowerButton(
+                    wishlist: wishlist,
+                    pickedPropertiesIdx: pickedPropertiesIdx, state: state, parent: self)
             }
         }
     }
 
-    func transition(to state: ScreenState) {
+    func transition(to state: ScreenState, deleteAll:Bool = false) {
         pickedPropertiesIdx = []
         switch state{
         case .view:
@@ -183,6 +171,10 @@ struct WishlistDetailView: View {
             backButtonDisabled = true
         }
         
+        if deleteAll{
+            wishlist.properties.removeAll()
+            wishlist.name = "Deleted"
+        }
         self.state = state
     }
     
@@ -202,65 +194,57 @@ struct WishlistDetailView: View {
 }
 
 
-struct WishlistItemCard: View {
-    @Binding var pickedPropertiesIdx: [Int]
-
-    let property: Property
-    let picking: Bool
-    let idx: Int
-    var picked: Bool {
-        return pickedPropertiesIdx.contains(idx)
+struct LowerButton: View{
+    @EnvironmentObject private var userViewModel: UserViewModel
+    let wishlist: Wishlist
+    let pickedPropertiesIdx: [Int]
+    
+    let state: ScreenState
+    var parent: WishlistDetailView
+    
+    var properties: [Property] {
+        var picked: [Property] = []
+        for idx in pickedPropertiesIdx {
+            picked.append(wishlist.properties[idx])
+        }
+        return picked
     }
-
-    var body: some View {
-        HStack {
-            AsyncImage(url: URL(string: property.imageUrls[0])) { image in
-                image
-                    .resizable()
-                    .scaledToFit()
-                    .cornerRadius(10)
-                    .frame(width: 110)
-            } placeholder: {
-                ProgressView()
-            }
-
-            VStack(alignment: .leading) {
-                Text(property.name).font(.headline).foregroundStyle(.black)
-                Text("\(property.area)")
-                Text("MTR info?")
-                Spacer()
-                HStack {
-                    Text("S.A \(property.saleableArea) ft²").foregroundStyle(.black)
-                    Text("@ \(property.saleableAreaPricePerSquareFoot)")
-                }
-                HStack {
-                    Text("GFA \(property.grossFloorArea) ft²").foregroundStyle(.black)
-                    Text("@ \(property.grossFloorAreaPricePerSquareFoot)")
+    
+    var body: some View{
+        switch state {
+        case .compare:
+            if pickedPropertiesIdx.count == 2{
+                NavigationLink{
+                    WishlistPropertyComparisonView(properties: properties)
+                }label:{
+                    Text("Compare 2 items ")
                 }
             }
-            .foregroundColor(.neutral60)
-            .font(.system(size: 10))
-            .lineLimit(1)
-
-            Spacer()
-            VStack {
-                if picking {
-                    HStack {
-                        Spacer()
-                        Image(systemName: picked ? "checkmark.circle.fill" : "checkmark.circle")
-                            .foregroundStyle(picked ? .blue : .black)
+        case .delete:
+            if properties.count > 0{
+                Button{
+                    if pickedPropertiesIdx.count == userViewModel.user.wishlists.count{
                     }
+                    for (i,idx) in pickedPropertiesIdx.enumerated() {
+                        Task {
+                            await userViewModel.postWishlist(
+                                property: wishlist.properties[idx],
+                                folderName: wishlist.name, delete: true)
+                            if i == pickedPropertiesIdx.count - 1{
+                                await userViewModel.fetchWishlist(with: userViewModel.currentUserId)
+                            }
+                            parent.transition(to: .view, deleteAll: !userViewModel.user.wishlists.contains(parent.wishlist))
+                        }
+                    }
+                }label:{
+                    Text("Remove \(properties.count) item\(properties.count > 1 ? "s": "") ")
                 }
-                Spacer()
-                HStack {
-                    Spacer()
-                    Text("\(property.netPrice)")
-                }
-            }.frame(width: 60)
-        }.padding(0)
-            .alignmentGuide(.listRowSeparatorLeading) { _ in 0 }.foregroundStyle(.black)
-    }
+            }
+        default:
+            EmptyView()
+        }    }
 }
+
 
 let numberFormatter: NumberFormatter = {
     let formatter = NumberFormatter()

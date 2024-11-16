@@ -15,14 +15,10 @@ struct FoldersView: View {
         GridItem(.flexible()),
     ]
 
-    var user: User {
-        return userViewModel.user
-    }
-
     var body: some View {
         NavigationStack {
             VStack {
-                if user.wishlists.isEmpty {
+                if userViewModel.user.wishlists.isEmpty {
                     Image(systemName: "heart")
                         .font(.largeTitle)
                         .padding()
@@ -39,9 +35,9 @@ struct FoldersView: View {
                 } else {
                     ScrollView(showsIndicators: false) {
                         LazyVGrid(columns: flexibleColumn) {
-                            ForEach(user.wishlists.indices, id: \.self) { idx in
+                            ForEach(userViewModel.user.wishlists.indices, id: \.self) { idx in
                                 NavigationLink(
-                                    destination: WishlistDetailView(wishlist: $userViewModel.user.wishlists[idx])
+                                    destination: WishlistDetailView(wishlist: userViewModel.user.wishlists[idx])
                                 ) {
                                     WishlistItemView(wishlist: userViewModel.user.wishlists[idx])
                                 }
