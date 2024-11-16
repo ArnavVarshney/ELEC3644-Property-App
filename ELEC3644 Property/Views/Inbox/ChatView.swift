@@ -10,18 +10,16 @@ import Translation
 
 struct ChatView: View {
     @ObservedObject var chat: Chat
-    var currentUserId: String
-    var initialMessage: String?
-
+    @EnvironmentObject var userViewModel: UserViewModel
     @Environment(\.dismiss) private var dismiss
     @State private var newMessage: String = ""
     @StateObject private var webSocketService: WebSocketService
+    var initialMessage: String?
 
-    init(chat: Chat, currentUserId: String, initialMessage: String? = nil) {
+    init(chat: Chat, initialMessage: String? = nil) {
         self.chat = chat
-        self.currentUserId = currentUserId
         _webSocketService = StateObject(
-            wrappedValue: WebSocketService(userId: currentUserId, chat: chat))
+            wrappedValue: WebSocketService(chat: chat))
         self.initialMessage = initialMessage
     }
 
@@ -32,7 +30,9 @@ struct ChatView: View {
                 ForEach(groupedMessages, id: \.key) { date, messages in
                     DateHeader(date: date)
                     ForEach(messages) { message in
-                        ChatBubble(message: message, isUser: message.senderId == currentUserId)
+                        ChatBubble(
+                            message: message,
+                            isUser: message.senderId == userViewModel.currentUserId())
                         let _ = print(message)
                     }
                 }
@@ -78,7 +78,7 @@ struct ChatView: View {
         }
         .onAppear {
             self.newMessage = initialMessage ?? ""
-            webSocketService.connect(userId: currentUserId)
+            webSocketService.connect(userId: userViewModel.currentUserId())
         }
         .onDisappear {
             webSocketService.disconnect()
@@ -164,5 +164,5 @@ struct ChatBubble: View {
 }
 
 #Preview {
-    ChatView(chat: Mock.Chats.first!, currentUserId: "\(Mock.Chats.first!.user.id)")
+    ChatView(chat: Mock.Chats.first!)
 }

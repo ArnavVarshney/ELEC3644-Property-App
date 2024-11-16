@@ -23,7 +23,7 @@ struct PropertyDetailBottomBarView: View {
             Spacer()
             NavigationLink(
                 destination: ChatView(
-                    chat: chat(), currentUserId: userViewModel.currentUserId,
+                    chat: chat(),
                     initialMessage:
                         "Hi, I'm interested in \(viewModel.property.name). Can you provide more details?"
                 ),

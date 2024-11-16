@@ -49,9 +49,7 @@ struct PropertyDetailAgentView: View {
                     .frame(height: 24)
 
                 NavigationLink(
-                    destination: ChatView(
-                        chat: chat(), currentUserId: userViewModel.currentUserId
-                    ),
+                    destination: ChatView(chat: chat()),
                     label: {
                         HStack {
                             Image(systemName: "message")

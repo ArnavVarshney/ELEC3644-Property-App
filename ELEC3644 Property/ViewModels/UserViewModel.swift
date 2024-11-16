@@ -10,8 +10,7 @@ import Foundation
 class UserViewModel: ObservableObject {
     private let apiClient: APIClient
     static let shared = UserViewModel()
-    @Published var currentUserId: String = ""
-    @Published var user: User = .init(
+    @Published var user = User(
         name: "", email: "", phone: "", avatarUrl: "", reviews: [], wishlists: [])
     @Published var otherUsers: [User] = []
     @Published var agents: [User] = []
@@ -19,19 +18,24 @@ class UserViewModel: ObservableObject {
 
     init(apiClient: APIClient = NetworkManager(), user: User? = nil) {
         self.apiClient = apiClient
-        if user != nil {
-            self.user = user!
-        } else {
+        self.user.id = UUID(uuidString: defaultUUID)!
+        if self.isLoggedIn() {
             Task {
-                await self.fetchUser(with: self.currentUserId)
-                await fetchWishlist(with: self.currentUserId)
+                await self.fetchUser(with: self.currentUserId())
+                await self.fetchWishlist()
             }
-        }
-        if user != nil {
             if user!.email.contains("agent") {
                 self.userRole = .agent
             }
         }
+    }
+
+    func currentUserId() -> String {
+        return self.user.id.uuidString.lowercased()
+    }
+
+    func isLoggedIn() -> Bool {
+        return self.currentUserId() != defaultUUID
     }
 
     func fetchUser(with id: String) async {
@@ -47,9 +51,10 @@ class UserViewModel: ObservableObject {
         }
     }
 
-    func fetchWishlist(with id: String) async {
+    func fetchWishlist() async {
         do {
-            let json: [String: [Property]] = try await apiClient.get(url: "/wishlists/\(id)")
+            let json: [String: [Property]] = try await apiClient.get(
+                url: "/wishlists/\(currentUserId())")
             let folderNames = json.keys
             let wishlists = folderNames.map { Wishlist(name: $0, properties: json[$0]!) }
             DispatchQueue.main.async {
@@ -63,7 +68,7 @@ class UserViewModel: ObservableObject {
     func postWishlist(property: Property, folderName: String, delete: Bool = false) async {
         do {
             let data = [
-                "userId": currentUserId, "propertyId": "\(property.dbId)".lowercased(),
+                "userId": currentUserId(), "propertyId": "\(property.dbId)".lowercased(),
                 "folderName": folderName.lowercased(),
             ]
 

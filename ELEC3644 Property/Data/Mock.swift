@@ -185,3 +185,5 @@ let mockPropertyImages = [
     "Property4",
     "Property5",
 ]
+
+let defaultUUID = "00000000-0000-0000-0000-000000000000"

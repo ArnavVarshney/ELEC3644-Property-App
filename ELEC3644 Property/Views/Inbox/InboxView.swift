@@ -31,7 +31,7 @@ struct InboxView: View {
                 } else {
                     List(inboxData.chats) { chat in
                         NavigationLink {
-                            ChatView(chat: chat, currentUserId: userViewModel.currentUserId)
+                            ChatView(chat: chat)
                                 .toolbar(.hidden, for: .tabBar)
                         } label: {
                             InboxItemView(user: chat.user, message: chat.messages.last!)

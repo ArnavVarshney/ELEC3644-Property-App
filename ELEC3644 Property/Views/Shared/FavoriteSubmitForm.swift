@@ -22,7 +22,7 @@ struct FavoriteSubmitForm: View {
                 let temp = albumName == "" ? "Default" : albumName
                 Task {
                     await userViewModel.postWishlist(property: property, folderName: temp)
-                    await userViewModel.fetchWishlist(with: userViewModel.currentUserId)
+                    await userViewModel.fetchWishlist()
                 }
 
                 withAnimation {

@@ -11,6 +11,8 @@ struct BottomNavigationView: View {
     @EnvironmentObject var userViewModel: UserViewModel
 
     var body: some View {
+        let _ = print(userViewModel.currentUserId())
+        let _ = print(userViewModel.isLoggedIn())
         TabView {
             if userViewModel.userRole == .host {
                 ListingView()
@@ -31,17 +33,11 @@ struct BottomNavigationView: View {
                 .tabItem {
                     Label("Inbox", systemImage: "envelope")
                 }
-            if userViewModel.currentUserId.isEmpty {
-                LoginView()
-                    .tabItem {
-                        Label("Log in", systemImage: "person")
-                    }
-            } else {
-                ProfileView()
-                    .tabItem {
-                        Label("Profile", systemImage: "person")
-                    }
-            }
+            ProfileView()
+                .tabItem {
+                    Label(userViewModel.isLoggedIn() ? "Profile" : "Login", systemImage: "person")
+                }
+
         }
         .onAppear {
             let appearance = UITabBarAppearance()

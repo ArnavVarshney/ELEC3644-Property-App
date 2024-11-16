@@ -70,7 +70,6 @@ struct LoginView: View {
 
                 // Update user data in view model
                 viewModel.user = user
-                viewModel.currentUserId = user.id.uuidString
                 isLoggedIn = true
             } catch {
                 alertMessage = "Invalid email or password."

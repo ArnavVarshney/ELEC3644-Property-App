@@ -90,7 +90,7 @@ struct favoriteIcon: View {
                     await userViewModel.postWishlist(
                         property: property,
                         folderName: userViewModel.user.wishlists[propertyIdx!.0].name, delete: true)
-                    await userViewModel.fetchWishlist(with: userViewModel.currentUserId)
+                    await userViewModel.fetchWishlist()
                 }
             } else {
                 showingSheet = true

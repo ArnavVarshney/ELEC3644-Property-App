@@ -14,9 +14,9 @@ class WebSocketService: ObservableObject {
     var chat: Chat
     var userId: String
 
-    init(userId: String, chat: Chat) {
+    init(chat: Chat) {
         self.chat = chat
-        self.userId = userId
+        self.userId = chat.user.id.uuidString.lowercased()
     }
 
     func connect(userId: String) {

@@ -38,7 +38,7 @@ struct WishlistsView: View {
                     ScrollView(showsIndicators: false) {
                         LazyVGrid(columns: flexibleColumn) {
                             ForEach(user.wishlists) { wishlist in
-                                return NavigationLink(
+                                NavigationLink(
                                     destination: WishlistDetailView(wishlist: wishlist)
                                 ) {
                                     WishlistItemView(wishlist: wishlist)
@@ -63,7 +63,7 @@ struct WishlistsView: View {
             }
         }.onAppear {
             Task {
-                await userViewModel.fetchWishlist(with: userViewModel.currentUserId)
+                await userViewModel.fetchWishlist()
             }
         }
     }
