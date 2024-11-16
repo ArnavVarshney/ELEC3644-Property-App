@@ -10,9 +10,16 @@ struct LoginButton: View {
     @State private var showModal = false
     var body: some View {
         Button(action: { showModal = true }) {
-            Text("Login").foregroundColor(.black).font(.system(size: 15, weight: .semibold))
-                .foregroundColor(.neutral100).padding(.vertical, 12).padding(.horizontal, 24)
-                .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.black, lineWidth: 1))
+            Text("Login")
+                .foregroundColor(.black)
+                .font(.system(size: 15, weight: .semibold))
+                .foregroundColor(.neutral100)
+                .padding(.vertical, 12)
+                .padding(.horizontal, 24)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                    .stroke(Color.black, lineWidth: 1)
+                )
         }
         .sheet(isPresented: $showModal) { LoginView() }
     }
