@@ -8,7 +8,6 @@ import Foundation
 
 struct Property: Identifiable, Hashable, Codable {
     var id = UUID()
-    var dbId = UUID()
     let name: String
     let address: String
     let area: String
@@ -35,8 +34,7 @@ struct Property: Identifiable, Hashable, Codable {
             saleableArea, saleableAreaPricePerSquareFoot, grossFloorArea,
             grossFloorAreaPricePerSquareFoot,
             netPrice, buildingAge, buildingDirection, estate, imageUrls, transactionHistory, agent,
-            propertyType, contractType, amenities
-        case dbId = "id"
+            propertyType, contractType, amenities, id
     }
 }
 

@@ -74,7 +74,7 @@ class UserViewModel: ObservableObject {
     func postWishlist(property: Property, folderName: String, delete: Bool = false) async {
         do {
             let data = [
-                "userId": currentUserId(), "propertyId": "\(property.dbId)".lowercased(),
+                "userId": currentUserId(), "propertyId": "\(property.id)".lowercased(),
                 "folderName": folderName.lowercased(),
             ]
             if delete {

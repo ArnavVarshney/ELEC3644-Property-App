@@ -70,7 +70,7 @@ struct favoriteIcon: View {
     var propertyIdx: (Int, Int)? {
         for (i, wishlist) in userViewModel.user.wishlists.enumerated() {
             for (j, property) in wishlist.properties.enumerated() {
-                if property.dbId == self.property.dbId {
+                if property.id == self.property.id {
                     return (i, j)
                 }
             }
