@@ -122,6 +122,14 @@ struct ProfileView: View {
                             }
                         }
                         Spacer()
+                        SettingsList(items: [
+                            SettingsItem(
+                                destination: AnyView(SettingsView()), iconName: "gearshape",
+                                title: "Settings"),
+                            SettingsItem(
+                                destination: AnyView(SettingsView()), iconName: "accessibility",
+                                title: "Accessibility"),
+                        ])
                     }
                 }
             }
