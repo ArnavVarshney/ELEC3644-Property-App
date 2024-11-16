@@ -23,9 +23,6 @@ class UserViewModel: ObservableObject {
                 await self.fetchUser(with: self.currentUserId())
                 await self.fetchWishlist()
             }
-            if user!.email.contains("agent") {
-                userRole = .agent
-            }
         }
     }
 
