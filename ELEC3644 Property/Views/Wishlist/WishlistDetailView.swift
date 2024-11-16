@@ -40,26 +40,8 @@ struct WishlistDetailView: View {
     @State var compareButtonDisabled: Bool = false
     @State var backButtonDisabled: Bool = false
     @State var isActive = false
-    var deleteButtonColour: Color {
-        switch state {
-        case .view:
-            return .blue
-        case .delete:
-            return .red
-        case .compare:
-            return .gray
-        }
-    }
-    var compareButtonColour: Color {
-        switch state {
-        case .view:
-            return .blue
-        case .delete:
-            return .gray
-        case .compare:
-            return .green
-        }
-    }
+    @State var deleteButtonColour: Color = .blue
+    @State var compareButtonColour: Color = .blue
 
     var body: some View {
         NavigationStack() {
@@ -165,12 +147,25 @@ struct WishlistDetailView: View {
             showingLowerButton = false
             tickable = false
             backButtonDisabled = false
-        case .delete, .compare:
+            deleteButtonColour = .blue
+            compareButtonColour = .blue
+        case .delete:
             compareButtonDisabled = false
             deleteButtonDisabled = false
             showingLowerButton = true
             tickable = true
             backButtonDisabled = true
+            deleteButtonColour = .red
+            compareButtonColour = .gray
+        case .compare:
+            compareButtonDisabled = false
+            deleteButtonDisabled = false
+            showingLowerButton = true
+            tickable = true
+            backButtonDisabled = true
+            deleteButtonColour = .gray
+            compareButtonColour = .green
+
         }
         
         self.state = state
@@ -268,6 +263,6 @@ let numberFormatter: NumberFormatter = {
     return formatter
 }()
 
-//#Preview {
-//    WishlistDetailView(wishlist: Mock.Users[0].wishlists[0]).environmentObject(UserViewModel())
-//}
+#Preview {
+    WishlistDetailView(wishlist: Mock.Users[0].wishlists[0]).environmentObject(UserViewModel())
+}
