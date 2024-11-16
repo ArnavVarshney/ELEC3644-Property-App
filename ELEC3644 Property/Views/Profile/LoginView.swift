@@ -18,9 +18,10 @@ struct LoginButton: View {
                 .padding(.horizontal, 24)
                 .overlay(
                     RoundedRectangle(cornerRadius: 8)
-                    .stroke(Color.black, lineWidth: 1)
+                        .stroke(Color.black, lineWidth: 1)
                 )
         }
+        .padding(.top, 24)
         .sheet(isPresented: $showModal) { LoginView() }
     }
 }

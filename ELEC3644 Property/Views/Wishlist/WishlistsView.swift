@@ -19,30 +19,48 @@ struct WishlistsView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                if user.wishlists.isEmpty {
-                    Image(systemName: "heart")
-                        .font(.largeTitle)
-                        .padding()
-                    Text("You don't have any wishlists")
-                        .font(.footnote)
-                        .fontWeight(.bold)
-                        .padding(4)
-                    Text("When you create a new wishlist, it will appear here.")
-                        .font(.footnote)
-                        .foregroundColor(.neutral60)
-                        .padding(4)
-                } else {
-                    ScrollView(showsIndicators: false) {
-                        LazyVGrid(columns: flexibleColumn) {
-                            ForEach(user.wishlists) { wishlist in
-                                NavigationLink(
-                                    destination: WishlistDetailView(wishlist: wishlist)
-                                ) {
-                                    WishlistItemView(wishlist: wishlist)
+                if userViewModel.isLoggedIn() {
+                    if user.wishlists.isEmpty {
+                        Image(systemName: "heart")
+                            .font(.largeTitle)
+                            .padding()
+                        Text("You don't have any wishlists")
+                            .font(.footnote)
+                            .fontWeight(.bold)
+                            .padding(4)
+                        Text("When you create a new wishlist, it will appear here.")
+                            .font(.footnote)
+                            .foregroundColor(.neutral60)
+                            .padding(4)
+                    } else {
+                        ScrollView(showsIndicators: false) {
+                            LazyVGrid(columns: flexibleColumn) {
+                                ForEach(user.wishlists) { wishlist in
+                                    NavigationLink(
+                                        destination: WishlistDetailView(wishlist: wishlist)
+                                    ) {
+                                        WishlistItemView(wishlist: wishlist)
+                                    }
                                 }
                             }
                         }
                     }
+                } else {
+                    VStack(alignment: .leading) {
+                        Text("Log in to view your wishlists")
+                            .font(.headline)
+                            .fontWeight(.semibold)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.top, 24)
+                        Text("You can create, view, or edit wishlists once you've logged in.")
+                            .font(.footnote)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.top, 4)
+                            .padding(.trailing, 8)
+                        LoginButton()
+                        Spacer()
+                    }
+                    .padding(.horizontal)
                 }
             }
             .padding(.horizontal)

@@ -62,7 +62,6 @@ struct ProfileView: View {
                         .foregroundColor(.neutral70)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     LoginButton()
-                        .padding(.top, 24)
                         .padding(.bottom, 12)
                     HStack(spacing: 4) {
                         Text("Don't have an account?")
