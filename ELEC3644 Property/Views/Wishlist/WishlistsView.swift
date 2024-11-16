@@ -14,12 +14,12 @@ struct WishlistsView: View {
             VStack {
                 if userViewModel.isLoggedIn() {
                     HStack {
-                    VStack(alignment: .leading) {
-                        Text("Wishlists").bold()
-                        Text("A place to view what you saved").font(.footnote).foregroundColor(
-                            .neutral60)
-                    }
-                    Image("wishlist").resizable().scaledToFit().frame(width: 250, height: 250)
+                        VStack(alignment: .leading) {
+                            Text("Wishlists").bold()
+                            Text("A place to view what you saved").font(.footnote).foregroundColor(
+                                .neutral60)
+                        }
+                        Image("wishlist").resizable().scaledToFit().frame(width: 250, height: 250)
                     }.padding(.horizontal)
                     List {
                         NavigationLink {
@@ -29,8 +29,9 @@ struct WishlistsView: View {
                                 Image(systemName: "heart")
                                 VStack(alignment: .leading) {
                                     Text("Folders").bold()
-                                    Text("Look at what you had in mind").font(.footnote).foregroundColor(
-                                        .neutral60)
+                                    Text("Look at what you had in mind").font(.footnote)
+                                        .foregroundColor(
+                                            .neutral60)
                                 }
                             }
                         }.alignmentGuide(.listRowSeparatorLeading) { _ in 0 }
@@ -40,7 +41,8 @@ struct WishlistsView: View {
                                 Image(systemName: "calendar.day.timeline.trailing")
                                 VStack(alignment: .leading) {
                                     Text("Property Comparison").bold()
-                                    Text("Compare your wishes").font(.footnote).foregroundColor(.neutral60)
+                                    Text("Compare your wishes").font(.footnote).foregroundColor(
+                                        .neutral60)
                                 }
                             }
                         }
