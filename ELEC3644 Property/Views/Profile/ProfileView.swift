@@ -11,7 +11,7 @@ struct ProfileView: View {
     var user: User { userViewModel.user }
     var body: some View {
         NavigationStack {
-            VStack(alignment: .leading) {
+            VStack {
                 if userViewModel.isLoggedIn() {
                     NavigationLink(destination: ProfileDetailedView(user: user)) {
                         HStack(spacing: 12) {
@@ -56,68 +56,70 @@ struct ProfileView: View {
                         .padding(.vertical, 24)
                     }
                 } else {
-                    Text("Login to start exploring. ")
-                        .font(.headline)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.neutral70)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    LoginButton()
-                        .padding(.bottom, 12)
-                    HStack(spacing: 4) {
-                        Text("Don't have an account?")
-                            .font(.footnote)
-                            .foregroundColor(.black)
-                        NavigationLink {
-                            LoginView()  // TODO: Create Sign up view
-                        } label: {
-                            Text("Sign up")
+                    VStack(alignment: .leading) {
+                        Text("Login to start exploring. ")
+                            .font(.headline)
+                            .fontWeight(.semibold)
+                            .foregroundColor(.neutral70)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        LoginButton()
+                            .padding(.bottom, 12)
+                        HStack(spacing: 4) {
+                            Text("Don't have an account?")
                                 .font(.footnote)
-                                .fontWeight(.semibold)
-                                .underline()
                                 .foregroundColor(.black)
-                        }
-                    }
-                    LazyVStack {
-                        NavigationLink(destination: SettingsView()) {
-                            HStack(spacing: 15) {
-                                Image(systemName: "gearshape")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 24, height: 24)
-                                    .foregroundColor(.black)
-                                Text("Settings")
-                                    .foregroundColor(.black)
-                                Spacer()
-                                Image(systemName: "chevron.right")
-                                    .resizable()
-                                    .scaledToFit()
+                            NavigationLink {
+                                LoginView()  // TODO: Create Sign up view
+                            } label: {
+                                Text("Sign up")
+                                    .font(.footnote)
                                     .fontWeight(.semibold)
-                                    .frame(width: 12, height: 12)
-                            }
-                            .padding(.vertical, 6)
-                        }
-                        Divider()
-                        NavigationLink(destination: SettingsView()) {
-                            HStack(spacing: 15) {
-                                Image(systemName: "accessibility")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 24, height: 24)
+                                    .underline()
                                     .foregroundColor(.black)
-                                Text("Accessibility")
-                                    .foregroundColor(.black)
-                                Spacer()
-                                Image(systemName: "chevron.right")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .fontWeight(.semibold)
-                                    .frame(width: 12, height: 12)
                             }
-                            .padding(.vertical, 6)
                         }
+                        LazyVStack {
+                            NavigationLink(destination: SettingsView()) {
+                                HStack(spacing: 15) {
+                                    Image(systemName: "gearshape")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 24, height: 24)
+                                        .foregroundColor(.black)
+                                    Text("Settings")
+                                        .foregroundColor(.black)
+                                    Spacer()
+                                    Image(systemName: "chevron.right")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .fontWeight(.semibold)
+                                        .frame(width: 12, height: 12)
+                                }
+                                .padding(.vertical, 6)
+                            }
+                            Divider()
+                            NavigationLink(destination: SettingsView()) {
+                                HStack(spacing: 15) {
+                                    Image(systemName: "accessibility")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 24, height: 24)
+                                        .foregroundColor(.black)
+                                    Text("Accessibility")
+                                        .foregroundColor(.black)
+                                    Spacer()
+                                    Image(systemName: "chevron.right")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .fontWeight(.semibold)
+                                        .frame(width: 12, height: 12)
+                                }
+                                .padding(.vertical, 6)
+                            }
+                        }
+                        .padding(.vertical, 18)
+                        Spacer()
                     }
-                    .padding(.vertical, 18)
-                    Spacer()
                 }
             }
             .padding(.horizontal, 18)
