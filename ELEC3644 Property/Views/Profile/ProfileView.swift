@@ -38,11 +38,41 @@ struct ProfileView: View {
                                 .foregroundColor(.black)
                         }
                     }
+
+                    NavigationLink(destination: HostTransitionScreen()) {
+                        HStack(spacing: 24) {
+                            VStack(spacing: 12) {
+                                Text("List your property")
+                                    .font(.headline)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .fontWeight(.semibold)
+                                Text("It's easy to start hosting and earn extra income")
+                                    .font(.caption)
+                                    .foregroundColor(.neutral70)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                            }
+                            .padding(.leading, 24)
+                            .padding(.vertical, 24)
+
+                            Image("hosting_advert")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 96, height: 96)
+                                .foregroundColor(.black)
+                                .padding(.trailing, 12)
+                        }
+                        .background(.white)
+                        .cornerRadius(12)
+                        .addShadow()
+                        .padding(.vertical, 24)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+
                     Text("Settings")
                         .font(.headline)
                         .fontWeight(.semibold)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.top, 24)
+                        .padding(.top, 12)
                     SettingsList(items: [
                         SettingsItem(
                             destination: AnyView(SettingsView()), iconName: "person.crop.circle",
