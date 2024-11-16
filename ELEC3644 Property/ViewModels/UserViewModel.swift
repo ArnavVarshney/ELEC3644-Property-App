@@ -95,9 +95,7 @@ class UserViewModel: ObservableObject {
     }
 
     func logout() {
-        user = User(
-            name: "", email: "", phone: "", avatarUrl: "", reviews: [], wishlists: []
-        )
+        user.id = UUID(uuidString: defaultUUID)!
         UserDefaults.standard.removeObject(forKey: "currentUserID")
     }
 
