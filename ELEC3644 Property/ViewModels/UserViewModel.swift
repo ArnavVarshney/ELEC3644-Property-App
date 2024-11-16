@@ -17,7 +17,8 @@ class UserViewModel: ObservableObject {
     @Published var userRole: UserRole = .guest
     init(apiClient: APIClient = NetworkManager(), user: User? = nil) {
         self.apiClient = apiClient
-        self.user.id = UUID(uuidString: defaultUUID)!
+        self.user.id = UUID(
+            uuidString: UserDefaults.standard.string(forKey: "currentUserID") ?? defaultUUID)!
         if isLoggedIn() {
             Task {
                 await self.fetchUser(with: self.currentUserId())

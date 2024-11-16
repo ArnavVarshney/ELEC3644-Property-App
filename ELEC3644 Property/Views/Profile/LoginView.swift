@@ -76,6 +76,7 @@ struct LoginView: View {
                 let user = try await UserViewModel.login(with: username, password: password)
                 // Update user data in view model
                 viewModel.user = user
+                UserDefaults.standard.set(user.id.uuidString, forKey: "currentUserID")
                 isLoggedIn = true
             } catch {
                 alertMessage = "Invalid email or password."
