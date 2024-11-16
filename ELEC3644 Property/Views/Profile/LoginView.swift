@@ -6,6 +6,19 @@
 //
 import SwiftUI
 
+struct LoginButton: View {
+    @State private var showModal = false
+
+    var body: some View {
+        Button(action: { showModal = true }) {
+            Text("Login").foregroundColor(.black).font(.system(size: 15, weight: .semibold))
+                .foregroundColor(.neutral100).padding(.vertical, 12).padding(.horizontal, 24)
+                .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.black, lineWidth: 1))
+        }
+        .sheet(isPresented: $showModal) { LoginView() }
+    }
+}
+
 struct LoginView: View {
     @EnvironmentObject var viewModel: UserViewModel
     @State private var username: String = ""
@@ -19,19 +32,14 @@ struct LoginView: View {
         if !isLoggedIn {
             Form {
                 Section(header: Text("Login")) {
-                    TextField("Email", text: $username)
-                        .autocapitalization(.none)
+                    TextField("Email", text: $username).autocapitalization(.none)
                         .keyboardType(.emailAddress)
                     SecureField("Password", text: $password)
                 }
 
                 Button(action: login) {
-                    Text("Login")
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
+                    Text("Login").frame(maxWidth: .infinity).padding().background(Color.blue)
+                        .foregroundColor(.white).cornerRadius(8)
                 }
             }
             .alert(isPresented: $showAlert) {
@@ -39,15 +47,10 @@ struct LoginView: View {
                     title: Text("Login Failed"), message: Text(alertMessage),
                     dismissButton: .default(Text("OK")))
             }
-            .navigationTitle("Login")
-            .onAppear {
-                checkLoginStatus()
-            }
+            .navigationTitle("Login").onAppear { checkLoginStatus() }
         } else {
             // Content for logged-in users
-            Text("Welcome back, \(viewModel.user.name)!")
-                .font(.largeTitle)
-                .padding()
+            Text("Welcome back, \(viewModel.user.name)!").font(.largeTitle).padding()
         }
     }
 
@@ -56,9 +59,7 @@ struct LoginView: View {
         if currentUserID != nil {
             isLoggedIn = true
             // Fetch user data if needed
-            Task {
-                await viewModel.fetchUser(with: currentUserID!)
-            }
+            Task { await viewModel.fetchUser(with: currentUserID!) }
         }
     }
 
@@ -79,8 +80,4 @@ struct LoginView: View {
     }
 }
 
-struct LoginView_Previews: PreviewProvider {
-    static var previews: some View {
-        LoginView()
-    }
-}
+struct LoginView_Previews: PreviewProvider { static var previews: some View { LoginView() } }
