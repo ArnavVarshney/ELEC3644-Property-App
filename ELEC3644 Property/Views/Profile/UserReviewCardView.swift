@@ -4,7 +4,6 @@
 //
 //  Created by Filbert Tejalaksana on 16/10/2024.
 //
-
 import SwiftUI
 
 struct UserReviewCardView: View {
@@ -50,7 +49,6 @@ struct UserReviewCardView: View {
 #Preview {
     struct UserReviewCardView_Preview: View {
         @EnvironmentObject var userViewModel: UserViewModel
-
         var body: some View {
             if let user = userViewModel.user.reviews.first {
                 UserReviewCardView(

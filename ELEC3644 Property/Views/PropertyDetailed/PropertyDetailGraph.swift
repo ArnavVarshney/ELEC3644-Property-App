@@ -4,14 +4,12 @@
 //
 //  Created by Filbert Tejalaksana on 15/10/2024.
 //
-
 import Charts
 import SwiftUI
 
 struct PropertyDetailGraphView: View {
     @StateObject var viewModel: PropertyDetailViewModel
     @State private var selectedDate: Date?
-
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -32,7 +30,6 @@ struct PropertyDetailGraphView: View {
                     }
                 }
             }
-
             Chart {
                 ForEach(viewModel.transactions) { transaction in
                     BarMark(
@@ -63,10 +60,8 @@ struct PropertyDetailGraphView: View {
             }
             .chartYScale(domain: .automatic(includesZero: false))
             .chartXSelection(value: $selectedDate)
-
             .foregroundStyle(.primary60)
             .frame(height: 200)
-
         }
         .padding(.horizontal, 24)
     }
@@ -76,7 +71,6 @@ struct PropertyDetailGraphView: View {
         let billion = number / 1_000_000_000
         let million = number / 1_000_000
         let thousand = number / 1000
-
         if billion >= 1.0 {
             return "\(round(billion * 10) / 10)B"
         } else if million >= 1.0 {
@@ -87,14 +81,12 @@ struct PropertyDetailGraphView: View {
             return "\(Int(number))"
         }
     }
-
 }
 
 #Preview {
     struct PropertyDetailGraphView_Preview: View {
         @StateObject var propertyViewModel = PropertyViewModel()
         @StateObject var propertyDetailViewModel: PropertyDetailViewModel
-
         init() {
             self._propertyDetailViewModel = StateObject(
                 wrappedValue: PropertyDetailViewModel(property: Mock.Properties[0]))
@@ -106,6 +98,5 @@ struct PropertyDetailGraphView: View {
             ).environmentObject(propertyViewModel)
         }
     }
-
     return PropertyDetailGraphView_Preview()
 }

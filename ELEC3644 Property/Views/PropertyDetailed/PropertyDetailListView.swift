@@ -4,12 +4,10 @@
 //
 //  Created by Filbert Tejalaksana on 15/10/2024.
 //
-
 import SwiftUI
 
 struct PropertyDetailListView: View {
     @StateObject var viewModel: PropertyDetailViewModel
-
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             PropertyDetailHeaderView(property: viewModel.property)

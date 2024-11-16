@@ -4,7 +4,6 @@
 //
 //  Created by Arnav Varshney on 24/10/24.
 //
-
 import Foundation
 
 protocol APIClient {
@@ -18,12 +17,11 @@ class NetworkManager: APIClient {
     private let urlCache: URLCache
     private let decoder = JSONDecoder()
     private let baseURL = "https://chat-server.home-nas.xyz"
-
     init(urlCache: URLCache = .shared) {
         self.urlCache = urlCache
         let df = DateFormatter()
         df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-        self.decoder.dateDecodingStrategy = .formatted(df)
+        decoder.dateDecodingStrategy = .formatted(df)
     }
 
     func get<T: Decodable>(url: String = "") async throws -> T {
@@ -33,13 +31,11 @@ class NetworkManager: APIClient {
         //    }
         let finalUrl = URL(string: baseURL + url)
         let (data, response) = try await URLSession.shared.data(from: finalUrl!)
-
         if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
             let cachedResponse = CachedURLResponse(response: response, data: data)
             urlCache.storeCachedResponse(cachedResponse, for: URLRequest(url: finalUrl!))
         }
-
-        let decodedData = try self.decoder.decode(T.self, from: data)
+        let decodedData = try decoder.decode(T.self, from: data)
         return decodedData
     }
 
@@ -49,9 +45,8 @@ class NetworkManager: APIClient {
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = try JSONEncoder().encode(body)
-
         let (data, _) = try await URLSession.shared.data(for: request)
-        let decodedData = try self.decoder.decode(T.self, from: data)
+        let decodedData = try decoder.decode(T.self, from: data)
         return decodedData
     }
 
@@ -61,9 +56,8 @@ class NetworkManager: APIClient {
         request.httpMethod = "DELETE"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = try JSONEncoder().encode(body)
-
         let (data, _) = try await URLSession.shared.data(for: request)
-        let decodedData = try self.decoder.decode(T.self, from: data)
+        let decodedData = try decoder.decode(T.self, from: data)
         return decodedData
     }
 
@@ -73,9 +67,8 @@ class NetworkManager: APIClient {
         request.httpMethod = "PATCH"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = try JSONEncoder().encode(body)
-
         let (data, _) = try await URLSession.shared.data(for: request)
-        let decodedData = try self.decoder.decode(T.self, from: data)
+        let decodedData = try decoder.decode(T.self, from: data)
         return decodedData
     }
 }

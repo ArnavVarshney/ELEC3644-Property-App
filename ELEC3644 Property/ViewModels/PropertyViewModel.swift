@@ -4,13 +4,11 @@
 //
 //  Created by Filbert Tejalaksana on 15/10/2024.
 //
-
 import Foundation
 
 class PropertyViewModel: ObservableObject {
     private let apiClient: APIClient
     @Published var properties: [Property] = []
-
     init(apiClient: APIClient = NetworkManager()) {
         self.apiClient = apiClient
         Task {
@@ -27,5 +25,9 @@ class PropertyViewModel: ObservableObject {
         } catch {
             print("Error fetching user data: \(error)")
         }
+    }
+
+    func getByContractType(contractType: String) -> [Property] {
+        return properties.filter { $0.contractType == contractType }
     }
 }

@@ -4,7 +4,6 @@
 //
 //  Created by Filbert Tejalaksana on 9/10/2024.
 //
-
 import SwiftUI
 
 struct ContentView: View {
@@ -19,6 +18,6 @@ struct ContentView: View {
     ContentView()
         .environmentObject(InboxViewModel())
         .environmentObject(PropertyViewModel())
-        .environmentObject(UserViewModel())
+        .environmentObject(UserViewModel(user: Mock.Users[0]))
         .environmentObject(AgentViewModel())
 }

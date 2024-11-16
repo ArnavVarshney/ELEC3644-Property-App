@@ -4,7 +4,6 @@
 //
 //  Created by Filbert Tejalaksana on 15/10/2024.
 //
-
 import Foundation
 
 enum UserRole: String, Codable {
@@ -15,21 +14,23 @@ struct User: Hashable, Identifiable, Codable {
     var id = UUID()
     var name: String
     var email: String
+    var phone: String
     var avatarUrl: String
     var reviews: [Review]
     var wishlists: [Wishlist]
-
     private enum CodingKeys: String, CodingKey {
-        case name, email, avatarUrl, reviews, wishlists, id
+        case name, email, phone, avatarUrl, reviews, wishlists, id
     }
 
     // both of these initializers are made to enforce that reviews will never be nil
     init(
-        name: String, email: String, avatarUrl: String, reviews: [Review]?, wishlists: [Wishlist]?,
+        name: String, email: String, phone: String?, avatarUrl: String, reviews: [Review]?,
+        wishlists: [Wishlist]?,
         id: String? = nil
     ) {
         self.name = name
         self.email = email
+        self.phone = phone ?? ""
         self.avatarUrl = avatarUrl
         self.reviews = reviews ?? []
         self.wishlists = wishlists ?? []
@@ -41,6 +42,7 @@ struct User: Hashable, Identifiable, Codable {
         id = try container.decode(UUID.self, forKey: .id)
         name = try container.decode(String.self, forKey: .name)
         email = try container.decode(String.self, forKey: .email)
+        phone = try container.decodeIfPresent(String.self, forKey: .phone) ?? ""
         avatarUrl = try container.decode(String.self, forKey: .avatarUrl)
         reviews = try container.decodeIfPresent([Review].self, forKey: .reviews) ?? []
         wishlists = try container.decodeIfPresent([Wishlist].self, forKey: .wishlists) ?? []
@@ -53,7 +55,6 @@ struct Review: Hashable, Identifiable, Codable {
     var rating: Double
     var content: String
     var timestamp = Date()
-
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         author = try container.decode(User.self, forKey: .author)
@@ -76,6 +77,5 @@ struct Wishlist: Hashable, Identifiable, Codable {
     var id = UUID()
     var name: String
     var properties: [Property]
-
     private enum CodingKeys: String, CodingKey { case name, properties }
 }

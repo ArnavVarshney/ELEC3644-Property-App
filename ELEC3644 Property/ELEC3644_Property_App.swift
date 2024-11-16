@@ -1,10 +1,9 @@
 //
-//  ELEC3644_Property_AppApp.swift
+//  ELEC3644_Property_App.swift
 //  ELEC3644 Property App
 //
 //  Created by Filbert Tejalaksana on 9/10/2024.
 //
-
 import SwiftUI
 
 @main
@@ -13,7 +12,6 @@ struct ELEC3644_Property_App: App {
     @StateObject var userData = UserViewModel()
     @StateObject var propertyData = PropertyViewModel()
     @StateObject var agentData = AgentViewModel()
-
     var body: some Scene {
         WindowGroup {
             ContentView()

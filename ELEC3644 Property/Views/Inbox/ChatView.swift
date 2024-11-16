@@ -4,24 +4,20 @@
 //
 //  Created by Abel Haris Harsono on 15/10/2024.
 //
-
 import SwiftUI
 import Translation
 
 struct ChatView: View {
     @ObservedObject var chat: Chat
-    var currentUserId: String
-    var initialMessage: String?
-
+    @EnvironmentObject var userViewModel: UserViewModel
     @Environment(\.dismiss) private var dismiss
     @State private var newMessage: String = ""
     @StateObject private var webSocketService: WebSocketService
-
-    init(chat: Chat, currentUserId: String, initialMessage: String? = nil) {
+    var initialMessage: String?
+    init(chat: Chat, initialMessage: String? = nil) {
         self.chat = chat
-        self.currentUserId = currentUserId
         _webSocketService = StateObject(
-            wrappedValue: WebSocketService(userId: currentUserId, chat: chat))
+            wrappedValue: WebSocketService(chat: chat))
         self.initialMessage = initialMessage
     }
 
@@ -32,13 +28,15 @@ struct ChatView: View {
                 ForEach(groupedMessages, id: \.key) { date, messages in
                     DateHeader(date: date)
                     ForEach(messages) { message in
-                        ChatBubble(message: message, isUser: message.senderId == currentUserId)
+                        ChatBubble(
+                            message: message,
+                            isUser: message.senderId == userViewModel.currentUserId()
+                        )
                         let _ = print(message)
                     }
                 }
             }.defaultScrollAnchor(.bottom)
                 .scrollIndicators(.hidden)
-
             HStack(alignment: .bottom) {
                 TextField("Type a message...", text: $newMessage, axis: .vertical)
                     .lineLimit(4)
@@ -48,7 +46,6 @@ struct ChatView: View {
                     .foregroundColor(.neutral100)
                     .cornerRadius(36)
                     .frame(maxWidth: .infinity)
-
                 Button(action: sendMessage) {
                     Image(systemName: "paperplane")
                         .resizable()
@@ -78,6 +75,10 @@ struct ChatView: View {
         }
         .onAppear {
             self.newMessage = initialMessage ?? ""
+            webSocketService.connect(userId: userViewModel.currentUserId())
+        }
+        .onDisappear {
+            webSocketService.disconnect()
         }
     }
 
@@ -116,7 +117,6 @@ private func formattedDate(_ date: Date) -> String {
 
 struct DateHeader: View {
     let date: Date
-
     var body: some View {
         Text(formattedDate(date))
             .font(.subheadline)
@@ -129,7 +129,6 @@ struct ChatBubble: View {
     var message: Message
     var isUser: Bool
     @State private var showTranslation: Bool = false
-
     var body: some View {
         VStack(alignment: isUser ? .trailing : .leading) {
             Text("\(message.content)")
@@ -155,10 +154,9 @@ struct ChatBubble: View {
         }
         .translationPresentation(isPresented: $showTranslation, text: message.content)
         .frame(maxWidth: .infinity, alignment: isUser ? .trailing : .leading)
-
     }
 }
 
 #Preview {
-    ChatView(chat: Mock.Chats.first!, currentUserId: "\(Mock.Chats.first!.user.id)")
+    ChatView(chat: Mock.Chats.first!)
 }

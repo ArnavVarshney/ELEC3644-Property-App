@@ -4,7 +4,6 @@
 //
 //  Created by Filbert Tejalaksana on 15/10/2024.
 //
-
 import MapKit
 import SwiftUI
 
@@ -12,7 +11,6 @@ struct PropertyDetailNearestListView: View {
     var title: String
     var category: MKPointOfInterestCategory
     @StateObject var viewModel: PropertyDetailViewModel
-
     var body: some View {
         VStack(alignment: .leading) {
             Text(title)
@@ -21,7 +19,8 @@ struct PropertyDetailNearestListView: View {
                 .padding(.bottom, 8)
             ForEach(
                 PropertyDetailViewModel.threeClosestByCategory(
-                    from: category, currentLocation: viewModel.location, places: viewModel.places),
+                    from: category, currentLocation: viewModel.location, places: viewModel.places
+                ),
                 id: \.self
             ) { place in
                 HStack {
@@ -45,7 +44,6 @@ struct PropertyDetailNearestListView: View {
     struct PropertyDetailNearestListView_Preview: View {
         @StateObject var propertyViewModel = PropertyViewModel()
         @StateObject var propertyDetailViewModel: PropertyDetailViewModel
-
         init() {
             self._propertyDetailViewModel = StateObject(
                 wrappedValue: PropertyDetailViewModel(property: Mock.Properties[0]))
@@ -59,6 +57,5 @@ struct PropertyDetailNearestListView: View {
             ).environmentObject(propertyViewModel)
         }
     }
-
     return PropertyDetailNearestListView_Preview()
 }

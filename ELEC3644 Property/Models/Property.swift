@@ -4,7 +4,6 @@
 //
 //  Created by Filbert Tejalaksana on 9/10/2024.
 //
-
 import Foundation
 
 struct Property: Identifiable, Hashable, Codable {
@@ -15,31 +14,29 @@ struct Property: Identifiable, Hashable, Codable {
     let area: String
     let district: String
     let subDistrict: String
-
     let facilities: [Facility]
     let schoolNet: SchoolNet
-
     let saleableArea: Int
     let saleableAreaPricePerSquareFoot: Int
     let grossFloorArea: Int
     let grossFloorAreaPricePerSquareFoot: Int
     let netPrice: Int
-
     let buildingAge: Int
     let buildingDirection: String
     let estate: String
-
     var imageUrls: [String]
     var transactionHistory: [Transaction]
     var agent: User
-
+    let amenities: [String]
+    let propertyType: String
+    let contractType: String
     private enum CodingKeys: String, CodingKey {
         case name, address, area, district, subDistrict, facilities, schoolNet,
             saleableArea, saleableAreaPricePerSquareFoot, grossFloorArea,
             grossFloorAreaPricePerSquareFoot,
-            netPrice, buildingAge, buildingDirection, estate, imageUrls, transactionHistory, agent
+            netPrice, buildingAge, buildingDirection, estate, imageUrls, transactionHistory, agent,
+            propertyType, contractType, amenities
         case dbId = "id"
-
     }
 }
 
@@ -47,7 +44,6 @@ struct Transaction: Identifiable, Hashable, Codable {
     var id = UUID()
     var date: Date
     var price: Int
-
     private enum CodingKeys: String, CodingKey { case date, price }
 }
 
@@ -55,7 +51,6 @@ struct SchoolNet: Identifiable, Hashable, Codable {
     var id = UUID()
     var primary: String
     var secondary: String
-
     private enum CodingKeys: String, CodingKey { case primary, secondary }
 }
 
@@ -64,7 +59,6 @@ struct Facility: Identifiable, Hashable, Codable {
     var desc: String
     var measure: Int
     var measureUnit: String
-
     private enum CodingKeys: String, CodingKey { case desc, measure, measureUnit }
 }
 
@@ -79,15 +73,12 @@ struct Location: Identifiable, Hashable, Codable {
     var area: String
     var district: String
     var subDistrict: String
-
     private enum CodingKeys: String, CodingKey { case area, district, subDistrict }
-
     static let areas: [String] = [
         "HK Island",
         "Kowloon",
         "New Territories",
     ]
-
     static let districts: [String: [String]] = [
         "HK Island": ["Central and Western", "Wan Chai", "Eastern", "Southern"],
         "Kowloon": ["Yau Tsim Mong", "Sham Shui Po", "Kowloon City", "Wong Tai Sin", "Kwun Tong"],
@@ -97,7 +88,6 @@ struct Location: Identifiable, Hashable, Codable {
             "Islands",
         ],
     ]
-
     static let subDistricts: [String: [String]] = [
         // Hong Kong Island
         "Central and Western": [
@@ -117,7 +107,6 @@ struct Location: Identifiable, Hashable, Codable {
             "Repulse Bay",
             "Chung Hom Kok", "Stanley", "Tai Tam", "Shek O",
         ],
-
         // Kowloon
         "Yau Tsim Mong": [
             "Tsim Sha Tsui", "Yau Ma Tei", "West Kowloon Reclamation", "King's Park", "Mong Kok",
@@ -142,7 +131,6 @@ struct Location: Identifiable, Hashable, Codable {
             "Sau Mau Ping",
             "Lam Tin", "Yau Tong", "Lei Yue Mun",
         ],
-
         // New Territories
         "Kwai Tsing": ["Kwai Chung", "Tsing Yi"],
         "Tsuen Wan": [

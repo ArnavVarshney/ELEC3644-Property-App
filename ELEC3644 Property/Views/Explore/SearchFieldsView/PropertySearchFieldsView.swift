@@ -4,19 +4,16 @@
 //
 //  Created by Filbert Tejalaksana on 21/10/2024.
 //
-
 import SwiftUI
 
 struct PropertySearchFieldsView: View {
-    @State private var priceRange: Double = 500000
+    @State private var priceRange: Double = 500_000
     @State private var bedrooms: Int = 1
     @State private var bathrooms: Int = 1
     @State private var propertyType: String = "Any"
     @State private var amenities: Set<String> = []
-
     let propertyTypes = ["Any", "House", "Apartment", "Townhouse", "Villa"]
     let amenitiesList = ["Parking", "Pool", "Gym", "Elevator", "Balcony", "Pet-friendly"]
-
     var body: some View {
         VStack(spacing: 16) {
             VStack(alignment: .leading, spacing: 12) {
@@ -30,7 +27,6 @@ struct PropertySearchFieldsView: View {
                 }
                 .pickerStyle(SegmentedPickerStyle())
             }
-
             Divider()
             VStack(alignment: .leading, spacing: 12) {
                 Text("Price Range")
@@ -45,7 +41,6 @@ struct PropertySearchFieldsView: View {
                     Text("\(bathrooms) bathroom(s)")
                 }
             }
-
             Divider()
             VStack(alignment: .leading, spacing: 12) {
                 Text("Amenities")

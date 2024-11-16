@@ -4,12 +4,10 @@
 //
 //  Created by Arnav Varshney on 31/10/24.
 //
-
 import SwiftUI
 
 struct ListingListView: View {
     let properties: [Property]
-
     var body: some View {
         ScrollView(showsIndicators: false) {
             LazyVStack {

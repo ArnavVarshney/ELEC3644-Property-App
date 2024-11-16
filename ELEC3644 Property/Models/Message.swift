@@ -4,7 +4,6 @@
 //
 //  Created by Abel Haris Harsono on 15/10/2024.
 //
-
 import Foundation
 
 struct Message: Identifiable, Codable {
@@ -13,7 +12,6 @@ struct Message: Identifiable, Codable {
     let senderId: String
     let receiverId: String
     let content: String
-
     private enum CodingKeys: String, CodingKey { case timestamp, senderId, receiverId, content }
 }
 
@@ -21,9 +19,7 @@ class Chat: Identifiable, Codable, ObservableObject {
     var id = UUID()
     let user: User
     @Published var messages: [Message]
-
     private enum CodingKeys: String, CodingKey { case user, messages }
-
     init(user: User, messages: [Message]) {
         self.user = user
         self.messages = messages

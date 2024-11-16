@@ -4,18 +4,16 @@
 //
 //  Created by Abel Haris Harsono on 27/10/2024.
 //
-
 import SwiftUI
 
 struct WishlistPropertyComparisonView: View {
     @Environment(\.dismiss) private var dismiss
     let properties: [Property]
-
     var body: some View {
         NavigationStack {
             if !properties.isEmpty {
                 ScrollView {
-                    //Graphical data
+                    // Graphical data
                     Grid {
                         GridRow {
                             ForEach(properties.indices, id: \.self) {
@@ -25,12 +23,12 @@ struct WishlistPropertyComparisonView: View {
                                     PropertyDetailView(property: property)
                                 } label: {
                                     ImageCarouselView(
-                                        imageUrls: property.imageUrls, property: property)
+                                        imageUrls: property.imageUrls, property: property
+                                    )
                                 }
                             }
                         }
-
-                        //Textual data
+                        // Textual data
                     }
                     Grid(alignment: .leading) {
                         Divider()
@@ -103,12 +101,10 @@ struct WishlistPropertyComparisonView: View {
                 Image(systemName: "hifispeaker.badge.plus")
                     .font(.largeTitle)
                     .padding()
-
                 Text("Nothing to view or compare")
                     .font(.footnote)
                     .fontWeight(.bold)
                     .padding(4)
-
                 Text("Try to pick and choose from your displayed wishlist")
                     .font(.footnote)
                     .foregroundColor(.neutral60)

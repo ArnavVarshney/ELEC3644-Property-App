@@ -4,13 +4,12 @@
 //
 //  Created by Filbert Tejalaksana on 15/10/2024.
 //
-
 import SwiftUI
 
 struct PropertyDetailBottomBarView: View {
     @StateObject var viewModel: PropertyDetailViewModel
     @EnvironmentObject var inboxData: InboxViewModel
-
+    @EnvironmentObject var userViewModel: UserViewModel
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
@@ -22,7 +21,7 @@ struct PropertyDetailBottomBarView: View {
             Spacer()
             NavigationLink(
                 destination: ChatView(
-                    chat: chat(), currentUserId: inboxData.currentUserId,
+                    chat: chat(),
                     initialMessage:
                         "Hi, I'm interested in \(viewModel.property.name). Can you provide more details?"
                 ),
@@ -33,7 +32,8 @@ struct PropertyDetailBottomBarView: View {
                         .padding()
                         .background(Color.primary60)
                         .cornerRadius(10)
-                })
+                }
+            )
         }
         .padding()
         .background(Color(.systemGray6))

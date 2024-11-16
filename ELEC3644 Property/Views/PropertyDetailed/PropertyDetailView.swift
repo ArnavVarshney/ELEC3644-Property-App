@@ -4,28 +4,28 @@
 //
 //  Created by Filbert Tejalaksana on 15/10/2024.
 //
-
 import MapKit
 import SwiftUI
 
 struct PropertyDetailView: View {
     var property: Property
     @ObservedObject var viewModel: PropertyDetailViewModel
-
     init(property: Property) {
         self.property = property
-        self.viewModel = .init(property: property)
+        viewModel = .init(property: property)
     }
 
     var body: some View {
         VStack {
             ScrollView {
                 ImageCarouselView(
-                    imageUrls: self.property.imageUrls, cornerRadius: 0, property: property)
+                    imageUrls: self.property.imageUrls, cornerRadius: 0, property: property
+                )
                 PropertyDetailListView(viewModel: viewModel)
                 PropertyDetailMapView()
                     .environmentObject(viewModel)
                 PropertyDetailGraphView(viewModel: viewModel)
+                PropertyDetailAgentView(viewModel: viewModel)
             }
             Spacer()
             PropertyDetailBottomBarView(viewModel: viewModel)
@@ -47,4 +47,5 @@ struct PropertyDetailView: View {
     return PropertyDetail_Preview()
         .environmentObject(PropertyViewModel())
         .environmentObject(UserViewModel())
+        .environmentObject(InboxViewModel())
 }

@@ -4,7 +4,6 @@
 //
 //  Created by Mak Yilam on 27/10/2024.
 //
-
 import MapKit
 import SwiftUI
 
@@ -12,7 +11,6 @@ struct EnlargeMapView: View {
     @EnvironmentObject var viewModel: PropertyDetailViewModel
     @Binding var showEnlargeMapView: Bool
     @State var popUp: Bool = true
-
     var body: some View {
         NavigationStack {
             ZStack(alignment: .center) {
@@ -41,7 +39,6 @@ struct EnlargeMapView: View {
                         )
                     }
                     .annotationTitles(.visible)
-
                     // Markers for other places
                     ForEach(viewModel.places, id: \.self) { place in
                         Marker(
@@ -53,17 +50,14 @@ struct EnlargeMapView: View {
                     }
                 }
                 .mapControlVisibility(.hidden)
-
                 VStack(alignment: .center) {
                     Spacer()
-
                     if popUp {
                         MapPopUpView(property: viewModel.property, popUp: $popUp)
                             .frame(height: 270)
                             .padding(.bottom, 35)
                             .padding(.horizontal, 20)
                     }
-
                     Button {
                         popUp.toggle()  // Show the PopUpView
                     } label: {
@@ -75,10 +69,9 @@ struct EnlargeMapView: View {
                                     .frame(width: 50, height: 50)
                             }
                             .padding(.bottom)
-                        //.padding(.leading, 20)
+                        // .padding(.leading, 20)
                     }
                 }
-
             }
             .backButton()
         }
@@ -91,7 +84,6 @@ struct EnlargeMapView: View {
         @StateObject var propertyDetailViewModel = PropertyDetailViewModel(
             property: Mock.Properties[0])
         @State private var showEnlargeMapView = false
-
         var body: some View {
             EnlargeMapView(showEnlargeMapView: $showEnlargeMapView)
                 .environmentObject(propertyDetailViewModel)

@@ -4,7 +4,6 @@
 //
 //  Created by Filbert Tejalaksana on 15/10/2024.
 //
-
 import MapKit
 import SwiftUI
 
@@ -16,17 +15,16 @@ class PropertyDetailViewModel: ObservableObject {
             latitudinalMeters: 1000,
             longitudinalMeters: 1000
         ))
-    @Published var places: [MKMapItem] = []  //array storing
+    @Published var places: [MKMapItem] = []  // array storing
     @Published var property: Property
     @Published var transactions: [Transaction]
-
     init(property: Property) {
         self.property = property
-        self.transactions = property.transactionHistory
+        transactions = property.transactionHistory
         geocodeAddress()
     }
 
-    func geocodeAddress() {  //recieve address, get address, have the correct longitude
+    func geocodeAddress() {  // recieve address, get address, have the correct longitude
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(property.address) { placemarks, error in
             if let error = error {
@@ -54,7 +52,7 @@ class PropertyDetailViewModel: ObservableObject {
                 latitudinalMeters: 1000,
                 longitudinalMeters: 1000
             )
-            let search = MKLocalSearch(request: request)  //search is like a list or collection
+            let search = MKLocalSearch(request: request)  // search is like a list or collection
             search.start { response, _ in
                 if let response = response {
                     self.places += response.mapItems
@@ -83,15 +81,15 @@ class PropertyDetailViewModel: ObservableObject {
         places: [MKMapItem]
     ) -> [MKMapItem] {
         let filteredPlaces = places.filter { $0.pointOfInterestCategory == category }
-
         let sortedPlaces = filteredPlaces.sorted { item1, item2 -> Bool in
             let distance1 = PropertyDetailViewModel.distance(
-                from: currentLocation, to: item1.placemark.coordinate)
+                from: currentLocation, to: item1.placemark.coordinate
+            )
             let distance2 = PropertyDetailViewModel.distance(
-                from: currentLocation, to: item2.placemark.coordinate)
+                from: currentLocation, to: item2.placemark.coordinate
+            )
             return distance1 < distance2
         }
-
         return Array(sortedPlaces.prefix(3))
     }
 
@@ -109,10 +107,10 @@ class PropertyDetailViewModel: ObservableObject {
     }
 }
 
-//import MapKit
-//import SwiftUI
+// import MapKit
+// import SwiftUI
 //
-//class PropertyDetailViewModel: ObservableObject {
+// class PropertyDetailViewModel: ObservableObject {
 //    @Published var location: CLLocationCoordinate2D = .init(latitude: 0, longitude: 0)
 //    @Published var position: MapCameraPosition
 //    @Published var places: [MKMapItem] = []
@@ -221,4 +219,4 @@ class PropertyDetailViewModel: ObservableObject {
 //        let distance = distance(from: from, to: to)
 //        return String(format: "%.2f km", distance) // Directly format the string
 //    }
-//}
+// }

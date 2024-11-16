@@ -4,33 +4,35 @@
 //
 //  Created by Filbert Tejalaksana on 16/10/2024.
 //
-
 import Foundation
 
 class UserViewModel: ObservableObject {
     private let apiClient: APIClient
-    var currentUserId: String = "10530025-4005-4c89-b814-b0ea9e389343"
-    @Published var user: User = .init(
-        name: "", email: "", avatarUrl: "", reviews: [], wishlists: [])
+    static let shared = UserViewModel()
+    @Published var user = User(
+        name: "", email: "", phone: "", avatarUrl: "", reviews: [], wishlists: []
+    )
     @Published var otherUsers: [User] = []
     @Published var agents: [User] = []
     @Published var userRole: UserRole = .guest
-
     init(apiClient: APIClient = NetworkManager(), user: User? = nil) {
         self.apiClient = apiClient
-        if user != nil {
-            self.user = user!
-        } else {
+        self.user.id = UUID(
+            uuidString: UserDefaults.standard.string(forKey: "currentUserID") ?? defaultUUID)!
+        if isLoggedIn() {
             Task {
-                await self.fetchUser(with: self.currentUserId)
-                await fetchWishlist(with: self.currentUserId)
+                await self.fetchUser(with: self.currentUserId())
+                await self.fetchWishlist()
             }
         }
-        if user != nil {
-            if user!.email.contains("agent") {
-                self.userRole = .agent
-            }
-        }
+    }
+
+    func currentUserId() -> String {
+        return user.id.uuidString.lowercased()
+    }
+
+    func isLoggedIn() -> Bool {
+        return currentUserId() != defaultUUID
     }
 
     func fetchUser(with id: String) async {
@@ -46,9 +48,10 @@ class UserViewModel: ObservableObject {
         }
     }
 
-    func fetchWishlist(with id: String) async {
+    func fetchWishlist() async {
         do {
-            let json: [String: [Property]] = try await apiClient.get(url: "/wishlists/\(id)")
+            let json: [String: [Property]] = try await apiClient.get(
+                url: "/wishlists/\(currentUserId())")
             let folderNames = json.keys
             let wishlists = folderNames.map { Wishlist(name: $0, properties: json[$0]!) }
             DispatchQueue.main.async {
@@ -62,10 +65,9 @@ class UserViewModel: ObservableObject {
     func postWishlist(property: Property, folderName: String, delete: Bool = false) async {
         do {
             let data = [
-                "userId": currentUserId, "propertyId": "\(property.dbId)".lowercased(),
+                "userId": currentUserId(), "propertyId": "\(property.dbId)".lowercased(),
                 "folderName": folderName.lowercased(),
             ]
-
             if delete {
                 let _: DeleteResponse = try await apiClient.delete(url: "/wishlists", body: data)
             } else {
@@ -77,28 +79,28 @@ class UserViewModel: ObservableObject {
     }
 
     static func login(with email: String, password: String) async throws -> User {
-        guard let url = URL(string: "https://chat-server.home-nas.xyz/users/login") else {
-            throw URLError(.badURL)
-        }
+        let apiClient = NetworkManager()
+        let data = ["email": email, "password": password]
+        let user: User = try await apiClient.post(url: "/users/login", body: data)
+        return user
+    }
 
-        let body = ["email": email, "password": password]
-        let jsonData = try JSONSerialization.data(withJSONObject: body, options: [])
+    func logout() {
+        user = User(
+            name: "", email: "", phone: "", avatarUrl: "", reviews: [], wishlists: []
+        )
+        UserDefaults.standard.removeObject(forKey: "currentUserID")
+    }
 
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.httpBody = jsonData
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
-        let (data, response) = try await URLSession.shared.data(for: request)
-
-        guard let httpResponse = response as? HTTPURLResponse,
-            (200...299).contains(httpResponse.statusCode)
-        else {
-            throw URLError(.badServerResponse)
-        }
-
-        let decoder = JSONDecoder()
-        return try decoder.decode(User.self, from: data)
+    static func register(with name: String, email: String, phone: String, password: String)
+        async throws -> User
+    {
+        let apiClient = NetworkManager()
+        let data = [
+            "name": name, "email": email, "phone": phone, "password": password,
+        ]
+        let newUser: User = try await apiClient.post(url: "/users", body: data)
+        return newUser
     }
 
     static func averageRating(for user: User) -> Double {

@@ -1,16 +1,14 @@
 //
-//  backButton.swift
+//  Extensions.swift
 //  ELEC3644 Property App
 //
 //  Created by Filbert Tejalaksana on 11/10/2024.
 //
-
 import AVKit
 import SwiftUI
 
 struct BackButtonModifier: ViewModifier {
     @Environment(\.dismiss) private var dismiss
-
     func body(content: Content) -> some View {
         content
             .navigationBarBackButtonHidden(true)
@@ -46,19 +44,38 @@ struct AddShadow: ViewModifier {
 
 extension View {
     func backButton() -> some View {
-        self.modifier(BackButtonModifier())
+        modifier(BackButtonModifier())
     }
 
     func addShadow() -> some View {
-        self.modifier(AddShadow())
+        modifier(AddShadow())
     }
 }
 
 extension AVPlayerViewController {
     override open func viewDidLoad() {
         super.viewDidLoad()
-        self.showsPlaybackControls = false
-        self.videoGravity = .resizeAspect
+        showsPlaybackControls = false
+        videoGravity = .resizeAspect
+    }
+}
+
+extension Int {
+    func toCurrencyFormat() -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .currency
+        numberFormatter.minimumFractionDigits = 0
+        numberFormatter.maximumFractionDigits = 2
+        numberFormatter.locale = Locale(identifier: "en_HK")
+        return numberFormatter.string(from: NSNumber(value: self))!
+    }
+
+    func toCompactCurrencyFormat() -> String {
+        return "HK$ \(formatted(.number.notation(.compactName)))"
+    }
+
+    func toCompactFormat() -> String {
+        return formatted(.number.notation(.compactName))
     }
 }
 

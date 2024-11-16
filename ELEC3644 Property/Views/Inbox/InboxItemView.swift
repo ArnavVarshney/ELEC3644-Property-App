@@ -4,7 +4,6 @@
 //
 //  Created by Abel Haris Harsono on 15/10/2024.
 //
-
 import SwiftUI
 
 struct InboxItemView: View {
