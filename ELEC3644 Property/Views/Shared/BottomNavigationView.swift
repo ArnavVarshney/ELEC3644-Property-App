@@ -53,6 +53,7 @@ struct BottomNavigationView: View {
                 .environmentObject(UserViewModel(user: Mock.Users[0]))
                 .environmentObject(PropertyViewModel())
                 .environmentObject(InboxViewModel())
+                .environmentObject(AgentViewModel())
         }
     }
 

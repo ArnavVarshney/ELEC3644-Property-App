@@ -38,7 +38,7 @@ struct FoldersView: View {
                             ForEach(userViewModel.user.wishlists.indices, id: \.self) { idx in
                                 NavigationLink(
                                     destination: WishlistDetailView(
-                                        wishlist: userViewModel.user.wishlists[idx])
+                                        wishlistId: userViewModel.user.wishlists[idx].id)
                                 ) {
                                     WishlistItemView(wishlist: userViewModel.user.wishlists[idx])
                                 }

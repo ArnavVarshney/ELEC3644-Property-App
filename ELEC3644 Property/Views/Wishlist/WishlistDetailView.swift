@@ -20,9 +20,20 @@ enum ScreenState {
 }
 
 struct WishlistDetailView: View {
+    @EnvironmentObject private var userViewModel: UserViewModel
     @Environment(\.dismiss) private var dismiss
-
-    @State var wishlist: Wishlist
+    
+    let wishlistId: UUID
+    
+    var wishlist: Wishlist{
+        let temp = userViewModel.user.wishlists.filter { wishlist in
+            wishlist.id == wishlistId
+        }
+        if temp.count == 0 {
+            return Wishlist(id: wishlistId, name: "Deleted", properties: [])
+        }
+        return temp.first!
+    }
     var properties: [Property] {
         var picked: [Property] = []
         for idx in pickedPropertiesIdx {
@@ -133,7 +144,7 @@ struct WishlistDetailView: View {
             Spacer()
             if showingLowerButton {
                 LowerButton(
-                    wishlist: $wishlist,
+                    wishlist: wishlist,
                     pickedPropertiesIdx: $pickedPropertiesIdx,
                     state: state,
                     parent: self
@@ -192,7 +203,7 @@ struct WishlistDetailView: View {
 
 struct LowerButton: View {
     @EnvironmentObject private var userViewModel: UserViewModel
-    @Binding var wishlist: Wishlist
+    @State var wishlist: Wishlist
     @Binding var pickedPropertiesIdx: [Int]
 
     let state: ScreenState
@@ -267,5 +278,5 @@ let numberFormatter: NumberFormatter = {
 }()
 
 #Preview {
-    WishlistDetailView(wishlist: Mock.Users[0].wishlists[0]).environmentObject(UserViewModel())
+    WishlistDetailView(wishlistId: Mock.Users[0].wishlists[0].id).environmentObject(UserViewModel())
 }
