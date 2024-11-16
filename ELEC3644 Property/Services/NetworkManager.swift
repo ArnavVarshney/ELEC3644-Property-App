@@ -71,4 +71,31 @@ class NetworkManager: APIClient {
         let decodedData = try decoder.decode(T.self, from: data)
         return decodedData
     }
+
+    func uploadImage(
+        url: String, imageData: Data, fileName: String, mimeType: String = "image/jpeg"
+    ) async throws -> Data {
+        let finalUrl = URL(string: baseURL + url)
+        var request = URLRequest(url: finalUrl!)
+        request.httpMethod = "POST"
+
+        let boundary = UUID().uuidString
+        request.setValue(
+            "multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+
+        var body = Data()
+        body.append("--\(boundary)\r\n".data(using: .utf8)!)
+        body.append(
+            "Content-Disposition: form-data; name=\"file\"; filename=\"\(fileName)\"\r\n".data(
+                using: .utf8)!)
+        body.append("Content-Type: \(mimeType)\r\n\r\n".data(using: .utf8)!)
+        body.append(imageData)
+        body.append("\r\n".data(using: .utf8)!)
+        body.append("--\(boundary)--\r\n".data(using: .utf8)!)
+
+        request.httpBody = body
+
+        let (data, _) = try await URLSession.shared.data(for: request)
+        return data
+    }
 }
