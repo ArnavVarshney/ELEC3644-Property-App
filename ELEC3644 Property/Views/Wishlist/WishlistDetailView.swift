@@ -21,7 +21,6 @@ enum ScreenState {
 
 struct WishlistDetailView: View {
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject private var userViewModel: UserViewModel
     
     @State var wishlist: Wishlist
     var properties: [Property] {
@@ -76,7 +75,7 @@ struct WishlistDetailView: View {
                         .fontWeight(.bold)
                         .padding(4)
 
-                    Text("You removed everything here. You can go browsing again!")
+                    Text("You removed everything here. Go back to browsing!")
                         .font(.footnote)
                         .foregroundColor(.neutral60)
                         .padding(4)
@@ -148,13 +147,16 @@ struct WishlistDetailView: View {
             Spacer()
             if showingLowerButton{
                 LowerButton(
-                    wishlist: wishlist,
-                    pickedPropertiesIdx: pickedPropertiesIdx, state: state, parent: self)
+                    wishlist: $wishlist,
+                    pickedPropertiesIdx: $pickedPropertiesIdx,
+                    state: state,
+                    parent: self
+                )
             }
         }
     }
 
-    func transition(to state: ScreenState, deleteAll:Bool = false) {
+    func transition(to state: ScreenState) {
         pickedPropertiesIdx = []
         switch state{
         case .view:
@@ -171,10 +173,6 @@ struct WishlistDetailView: View {
             backButtonDisabled = true
         }
         
-        if deleteAll{
-            wishlist.properties.removeAll()
-            wishlist.name = "Deleted"
-        }
         self.state = state
     }
     
@@ -196,11 +194,11 @@ struct WishlistDetailView: View {
 
 struct LowerButton: View{
     @EnvironmentObject private var userViewModel: UserViewModel
-    let wishlist: Wishlist
-    let pickedPropertiesIdx: [Int]
+    @Binding var wishlist: Wishlist
+    @Binding var pickedPropertiesIdx: [Int]
     
     let state: ScreenState
-    var parent: WishlistDetailView
+    let parent: WishlistDetailView
     
     var properties: [Property] {
         var picked: [Property] = []
@@ -217,25 +215,39 @@ struct LowerButton: View{
                 NavigationLink{
                     WishlistPropertyComparisonView(properties: properties)
                 }label:{
-                    Text("Compare 2 items ")
+                    Text("Compare 2 items")
                 }
             }
         case .delete:
             if properties.count > 0{
                 Button{
-                    if pickedPropertiesIdx.count == userViewModel.user.wishlists.count{
-                    }
-                    for (i,idx) in pickedPropertiesIdx.enumerated() {
-                        Task {
-                            await userViewModel.postWishlist(
-                                property: wishlist.properties[idx],
-                                folderName: wishlist.name, delete: true)
-                            if i == pickedPropertiesIdx.count - 1{
-                                await userViewModel.fetchWishlist(with: userViewModel.currentUserId)
+                    wishlist.properties = wishlist.properties.filter{property in
+                        if properties.contains(property){
+                            pickedPropertiesIdx.removeFirst()
+                            Task{
+                                await userViewModel.postWishlist(
+                                    property: property,
+                                    folderName: wishlist.name, delete: true)
                             }
-                            parent.transition(to: .view, deleteAll: !userViewModel.user.wishlists.contains(parent.wishlist))
+                            return false
+                        }
+                        return true
+                    }
+                    
+                    let temp = userViewModel.user.wishlists.enumerated().filter{
+                        $1.id == wishlist.id
+                    }
+                    let wishlistIdx = temp.count > 0 ? temp.first?.0 : nil
+                    
+                    if let idx = wishlistIdx{
+                        if wishlist.properties.count == 0{
+                            userViewModel.user.wishlists.remove(at: idx)
+                        }else{
+                            userViewModel.user.wishlists[idx].properties = wishlist.properties
                         }
                     }
+                    
+                    parent.transition(to: .view)
                 }label:{
                     Text("Remove \(properties.count) item\(properties.count > 1 ? "s": "") ")
                 }
