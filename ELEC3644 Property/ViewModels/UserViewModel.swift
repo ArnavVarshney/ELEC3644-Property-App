@@ -48,6 +48,15 @@ class UserViewModel: ObservableObject {
         }
     }
 
+    func updateUser(with data: [String: String]) async {
+        do {
+            let _: User = try await apiClient.patch(url: "/users/\(currentUserId())", body: data)
+            await fetchUser(with: currentUserId())
+        } catch {
+            print("Error updating user data: \(error)")
+        }
+    }
+
     func fetchWishlist() async {
         do {
             let json: [String: [Property]] = try await apiClient.get(

@@ -75,7 +75,8 @@ struct ProfileView: View {
                         .padding(.top, 12)
                     SettingsList(items: [
                         SettingsItem(
-                            destination: AnyView(SettingsView()), iconName: "person.crop.circle",
+                            destination: AnyView(PersonalInfoView()),
+                            iconName: "person.crop.circle",
                             title: "Personal Information"),
                         SettingsItem(
                             destination: AnyView(SettingsView()),
