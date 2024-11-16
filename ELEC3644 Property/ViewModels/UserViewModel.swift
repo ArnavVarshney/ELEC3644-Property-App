@@ -84,6 +84,24 @@ class UserViewModel: ObservableObject {
         return user
     }
 
+    func logout() {
+        user = User(
+            name: "", email: "", phone: "", avatarUrl: "", reviews: [], wishlists: []
+        )
+        UserDefaults.standard.removeObject(forKey: "currentUserID")
+    }
+
+    static func register(with name: String, email: String, phone: String, password: String)
+        async throws -> User
+    {
+        let apiClient = NetworkManager()
+        let data = [
+            "name": name, "email": email, "phone": phone, "password": password,
+        ]
+        let newUser: User = try await apiClient.post(url: "/users", body: data)
+        return newUser
+    }
+
     static func averageRating(for user: User) -> Double {
         guard !user.reviews.isEmpty else { return 0 }
         let totalRating = user.reviews.reduce(0) { $0 + $1.rating }

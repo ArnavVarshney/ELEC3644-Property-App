@@ -6,30 +6,73 @@
 //
 import SwiftUI
 
+struct SettingsItem {
+    let destination: AnyView
+    let iconName: String
+    let title: String
+}
+
 struct ProfileView: View {
     @EnvironmentObject var userViewModel: UserViewModel
+    @State private var showLogoutConfirmation = false
     var user: User { userViewModel.user }
     var body: some View {
         NavigationStack {
             VStack {
                 if userViewModel.isLoggedIn() {
                     NavigationLink(destination: ProfileDetailedView(user: user)) {
-                        HStack(spacing: 12) {
-                            UserAvatarView(user: user)
+                        HStack(spacing: 18) {
+                            UserAvatarView(user: user, size: 64)
                             VStack(alignment: .leading) {
                                 Text(user.name)
                                     .font(.headline)
-                                Text(user.email)
-                                    .font(.subheadline)
+                                Text("Show profile")
+                                    .font(.footnote)
+                                    .foregroundColor(.neutral70)
                             }
                             Spacer()
                             Image(systemName: "chevron.right")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 18, height: 18)
-                                .padding(10)
-                                .foregroundColor(.neutral70)
+                                .foregroundColor(.black)
                         }
+                    }
+                    Text("Settings")
+                        .font(.headline)
+                        .fontWeight(.semibold)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.top, 24)
+                    SettingsList(items: [
+                        SettingsItem(
+                            destination: AnyView(SettingsView()), iconName: "person.crop.circle",
+                            title: "Personal Information"),
+                        SettingsItem(
+                            destination: AnyView(SettingsView()),
+                            iconName: "shield.righthalf.filled", title: "Login & Security"),
+                        SettingsItem(
+                            destination: AnyView(SettingsView()), iconName: "accessibility",
+                            title: "Accessibility"),
+                    ])
+                    Button {
+                        showLogoutConfirmation = true
+                    } label: {
+                        Text("Log out")
+                            .font(.footnote)
+                            .fontWeight(.semibold)
+                            .underline()
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.top, 24)
+                    }
+                    .alert(isPresented: $showLogoutConfirmation) {
+                        Alert(
+                            title: Text("Confirm Logout"),
+                            message: Text("Are you sure you want to log out?"),
+                            primaryButton: .destructive(Text("Log out")) {
+                                userViewModel.logout()
+                            },
+                            secondaryButton: .cancel()
+                        )
                     }
                     Spacer()
                     NavigationLink(destination: HostTransitionScreen()) {
@@ -78,46 +121,6 @@ struct ProfileView: View {
                                     .foregroundColor(.black)
                             }
                         }
-                        LazyVStack {
-                            NavigationLink(destination: SettingsView()) {
-                                HStack(spacing: 15) {
-                                    Image(systemName: "gearshape")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 24, height: 24)
-                                        .foregroundColor(.black)
-                                    Text("Settings")
-                                        .foregroundColor(.black)
-                                    Spacer()
-                                    Image(systemName: "chevron.right")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .fontWeight(.semibold)
-                                        .frame(width: 12, height: 12)
-                                }
-                                .padding(.vertical, 6)
-                            }
-                            Divider()
-                            NavigationLink(destination: SettingsView()) {
-                                HStack(spacing: 15) {
-                                    Image(systemName: "accessibility")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 24, height: 24)
-                                        .foregroundColor(.black)
-                                    Text("Accessibility")
-                                        .foregroundColor(.black)
-                                    Spacer()
-                                    Image(systemName: "chevron.right")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .fontWeight(.semibold)
-                                        .frame(width: 12, height: 12)
-                                }
-                                .padding(.vertical, 6)
-                            }
-                        }
-                        .padding(.vertical, 18)
                         Spacer()
                     }
                 }
@@ -131,4 +134,39 @@ struct ProfileView: View {
 #Preview {
     ProfileView()
         .environmentObject(UserViewModel())
+}
+
+struct SettingsList: View {
+    let items: [SettingsItem]
+
+    var body: some View {
+        LazyVStack {
+            ForEach(0..<items.count, id: \.self) { index in
+                NavigationLink(destination: items[index].destination) {
+                    HStack(spacing: 15) {
+                        Image(systemName: items[index].iconName)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 24, height: 24)
+                            .foregroundColor(.black)
+                        Text(items[index].title)
+                            .font(.footnote)
+                            .foregroundColor(.black)
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                            .resizable()
+                            .scaledToFit()
+                            .fontWeight(.semibold)
+                            .foregroundColor(.black)
+                            .frame(width: 12, height: 12)
+                    }
+                    .padding(.vertical, 3)
+                }
+                if index < items.count - 1 {
+                    Divider()
+                }
+            }
+        }
+        .padding(.vertical, 18)
+    }
 }
