@@ -11,18 +11,19 @@ struct PropertyDetail: Hashable {
     let id: Int
 }
 
-enum screenState {
+struct PropertyComparison: Hashable {
+    let id: Int
+}
+
+enum ScreenState {
     case view, delete, compare
 }
 
 struct WishlistDetailView: View {
-    @State private var path = NavigationPath()
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var userViewModel: UserViewModel
 
     let wishlist: Wishlist
-    let propertyDetail = PropertyDetail(id: 0)
-
     var properties: [Property] {
         var picked: [Property] = []
         for idx in pickedPropertiesIdx {
@@ -31,36 +32,59 @@ struct WishlistDetailView: View {
         return picked
     }
 
-    @State var state: screenState = .view
+    @State var state: ScreenState = .view
     @State var pickedPropertiesIdx: [Int] = []
-    @State var showingSheet = false
+    @State var showingLowerButton = false
+    @State var tickable: Bool = false
+    @State var deleteButtonDisabled: Bool = false
+    @State var compareButtonDisabled: Bool = false
+    @State var backButtonDisabled: Bool = false
+    @State var isActive = false
+    var deleteButtonColour: Color {
+        switch state {
+        case .view:
+            return .blue
+        case .delete:
+            return .red
+        case .compare:
+            return .gray
+        }
+    }
+    var compareButtonColour: Color {
+        switch state {
+        case .view:
+            return .blue
+        case .delete:
+            return .gray
+        case .compare:
+            return .green
+        }
+    }
 
     var body: some View {
-        NavigationStack(path: $path) {
+        NavigationStack() {
             List {
                 ForEach(wishlist.properties.indices, id: \.self) { idx in
-                    Button {
-                        if state == .view {
-                            path.append(propertyDetail)
-                        } else {
-                            //We're picking stuff
-                            if pickedPropertiesIdx.contains(idx) {
-                                pickedPropertiesIdx.remove(
-                                    at: pickedPropertiesIdx.firstIndex(of: idx)!)
-                            } else {
-                                //For comparison, we can only pick 2
-                                if pickedPropertiesIdx.count >= 2 && state == .compare {
-                                    pickedPropertiesIdx.removeLast()
-                                }
-                                pickedPropertiesIdx.append(idx)
-                            }
+                    if !tickable{
+                        NavigationLink{
+                            PropertyDetailView(property: wishlist.properties[idx])
+                        }label:{
+                            WishlistItemCard(
+                                pickedPropertiesIdx: $pickedPropertiesIdx,
+                                property: wishlist.properties[idx], picking: tickable, idx: idx)
                         }
-                    } label: {
-                        WishlistItemCard(
-                            pickedPropertiesIdx: $pickedPropertiesIdx,
-                            property: wishlist.properties[idx], picking: state != .view, idx: idx)
-                    }.navigationDestination(for: PropertyDetail.self) { p in
-                        PropertyDetailView(property: wishlist.properties[idx])
+                    }else{
+                        Button {
+                            if state == .view {
+                                isActive = true
+                            } else {
+                                pick(idx)
+                            }
+                        } label: {
+                            WishlistItemCard(
+                                pickedPropertiesIdx: $pickedPropertiesIdx,
+                                property: wishlist.properties[idx], picking: tickable, idx: idx)
+                        }
                     }
                 }
             }
@@ -72,108 +96,110 @@ struct WishlistDetailView: View {
                         dismiss()
                     } label: {
                         Image(systemName: "chevron.left")
-                    }.disabled(state != .view)
+                    }.disabled(backButtonDisabled)
                 }
-
+                
                 ToolbarItem(placement: .principal) {
                     Text("Wishlist - \(wishlist.name)").bold()
                 }
-
+                
                 ToolbarItem(placement: .topBarTrailing) {
                     //delete button
                     Button {
-                        //Change state
-                        if state != .delete {
-                            state = .delete
-                        } else {
-                            setViewState()
+                        if state != .delete{
+                            transition(to: .delete)
+                        }else{
+                            transition(to: .view)
                         }
                     } label: {
                         Image(systemName: "xmark.bin")
-                    }.foregroundStyle(getDeleteColor())
+                    }.foregroundStyle(deleteButtonColour).disabled(deleteButtonDisabled)
                 }
-
+                
                 ToolbarItem(placement: .topBarTrailing) {
                     //compare button
                     Button {
-                        //change state
-                        if state != .compare {
-                            state = .compare
-                        } else {
-                            setViewState()
+                        if state != .compare{
+                            transition(to: .compare)
+                        }else{
+                            transition(to: .view)
                         }
                     } label: {
-                        Image(systemName: "calendar.day.timeline.trailing").foregroundStyle(
-                            getCompareColor())
+                        Image(systemName: "calendar.day.timeline.trailing").foregroundStyle(compareButtonColour).disabled(compareButtonDisabled)
                     }
                 }
             }
-
             Spacer()
-            switch state {
-            case .compare:
-                if pickedPropertiesIdx.count == 2 {
-                    NavigationLink {
-                        WishlistPropertyComparisonView(properties: properties).onAppear {
-                            setViewState()
-                        }
-                    } label: {
-                        Text("Compare \(properties.count) item\(properties.count > 1 ? "s": "") ")
-                    }.buttonStyle(.borderedProminent).frame(width: .infinity)
-                }
-            case .delete:
-                if pickedPropertiesIdx.count > 0 {
-                    Button {
-                        for property in properties {
-                            Task {
-                                await userViewModel.postWishlist(
-                                    property: property,
-                                    folderName: wishlist.name, delete: true)
-                            }
-                        }
-
-                        Task {
-                            await userViewModel.fetchWishlist(with: userViewModel.currentUserId)
-                        }
-
-                    } label: {
-                        Text("Remove \(properties.count) item\(properties.count > 1 ? "s": "") ")
-                    }.buttonStyle(.borderedProminent)
-                }
-            default:
-                Text("").hidden()
+            if showingLowerButton{
+                LowerButton(state: state, properties: properties)
             }
         }
     }
 
-    func getDeleteColor() -> Color {
-        switch state {
-        case .view:
-            return .blue
-        case .delete:
-            return .red
-        case .compare:
-            return .gray
-        }
-    }
-
-    func getCompareColor() -> Color {
-        switch state {
-        case .view:
-            return .blue
-        case .delete:
-            return .gray
-        case .compare:
-            return .green
-        }
-    }
-
-    func setViewState() {
-        state = .view
+    func transition(to state: ScreenState) {
         pickedPropertiesIdx = []
-        showingSheet = false
+        switch state{
+        case .view:
+            compareButtonDisabled = false
+            deleteButtonDisabled = false
+            showingLowerButton = false
+            tickable = false
+            backButtonDisabled = false
+        case .delete, .compare:
+            compareButtonDisabled = false
+            deleteButtonDisabled = false
+            showingLowerButton = true
+            tickable = true
+            backButtonDisabled = true
+        }
+        
+        self.state = state
+    }
+    
+    func pick(_ idx: Int){
+        //Disable navigation, we're picking stuff
+        if pickedPropertiesIdx.contains(idx) {
+            pickedPropertiesIdx.remove(
+                at: pickedPropertiesIdx.firstIndex(of: idx)!)
+        } else {
+            //For comparison, we can only pick 2
+            if pickedPropertiesIdx.count >= 2 && state == .compare {
+                pickedPropertiesIdx.removeLast()
+            }
+            pickedPropertiesIdx.append(idx)
+        }
     }
 }
+
+
+struct LowerButton: View{
+    let state: ScreenState
+    let properties: [Property]
+    
+    var body: some View{
+        switch state {
+        case .compare:
+            if properties.count == 2{
+                NavigationLink{
+                    WishlistPropertyComparisonView(properties: properties)
+                }label:{
+                    Text("Compare 2 items ")
+                }
+            }
+        case .delete:
+            if properties.count > 0{
+                Button{
+                    
+                }label:{
+                    Text("Remove \(properties.count) item\(properties.count > 1 ? "s": "") ")
+                }
+            }
+        default:
+            EmptyView()
+        }
+    }
+}
+
 
 struct WishlistItemCard: View {
     @Binding var pickedPropertiesIdx: [Int]
