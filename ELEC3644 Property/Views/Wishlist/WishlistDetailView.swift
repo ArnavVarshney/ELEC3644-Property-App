@@ -22,10 +22,10 @@ enum ScreenState {
 struct WishlistDetailView: View {
     @EnvironmentObject private var userViewModel: UserViewModel
     @Environment(\.dismiss) private var dismiss
-    
+
     let wishlistId: UUID
-    
-    var wishlist: Wishlist{
+
+    var wishlist: Wishlist {
         let temp = userViewModel.user.wishlists.filter { wishlist in
             wishlist.id == wishlistId
         }
