@@ -23,7 +23,7 @@ struct WishlistDetailView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var userViewModel: UserViewModel
 
-    let wishlist: Wishlist
+    @Binding var wishlist: Wishlist
     var properties: [Property] {
         var picked: [Property] = []
         for idx in pickedPropertiesIdx {
@@ -63,75 +63,105 @@ struct WishlistDetailView: View {
 
     var body: some View {
         NavigationStack() {
-            List {
-                ForEach(wishlist.properties.indices, id: \.self) { idx in
-                    if !tickable{
-                        NavigationLink{
-                            PropertyDetailView(property: wishlist.properties[idx])
-                        }label:{
-                            WishlistItemCard(
-                                pickedPropertiesIdx: $pickedPropertiesIdx,
-                                property: wishlist.properties[idx], picking: tickable, idx: idx)
+            if !wishlist.properties.isEmpty{
+                List {
+                    ForEach(wishlist.properties.indices, id: \.self) { idx in
+                        if !tickable{
+                            NavigationLink{
+                                PropertyDetailView(property: wishlist.properties[idx])
+                            }label:{
+                                WishlistItemCard(
+                                    pickedPropertiesIdx: $pickedPropertiesIdx,
+                                    property: wishlist.properties[idx], picking: tickable, idx: idx)
+                            }
+                        }else{
+                            Button {
+                                if state == .view {
+                                    isActive = true
+                                } else {
+                                    pick(idx)
+                                }
+                            } label: {
+                                WishlistItemCard(
+                                    pickedPropertiesIdx: $pickedPropertiesIdx,
+                                    property: wishlist.properties[idx], picking: tickable, idx: idx)
+                            }
                         }
-                    }else{
+                    }
+                }
+                .navigationBarBackButtonHidden()
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
                         Button {
-                            if state == .view {
-                                isActive = true
-                            } else {
-                                pick(idx)
+                            dismiss()
+                        } label: {
+                            Image(systemName: "chevron.left")
+                        }.disabled(backButtonDisabled)
+                    }
+                    
+                    ToolbarItem(placement: .principal) {
+                        Text("Wishlist - \(wishlist.name)").bold()
+                    }
+                    
+                    ToolbarItem(placement: .topBarTrailing) {
+                        //delete button
+                        Button {
+                            if state != .delete{
+                                transition(to: .delete)
+                            }else{
+                                transition(to: .view)
                             }
                         } label: {
-                            WishlistItemCard(
-                                pickedPropertiesIdx: $pickedPropertiesIdx,
-                                property: wishlist.properties[idx], picking: tickable, idx: idx)
+                            Image(systemName: "xmark.bin")
+                        }.foregroundStyle(deleteButtonColour).disabled(deleteButtonDisabled)
+                    }
+                    
+                    ToolbarItem(placement: .topBarTrailing) {
+                        //compare button
+                        Button {
+                            if state != .compare{
+                                transition(to: .compare)
+                            }else{
+                                transition(to: .view)
+                            }
+                        } label: {
+                            Image(systemName: "calendar.day.timeline.trailing").foregroundStyle(compareButtonColour).disabled(compareButtonDisabled)
                         }
                     }
                 }
-            }
-            .navigationBarBackButtonHidden()
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Image(systemName: "chevron.left")
-                    }.disabled(backButtonDisabled)
-                }
-                
-                ToolbarItem(placement: .principal) {
-                    Text("Wishlist - \(wishlist.name)").bold()
-                }
-                
-                ToolbarItem(placement: .topBarTrailing) {
-                    //delete button
-                    Button {
-                        if state != .delete{
-                            transition(to: .delete)
-                        }else{
-                            transition(to: .view)
+                Spacer()
+                if showingLowerButton{
+                    switch state {
+                    case .compare:
+                        if properties.count == 2{
+                            NavigationLink{
+                                WishlistPropertyComparisonView(properties: properties)
+                            }label:{
+                                Text("Compare 2 items ")
+                            }
                         }
-                    } label: {
-                        Image(systemName: "xmark.bin")
-                    }.foregroundStyle(deleteButtonColour).disabled(deleteButtonDisabled)
-                }
-                
-                ToolbarItem(placement: .topBarTrailing) {
-                    //compare button
-                    Button {
-                        if state != .compare{
-                            transition(to: .compare)
-                        }else{
-                            transition(to: .view)
+                    case .delete:
+                        if properties.count > 0{
+                            Button{
+                                for (i, property) in properties.enumerated() {
+                                    Task {
+                                        await userViewModel.postWishlist(
+                                            property: property,
+                                            folderName: wishlist.name, delete: true)
+                                    }
+                                }
+                                transition(to: .view)
+                            }label:{
+                                Text("Remove \(properties.count) item\(properties.count > 1 ? "s": "") ")
+                            }
                         }
-                    } label: {
-                        Image(systemName: "calendar.day.timeline.trailing").foregroundStyle(compareButtonColour).disabled(compareButtonDisabled)
+                    default:
+                        EmptyView()
                     }
                 }
-            }
-            Spacer()
-            if showingLowerButton{
-                LowerButton(state: state, properties: properties)
+            }else{
+                Text("You removed all of them!")
             }
         }
     }
@@ -167,35 +197,6 @@ struct WishlistDetailView: View {
                 pickedPropertiesIdx.removeLast()
             }
             pickedPropertiesIdx.append(idx)
-        }
-    }
-}
-
-
-struct LowerButton: View{
-    let state: ScreenState
-    let properties: [Property]
-    
-    var body: some View{
-        switch state {
-        case .compare:
-            if properties.count == 2{
-                NavigationLink{
-                    WishlistPropertyComparisonView(properties: properties)
-                }label:{
-                    Text("Compare 2 items ")
-                }
-            }
-        case .delete:
-            if properties.count > 0{
-                Button{
-                    
-                }label:{
-                    Text("Remove \(properties.count) item\(properties.count > 1 ? "s": "") ")
-                }
-            }
-        default:
-            EmptyView()
         }
     }
 }
@@ -271,6 +272,6 @@ let numberFormatter: NumberFormatter = {
     return formatter
 }()
 
-#Preview {
-    WishlistDetailView(wishlist: Mock.Users[0].wishlists[0]).environmentObject(UserViewModel())
-}
+//#Preview {
+//    WishlistDetailView(wishlist: Mock.Users[0].wishlists[0]).environmentObject(UserViewModel())
+//}
