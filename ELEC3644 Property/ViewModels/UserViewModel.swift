@@ -4,38 +4,37 @@
 //
 //  Created by Filbert Tejalaksana on 16/10/2024.
 //
-
 import Foundation
 
 class UserViewModel: ObservableObject {
     private let apiClient: APIClient
     static let shared = UserViewModel()
     @Published var user = User(
-        name: "", email: "", phone: "", avatarUrl: "", reviews: [], wishlists: [])
+        name: "", email: "", phone: "", avatarUrl: "", reviews: [], wishlists: []
+    )
     @Published var otherUsers: [User] = []
     @Published var agents: [User] = []
     @Published var userRole: UserRole = .guest
-
     init(apiClient: APIClient = NetworkManager(), user: User? = nil) {
         self.apiClient = apiClient
         self.user.id = UUID(uuidString: defaultUUID)!
-        if self.isLoggedIn() {
+        if isLoggedIn() {
             Task {
                 await self.fetchUser(with: self.currentUserId())
                 await self.fetchWishlist()
             }
             if user!.email.contains("agent") {
-                self.userRole = .agent
+                userRole = .agent
             }
         }
     }
 
     func currentUserId() -> String {
-        return self.user.id.uuidString.lowercased()
+        return user.id.uuidString.lowercased()
     }
 
     func isLoggedIn() -> Bool {
-        return self.currentUserId() != defaultUUID
+        return currentUserId() != defaultUUID
     }
 
     func fetchUser(with id: String) async {
@@ -71,7 +70,6 @@ class UserViewModel: ObservableObject {
                 "userId": currentUserId(), "propertyId": "\(property.dbId)".lowercased(),
                 "folderName": folderName.lowercased(),
             ]
-
             if delete {
                 let _: DeleteResponse = try await apiClient.delete(url: "/wishlists", body: data)
             } else {

@@ -8,7 +8,6 @@ import SwiftUI
 
 struct BottomNavigationView: View {
     @EnvironmentObject var userViewModel: UserViewModel
-
     var body: some View {
         TabView {
             if userViewModel.userRole == .host {

@@ -4,7 +4,6 @@
 //
 //  Created by Filbert Tejalaksana on 30/10/2024.
 //
-
 import PhotosUI
 import SwiftUI
 
@@ -16,27 +15,21 @@ struct PropertyListingForm: View {
     @State private var selectedSubDistrict = ""
     @State private var estate = ""
     @State private var buildingDirection = ""
-
     @State private var saleableArea = ""
     @State private var saleableAreaTotalPrice = ""
     @State private var grossFloorArea = ""
     @State private var grossFloorAreaTotalPrice = ""
     @State private var netPrice = ""
     @State private var buildingAge = ""
-
     @State private var primarySchoolNet = ""
     @State private var secondarySchoolNet = ""
-
     @State private var facilities: [(description: String, measure: String, unit: String)] = []
     @State private var facilityDescription = ""
     @State private var facilityMeasure = ""
     @State private var facilityUnit = ""
-
     @State private var selectedItems: [PhotosPickerItem] = []
     @State private var selectedImages: [UIImage] = []
-
     @State private var selectedTab = 0
-
     private var saleableAreaPricePerSqFt: String {
         guard let area = Double(saleableArea), area > 0,
             let total = Double(netPrice)
@@ -83,7 +76,6 @@ struct PropertyListingForm: View {
                         .tag(4)
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
-
                 HStack(spacing: 4) {
                     ForEach(0..<5) { index in
                         Rectangle()
@@ -93,7 +85,6 @@ struct PropertyListingForm: View {
                 }
                 .ignoresSafeArea()
                 .padding(.bottom, 12)
-
                 HStack {
                     if selectedTab > 0 {
                         Button {
@@ -156,7 +147,6 @@ struct PropertyDetailsSection: View {
     var saleableAreaPricePerSqFt: String
     @Binding var grossFloorArea: String
     var grossFloorAreaPricePerSqFt: String
-
     var body: some View {
         Form {
             Section {
@@ -173,7 +163,6 @@ struct PropertyDetailsSection: View {
                         .foregroundColor(.secondary)
                 }
             }
-
             Section(header: Text("Gross Floor Area")) {
                 TextField("Area (sq ft)", text: $grossFloorArea)
                     .keyboardType(.decimalPad)

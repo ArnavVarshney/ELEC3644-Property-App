@@ -8,7 +8,6 @@ import SwiftUI
 
 struct ProfileView: View {
     @EnvironmentObject var userViewModel: UserViewModel
-
     var user: User { userViewModel.user }
     var body: some View {
         NavigationStack {

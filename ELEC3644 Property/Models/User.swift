@@ -4,7 +4,6 @@
 //
 //  Created by Filbert Tejalaksana on 15/10/2024.
 //
-
 import Foundation
 
 enum UserRole: String, Codable {
@@ -19,7 +18,6 @@ struct User: Hashable, Identifiable, Codable {
     var avatarUrl: String
     var reviews: [Review]
     var wishlists: [Wishlist]
-
     private enum CodingKeys: String, CodingKey {
         case name, email, phone, avatarUrl, reviews, wishlists, id
     }
@@ -57,7 +55,6 @@ struct Review: Hashable, Identifiable, Codable {
     var rating: Double
     var content: String
     var timestamp = Date()
-
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         author = try container.decode(User.self, forKey: .author)
@@ -80,6 +77,5 @@ struct Wishlist: Hashable, Identifiable, Codable {
     var id = UUID()
     var name: String
     var properties: [Property]
-
     private enum CodingKeys: String, CodingKey { case name, properties }
 }

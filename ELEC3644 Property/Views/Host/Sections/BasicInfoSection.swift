@@ -4,7 +4,6 @@
 //
 //  Created by Filbert Tejalaksana on 30/10/2024.
 //
-
 import SwiftUI
 
 struct BasicInfoSection: View {
@@ -16,7 +15,6 @@ struct BasicInfoSection: View {
     @Binding var selectedArea: String
     @Binding var selectedDistrict: String
     @Binding var selectedSubDistrict: String
-
     var body: some View {
         Form {
             Section(header: Text("Property Information")) {
@@ -27,7 +25,6 @@ struct BasicInfoSection: View {
                 TextField("Building Age", text: $buildingAge)
                     .keyboardType(.numberPad)
             }
-
             Section(header: Text("Location")) {
                 Picker("Area", selection: $selectedArea) {
                     Text("Select Area").tag("")
@@ -35,7 +32,6 @@ struct BasicInfoSection: View {
                         Text(area).tag(area)
                     }
                 }
-
                 if !selectedArea.isEmpty {
                     Picker("District", selection: $selectedDistrict) {
                         Text("Select District").tag("")
@@ -44,7 +40,6 @@ struct BasicInfoSection: View {
                         }
                     }
                 }
-
                 if !selectedDistrict.isEmpty {
                     Picker("Sub-District", selection: $selectedSubDistrict) {
                         Text("Select Sub-District").tag("")

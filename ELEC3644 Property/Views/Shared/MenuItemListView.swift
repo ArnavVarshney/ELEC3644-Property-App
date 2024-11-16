@@ -1,10 +1,9 @@
 //
-//  MenuItemList.swift
+//  MenuItemListView.swift
 //  ELEC3644 Property App
 //
 //  Created by Filbert Tejalaksana on 9/10/2024.
 //
-
 import SwiftUI
 
 enum MenuItem: String, CaseIterable {
@@ -14,7 +13,6 @@ enum MenuItem: String, CaseIterable {
     case transaction = "Transaction"
     case estate = "Estate"
     case agents = "Agents"
-
     var systemImage: String {
         switch self {
         case .buy:
@@ -35,7 +33,6 @@ enum MenuItem: String, CaseIterable {
 
 struct MenuItemListView: View {
     @Binding var selectedMenu: MenuItem?
-
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 12) {
@@ -48,7 +45,6 @@ struct MenuItemListView: View {
                                     .foregroundColor(.neutral100),
                                 alignment: .bottom
                             )
-
                     } else {
                         MenuItemView(item: item)
                             .onTapGesture {
@@ -65,12 +61,10 @@ struct MenuItemListView: View {
 #Preview {
     struct MenuItemList_Preview: View {
         @State private var selected: MenuItem? = MenuItem.buy
-
         var body: some View {
             MenuItemListView(selectedMenu: $selected)
                 .padding()
         }
     }
-
     return MenuItemList_Preview()
 }

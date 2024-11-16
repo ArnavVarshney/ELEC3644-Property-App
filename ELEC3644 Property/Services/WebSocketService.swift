@@ -4,7 +4,6 @@
 //
 //  Created by Arnav Varshney on 27/10/2024.
 //
-
 import Foundation
 import SwiftUI
 
@@ -13,10 +12,9 @@ class WebSocketService: ObservableObject {
     private var pingTimer: Timer?
     var chat: Chat
     var userId: String
-
     init(chat: Chat) {
         self.chat = chat
-        self.userId = chat.user.id.uuidString.lowercased()
+        userId = chat.user.id.uuidString.lowercased()
     }
 
     func connect(userId: String) {
@@ -55,11 +53,11 @@ class WebSocketService: ObservableObject {
     private func receiveMessages() {
         webSocketTask?.receive { [weak self] result in
             switch result {
-            case .failure(let error):
+            case let .failure(error):
                 print("WebSocket receive error: \(error)")
-            case .success(let message):
+            case let .success(message):
                 switch message {
-                case .string(let text):
+                case let .string(text):
                     if let data = text.data(using: .utf8),
                         let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
                         let jsonDict = jsonObject as? [String: Any]

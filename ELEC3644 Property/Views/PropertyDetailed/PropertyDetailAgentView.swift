@@ -4,21 +4,17 @@
 //
 //  Created by Arnav Varshney on 16/11/24.
 //
-
 import SwiftUI
 
 struct PropertyDetailAgentView: View {
     @StateObject var viewModel: PropertyDetailViewModel
     @EnvironmentObject var inboxData: InboxViewModel
     @EnvironmentObject var userViewModel: UserViewModel
-
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Divider()
-
             Text("Agent")
                 .font(.system(size: 24, weight: .medium))
-
             HStack {
                 UserAvatarView(user: viewModel.property.agent, size: 64)
                     .padding(.trailing, 8)
@@ -30,7 +26,6 @@ struct PropertyDetailAgentView: View {
                         .foregroundColor(.neutral60)
                 }
             }
-
             HStack {
                 Button(
                     action: {
@@ -43,11 +38,10 @@ struct PropertyDetailAgentView: View {
                             Text("Call")
                         }
                         .frame(maxWidth: .infinity)
-                    })
-
+                    }
+                )
                 Divider()
                     .frame(height: 24)
-
                 NavigationLink(
                     destination: ChatView(chat: chat()),
                     label: {
@@ -56,7 +50,8 @@ struct PropertyDetailAgentView: View {
                             Text("Message")
                         }
                         .frame(maxWidth: .infinity)
-                    })
+                    }
+                )
             }
             .foregroundColor(.black)
         }

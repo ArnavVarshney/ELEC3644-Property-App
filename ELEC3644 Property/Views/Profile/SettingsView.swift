@@ -26,7 +26,8 @@ struct SettingsView: View {
                             Text("Sign Out")
                         }
                         .frame(maxWidth: .infinity)
-                    })
+                    }
+                )
             }
         }
     }

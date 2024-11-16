@@ -1,16 +1,14 @@
 //
-//  PropertyViewModel.swift
+//  AgentViewModel.swift
 //  ELEC3644 Property
 //
 //  Created by Filbert Tejalaksana on 15/10/2024.
 //
-
 import Foundation
 
 class AgentViewModel: ObservableObject {
     private let apiClient: APIClient
     @Published var agents: [User] = []
-
     init(apiClient: APIClient = NetworkManager()) {
         self.apiClient = apiClient
         Task {
@@ -21,7 +19,6 @@ class AgentViewModel: ObservableObject {
     func fetchAgents() async {
         do {
             let fetchedAgents: [User] = try await apiClient.get(url: "/users/agents")
-
             // Fetch reviews for each agent
             var agentsWithReviews: [User] = []
             for var agent in fetchedAgents {
@@ -30,7 +27,6 @@ class AgentViewModel: ObservableObject {
                 agent.reviews = reviews
                 agentsWithReviews.append(agent)
             }
-
             DispatchQueue.main.async {
                 self.agents = agentsWithReviews
             }
@@ -60,10 +56,8 @@ class AgentViewModel: ObservableObject {
                 "reviewedUserId": reviewedUserId.uuidString.lowercased(),
                 "rating": String(review.rating),
             ]
-
             print("[DEBUG] Post body: \(postBody)")
             let newReview: Review = try await apiClient.post(url: "/reviews", body: postBody)
-
             // Update the local data
             DispatchQueue.main.async {
                 if let index = self.agents.firstIndex(where: { $0.id == reviewedUserId }) {

@@ -4,12 +4,10 @@
 //
 //  Created by Arnav Varshney on 26/10/24.
 //
-
 import SwiftUI
 
 struct WishlistDetailView: View {
     @Environment(\.dismiss) private var dismiss
-
     let wishlist: Wishlist
     var pickedProperties: [Property] {
         var picked: [Property] = []
@@ -21,8 +19,7 @@ struct WishlistDetailView: View {
 
     @State var pickedPropertiesIdx: [Int] = []
     @State var showingChoice = true
-
-    //TODO: Try adding border on the invisible background
+    // TODO: Try adding border on the invisible background
     var body: some View {
         NavigationStack {
             ZStack {
@@ -41,13 +38,14 @@ struct WishlistDetailView: View {
                                         pickedPropertiesIdx.append(idx)
                                     }
                                 } label: {
-                                    //TODO: Replace with images and property name only later
+                                    // TODO: Replace with images and property name only later
                                     Text(wishlist.properties[idx].name)
                                         .font(.footnote).padding(5).foregroundStyle(.black).frame(
                                             width: 100, height: 70
                                         ).bold()
                                 }.border(
-                                    pickedPropertiesIdx.contains(idx) ? .blue : .gray, width: 3)
+                                    pickedPropertiesIdx.contains(idx) ? .blue : .gray, width: 3
+                                )
                             }
                             Spacer()
                         }.background(Color.white.opacity(0.8))
@@ -74,7 +72,6 @@ struct WishlistDetailView: View {
                 } label: {
                     Image(systemName: showingChoice ? "minus.circle" : "plus.circle")
                 }
-
             }
         }
     }

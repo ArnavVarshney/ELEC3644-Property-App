@@ -4,17 +4,14 @@
 //
 //  Created by Filbert Tejalaksana on 21/10/2024.
 //
-
 import SwiftUI
 
 struct EstateSearchFieldsView: View {
     @State private var estateTypes: Set<String> = []
     @State private var facilities: Set<String> = []
     @State private var yearBuilt: Double = 1970
-
     let estateTypesList = ["Residential", "Commercial", "Mixed-use", "Gated Community"]
     let facilitiesList = ["Playground", "Clubhouse", "Security", "Shopping Center", "School"]
-
     var body: some View {
         VStack(spacing: 16) {
             VStack(alignment: .leading, spacing: 12) {
@@ -23,7 +20,6 @@ struct EstateSearchFieldsView: View {
                     .padding(.bottom, 4)
                 ChipGrid(items: estateTypesList, selectedItems: $estateTypes)
             }
-
             Divider()
             VStack(alignment: .leading, spacing: 12) {
                 Text("Facilities")
@@ -31,7 +27,6 @@ struct EstateSearchFieldsView: View {
                     .padding(.bottom, 4)
                 ChipGrid(items: facilitiesList, selectedItems: $facilities)
             }
-
             Divider()
             VStack(alignment: .leading, spacing: 12) {
                 Text("Year Built")

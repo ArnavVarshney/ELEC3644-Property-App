@@ -12,7 +12,6 @@ struct WishlistsView: View {
         GridItem(.flexible()),
         GridItem(.flexible()),
     ]
-
     var user: User {
         return userViewModel.user
     }
@@ -24,12 +23,10 @@ struct WishlistsView: View {
                     Image(systemName: "heart")
                         .font(.largeTitle)
                         .padding()
-
                     Text("You don't have any wishlists")
                         .font(.footnote)
                         .fontWeight(.bold)
                         .padding(4)
-
                     Text("When you create a new wishlist, it will appear here.")
                         .font(.footnote)
                         .foregroundColor(.neutral60)
@@ -53,12 +50,11 @@ struct WishlistsView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(
-                        action: {
-
-                        },
+                        action: {},
                         label: {
                             Image(systemName: "square.and.pencil")
-                        })
+                        }
+                    )
                 }
             }
         }.onAppear {

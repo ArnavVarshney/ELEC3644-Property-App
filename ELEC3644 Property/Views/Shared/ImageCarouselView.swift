@@ -4,7 +4,6 @@
 //
 //  Created by Arnav Varshney on 21/10/24.
 //
-
 import SwiftUI
 
 struct ImageCarouselView: View {
@@ -14,7 +13,6 @@ struct ImageCarouselView: View {
     let height: Double
     let favoritable: Bool
     var cornerRadius: Double
-
     init(
         images: [String] = [], imageUrls: [String] = [], cornerRadius: Double = 8,
         height: Double = 320,
@@ -40,7 +38,6 @@ struct ImageCarouselView: View {
                     Spacer()
                 }.padding(5).zIndex(1)
             }
-
             TabView {
                 if imageUrls.isEmpty {
                     ForEach(images, id: \.self) { image in
@@ -69,7 +66,6 @@ struct ImageCarouselView: View {
 struct favoriteIcon: View {
     @EnvironmentObject var userViewModel: UserViewModel
     @State var showingSheet = false
-
     let property: Property
     var propertyIdx: (Int, Int)? {
         for (i, wishlist) in userViewModel.user.wishlists.enumerated() {
@@ -85,11 +81,12 @@ struct favoriteIcon: View {
     var body: some View {
         Button {
             if propertyIdx != nil {
-                //Update db
+                // Update db
                 Task {
                     await userViewModel.postWishlist(
                         property: property,
-                        folderName: userViewModel.user.wishlists[propertyIdx!.0].name, delete: true)
+                        folderName: userViewModel.user.wishlists[propertyIdx!.0].name, delete: true
+                    )
                     await userViewModel.fetchWishlist()
                 }
             } else {

@@ -4,7 +4,6 @@
 //
 //  Created by Arnav Varshney on 24/10/24.
 //
-
 import Foundation
 
 enum Mock {
@@ -70,34 +69,44 @@ enum Mock {
             transactionHistory: [
                 Transaction(
                     date: Date(timeIntervalSince1970: 1_609_459_200),
-                    price: Int.random(in: 6_000_000...8_500_000)),
+                    price: Int.random(in: 6_000_000...8_500_000)
+                ),
                 Transaction(
                     date: Date(timeIntervalSince1970: 1_612_137_600),
-                    price: Int.random(in: 6_000_000...8_500_000)),
+                    price: Int.random(in: 6_000_000...8_500_000)
+                ),
                 Transaction(
                     date: Date(timeIntervalSince1970: 1_614_556_800),
-                    price: Int.random(in: 6_000_000...8_500_000)),
+                    price: Int.random(in: 6_000_000...8_500_000)
+                ),
                 Transaction(
                     date: Date(timeIntervalSince1970: 1_617_235_200),
-                    price: Int.random(in: 6_000_000...8_500_000)),
+                    price: Int.random(in: 6_000_000...8_500_000)
+                ),
                 Transaction(
                     date: Date(timeIntervalSince1970: 1_619_827_200),
-                    price: Int.random(in: 6_000_000...8_500_000)),
+                    price: Int.random(in: 6_000_000...8_500_000)
+                ),
                 Transaction(
                     date: Date(timeIntervalSince1970: 1_622_505_600),
-                    price: Int.random(in: 6_000_000...8_500_000)),
+                    price: Int.random(in: 6_000_000...8_500_000)
+                ),
                 Transaction(
                     date: Date(timeIntervalSince1970: 1_625_097_600),
-                    price: Int.random(in: 6_000_000...8_500_000)),
+                    price: Int.random(in: 6_000_000...8_500_000)
+                ),
                 Transaction(
                     date: Date(timeIntervalSince1970: 1_627_776_000),
-                    price: Int.random(in: 6_000_000...8_500_000)),
+                    price: Int.random(in: 6_000_000...8_500_000)
+                ),
                 Transaction(
                     date: Date(timeIntervalSince1970: 1_630_454_400),
-                    price: Int.random(in: 6_000_000...8_500_000)),
+                    price: Int.random(in: 6_000_000...8_500_000)
+                ),
                 Transaction(
                     date: Date(timeIntervalSince1970: 1_633_046_400),
-                    price: Int.random(in: 6_000_000...8_500_000)),
+                    price: Int.random(in: 6_000_000...8_500_000)
+                ),
             ],
             agent: Mock.Agents[0],
             amenities: ["gym", "balcony"],
@@ -105,24 +114,26 @@ enum Mock {
             contractType: "leasing"
         ),
     ]
-
     static var Chats: [Chat] = [
         Chat(
             user: Users[0],
             messages: [
                 Message(
                     timestamp: Date(), senderId: "10530025-4005-4c89-b814-b0ea9e389343",
-                    receiverId: "10530025-4005-4c89-b814-b0ea9e389343", content: "Hello!")
-            ]),
+                    receiverId: "10530025-4005-4c89-b814-b0ea9e389343", content: "Hello!"
+                )
+            ]
+        ),
         Chat(
             user: Users[1],
             messages: [
                 Message(
                     timestamp: Date(), senderId: "10530025-4005-4c89-b814-b0ea9e389343",
-                    receiverId: "10530025-4005-4c89-b814-b0ea9e389343", content: "Hi!")
-            ]),
+                    receiverId: "10530025-4005-4c89-b814-b0ea9e389343", content: "Hi!"
+                )
+            ]
+        ),
     ]
-
     static var Users: [User] = [
         User(
             name: "Filbert Tejalaksana", email: "a@gmail.com",
@@ -134,20 +145,26 @@ enum Mock {
                     author: User(
                         name: "Abel Haris Harsono", email: "b@gmail.com",
                         phone: "852 12345678",
-                        avatarUrl: "", reviews: nil, wishlists: nil),
-                    rating: 2, content: "Testing"),
+                        avatarUrl: "", reviews: nil, wishlists: nil
+                    ),
+                    rating: 2, content: "Testing"
+                ),
                 Review(
                     author: User(
                         name: "Abel Haris Harsono", email: "b@gmail.com",
                         phone: "852 12345678",
-                        avatarUrl: "", reviews: nil, wishlists: nil),
-                    rating: 2, content: "Testing"),
+                        avatarUrl: "", reviews: nil, wishlists: nil
+                    ),
+                    rating: 2, content: "Testing"
+                ),
                 Review(
                     author: User(
                         name: "Abel Haris Harsono", email: "b@gmail.com",
                         phone: "852 12345678",
-                        avatarUrl: "", reviews: nil, wishlists: nil),
-                    rating: 2, content: "Testing"),
+                        avatarUrl: "", reviews: nil, wishlists: nil
+                    ),
+                    rating: 2, content: "Testing"
+                ),
             ],
             wishlists: [
                 Wishlist(name: "Holiday", properties: [Properties[0], Properties[1]]),
@@ -157,9 +174,9 @@ enum Mock {
         User(
             name: "Abel Haris Harsono", email: "b@gmail.com",
             phone: "852 12345678",
-            avatarUrl: "", reviews: nil, wishlists: nil),
+            avatarUrl: "", reviews: nil, wishlists: nil
+        ),
     ]
-
     static var Agents: [User] = [
         User(
             name: "Agent Numero Uno", email: "agent1@agency1.agents",
@@ -185,5 +202,4 @@ let mockPropertyImages = [
     "Property4",
     "Property5",
 ]
-
 let defaultUUID = "00000000-0000-0000-0000-000000000000"

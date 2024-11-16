@@ -8,7 +8,6 @@ import SwiftUI
 
 struct LoginButton: View {
     @State private var showModal = false
-
     var body: some View {
         Button(action: { showModal = true }) {
             Text("Login").foregroundColor(.black).font(.system(size: 15, weight: .semibold))
@@ -26,7 +25,6 @@ struct LoginView: View {
     @State private var isLoggedIn: Bool = false
     @State private var showAlert: Bool = false
     @State private var alertMessage: String = ""
-
     var body: some View {
         // Check if the user is already logged in
         if !isLoggedIn {
@@ -36,7 +34,6 @@ struct LoginView: View {
                         .keyboardType(.emailAddress)
                     SecureField("Password", text: $password)
                 }
-
                 Button(action: login) {
                     Text("Login").frame(maxWidth: .infinity).padding().background(Color.blue)
                         .foregroundColor(.white).cornerRadius(8)
@@ -45,7 +42,8 @@ struct LoginView: View {
             .alert(isPresented: $showAlert) {
                 Alert(
                     title: Text("Login Failed"), message: Text(alertMessage),
-                    dismissButton: .default(Text("OK")))
+                    dismissButton: .default(Text("OK"))
+                )
             }
             .navigationTitle("Login").onAppear { checkLoginStatus() }
         } else {
@@ -68,7 +66,6 @@ struct LoginView: View {
             do {
                 // Call the login method from UserViewModel
                 let user = try await UserViewModel.login(with: username, password: password)
-
                 // Update user data in view model
                 viewModel.user = user
                 isLoggedIn = true

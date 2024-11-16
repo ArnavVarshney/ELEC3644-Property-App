@@ -4,7 +4,6 @@
 //
 //  Created by Abel Haris Harsono on 27/10/2024.
 //
-
 import SwiftUI
 
 struct FavoriteSubmitForm: View {
@@ -12,7 +11,6 @@ struct FavoriteSubmitForm: View {
     @Environment(\.dismiss) private var dismiss
     @State var albumName: String = ""
     let property: Property
-
     var body: some View {
         Form {
             Section(header: Text("Enter album name")) {
@@ -24,7 +22,6 @@ struct FavoriteSubmitForm: View {
                     await userViewModel.postWishlist(property: property, folderName: temp)
                     await userViewModel.fetchWishlist()
                 }
-
                 withAnimation {
                     dismiss()
                 }
@@ -35,7 +32,6 @@ struct FavoriteSubmitForm: View {
                     Spacer()
                 }
             }
-
         }
     }
 }

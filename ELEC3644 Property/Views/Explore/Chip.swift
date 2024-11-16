@@ -4,14 +4,12 @@
 //
 //  Created by Filbert Tejalaksana on 21/10/2024.
 //
-
 import SwiftUI
 
 struct Chip: View {
     let content: String
     let isSelected: Bool
     let action: () -> Void
-
     var body: some View {
         Button(action: {
             withAnimation(.snappy) {
@@ -33,7 +31,6 @@ struct Chip: View {
 #Preview {
     struct Chip_Preview: View {
         @State var selected = false
-
         var body: some View {
             Chip(content: "Hello, World!", isSelected: selected) {
                 selected.toggle()

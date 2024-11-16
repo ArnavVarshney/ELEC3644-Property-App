@@ -4,7 +4,6 @@
 //
 //  Created by Mak Yilam on 12/11/2024.
 //
-
 import Contacts
 import CoreLocation
 import MapKit
@@ -18,14 +17,13 @@ struct EnlargeMapView_V2: View {
     @State private var searchText: String = ""
     @State private var placemark: CLPlacemark?
     @State private var mapItem: MKMapItem?
-    @State private var mapSelection: Int?  //to identify which marker has been tapped
+    @State private var mapSelection: Int?  // to identify which marker has been tapped
     @State private var showLookAroundScene: Bool = false
     var body: some View {
         NavigationStack {
             Map(position: $camera)
                 .navigationTitle("Map")
         }
-
     }
 }
 

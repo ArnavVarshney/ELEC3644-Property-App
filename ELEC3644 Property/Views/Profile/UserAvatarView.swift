@@ -4,13 +4,11 @@
 //
 //  Created by Filbert Tejalaksana on 16/10/2024.
 //
-
 import SwiftUI
 
 struct UserAvatarView: View {
     var user: User
     var size: CGFloat = 36
-
     init(user: User, size: CGFloat = 36) {
         self.user = user
         self.size = size
@@ -36,7 +34,6 @@ struct UserAvatarView: View {
 #Preview {
     struct UserAvatarView_Preview: View {
         @EnvironmentObject var userViewModel: UserViewModel
-
         var body: some View {
             UserAvatarView(user: userViewModel.user)
         }

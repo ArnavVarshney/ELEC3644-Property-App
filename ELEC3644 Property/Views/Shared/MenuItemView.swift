@@ -4,12 +4,10 @@
 //
 //  Created by Filbert Tejalaksana on 9/10/2024.
 //
-
 import SwiftUI
 
 struct MenuItemView: View {
     let item: MenuItem
-
     var body: some View {
         VStack {
             Image(systemName: item.systemImage)

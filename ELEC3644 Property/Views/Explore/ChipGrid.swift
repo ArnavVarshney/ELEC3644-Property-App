@@ -4,13 +4,11 @@
 //
 //  Created by Filbert Tejalaksana on 21/10/2024.
 //
-
 import SwiftUI
 
 struct ChipGrid: View {
     let items: [String]
     @Binding var selectedItems: Set<String>
-
     var body: some View {
         GeometryReader { geometry in
             let containerWidth = geometry.size.width
@@ -37,7 +35,6 @@ struct ChipGrid: View {
     private func generateRows(for items: [String], in containerWidth: CGFloat) -> [[String]] {
         var rows: [[String]] = [[]]
         var currentRowWidth: CGFloat = 0
-
         for item in items {
             if currentRowWidth + 120 > containerWidth {
                 rows.append([item])
@@ -47,7 +44,6 @@ struct ChipGrid: View {
                 currentRowWidth += 120
             }
         }
-
         return rows
     }
 
@@ -60,11 +56,9 @@ struct ChipGrid: View {
 #Preview {
     struct ChipGrid_Preview: View {
         @State private var selectedItems: Set<String> = []
-
         var body: some View {
             ChipGrid(items: (1...20).map { "Example\($0)" }, selectedItems: $selectedItems)
         }
     }
-
     return ChipGrid_Preview()
 }

@@ -4,13 +4,11 @@
 //
 //  Created by Filbert Tejalaksana on 21/10/2024.
 //
-
 import SwiftUI
 
 struct SearchFieldsView: View {
     let currentMenu: MenuItem?
     @Environment(\.dismiss) private var dismiss
-
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading) {
@@ -25,7 +23,6 @@ struct SearchFieldsView: View {
                     EmptyView()
                 }
                 Spacer()
-
                 Divider()
                 HStack {
                     Button {
@@ -37,9 +34,7 @@ struct SearchFieldsView: View {
                             .padding()
                             .cornerRadius(10)
                     }
-
                     Spacer()
-
                     Button {
                         dismiss()
                     } label: {
@@ -63,11 +58,9 @@ struct SearchFieldsView: View {
 #Preview {
     struct SearchFieldsView_Preview: View {
         @State private var searchText = ""
-
         var body: some View {
             SearchFieldsView(currentMenu: .buy)
         }
     }
-
     return SearchFieldsView_Preview()
 }

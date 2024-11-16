@@ -1,19 +1,17 @@
 //
-//  WishlistsItemView.swift
+//  WishlistItemView.swift
 //  ELEC3644 Property
 //
 //  Created by Arnav Varshney on 26/10/24.
 //
-
 import SwiftUI
 
 struct WishlistItemView: View {
     let wishlist: Wishlist
     let firstProperty: Property
-
     init(wishlist: Wishlist) {
         self.wishlist = wishlist
-        self.firstProperty = wishlist.properties[0]
+        firstProperty = wishlist.properties[0]
     }
 
     var body: some View {
@@ -35,12 +33,10 @@ struct WishlistItemView: View {
             )
             .addShadow()
             .padding(.bottom, 2)
-
             VStack(alignment: .leading) {
                 Text(wishlist.name)
                     .fontWeight(.bold)
                     .foregroundColor(.neutral100)
-
                 Text("\(wishlist.properties.count) saved")
                     .foregroundColor(.neutral60)
                     .font(.caption)
@@ -49,6 +45,7 @@ struct WishlistItemView: View {
         .padding(.all, 4)
     }
 }
+
 #Preview {
     struct WishlistItemViewPreview: View {
         var body: some View {
@@ -56,6 +53,5 @@ struct WishlistItemView: View {
                 .frame(width: 160, height: 200)
         }
     }
-
     return WishlistItemViewPreview()
 }

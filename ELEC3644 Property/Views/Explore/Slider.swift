@@ -4,7 +4,6 @@
 //
 //  Created by Filbert Tejalaksana on 21/10/2024.
 //
-
 import SwiftUI
 
 struct IntSlider: View {
@@ -13,7 +12,6 @@ struct IntSlider: View {
     var bottomRange: Double
     var topRange: Double
     var step: Double
-
     var body: some View {
         VStack {
             Slider(

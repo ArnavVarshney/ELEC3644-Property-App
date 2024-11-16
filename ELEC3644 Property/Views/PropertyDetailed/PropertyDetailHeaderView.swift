@@ -4,12 +4,10 @@
 //
 //  Created by Filbert Tejalaksana on 15/10/2024.
 //
-
 import SwiftUI
 
 struct PropertyDetailHeaderView: View {
     let property: Property
-
     var body: some View {
         VStack(alignment: .leading) {
             Text(property.name)

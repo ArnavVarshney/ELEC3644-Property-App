@@ -4,9 +4,8 @@
 //
 //  Created by Mak Yilam on 27/10/2024.
 //
-
 import MapKit
-//this is just a part of PropertyDetailMapView --> PropertyDetailView
+// this is just a part of PropertyDetailMapView --> PropertyDetailView
 import SwiftUI
 
 struct MapView: View {
@@ -41,7 +40,6 @@ struct MapView: View {
                     }
                 }
                 .annotationTitles(.visible)
-
                 ForEach(viewModel.places, id: \.self) { place in
                     Marker(
                         place.placemark.name ?? "POI",
@@ -62,7 +60,6 @@ struct MapView: View {
         @StateObject var propertyViewModel = PropertyViewModel()
         @StateObject var propertyDetailViewModel: PropertyDetailViewModel
         @State private var showEnlargeMapView = false
-
         init() {
             self._propertyDetailViewModel = StateObject(
                 wrappedValue: PropertyDetailViewModel(property: Mock.Properties[0]))
@@ -73,6 +70,5 @@ struct MapView: View {
                 .environmentObject(propertyDetailViewModel)
         }
     }
-
     return MapView_Preview()
 }

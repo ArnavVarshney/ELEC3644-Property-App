@@ -4,13 +4,11 @@
 //
 //  Created by Filbert Tejalaksana on 30/10/2024.
 //
-
 import SwiftUI
 
 struct SchoolNetSection: View {
     @Binding var primarySchoolNet: String
     @Binding var secondarySchoolNet: String
-
     var body: some View {
         Form {
             Section(header: Text("School Net")) {

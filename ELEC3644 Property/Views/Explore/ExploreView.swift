@@ -4,7 +4,6 @@
 //
 //  Created by Filbert Tejalaksana on 9/10/2024.
 //
-
 import SwiftUI
 
 struct ExploreView: View {
@@ -13,7 +12,6 @@ struct ExploreView: View {
     @State private var isSearchActive: Bool = false
     @EnvironmentObject private var propertyViewModel: PropertyViewModel
     @EnvironmentObject private var agentViewModel: AgentViewModel
-
     var body: some View {
         NavigationStack {
             VStack {
@@ -25,7 +23,6 @@ struct ExploreView: View {
                 SearchFieldsView(currentMenu: currentMenu)
                     .presentationDetents([.height(620)])
             }
-
             ZStack {
                 GeometryReader { geometry in
                     ScrollView(.horizontal) {
@@ -97,16 +94,19 @@ struct RentMenuView: View {
         Text("Rent")
     }
 }
+
 struct LeaseMenuView: View {
     var body: some View {
         Text("Lease")
     }
 }
+
 struct TransactionMenuView: View {
     var body: some View {
         Text("Transaction")
     }
 }
+
 struct EstateMenuView: View {
     var body: some View {
         Text("Estate")

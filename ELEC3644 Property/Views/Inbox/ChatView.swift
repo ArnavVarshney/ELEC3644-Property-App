@@ -4,7 +4,6 @@
 //
 //  Created by Abel Haris Harsono on 15/10/2024.
 //
-
 import SwiftUI
 import Translation
 
@@ -15,7 +14,6 @@ struct ChatView: View {
     @State private var newMessage: String = ""
     @StateObject private var webSocketService: WebSocketService
     var initialMessage: String?
-
     init(chat: Chat, initialMessage: String? = nil) {
         self.chat = chat
         _webSocketService = StateObject(
@@ -32,13 +30,13 @@ struct ChatView: View {
                     ForEach(messages) { message in
                         ChatBubble(
                             message: message,
-                            isUser: message.senderId == userViewModel.currentUserId())
+                            isUser: message.senderId == userViewModel.currentUserId()
+                        )
                         let _ = print(message)
                     }
                 }
             }.defaultScrollAnchor(.bottom)
                 .scrollIndicators(.hidden)
-
             HStack(alignment: .bottom) {
                 TextField("Type a message...", text: $newMessage, axis: .vertical)
                     .lineLimit(4)
@@ -48,7 +46,6 @@ struct ChatView: View {
                     .foregroundColor(.neutral100)
                     .cornerRadius(36)
                     .frame(maxWidth: .infinity)
-
                 Button(action: sendMessage) {
                     Image(systemName: "paperplane")
                         .resizable()
@@ -120,7 +117,6 @@ private func formattedDate(_ date: Date) -> String {
 
 struct DateHeader: View {
     let date: Date
-
     var body: some View {
         Text(formattedDate(date))
             .font(.subheadline)
@@ -133,7 +129,6 @@ struct ChatBubble: View {
     var message: Message
     var isUser: Bool
     @State private var showTranslation: Bool = false
-
     var body: some View {
         VStack(alignment: isUser ? .trailing : .leading) {
             Text("\(message.content)")
@@ -159,7 +154,6 @@ struct ChatBubble: View {
         }
         .translationPresentation(isPresented: $showTranslation, text: message.content)
         .frame(maxWidth: .infinity, alignment: isUser ? .trailing : .leading)
-
     }
 }
 

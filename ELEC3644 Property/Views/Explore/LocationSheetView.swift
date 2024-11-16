@@ -4,18 +4,14 @@
 //
 //  Created by Filbert Tejalaksana on 9/10/2024.
 //
-
 import SwiftUI
 
 struct LocationSheetView: View {
     @Binding var tag: Tag
-
     @State var selectArea: String = "HK Island"
     @State var selectDistrict: String = ""
     @State var selectSubdistrict: String = ""
-
     @Environment(\.dismiss) var dismiss
-
     var districtChoices: [String] {
         Location.districts[selectArea] ?? []
     }
@@ -61,11 +57,9 @@ struct LocationSheetView: View {
 #Preview {
     struct LocationSheetView_Preview: View {
         @State private var tag = Tag(label: "Location")
-
         var body: some View {
             LocationSheetView(tag: $tag)
         }
     }
-
     return LocationSheetView_Preview()
 }

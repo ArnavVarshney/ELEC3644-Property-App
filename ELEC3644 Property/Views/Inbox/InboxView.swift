@@ -4,13 +4,11 @@
 //
 //  Created by Abel Haris Harsono on 15/10/2024.
 //
-
 import SwiftUI
 
 struct InboxView: View {
     @EnvironmentObject var inboxData: InboxViewModel
     @EnvironmentObject var userViewModel: UserViewModel
-
     var body: some View {
         NavigationStack {
             VStack {
@@ -18,12 +16,10 @@ struct InboxView: View {
                     Image(systemName: "bubble.left.and.text.bubble.right")
                         .font(.largeTitle)
                         .padding()
-
                     Text("You don't have any messages")
                         .font(.footnote)
                         .fontWeight(.bold)
                         .padding(4)
-
                     Text("When you receive a new message, it will appear here.")
                         .font(.footnote)
                         .foregroundColor(.neutral60)

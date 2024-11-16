@@ -4,7 +4,6 @@
 //
 //  Created by Arnav Varshney on 31/10/24.
 //
-
 import AVKit
 import SwiftUI
 
@@ -13,7 +12,6 @@ struct HostTransitionScreen: View {
         url: Bundle.main.url(forResource: "hostTransition", withExtension: "mov")!)
     @EnvironmentObject var userViewModel: UserViewModel
     @State private var navigateToExplore = false
-
     var body: some View {
         NavigationStack {
             VStack {
