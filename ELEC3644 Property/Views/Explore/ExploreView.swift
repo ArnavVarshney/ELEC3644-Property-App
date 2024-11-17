@@ -12,6 +12,7 @@ struct ExploreView: View {
     @State private var isSearchActive: Bool = false
     @EnvironmentObject private var propertyViewModel: PropertyViewModel
     @EnvironmentObject private var agentViewModel: AgentViewModel
+    @EnvironmentObject var viewModel: PropertyViewModelWithLocation
     var body: some View {
         NavigationStack {
             VStack {
@@ -63,7 +64,7 @@ struct ExploreView: View {
                 }
                 VStack {
                     Spacer()
-                    NavigationLink(destination: EnlargeMapView_V2()) {
+                    NavigationLink(destination: EnlargeMapView_V2().environmentObject(viewModel)) {
                         HStack {
                             Image(systemName: "map")
                                 .resizable()
