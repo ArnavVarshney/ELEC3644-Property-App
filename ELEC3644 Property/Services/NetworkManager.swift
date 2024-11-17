@@ -11,12 +11,15 @@ protocol APIClient {
     func post<T: Decodable, U: Encodable>(url: String, body: U) async throws -> T
     func patch<T: Decodable, U: Encodable>(url: String, body: U) async throws -> T
     func delete<T: Decodable, U: Encodable>(url: String, body: U) async throws -> T
+    func uploadImage(url: String, imageData: Data, fileName: String?, mimeType: String?)
+        async throws -> Data
 }
 
 class NetworkManager: APIClient {
     private let urlCache: URLCache
     private let decoder = JSONDecoder()
-    private let baseURL = "https://chat-server.home-nas.xyz"
+    //    private let baseURL = "https://chat-server.home-nas.xyz"
+    private let baseURL = "http://localhost:6969"
     init(urlCache: URLCache = .shared) {
         self.urlCache = urlCache
         let df = DateFormatter()
@@ -73,29 +76,49 @@ class NetworkManager: APIClient {
     }
 
     func uploadImage(
-        url: String, imageData: Data, fileName: String, mimeType: String = "image/jpeg"
+        url: String, imageData: Data, fileName: String? = UUID().uuidString,
+        mimeType: String? = "image/jpeg"
     ) async throws -> Data {
         let finalUrl = URL(string: baseURL + url)
         var request = URLRequest(url: finalUrl!)
         request.httpMethod = "POST"
 
         let boundary = UUID().uuidString
+        let clrf = "\r\n"
         request.setValue(
             "multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
 
         var body = Data()
-        body.append("--\(boundary)\r\n".data(using: .utf8)!)
-        body.append(
-            "Content-Disposition: form-data; name=\"file\"; filename=\"\(fileName)\"\r\n".data(
-                using: .utf8)!)
-        body.append("Content-Type: \(mimeType)\r\n\r\n".data(using: .utf8)!)
+        body.append("--\(boundary)")
+        body.append(clrf)
+        body.append("Content-Disposition: form-data; name=\"file\"; filename=\"image.jpg\"")
+        body.append(clrf)
+        body.append("Content-Type: image/jpeg")
+        body.append(clrf)
+        body.append(clrf)
         body.append(imageData)
-        body.append("\r\n".data(using: .utf8)!)
-        body.append("--\(boundary)--\r\n".data(using: .utf8)!)
+        body.append(clrf)
+        body.append("--\(boundary)--")
+        body.append(clrf)
 
         request.httpBody = body
 
-        let (data, _) = try await URLSession.shared.data(for: request)
-        return data
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            // Handle the server response here
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+                return
+            }
+
+            // Process the response data
+            if let data = data {
+                let responseString = String(data: data, encoding: .utf8)
+                print("Response: \(responseString ?? "")")
+            }
+        }
+
+        task.resume()
+
+        return Data()
     }
 }

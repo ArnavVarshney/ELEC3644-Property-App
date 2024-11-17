@@ -32,7 +32,7 @@ class UserViewModel: ObservableObject {
             }
         }
     }
-    
+
     func currentUserId() -> String {
         return user.id.uuidString.lowercased()
     }

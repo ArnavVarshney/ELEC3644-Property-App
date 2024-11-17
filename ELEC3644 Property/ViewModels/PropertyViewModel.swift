@@ -31,6 +31,16 @@ class PropertyViewModel: ObservableObject {
         }
     }
 
+    func uploadPropertyImage(image: Data) async {
+        do {
+            let _: Data = try await apiClient.uploadImage(
+                url: "/upload", imageData: image, fileName: "\(UUID().uuidString).jpg",
+                mimeType: "image/jpeg")
+        } catch {
+            print("Error uploading image: \(error)")
+        }
+    }
+
     func getByContractType(contractType: String) -> [Property] {
         return properties.filter { $0.contractType == contractType }
     }

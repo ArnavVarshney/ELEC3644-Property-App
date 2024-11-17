@@ -30,6 +30,8 @@ struct PropertyListingForm: View {
     @State private var selectedItems: [PhotosPickerItem] = []
     @State private var selectedImages: [UIImage] = []
     @State private var selectedTab = 0
+    @EnvironmentObject var propertyViewModel: PropertyViewModel
+
     private var saleableAreaPricePerSqFt: String {
         guard let area = Double(saleableArea), area > 0,
             let total = Double(netPrice)
@@ -114,7 +116,9 @@ struct PropertyListingForm: View {
                         .cornerRadius(10)
                     } else {
                         Button("Submit") {
-                            submitForm()
+                            Task {
+                                await submitForm()
+                            }
                         }
                         .font(.system(size: 16, weight: .medium))
                         .foregroundColor(.neutral10)
@@ -138,7 +142,12 @@ struct PropertyListingForm: View {
         }
     }
 
-    private func submitForm() {}
+    private func submitForm() async {
+        for image in selectedImages {
+            // Upload image to server
+            await propertyViewModel.uploadPropertyImage(image: image.pngData()!)
+        }
+    }
 }
 
 struct PropertyDetailsSection: View {
@@ -180,5 +189,6 @@ struct PropertyDetailsSection: View {
 struct PropertyListingForm_Previews: PreviewProvider {
     static var previews: some View {
         PropertyListingForm()
+            .environmentObject(PropertyViewModel())
     }
 }
