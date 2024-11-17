@@ -9,14 +9,14 @@ import CoreLocation
 import MapKit
 import SwiftUI
 
-
 //the center of HK cuz this property app should only be available in HK. The Default camera location. Will update the camera when user press the location button
-extension CLLocationCoordinate2D{
+extension CLLocationCoordinate2D {
     static let userLocation = CLLocationCoordinate2D(latitude: 22.3193, longitude: 114.1694)
 }
 
-extension MKCoordinateRegion{
-    static let userRegion = MKCoordinateRegion(center: .userLocation, latitudinalMeters: 60000, longitudinalMeters: 60000)
+extension MKCoordinateRegion {
+    static let userRegion = MKCoordinateRegion(
+        center: .userLocation, latitudinalMeters: 60000, longitudinalMeters: 60000)
 }
 
 struct EnlargeMapView_V2: View {
@@ -30,15 +30,15 @@ struct EnlargeMapView_V2: View {
     @State private var mapItem: MKMapItem?
     @State private var mapSelection: Int?  // to identify which marker has been tapped
     @State private var showLookAroundScene: Bool = false
-//    @State var propertyLocations: [String: CLLocationCoordinate2D]
+    //    @State var propertyLocations: [String: CLLocationCoordinate2D]
     var body: some View {
         NavigationStack {
             Text(String(viewModel.properties.count))
-            Map(position: $camera){
+            Map(position: $camera) {
                 UserAnnotation()
-                
+
                 ForEach(viewModel.properties, id: \.self) { property in
-                    if let location = viewModel.getLocation(for: property.name){
+                    if let location = viewModel.getLocation(for: property.name) {
                         Annotation(property.name, coordinate: location) {
                             HStack {
                                 Text(String(property.netPrice))
@@ -63,44 +63,44 @@ struct EnlargeMapView_V2: View {
                         }
                         .annotationTitles(.visible)
                     }
-                    
+
                 }
-                
+
             }
-            .mapControls{
+            .mapControls {
                 MapCompass()
                 MapUserLocationButton()
                 MapScaleView()
             }
             .navigationTitle("Map")
         }
-        
+
     }
-    
+
     //do not change
-    func searchPlaces(){
+    func searchPlaces() {
         CLGeocoder().geocodeAddressString(searchText, completionHandler: updatePlaces)
     }
-    
+
     //do not change
-    func updatePlaces(placemarks: [CLPlacemark]?, error: Error?){
+    func updatePlaces(placemarks: [CLPlacemark]?, error: Error?) {
         mapItem = nil
-        if error != nil{
+        if error != nil {
             print("Geo failed with error: \(error!.localizedDescription)")
             showAlert = true
-        }else if let marks = placemarks, marks.count>0{
+        } else if let marks = placemarks, marks.count > 0 {
             placemark = marks[0]
-            if let address=placemark!.postalAddress {
-                let place=MKPlacemark(coordinate: placemark!.location!.coordinate, postalAddress: address)
+            if let address = placemark!.postalAddress {
+                let place = MKPlacemark(
+                    coordinate: placemark!.location!.coordinate, postalAddress: address)
                 result = "\(address.street), \(address.city), \(address.state), \(address.country)"
-                mapItem=MKMapItem(placemark: place)
-                mapItem?.name=searchText
-            
+                mapItem = MKMapItem(placemark: place)
+                mapItem?.name = searchText
+
             }
         }
     }
-    
-    
+
 }
 
 //#Preview {
@@ -124,4 +124,3 @@ struct EnlargeMapView_V2: View {
 //    }
 //    return EnlargeMapView_V2_Preview()
 //}
-
