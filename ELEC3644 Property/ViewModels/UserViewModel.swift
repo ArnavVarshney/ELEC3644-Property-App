@@ -20,13 +20,19 @@ class UserViewModel: ObservableObject {
         self.user.id = UUID(
             uuidString: UserDefaults.standard.string(forKey: "currentUserID") ?? defaultUUID)!
         if isLoggedIn() {
-            Task {
-                await self.fetchUser(with: self.currentUserId())
-                await self.fetchWishlist()
-            }
+            initTask()
         }
     }
 
+    func initTask() {
+        Task {
+            if isLoggedIn() {
+                await fetchUser(with: currentUserId())
+                await fetchWishlist()
+            }
+        }
+    }
+    
     func currentUserId() -> String {
         return user.id.uuidString.lowercased()
     }
@@ -38,6 +44,7 @@ class UserViewModel: ObservableObject {
     func fetchUser(with id: String) async {
         do {
             let user: User = try await apiClient.get(url: "/users/\(id)")
+            print("[DEBUG] Fetched user: \(user)")
             let reviews: [Review] = try await apiClient.get(url: "/reviews/user/\(id)")
             DispatchQueue.main.async {
                 self.user = user
