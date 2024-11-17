@@ -23,6 +23,7 @@ struct ProfileView: View {
                     NavigationLink(destination: ProfileDetailedView(user: user)) {
                         HStack(spacing: 18) {
                             UserAvatarView(user: user, size: 64)
+                                .addShadow()
                             VStack(alignment: .leading) {
                                 Text(user.name)
                                     .font(.headline)

@@ -16,7 +16,7 @@ class PropertyViewModelWithLocation: ObservableObject {
 
     private var cancellables = Set<AnyCancellable>()
 
-    init(apiClient: APIClient = NetworkManager()) {
+    init(apiClient: APIClient = NetworkManager.shared) {
         self.apiClient = apiClient
         Task {
             await fetchProperties()

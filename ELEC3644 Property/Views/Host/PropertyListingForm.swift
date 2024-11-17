@@ -145,7 +145,7 @@ struct PropertyListingForm: View {
     private func submitForm() async {
         for image in selectedImages {
             // Upload image to server
-            await propertyViewModel.uploadPropertyImage(image: image.pngData()!)
+            // TODO: Implement image upload
         }
     }
 }

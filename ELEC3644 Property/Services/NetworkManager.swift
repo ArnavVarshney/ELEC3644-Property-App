@@ -11,16 +11,19 @@ protocol APIClient {
     func post<T: Decodable, U: Encodable>(url: String, body: U) async throws -> T
     func patch<T: Decodable, U: Encodable>(url: String, body: U) async throws -> T
     func delete<T: Decodable, U: Encodable>(url: String, body: U) async throws -> T
-    func uploadImage(url: String, imageData: Data, fileName: String?, mimeType: String?)
+    func uploadImage(imageData: Data, url: String?, fileName: String?, mimeType: String?)
         async throws -> Data
 }
 
 class NetworkManager: APIClient {
     private let urlCache: URLCache
     private let decoder = JSONDecoder()
-    //    private let baseURL = "https://chat-server.home-nas.xyz"
-    private let baseURL = "http://localhost:6969"
-    init(urlCache: URLCache = .shared) {
+    private let baseURL = "https://chat-server.home-nas.xyz"
+    //    private let baseURL = "http://localhost:6969"
+
+    static let shared = NetworkManager()
+
+    private init(urlCache: URLCache = .shared) {
         self.urlCache = urlCache
         let df = DateFormatter()
         df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
@@ -76,10 +79,10 @@ class NetworkManager: APIClient {
     }
 
     func uploadImage(
-        url: String, imageData: Data, fileName: String? = UUID().uuidString,
+        imageData: Data, url: String? = "/upload", fileName: String? = UUID().uuidString,
         mimeType: String? = "image/jpeg"
     ) async throws -> Data {
-        let finalUrl = URL(string: baseURL + url)
+        let finalUrl = URL(string: baseURL + url!)
         var request = URLRequest(url: finalUrl!)
         request.httpMethod = "POST"
 
@@ -103,22 +106,8 @@ class NetworkManager: APIClient {
 
         request.httpBody = body
 
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            // Handle the server response here
-            if let error = error {
-                print("Error: \(error.localizedDescription)")
-                return
-            }
-
-            // Process the response data
-            if let data = data {
-                let responseString = String(data: data, encoding: .utf8)
-                print("Response: \(responseString ?? "")")
-            }
-        }
-
-        task.resume()
-
-        return Data()
+        let (data, _) = try await URLSession.shared.data(for: request)
+        print("[DEBUG] Response data: \(String(data: data, encoding: .utf8)!)")
+        return data
     }
 }

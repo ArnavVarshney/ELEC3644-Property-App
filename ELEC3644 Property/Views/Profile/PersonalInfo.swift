@@ -5,6 +5,7 @@
 //  Created by Arnav Varshney on 17/11/24.
 //
 
+import PhotosUI
 import SwiftUI
 
 struct InfoItem {
@@ -17,10 +18,44 @@ struct InfoItem {
 struct PersonalInfoView: View {
     @EnvironmentObject var userViewModel: UserViewModel
     @Environment(\.dismiss) private var dismiss
+    @State var selectedItems: [PhotosPickerItem] = []
+    @State private var isEditing: Bool = false
+    @State private var showAlert = false
+    @State private var alertMessage = ""
 
     var body: some View {
         NavigationStack {
             VStack {
+                ZStack {
+                    UserAvatarView(user: userViewModel.user, size: 144)
+                        .padding(.top, 24)
+                    if isEditing {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .neutral100))
+                            .scaleEffect(1.5)
+                            .frame(width: 144, height: 144)
+                            .background(Color.black.opacity(0.5))
+                            .clipShape(Circle())
+                            .padding(.top, 24)
+                    }
+                    PhotosPicker(
+                        selection: $selectedItems,
+                        maxSelectionCount: 1,
+                        matching: .images
+                    ) {
+                        Image(systemName: "pencil")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 16, height: 16)
+                            .foregroundColor(.black)
+                            .padding(8)
+                            .background(Color.white)
+                            .clipShape(Circle())
+                            .addShadow()
+                    }
+                    .disabled(isEditing)
+                    .offset(x: 56, y: 56)
+                }
                 InfoList(items: [
                     InfoItem(
                         name: "Full name", field: "name", value: userViewModel.user.name, edit: true
@@ -44,6 +79,35 @@ struct PersonalInfoView: View {
                     }
                 }
             }
+            .onChange(
+                of: selectedItems
+            ) { _, newValue in
+                Task {
+                    isEditing = true
+                    if let data = try? await newValue[0].loadTransferable(type: Data.self) {
+                        let res: Data = try await NetworkManager.shared.uploadImage(
+                            imageData: data)
+                        let json = try JSONSerialization.jsonObject(with: res, options: [])
+                        if let json = json as? [String: Any],
+                            let imageUrl = json["url"] as? String
+                        {
+                            if await !userViewModel.updateUser(with: [
+                                "avatarUrl": imageUrl
+                            ]) {
+                                alertMessage = "Failed to update profile picture."
+                                showAlert = true
+                            }
+                        }
+                    }
+                    sleep(1)
+                    isEditing = false
+                }
+            }
+            .alert(isPresented: $showAlert) {
+                Alert(
+                    title: Text("Error"), message: Text(alertMessage),
+                    dismissButton: .default(Text("OK")))
+            }
         }
     }
 }
@@ -54,6 +118,8 @@ struct InfoList: View {
     @State private var isEditing: Bool = false
     @State private var editingText: String = ""
     @State private var editingIndex: Int? = nil
+    @State private var showAlert = false
+    @State private var alertMessage = ""
 
     var body: some View {
         LazyVStack {
@@ -73,15 +139,24 @@ struct InfoList: View {
             }
         }
         .padding(18)
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("Error"), message: Text(alertMessage),
+                dismissButton: .default(Text("OK")))
+        }
     }
 
     private func saveChanges(index: Int, newValue: String) {
         Task {
-            await userViewModel.updateUser(with: [
+            if await userViewModel.updateUser(with: [
                 items[index].field: newValue
-            ])
-            isEditing = false
-            editingIndex = nil
+            ]) {
+                isEditing = false
+                editingIndex = nil
+            } else {
+                alertMessage = "Failed to update user information."
+                showAlert = true
+            }
         }
     }
 }

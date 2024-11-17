@@ -9,7 +9,7 @@ import Foundation
 class AgentViewModel: ObservableObject {
     private let apiClient: APIClient
     @Published var agents: [User] = []
-    init(apiClient: APIClient = NetworkManager()) {
+    init(apiClient: APIClient = NetworkManager.shared) {
         self.apiClient = apiClient
         Task {
             await fetchAgents()

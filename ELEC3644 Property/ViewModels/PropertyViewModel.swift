@@ -9,7 +9,7 @@ import Foundation
 class PropertyViewModel: ObservableObject {
     private let apiClient: APIClient
     @Published var properties: [Property] = []
-    init(apiClient: APIClient = NetworkManager()) {
+    init(apiClient: APIClient = NetworkManager.shared) {
         self.apiClient = apiClient
         initTask()
     }
@@ -28,16 +28,6 @@ class PropertyViewModel: ObservableObject {
             }
         } catch {
             print("Error fetching user data: \(error)")
-        }
-    }
-
-    func uploadPropertyImage(image: Data) async {
-        do {
-            let _: Data = try await apiClient.uploadImage(
-                url: "/upload", imageData: image, fileName: "\(UUID().uuidString).jpg",
-                mimeType: "image/jpeg")
-        } catch {
-            print("Error uploading image: \(error)")
         }
     }
 

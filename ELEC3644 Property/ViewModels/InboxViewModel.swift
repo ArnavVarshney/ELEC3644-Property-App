@@ -10,7 +10,7 @@ class InboxViewModel: ObservableObject {
     private let apiClient: APIClient
     private let userViewModel = UserViewModel.shared
     @Published var chats: [Chat] = []
-    init(apiClient: APIClient = NetworkManager(), chats: [Chat] = []) {
+    init(apiClient: APIClient = NetworkManager.shared, chats: [Chat] = []) {
         self.chats = chats
         self.apiClient = apiClient
         if chats.isEmpty {

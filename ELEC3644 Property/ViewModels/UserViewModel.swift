@@ -15,7 +15,7 @@ class UserViewModel: ObservableObject {
     @Published var otherUsers: [User] = []
     @Published var agents: [User] = []
     @Published var userRole: UserRole = .guest
-    init(apiClient: APIClient = NetworkManager(), user: User? = nil) {
+    init(apiClient: APIClient = NetworkManager.shared, user: User? = nil) {
         self.apiClient = apiClient
         self.user.id = UUID(
             uuidString: UserDefaults.standard.string(forKey: "currentUserID") ?? defaultUUID)!
@@ -55,12 +55,14 @@ class UserViewModel: ObservableObject {
         }
     }
 
-    func updateUser(with data: [String: String]) async {
+    func updateUser(with data: [String: String]) async -> Bool {
         do {
             let _: User = try await apiClient.patch(url: "/users/\(currentUserId())", body: data)
             await fetchUser(with: currentUserId())
+            return true
         } catch {
             print("Error updating user data: \(error)")
+            return false
         }
     }
 
@@ -95,7 +97,7 @@ class UserViewModel: ObservableObject {
     }
 
     static func login(with email: String, password: String) async throws -> User {
-        let apiClient = NetworkManager()
+        let apiClient = NetworkManager.shared
         let data = ["email": email, "password": password]
         let user: User = try await apiClient.post(url: "/users/login", body: data)
         return user
@@ -109,7 +111,7 @@ class UserViewModel: ObservableObject {
     static func register(with name: String, email: String, phone: String, password: String)
         async throws -> User
     {
-        let apiClient = NetworkManager()
+        let apiClient = NetworkManager.shared
         let data = [
             "name": name, "email": email, "phone": phone, "password": password,
         ]
