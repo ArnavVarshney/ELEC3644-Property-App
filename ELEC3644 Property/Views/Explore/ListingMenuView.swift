@@ -7,6 +7,8 @@
 import SwiftUI
 
 struct ListingMenuView: View {
+    @EnvironmentObject private var viewModel: PropertyViewModel
+
     let properties: [Property]
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -18,6 +20,13 @@ struct ListingMenuView: View {
                 }
             }
         }
+        .refreshable {
+            await refreshData()
+        }
+    }
+
+    func refreshData() async {
+        await viewModel.fetchProperties()
     }
 }
 

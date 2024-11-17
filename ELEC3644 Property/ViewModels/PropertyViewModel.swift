@@ -11,6 +11,10 @@ class PropertyViewModel: ObservableObject {
     @Published var properties: [Property] = []
     init(apiClient: APIClient = NetworkManager()) {
         self.apiClient = apiClient
+        initTask()
+    }
+
+    func initTask() {
         Task {
             await fetchProperties()
         }
