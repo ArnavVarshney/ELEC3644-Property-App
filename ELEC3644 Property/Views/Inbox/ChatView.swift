@@ -26,22 +26,38 @@ struct ChatView: View {
 
     var body: some View {
         VStack {
-            ScrollView {
+            if groupedMessages.isEmpty {
                 Spacer()
-                ForEach(groupedMessages, id: \.key) { date, messages in
-                    DateHeader(date: date)
-                    ForEach(messages) { message in
-                        ChatBubble(
-                            message: message,
-                            isUser: message.senderId == userViewModel.currentUserId()
-                        )
-                        .transition(.opacity)
+                Image(systemName: "magnifyingglass")
+                    .font(.largeTitle)
+                    .padding()
+                Text("No messages found")
+                    .font(.footnote)
+                    .fontWeight(.bold)
+                    .padding(4)
+                Text("Try searching for something else.")
+                    .font(.footnote)
+                    .foregroundColor(.neutral60)
+                    .padding(4)
+                Spacer()
+            } else {
+                ScrollView {
+                    Spacer()
+                    ForEach(groupedMessages, id: \.key) { date, messages in
+                        DateHeader(date: date)
+                        ForEach(messages) { message in
+                            ChatBubble(
+                                message: message,
+                                isUser: message.senderId == userViewModel.currentUserId()
+                            )
+                            .transition(.opacity)
+                        }
                     }
                 }
+                .defaultScrollAnchor(.bottom)
+                .scrollIndicators(.hidden)
+                .animation(.default, value: searchText)
             }
-            .defaultScrollAnchor(.bottom)
-            .scrollIndicators(.hidden)
-            .animation(.default, value: searchText)
             HStack(alignment: .bottom) {
                 TextField("Type a message...", text: $newMessage, axis: .vertical)
                     .lineLimit(4)

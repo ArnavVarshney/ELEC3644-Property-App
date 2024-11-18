@@ -46,7 +46,7 @@ struct InboxView: View {
                             Image(systemName: "magnifyingglass")
                                 .font(.largeTitle)
                                 .padding()
-                            Text("No messages found")
+                            Text("No chats found")
                                 .font(.footnote)
                                 .fontWeight(.bold)
                                 .padding(4)
