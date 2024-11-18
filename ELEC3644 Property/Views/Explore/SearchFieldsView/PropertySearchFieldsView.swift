@@ -18,7 +18,7 @@ struct PropertySearchFieldsView: View {
     @State private var amenities: Set<String> = []
     @EnvironmentObject private var viewModel: PropertyViewModel
 
-    let propertyTypes = ["Any", "House", "Apartment", "Townhouse", "Villa"]
+    let propertyTypes = ["any", "house", "apartment", "townhouse", "villa"]
     let amenitiesList = ["parking", "pool", "gym", "elevator", "balcony", "pet-friendly"]
     let priceRange: ClosedRange<Double> = 0...1_000_000
 
@@ -45,7 +45,7 @@ struct PropertySearchFieldsView: View {
                             .padding(.bottom, 4)
                         Picker("Property Type", selection: $propertyType) {
                             ForEach(propertyTypes, id: \.self) {
-                                Text($0)
+                                Text(LocalizedStringKey($0.capitalized))
                             }
                         }
                         .pickerStyle(SegmentedPickerStyle())
@@ -90,7 +90,7 @@ struct PropertySearchFieldsView: View {
                                     Text("Any").tag("Any")
                                 }
                                 ForEach(Location.areas, id: \.self) {
-                                    Text($0)
+                                    Text(LocalizedStringKey($0))
                                 }
                             }.pickerStyle(.menu)
                         }
@@ -102,7 +102,7 @@ struct PropertySearchFieldsView: View {
                                     Text("Any").tag("Any")
                                 }
                                 ForEach(Location.districts[area] ?? [], id: \.self) {
-                                    Text($0)
+                                    Text(LocalizedStringKey($0))
                                 }
                             }
                             .disabled(area == "Any")
@@ -115,7 +115,7 @@ struct PropertySearchFieldsView: View {
                                     Text("Any").tag("Any")
                                 }
                                 ForEach(Location.subDistricts[district] ?? [], id: \.self) {
-                                    Text($0)
+                                    Text(LocalizedStringKey($0))
                                 }
                             }
                             .disabled(district == "Any")

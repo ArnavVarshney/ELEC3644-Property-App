@@ -1,0 +1,3365 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    ", " : {
+
+    },
+    ": " : {
+
+    },
+    "\"%@\"" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@\""
+          }
+        }
+      }
+    },
+    "@ %lld" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "@ %lld"
+          }
+        }
+      }
+    },
+    "%.2f" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%.2f"
+          }
+        }
+      }
+    },
+    "%@" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@"
+          }
+        }
+      }
+    },
+    "%@, %@" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@、%2$@"
+          }
+        }
+      }
+    },
+    "%@: " : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@："
+          }
+        }
+      }
+    },
+    "%@: %@ %@" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@：%2$@ %3$@"
+          }
+        }
+      }
+    },
+    "%@'s reviews" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@的評價"
+          }
+        }
+      }
+    },
+    "%lld" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld"
+          }
+        }
+      }
+    },
+    "%lld %@" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld %2$@"
+          }
+        }
+      }
+    },
+    "%lld Review%@" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld 則評價%2$@"
+          }
+        }
+      }
+    },
+    "%lld saved" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已儲存 %lld"
+          }
+        }
+      }
+    },
+    "%lldsqft" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld平方呎"
+          }
+        }
+      }
+    },
+    "$%@" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "$%@"
+          }
+        }
+      }
+    },
+    "$%lld HKD" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "港幣$%lld"
+          }
+        }
+      }
+    },
+    "20 year installments" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "20年分期"
+          }
+        }
+      }
+    },
+    "A place to view what you saved" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "查看已儲存項目"
+          }
+        }
+      }
+    },
+    "Aberdeen" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "香港仔"
+          }
+        }
+      }
+    },
+    "Accessibility" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無障礙"
+          }
+        }
+      }
+    },
+    "Account" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "帳戶"
+          }
+        }
+      }
+    },
+    "Add" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新增"
+          }
+        }
+      }
+    },
+    "Add Facility" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新增設施"
+          }
+        }
+      }
+    },
+    "Add New Facility" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新增設施"
+          }
+        }
+      }
+    },
+    "Add Photos" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新增相片"
+          }
+        }
+      }
+    },
+    "Address" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "地址"
+          }
+        }
+      }
+    },
+    "Admiralty" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "金鐘"
+          }
+        }
+      }
+    },
+    "Agent" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "代理"
+          }
+        }
+      }
+    },
+    "Agents" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "代理"
+          }
+        }
+      }
+    },
+    "Allow Notifications" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "允許通知"
+          }
+        }
+      }
+    },
+    "Amenities" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "設施"
+          }
+        }
+      }
+    },
+    "any" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "任何"
+          }
+        }
+      }
+    },
+    "Any" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "任何"
+          }
+        }
+      }
+    },
+    "Ap Lei Chau" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "鴨脷洲"
+          }
+        }
+      }
+    },
+    "apartment" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "公寓"
+          }
+        }
+      }
+    },
+    "Are you sure you want to log out?" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "確定要登出嗎？"
+          }
+        }
+      }
+    },
+    "Area" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "面積"
+          }
+        }
+      }
+    },
+    "Area (sq ft)" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "面積（平方呎）"
+          }
+        }
+      }
+    },
+    "Balcony" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "陽台"
+          }
+        }
+      }
+    },
+    "Beacon Hill" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "筆架山"
+          }
+        }
+      }
+    },
+    "Braemar Hill" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "寶馬山"
+          }
+        }
+      }
+    },
+    "Building Age" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "樓齡"
+          }
+        }
+      }
+    },
+    "Building Direction" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "座向"
+          }
+        }
+      }
+    },
+    "Buy" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "購買"
+          }
+        }
+      }
+    },
+    "Call" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "致電"
+          }
+        }
+      }
+    },
+    "Cancel" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取消"
+          }
+        }
+      }
+    },
+    "Causeway Bay" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "銅鑼灣"
+          }
+        }
+      }
+    },
+    "Central" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "中環"
+          }
+        }
+      }
+    },
+    "Central and Western" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "中西區"
+          }
+        }
+      }
+    },
+    "Chai Wan" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "柴灣"
+          }
+        }
+      }
+    },
+    "Cheung Chau" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "長洲"
+          }
+        }
+      }
+    },
+    "Cheung Muk Tau" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "樟木頭"
+          }
+        }
+      }
+    },
+    "Cheung Sha Wan" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "長沙灣"
+          }
+        }
+      }
+    },
+    "Chung Hom Kok" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "舂坎角"
+          }
+        }
+      }
+    },
+    "Clear Water Bay" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "清水灣"
+          }
+        }
+      }
+    },
+    "Compare 2 items" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "比較2個項目"
+          }
+        }
+      }
+    },
+    "Compare your wishes" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "比較心儀項目"
+          }
+        }
+      }
+    },
+    "Confirm Logout" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "確認登出"
+          }
+        }
+      }
+    },
+    "Copy" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "複製"
+          }
+        }
+      }
+    },
+    "Date" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "日期"
+          }
+        }
+      }
+    },
+    "Description" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "描述"
+          }
+        }
+      }
+    },
+    "Diamond Hill" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "鑽石山"
+          }
+        }
+      }
+    },
+    "District" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "地區"
+          }
+        }
+      }
+    },
+    "District | MTR | School Net | University | Estate" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "地區｜港鐵｜校網｜大學｜屋苑"
+          }
+        }
+      }
+    },
+    "Don't have an account?" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "還沒有帳戶？"
+          }
+        }
+      }
+    },
+    "Eastern" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "東區"
+          }
+        }
+      }
+    },
+    "Edit" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "編輯"
+          }
+        }
+      }
+    },
+    "Elevator" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "電梯"
+          }
+        }
+      }
+    },
+    "Email" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "電郵"
+          }
+        }
+      }
+    },
+    "English" : {
+
+    },
+    "Enter album name" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "輸入相簿名稱"
+          }
+        }
+      }
+    },
+    "Error" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "錯誤"
+          }
+        }
+      }
+    },
+    "Estate" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "屋苑"
+          }
+        }
+      }
+    },
+    "Estate Type" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "屋苑類型"
+          }
+        }
+      }
+    },
+    "Existing Facilities" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "現有設施"
+          }
+        }
+      }
+    },
+    "Explore" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "探索"
+          }
+        }
+      }
+    },
+    "Facilities" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "設施"
+          }
+        }
+      }
+    },
+    "Fanling" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "粉嶺"
+          }
+        }
+      }
+    },
+    "Fo Tan" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "火炭"
+          }
+        }
+      }
+    },
+    "Folders" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "資料夾"
+          }
+        }
+      }
+    },
+    "Full name" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "姓名"
+          }
+        }
+      }
+    },
+    "GFA %lld ft²" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "建築面積 %lld 平方呎"
+          }
+        }
+      }
+    },
+    "Gross Floor Area" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "建築面積"
+          }
+        }
+      }
+    },
+    "Gross Floor Area/Sqft" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "總建築面積/平方英尺"
+          }
+        }
+      }
+    },
+    "Guest" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "訪客"
+          }
+        }
+      }
+    },
+    "Gym" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "健身房"
+          }
+        }
+      }
+    },
+    "Ha Tsuen" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "廈村"
+          }
+        }
+      }
+    },
+    "Hang Hau" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "坑口"
+          }
+        }
+      }
+    },
+    "Happy Valley" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "跑馬地"
+          }
+        }
+      }
+    },
+    "HK Island" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "香港島"
+          }
+        }
+      }
+    },
+    "HKD" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "港幣"
+          }
+        }
+      }
+    },
+    "HKD %lld" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "港幣 %lld"
+          }
+        }
+      }
+    },
+    "Ho Man Tin" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "何文田"
+          }
+        }
+      }
+    },
+    "Host" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "業主"
+          }
+        }
+      }
+    },
+    "House" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "房子"
+          }
+        }
+      }
+    },
+    "Hung Hom" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "紅磡"
+          }
+        }
+      }
+    },
+    "Hung Shui Kiu" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "洪水橋"
+          }
+        }
+      }
+    },
+    "Inbox" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "收件匣"
+          }
+        }
+      }
+    },
+    "Islands" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "離島"
+          }
+        }
+      }
+    },
+    "It's easy to start hosting and earn extra income" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "輕鬆成為業主，賺取額外收入"
+          }
+        }
+      }
+    },
+    "Jardine's Lookout" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "渣甸山"
+          }
+        }
+      }
+    },
+    "Jordan Valley" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "佐敦谷"
+          }
+        }
+      }
+    },
+    "Kai Tak" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "啟德"
+          }
+        }
+      }
+    },
+    "Kam Tin" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "錦田"
+          }
+        }
+      }
+    },
+    "Kei Ling Ha" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "企嶺下"
+          }
+        }
+      }
+    },
+    "Kennedy Town" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "堅尼地城"
+          }
+        }
+      }
+    },
+    "Key" : {
+      "extractionState" : "manual"
+    },
+    "Key 1" : {
+      "extractionState" : "manual"
+    },
+    "King's Park" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "京士柏"
+          }
+        }
+      }
+    },
+    "Kowloon" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "九龍"
+          }
+        }
+      }
+    },
+    "Kowloon Bay" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "九龍灣"
+          }
+        }
+      }
+    },
+    "Kowloon City" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "九龍城"
+          }
+        }
+      }
+    },
+    "Kowloon Tong" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "九龍塘"
+          }
+        }
+      }
+    },
+    "Kwai Chung" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "葵涌"
+          }
+        }
+      }
+    },
+    "Kwai Tsing" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "葵青"
+          }
+        }
+      }
+    },
+    "Kwun Tong" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "觀塘"
+          }
+        }
+      }
+    },
+    "Lai Chi Kok" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "荔枝角"
+          }
+        }
+      }
+    },
+    "Lam Tei" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "藍地"
+          }
+        }
+      }
+    },
+    "Lam Tin" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "藍田"
+          }
+        }
+      }
+    },
+    "Lamma Island" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "南丫島"
+          }
+        }
+      }
+    },
+    "Language" : {
+
+    },
+    "Languages" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "語言"
+          }
+        }
+      }
+    },
+    "Lantau Island" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "大嶼山"
+          }
+        }
+      }
+    },
+    "Lau Fau Shan" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "流浮山"
+          }
+        }
+      }
+    },
+    "Lease" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "租約"
+          }
+        }
+      }
+    },
+    "Lei Muk Shue" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "梨木樹"
+          }
+        }
+      }
+    },
+    "Lei Yue Mun" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "鯉魚門"
+          }
+        }
+      }
+    },
+    "List a Property" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "刊登物業"
+          }
+        }
+      }
+    },
+    "List your property" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "刊登您的物業"
+          }
+        }
+      }
+    },
+    "Listings" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "物業列表"
+          }
+        }
+      }
+    },
+    "Location" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "位置"
+          }
+        }
+      }
+    },
+    "Log in" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登入"
+          }
+        }
+      }
+    },
+    "Log in to see messages" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登入以查看訊息"
+          }
+        }
+      }
+    },
+    "Log in to view your wishlists" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登入以查看您的收藏"
+          }
+        }
+      }
+    },
+    "Log out" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登出"
+          }
+        }
+      }
+    },
+    "Login" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登入"
+          }
+        }
+      }
+    },
+    "Login & Security" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登入與安全"
+          }
+        }
+      }
+    },
+    "Login Failed" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登入失敗"
+          }
+        }
+      }
+    },
+    "Login to start exploring. " : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登入以開始探索。"
+          }
+        }
+      }
+    },
+    "Lok Fu" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "樂富"
+          }
+        }
+      }
+    },
+    "Lok Ma Chau" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "落馬洲"
+          }
+        }
+      }
+    },
+    "Look at what you had in mind" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "查看您的心儀項目"
+          }
+        }
+      }
+    },
+    "Luen Wo Hui" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "聯和墟"
+          }
+        }
+      }
+    },
+    "Luk Keng" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "鹿頸"
+          }
+        }
+      }
+    },
+    "Ma Liu Shui" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "馬料水"
+          }
+        }
+      }
+    },
+    "Ma On Shan" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "馬鞍山"
+          }
+        }
+      }
+    },
+    "Ma Tau Kok" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "馬頭角"
+          }
+        }
+      }
+    },
+    "Ma Tau Wai" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "馬頭圍"
+          }
+        }
+      }
+    },
+    "Ma Wan" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "馬灣"
+          }
+        }
+      }
+    },
+    "Ma Yau Tong" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "馬游塘"
+          }
+        }
+      }
+    },
+    "Map" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "地圖"
+          }
+        }
+      }
+    },
+    "Max: %lld" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "最高：%lld"
+          }
+        }
+      }
+    },
+    "Measure" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "量度"
+          }
+        }
+      }
+    },
+    "Mei Foo" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "美孚"
+          }
+        }
+      }
+    },
+    "Message" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "訊息"
+          }
+        }
+      }
+    },
+    "Messages" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "訊息"
+          }
+        }
+      }
+    },
+    "Mid-levels" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "半山區"
+          }
+        }
+      }
+    },
+    "Min: %lld" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "最低：%lld"
+          }
+        }
+      }
+    },
+    "Mong Kok" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "旺角"
+          }
+        }
+      }
+    },
+    "MTR info?" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "港鐵資訊？"
+          }
+        }
+      }
+    },
+    "Name" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "名稱"
+          }
+        }
+      }
+    },
+    "Net Price" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "實價"
+          }
+        }
+      }
+    },
+    "New Territories" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新界"
+          }
+        }
+      }
+    },
+    "Next" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "下一步"
+          }
+        }
+      }
+    },
+    "Ngau Chi Wan" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "牛池灣"
+          }
+        }
+      }
+    },
+    "Ngau Tau Kok" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "牛頭角"
+          }
+        }
+      }
+    },
+    "No facilities have been added yet." : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "尚未新增任何設施。"
+          }
+        }
+      }
+    },
+    "No Look Around Scene Available" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "暫無環景圖"
+          }
+        }
+      }
+    },
+    "North" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "北區"
+          }
+        }
+      }
+    },
+    "North Point" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "北角"
+          }
+        }
+      }
+    },
+    "Nothing to view or compare" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "沒有可查看或比較的項目"
+          }
+        }
+      }
+    },
+    "Notifications" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通知"
+          }
+        }
+      }
+    },
+    "OK" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "確定"
+          }
+        }
+      }
+    },
+    "Once you login, you'll find messages here." : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登入後您可在此查看訊息。"
+          }
+        }
+      }
+    },
+    "Parking" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "停車處\n"
+          }
+        }
+      }
+    },
+    "Password" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "密碼"
+          }
+        }
+      }
+    },
+    "Pat Heung" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "八鄉"
+          }
+        }
+      }
+    },
+    "Peak" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "山頂"
+          }
+        }
+      }
+    },
+    "Peng Chau" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "坪洲"
+          }
+        }
+      }
+    },
+    "Personal Info" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "個人資料"
+          }
+        }
+      }
+    },
+    "Personal Information" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "個人資訊"
+          }
+        }
+      }
+    },
+    "Pet-Friendly" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "寵物友善"
+          }
+        }
+      }
+    },
+    "Phone" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "電話"
+          }
+        }
+      }
+    },
+    "Pick an album name" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "選擇相簿名稱"
+          }
+        }
+      }
+    },
+    "Ping Shek" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "坪石"
+          }
+        }
+      }
+    },
+    "Pok Fu Lam" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "薄扶林"
+          }
+        }
+      }
+    },
+    "Pool" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "游泳池"
+          }
+        }
+      }
+    },
+    "Previous" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "上一步"
+          }
+        }
+      }
+    },
+    "Price (HKD)" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "價格（港幣）"
+          }
+        }
+      }
+    },
+    "Price per sq ft" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "呎價"
+          }
+        }
+      }
+    },
+    "Price Range" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "價格範圍"
+          }
+        }
+      }
+    },
+    "Primary School Net" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "小學校網"
+          }
+        }
+      }
+    },
+    "Profile" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "個人檔案"
+          }
+        }
+      }
+    },
+    "Property Comparison" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "物業比較"
+          }
+        }
+      }
+    },
+    "Property Information" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "物業資料"
+          }
+        }
+      }
+    },
+    "Property Name" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "物業名稱"
+          }
+        }
+      }
+    },
+    "Property Type" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "物業類型"
+          }
+        }
+      }
+    },
+    "Quarry Bay" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "鰂魚涌"
+          }
+        }
+      }
+    },
+    "Rating" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "評分"
+          }
+        }
+      }
+    },
+    "Rating:" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "評分："
+          }
+        }
+      }
+    },
+    "Remove %lld item%@" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "移除 %1$lld 個項目%2$@"
+          }
+        }
+      }
+    },
+    "Remove %lld item%@ " : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove %1$lld item%2$@ "
+          }
+        }
+      }
+    },
+    "Rent" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "租金"
+          }
+        }
+      }
+    },
+    "Repulse Bay" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "淺水灣"
+          }
+        }
+      }
+    },
+    "Request" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "請求"
+          }
+        }
+      }
+    },
+    "Reviews" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "評價"
+          }
+        }
+      }
+    },
+    "S.A %lld ft²" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "實用面積 %lld 平方呎"
+          }
+        }
+      }
+    },
+    "Sai Kung" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "西貢"
+          }
+        }
+      }
+    },
+    "Sai Wan Ho" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "西灣河"
+          }
+        }
+      }
+    },
+    "Sai Ying Pun" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "西營盤"
+          }
+        }
+      }
+    },
+    "Saleable Area" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "實用面積"
+          }
+        }
+      }
+    },
+    "Saleable Area/Sqft" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "實用面積/平方呎"
+          }
+        }
+      }
+    },
+    "San Po Kong" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新蒲崗"
+          }
+        }
+      }
+    },
+    "San Tin" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新田"
+          }
+        }
+      }
+    },
+    "Sau Mau Ping" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "秀茂坪"
+          }
+        }
+      }
+    },
+    "Save" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "儲存"
+          }
+        }
+      }
+    },
+    "School Net" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "校網"
+          }
+        }
+      }
+    },
+    "Search" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "搜尋"
+          }
+        }
+      }
+    },
+    "Secondary School Net" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "中學校網"
+          }
+        }
+      }
+    },
+    "Select" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "選擇"
+          }
+        }
+      }
+    },
+    "Select Area" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "選擇地區"
+          }
+        }
+      }
+    },
+    "Select District" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "選擇地區"
+          }
+        }
+      }
+    },
+    "Select Sub-District" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "選擇分區"
+          }
+        }
+      }
+    },
+    "Settings" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "設定"
+          }
+        }
+      }
+    },
+    "Sha Tau Kok" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "沙頭角"
+          }
+        }
+      }
+    },
+    "Sha Tin" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "沙田"
+          }
+        }
+      }
+    },
+    "Sham Shui Po" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "深水埗"
+          }
+        }
+      }
+    },
+    "Sham Tseng" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "深井"
+          }
+        }
+      }
+    },
+    "Shau Kei Wan" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "筲箕灣"
+          }
+        }
+      }
+    },
+    "Shek Kip Mei" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "石硤尾"
+          }
+        }
+      }
+    },
+    "Shek Kong" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "石崗"
+          }
+        }
+      }
+    },
+    "Shek O" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "石澳"
+          }
+        }
+      }
+    },
+    "Shek Tong Tsui" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "石塘咀"
+          }
+        }
+      }
+    },
+    "Shek Wu Hui" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "石湖墟"
+          }
+        }
+      }
+    },
+    "Sheung Shui" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "上水"
+          }
+        }
+      }
+    },
+    "Sheung Wan" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "上環"
+          }
+        }
+      }
+    },
+    "Shouson Hill" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "壽臣山"
+          }
+        }
+      }
+    },
+    "Show all %lld reviews" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "顯示全部 %lld 則評價"
+          }
+        }
+      }
+    },
+    "Show profile" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "顯示個人檔案"
+          }
+        }
+      }
+    },
+    "Shuen Wan" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "船灣"
+          }
+        }
+      }
+    },
+    "Sign Out" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登出"
+          }
+        }
+      }
+    },
+    "Sign up" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "註冊"
+          }
+        }
+      }
+    },
+    "Siu Sai Wan" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "小西灣"
+          }
+        }
+      }
+    },
+    "So Kon Po" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "掃桿埔"
+          }
+        }
+      }
+    },
+    "So Kwun Wat" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "掃管笏"
+          }
+        }
+      }
+    },
+    "Southern" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "南區"
+          }
+        }
+      }
+    },
+    "Specializations" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "專業領域"
+          }
+        }
+      }
+    },
+    "Stanley" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "赤柱"
+          }
+        }
+      }
+    },
+    "Stonecutters Island" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "昂船洲"
+          }
+        }
+      }
+    },
+    "Sub-district" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "分區"
+          }
+        }
+      }
+    },
+    "Sub-District" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "分區"
+          }
+        }
+      }
+    },
+    "Subdistrict" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "分區"
+          }
+        }
+      }
+    },
+    "Submit" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "提交"
+          }
+        }
+      }
+    },
+    "Submit Review" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "提交評價"
+          }
+        }
+      }
+    },
+    "Sunny Bay" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "欣澳"
+          }
+        }
+      }
+    },
+    "Switch to exploring" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "切換至瀏覽模式"
+          }
+        }
+      }
+    },
+    "Switch to hosting" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "切換至託管模式"
+          }
+        }
+      }
+    },
+    "Switching to exploring" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在切換至瀏覽模式"
+          }
+        }
+      }
+    },
+    "Switching to hosting" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在切換至託管模式"
+          }
+        }
+      }
+    },
+    "Tai Hang" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "大坑"
+          }
+        }
+      }
+    },
+    "Tai Kok Tsui" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "大角咀"
+          }
+        }
+      }
+    },
+    "Tai Lam Chung" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "大欖涌"
+          }
+        }
+      }
+    },
+    "Tai Mei Tuk" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "大美督"
+          }
+        }
+      }
+    },
+    "Tai Mong Tsai" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "大網仔"
+          }
+        }
+      }
+    },
+    "Tai Po" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "大埔"
+          }
+        }
+      }
+    },
+    "Tai Po Kau" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "大埔滘"
+          }
+        }
+      }
+    },
+    "Tai Po Market" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "大埔墟"
+          }
+        }
+      }
+    },
+    "Tai Tam" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "大潭"
+          }
+        }
+      }
+    },
+    "Tai Wai" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "大圍"
+          }
+        }
+      }
+    },
+    "Tai Wo Ping" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "大窩坪"
+          }
+        }
+      }
+    },
+    "Tel: %@" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "電話：%@"
+          }
+        }
+      }
+    },
+    "This wishlist is empty" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "願望清單是空的"
+          }
+        }
+      }
+    },
+    "Tin Hau" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "天后"
+          }
+        }
+      }
+    },
+    "Tin Shui Wai" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "天水圍"
+          }
+        }
+      }
+    },
+    "Ting Kau" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "汀九"
+          }
+        }
+      }
+    },
+    "Tiu Keng Leng" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "調景嶺"
+          }
+        }
+      }
+    },
+    "To Kwa Wan" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "土瓜灣"
+          }
+        }
+      }
+    },
+    "Townhouse" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "聯排別墅"
+          }
+        }
+      }
+    },
+    "Transaction" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "交易"
+          }
+        }
+      }
+    },
+    "Transaction History" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "交易記錄"
+          }
+        }
+      }
+    },
+    "Translate" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "翻譯"
+          }
+        }
+      }
+    },
+    "Try to pick and choose from your displayed wishlist" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "試試從顯示的願望清單中挑選"
+          }
+        }
+      }
+    },
+    "Tseung Kwan O" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "將軍澳"
+          }
+        }
+      }
+    },
+    "Tsim Sha Tsui" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "尖沙咀"
+          }
+        }
+      }
+    },
+    "Tsing Lung Tau" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "青龍頭"
+          }
+        }
+      }
+    },
+    "Tsing Yi" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "青衣"
+          }
+        }
+      }
+    },
+    "Tsuen Wan" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "荃灣"
+          }
+        }
+      }
+    },
+    "Tsz Wan Shan" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "慈雲山"
+          }
+        }
+      }
+    },
+    "Tuen Mun" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "屯門"
+          }
+        }
+      }
+    },
+    "Tung Chung" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "東涌"
+          }
+        }
+      }
+    },
+    "Tung Tau" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "東頭"
+          }
+        }
+      }
+    },
+    "Type a message..." : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "輸入訊息..."
+          }
+        }
+      }
+    },
+    "Unit" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "單位"
+          }
+        }
+      }
+    },
+    "Villa" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "別墅"
+          }
+        }
+      }
+    },
+    "VR View" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "VR 視圖"
+          }
+        }
+      }
+    },
+    "Wan Chai" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "灣仔"
+          }
+        }
+      }
+    },
+    "Wang Tau Hom" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "橫頭磡"
+          }
+        }
+      }
+    },
+    "Warning" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "警告"
+          }
+        }
+      }
+    },
+    "Welcome back, %@!" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "歡迎回來，%@！"
+          }
+        }
+      }
+    },
+    "West Kowloon Reclamation" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "西九龍填海區"
+          }
+        }
+      }
+    },
+    "When you create a new wishlist, it will appear here." : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "當你建立新的願望清單時，它會顯示在這裡。"
+          }
+        }
+      }
+    },
+    "When you receive a new message, it will appear here." : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "當你收到新訊息時，它會顯示在這裡。"
+          }
+        }
+      }
+    },
+    "Wishlist - %@" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "願望清單 - %@"
+          }
+        }
+      }
+    },
+    "Wishlists" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "願望清單"
+          }
+        }
+      }
+    },
+    "Wong Chuk Hang" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "黃竹坑"
+          }
+        }
+      }
+    },
+    "Wong Tai Sin" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "黃大仙"
+          }
+        }
+      }
+    },
+    "Write a review" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "撰寫評價"
+          }
+        }
+      }
+    },
+    "Write your review here..." : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在此撰寫你的評價..."
+          }
+        }
+      }
+    },
+    "Wu Kai Sha" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "烏溪沙"
+          }
+        }
+      }
+    },
+    "Wu Kau Tang" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "烏蛟騰"
+          }
+        }
+      }
+    },
+    "Yau Ma Tei" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "油麻地"
+          }
+        }
+      }
+    },
+    "Yau Tong" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "油塘"
+          }
+        }
+      }
+    },
+    "Yau Tsim Mong" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "油尖旺"
+          }
+        }
+      }
+    },
+    "Yau Yat Tsuen" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "又一村"
+          }
+        }
+      }
+    },
+    "Year Built" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "建造年份"
+          }
+        }
+      }
+    },
+    "Years of Experience" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "工作經驗"
+          }
+        }
+      }
+    },
+    "You can create, view, or edit wishlists once you've logged in." : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登入後即可建立、查看或編輯願望清單。"
+          }
+        }
+      }
+    },
+    "You don't have any messages" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "你沒有任何訊息"
+          }
+        }
+      }
+    },
+    "You don't have any wishlists" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "你沒有任何願望清單"
+          }
+        }
+      }
+    },
+    "You must restart the app for the changes to take effect" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "您必須重新啟動應用程式才能使變更生效"
+          }
+        }
+      }
+    },
+    "You removed everything here. Go back to browsing!" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "你已清空所有內容。返回瀏覽吧！"
+          }
+        }
+      }
+    },
+    "Your listings" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "你的物業列表"
+          }
+        }
+      }
+    },
+    "Yuen Long" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "元朗"
+          }
+        }
+      }
+    },
+    "繁體中文" : {
+
+    }
+  },
+  "version" : "1.0"
+}

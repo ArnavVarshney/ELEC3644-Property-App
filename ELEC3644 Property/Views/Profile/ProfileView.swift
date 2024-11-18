@@ -189,7 +189,7 @@ struct SettingsList: View {
                             .scaledToFit()
                             .frame(width: 24, height: 24)
                             .foregroundColor(.black)
-                        Text(items[index].title)
+                        Text(LocalizedStringKey(items[index].title))
                             .font(.footnote)
                             .foregroundColor(.black)
                         Spacer()

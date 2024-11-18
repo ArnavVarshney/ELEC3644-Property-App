@@ -6,7 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		AB3F8CA02CEAFAF300677B98 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = AB3F8C9F2CEAFAF300677B98 /* Localizable.xcstrings */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
+		AB3F8C9F2CEAFAF300677B98 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		ABB22F952CB653F900768C9A /* ELEC3644 Property.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ELEC3644 Property.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -32,6 +37,7 @@
 		ABB22F8C2CB653F900768C9A = {
 			isa = PBXGroup;
 			children = (
+				AB3F8C9F2CEAFAF300677B98 /* Localizable.xcstrings */,
 				ABB22F972CB653F900768C9A /* ELEC3644 Property */,
 				ABB22F962CB653F900768C9A /* Products */,
 			);
@@ -91,6 +97,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-HK",
 			);
 			mainGroup = ABB22F8C2CB653F900768C9A;
 			minimizedProjectReferenceProxies = 1;
@@ -109,6 +116,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB3F8CA02CEAFAF300677B98 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,6 +194,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -244,6 +253,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

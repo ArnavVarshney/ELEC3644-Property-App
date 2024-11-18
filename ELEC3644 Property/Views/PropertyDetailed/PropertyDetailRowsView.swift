@@ -10,8 +10,11 @@ struct PropertyDetailRowsView: View {
     let details: [(String, String)]
     var body: some View {
         ForEach(details, id: \.0) { detail in
-            HStack {
-                Text("\(detail.0): ")
+            HStack(alignment: .center, spacing: 0) {
+                Text(LocalizedStringKey(detail.0))
+                    .font(.system(size: 14, weight: .regular))
+                    .foregroundColor(.neutral70)
+                Text(": ")
                     .font(.system(size: 14, weight: .regular))
                     .foregroundColor(.neutral70)
                 Spacer()

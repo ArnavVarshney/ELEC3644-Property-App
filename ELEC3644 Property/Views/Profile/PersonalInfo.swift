@@ -184,7 +184,7 @@ struct InfoItemRow: View {
     var body: some View {
         VStack {
             HStack(spacing: 15) {
-                Text(item.name)
+                Text(LocalizedStringKey(item.name))
                     .font(.footnote)
                     .fontWeight(.semibold)
                     .foregroundColor(.black)

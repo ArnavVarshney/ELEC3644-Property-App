@@ -14,7 +14,7 @@ struct MenuItemView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 24, height: 24)
-            Text(item.rawValue)
+            Text(LocalizedStringKey(item.rawValue))
                 .font(.system(size: 12, weight: .medium))
         }
         .padding(.all, 8)
