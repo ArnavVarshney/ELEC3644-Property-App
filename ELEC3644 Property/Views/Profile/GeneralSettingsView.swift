@@ -28,7 +28,7 @@ struct GeneralSettingsView: View {
                 }
                 .pickerStyle(SegmentedPickerStyle())
                 .padding(.top, 3)
-                .onChange(of: lang) { _ in
+                .onChange(of: lang) {
                     UserDefaults.standard.set([lang], forKey: "AppleLanguages")
                     showAlert = true
                 }

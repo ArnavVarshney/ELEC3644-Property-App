@@ -86,7 +86,7 @@ struct ProfileView: View {
                             destination: AnyView(LoginSecurityView()),
                             iconName: "shield.righthalf.filled", title: "Login & Security"),
                         SettingsItem(
-                            destination: AnyView(GeneralSettingsView()), iconName: "accessibility",
+                            destination: AnyView(AccessibilityView()), iconName: "accessibility",
                             title: "Accessibility"),
                     ])
                     Button {
@@ -161,13 +161,13 @@ struct ProfileView: View {
                             .fontWeight(.semibold)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.top, 24)
-                            .padding(.bottom, 12)
                         SettingsList(items: [
                             SettingsItem(
                                 destination: AnyView(GeneralSettingsView()), iconName: "gearshape",
                                 title: "General"),
                             SettingsItem(
-                                destination: AnyView(GeneralSettingsView()), iconName: "accessibility",
+                                destination: AnyView(AccessibilityView()),
+                                iconName: "accessibility",
                                 title: "Accessibility"),
                         ])
                         Spacer()
