@@ -33,12 +33,12 @@ struct EnlargeMapView_V2: View {
     @State private var propertySelection: UUID?  //for propertySelection using viewModel.propertyMapItems (that is a dict)
     @State var popUp_V2: Bool = true
     @State private var showLookAroundScene: Bool = false
-    
+
     //    @State var propertyLocations: [String: CLLocationCoordinate2D]
     var body: some View {
         NavigationStack {
             //Text(String(viewModel.properties.count))
-            ZStack{
+            ZStack {
                 Map(position: $camera, selection: $propertySelection) {
                     UserAnnotation()
 
@@ -66,7 +66,7 @@ struct EnlargeMapView_V2: View {
                                         .clipShape(RoundedRectangle(cornerRadius: 1))
                                 )
                             }
-                            .tag(property.id) // Set the tag for selection  !!!!!!!!!! Very Important, take me a while to find this bug. Or else, propertySelection will always be zero because user can select nothing by pressing property price bubble
+                            .tag(property.id)  // Set the tag for selection  !!!!!!!!!! Very Important, take me a while to find this bug. Or else, propertySelection will always be zero because user can select nothing by pressing property price bubble
                             .annotationTitles(.visible)
                         }
                     }
@@ -77,10 +77,14 @@ struct EnlargeMapView_V2: View {
                     MapScaleView()
                 }
                 .navigationTitle("Map")
-                
+
                 VStack(alignment: .center) {
                     Spacer()
-                    if popUp_V2, let selectedPropertyId = propertySelection, let selectedProperty = viewModel.properties.first(where:{$0.id == selectedPropertyId}) {
+                    if popUp_V2, let selectedPropertyId = propertySelection,
+                        let selectedProperty = viewModel.properties.first(where: {
+                            $0.id == selectedPropertyId
+                        })
+                    {
                         MapPopUpView(property: selectedProperty, popUp: $popUp_V2)
                             .frame(height: 270)
                             .padding(.bottom, 35)

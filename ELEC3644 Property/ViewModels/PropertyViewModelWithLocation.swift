@@ -14,7 +14,7 @@ class PropertyViewModelWithLocation: ObservableObject {
     private let apiClient: APIClient
     @Published var properties: [Property] = []
     private var propertyLocations: [String: CLLocationCoordinate2D] = [:]  // Dictionary to hold locations by name
-    private var propertyMapItems: [UUID: MKMapItem] = [:] // New dictionary for MKMapItem for properties[]
+    private var propertyMapItems: [UUID: MKMapItem] = [:]  // New dictionary for MKMapItem for properties[]
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -48,7 +48,7 @@ class PropertyViewModelWithLocation: ObservableObject {
                 // Create MKMapItem and store it in the mapItems dictionary
                 let placemark = MKPlacemark(coordinate: location, addressDictionary: nil)
                 let propertyMapItem = MKMapItem(placemark: placemark)
-                propertyMapItems[property.id] = propertyMapItem // Store the propertyMapItem using property name
+                propertyMapItems[property.id] = propertyMapItem  // Store the propertyMapItem using property name
             } else {
                 print("Could not geocode address for \(property.name): \(property.address)")
             }
@@ -84,9 +84,9 @@ class PropertyViewModelWithLocation: ObservableObject {
     func getLocation(for propertyName: String) -> CLLocationCoordinate2D? {  //retreive the CLLocationcoor2D if exist
         return propertyLocations[propertyName]
     }
-    
-    func getMapItem(for propertyId: UUID) -> MKMapItem? { // Retrieve the MKMapItem if it exists
+
+    func getMapItem(for propertyId: UUID) -> MKMapItem? {  // Retrieve the MKMapItem if it exists
         return propertyMapItems[propertyId]
-        }
+    }
 
 }
