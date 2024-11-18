@@ -13,7 +13,7 @@ struct PropertyDetailAgentView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Divider()
-            Text("Agent")
+            Text(userViewModel.isAgent(with: viewModel.property.agent) ? "Agent" : "Host")
                 .font(.system(size: 24, weight: .medium))
             HStack {
                 UserAvatarView(user: viewModel.property.agent, size: 64)
@@ -40,18 +40,20 @@ struct PropertyDetailAgentView: View {
                         .frame(maxWidth: .infinity)
                     }
                 )
-                Divider()
-                    .frame(height: 24)
-                NavigationLink(
-                    destination: ChatView(chat: chat()),
-                    label: {
-                        HStack {
-                            Image(systemName: "message")
-                            Text("Message")
+                if userViewModel.isLoggedIn() {
+                    Divider()
+                        .frame(height: 24)
+                    NavigationLink(
+                        destination: ChatView(chat: chat()),
+                        label: {
+                            HStack {
+                                Image(systemName: "message")
+                                Text("Message")
+                            }
+                            .frame(maxWidth: .infinity)
                         }
-                        .frame(maxWidth: .infinity)
-                    }
-                )
+                    )
+                }
             }
             .foregroundColor(.black)
         }
