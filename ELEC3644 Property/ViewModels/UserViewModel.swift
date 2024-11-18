@@ -26,9 +26,10 @@ class UserViewModel: ObservableObject {
 
     func initTask() {
         Task {
-            if isLoggedIn() {
-                await fetchUser(with: currentUserId())
-                await fetchWishlist()
+            await fetchUser(with: currentUserId())
+            await fetchWishlist()
+            if isAgent(with: user) {
+                userRole = .agent
             }
         }
     }
@@ -39,6 +40,10 @@ class UserViewModel: ObservableObject {
 
     func isLoggedIn() -> Bool {
         return currentUserId() != defaultUUID
+    }
+
+    func isAgent(with user: User) -> Bool {
+        return user.email.contains("agent")
     }
 
     func fetchUser(with id: String) async {
