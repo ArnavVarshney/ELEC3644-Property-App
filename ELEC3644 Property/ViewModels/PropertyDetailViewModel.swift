@@ -12,8 +12,8 @@ class PropertyDetailViewModel: ObservableObject {
     @Published var position: MapCameraPosition = .region(
         MKCoordinateRegion(
             center: CLLocationCoordinate2D(latitude: 0, longitude: 0),
-            latitudinalMeters: 1000,
-            longitudinalMeters: 1000
+            latitudinalMeters: 8000,
+            longitudinalMeters: 8000
         ))
     @Published var places: [MKMapItem] = []  // array storing
     @Published var property: Property

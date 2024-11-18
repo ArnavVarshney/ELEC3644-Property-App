@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "" : {
+
+    },
     ", " : {
 
     },
@@ -107,6 +110,9 @@
           }
         }
       }
+    },
+    "%lld properties on sale" : {
+
     },
     "%lld Review%@" : {
       "localizations" : {
@@ -293,6 +299,7 @@
       }
     },
     "Allow Notifications" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -354,6 +361,9 @@
           }
         }
       }
+    },
+    "Are you sure you want to deactivate?" : {
+
     },
     "Are you sure you want to log out?" : {
       "localizations" : {
@@ -588,6 +598,9 @@
         }
       }
     },
+    "Confirm Deactivate" : {
+
+    },
     "Confirm Logout" : {
       "localizations" : {
         "zh-HK" : {
@@ -597,6 +610,9 @@
           }
         }
       }
+    },
+    "Confirm Password" : {
+
     },
     "Copy" : {
       "localizations" : {
@@ -608,6 +624,9 @@
         }
       }
     },
+    "Current Password" : {
+
+    },
     "Date" : {
       "localizations" : {
         "zh-HK" : {
@@ -617,6 +636,12 @@
           }
         }
       }
+    },
+    "Deactivate" : {
+
+    },
+    "Deactivate your account" : {
+
     },
     "Description" : {
       "localizations" : {
@@ -712,7 +737,14 @@
       }
     },
     "English" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "英文"
+          }
+        }
+      }
     },
     "Enter album name" : {
       "localizations" : {
@@ -826,6 +858,9 @@
           }
         }
       }
+    },
+    "General" : {
+
     },
     "GFA %lld ft²" : {
       "localizations" : {
@@ -1233,7 +1268,14 @@
       }
     },
     "Language" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "語言"
+          }
+        }
+      }
     },
     "Languages" : {
       "localizations" : {
@@ -1442,6 +1484,9 @@
         }
       }
     },
+    "Look around scene" : {
+
+    },
     "Look at what you had in mind" : {
       "localizations" : {
         "zh-HK" : {
@@ -1549,6 +1594,12 @@
           }
         }
       }
+    },
+    "Map pan controls" : {
+
+    },
+    "Map zoom controls" : {
+
     },
     "Max: %lld" : {
       "localizations" : {
@@ -1658,10 +1709,13 @@
         "zh-HK" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "實價"
+            "value" : "價格"
           }
         }
       }
+    },
+    "New Password" : {
+
     },
     "New Territories" : {
       "extractionState" : "stale",
@@ -1759,6 +1813,7 @@
       }
     },
     "Notifications" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -1787,6 +1842,9 @@
           }
         }
       }
+    },
+    "Pan around the map with directional buttons" : {
+
     },
     "Parking" : {
       "extractionState" : "manual",
@@ -2257,6 +2315,9 @@
         }
       }
     },
+    "Security" : {
+
+    },
     "Select" : {
       "localizations" : {
         "zh-HK" : {
@@ -2482,6 +2543,7 @@
       }
     },
     "Sign Out" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -3044,6 +3106,9 @@
         }
       }
     },
+    "Update password" : {
+
+    },
     "Villa" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3357,7 +3422,10 @@
         }
       }
     },
-    "繁體中文" : {
+    "Zoom in and out with dedicated buttons" : {
+
+    },
+    "中文" : {
 
     }
   },
