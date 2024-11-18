@@ -161,6 +161,18 @@ struct InfoList: View {
     }
 }
 
+struct CustomTextFieldStyle: TextFieldStyle {
+    func _body(configuration: TextField<Self._Label>) -> some View {
+        configuration
+            .font(.footnote)
+            .padding(8)
+            .background(
+                RoundedRectangle(cornerRadius: 5)
+                    .stroke(Color.gray, lineWidth: 1)
+            )
+    }
+}
+
 struct InfoItemRow: View {
     let item: InfoItem
     let index: Int
@@ -168,18 +180,6 @@ struct InfoItemRow: View {
     @Binding var editingText: String
     @Binding var editingIndex: Int?
     var saveChanges: (Int, String) -> Void
-
-    struct CustomTextFieldStyle: TextFieldStyle {
-        func _body(configuration: TextField<Self._Label>) -> some View {
-            configuration
-                .font(.footnote)
-                .padding(8)
-                .background(
-                    RoundedRectangle(cornerRadius: 5)
-                        .stroke(Color.gray, lineWidth: 1)
-                )
-        }
-    }
 
     var body: some View {
         VStack {

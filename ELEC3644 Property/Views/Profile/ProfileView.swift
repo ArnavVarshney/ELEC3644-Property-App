@@ -80,7 +80,7 @@ struct ProfileView: View {
                             iconName: "person.crop.circle",
                             title: "Personal Information"),
                         SettingsItem(
-                            destination: AnyView(SettingsView()),
+                            destination: AnyView(LoginSecurityView()),
                             iconName: "shield.righthalf.filled", title: "Login & Security"),
                         SettingsItem(
                             destination: AnyView(SettingsView()), iconName: "accessibility",
