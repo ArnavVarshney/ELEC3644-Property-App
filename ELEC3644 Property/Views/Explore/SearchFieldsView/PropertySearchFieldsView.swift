@@ -17,11 +17,11 @@ struct PropertySearchFieldsView: View {
 
     @State private var amenities: Set<String> = []
     @EnvironmentObject private var viewModel: PropertyViewModel
-    
+
     let propertyTypes = ["Any", "House", "Apartment", "Townhouse", "Villa"]
     let amenitiesList = ["parking", "pool", "gym", "elevator", "balcony", "pet-friendly"]
     let priceRange: ClosedRange<Double> = 0...1_000_000
-    
+
     func onSubmit() {
         var requestBody = [String: String]()
         requestBody["netPrice"] = "([\"min\": lowerPrice, \"max\": upperPrice])"
@@ -30,12 +30,11 @@ struct PropertySearchFieldsView: View {
         requestBody["area"] = "\(area)"
         requestBody["district"] = "\(district)"
         requestBody["subDistrict"] = "\(subdistrict)"
-        
         Task {
             await viewModel.query(query: requestBody)
         }
     }
-    
+
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading) {
@@ -57,7 +56,7 @@ struct PropertySearchFieldsView: View {
                             .fontWeight(.semibold)
                             .padding(.bottom, 4)
                             .font(.headline)
-                        
+
                         VStack {
                             Text("Min: \(Int(lowerPrice))")
                             Slider(value: $lowerPrice, in: priceRange, step: 1000)
@@ -67,7 +66,7 @@ struct PropertySearchFieldsView: View {
                                     }
                                 }
                         }
-                        
+
                         VStack {
                             Text("Max: \(Int(upperPrice))")
                             Slider(value: $upperPrice, in: priceRange, step: 1000)
