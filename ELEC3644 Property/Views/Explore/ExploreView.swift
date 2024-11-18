@@ -22,7 +22,6 @@ struct ExploreView: View {
             .padding(.bottom, 12)
             .sheet(isPresented: $isSearchActive) {
                 SearchFieldsView(currentMenu: currentMenu)
-                    .presentationDetents([.height(620)])
             }
             ZStack {
                 GeometryReader { geometry in
@@ -83,6 +82,7 @@ struct ExploreView: View {
                         .background(.black)
                         .cornerRadius(36)
                         .padding(.vertical, 24)
+                        .ignoresSafeArea(.keyboard, edges: .bottom)
                     }
                 }
             }

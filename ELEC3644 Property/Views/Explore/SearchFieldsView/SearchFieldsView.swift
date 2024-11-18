@@ -15,10 +15,13 @@ struct SearchFieldsView: View {
                 switch currentMenu {
                 case .buy, .rent, .lease:
                     PropertySearchFieldsView()
+                        .presentationDetents([.height(740)])
                 case .estate:
                     EstateSearchFieldsView()
+                        .presentationDetents([.height(560)])
                 case .agents:
                     AgentSearchFieldsView()
+                        .presentationDetents([.height(560)])
                 default:
                     EmptyView()
                 }

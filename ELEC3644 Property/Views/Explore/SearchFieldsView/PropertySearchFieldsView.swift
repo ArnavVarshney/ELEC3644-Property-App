@@ -9,9 +9,12 @@ import SwiftUI
 struct PropertySearchFieldsView: View {
     @State private var lowerPrice: Double = 100_000
     @State private var upperPrice: Double = 500_000
-    @State private var bedrooms: Int = 1
-    @State private var bathrooms: Int = 1
     @State private var propertyType: String = "Any"
+
+    @State private var area: String = "Any"
+    @State private var district: String = "Any"
+    @State private var subdistrict: String = "Any"
+
     @State private var amenities: Set<String> = []
     @EnvironmentObject private var viewModel: PropertyViewModel
     
@@ -24,6 +27,9 @@ struct PropertySearchFieldsView: View {
         requestBody["netPrice"] = "([\"min\": lowerPrice, \"max\": upperPrice])"
         requestBody["propertyType"] = "\(propertyType)".lowercased()
         requestBody["amenities"] = "\(Array(amenities))"
+        requestBody["area"] = "\(area)"
+        requestBody["district"] = "\(district)"
+        requestBody["subDistrict"] = "\(subdistrict)"
         
         Task {
             await viewModel.query(query: requestBody)
@@ -73,6 +79,51 @@ struct PropertySearchFieldsView: View {
                         }
                     }
                     Divider()
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("Location")
+                            .fontWeight(.semibold)
+                            .padding(.bottom, 4)
+                        HStack {
+                            Text("Area")
+                            Spacer()
+                            Picker("Area", selection: $area) {
+                                if area == "Any" {
+                                    Text("Any").tag("Any")
+                                }
+                                ForEach(Location.areas, id: \.self) {
+                                    Text($0)
+                                }
+                            }.pickerStyle(.menu)
+                        }
+                        HStack {
+                            Text("District")
+                            Spacer()
+                            Picker("District", selection: $district) {
+                                if district == "Any" {
+                                    Text("Any").tag("Any")
+                                }
+                                ForEach(Location.districts[area] ?? [], id: \.self) {
+                                    Text($0)
+                                }
+                            }
+                            .disabled(area == "Any")
+                        }
+                        HStack {
+                            Text("Subdistrict")
+                            Spacer()
+                            Picker("Subdistrict", selection: $subdistrict) {
+                                if district == "Any" {
+                                    Text("Any").tag("Any")
+                                }
+                                ForEach(Location.subDistricts[district] ?? [], id: \.self) {
+                                    Text($0)
+                                }
+                            }
+                            .disabled(district == "Any")
+                        }
+                    }
+                    Divider()
+
                     VStack(alignment: .leading, spacing: 12) {
                         Text("Amenities")
                             .fontWeight(.semibold)
