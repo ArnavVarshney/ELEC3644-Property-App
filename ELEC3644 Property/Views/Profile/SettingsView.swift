@@ -20,7 +20,7 @@ struct SettingsView: View {
             }
             VStack(alignment: .leading) {
                 Text("Language").font(.system(size: 16, weight: .bold))
-                
+
                 Picker("Language", selection: $lang) {
                     Text("繁體中文").tag("zh-HK")
                     Text("English").tag("en")
@@ -29,7 +29,12 @@ struct SettingsView: View {
                     showAlert.toggle()
                 }
             }.alert(isPresented: $showAlert) {
-                Alert(title: Text(LocalizedStringKey("Warning")), message: Text(LocalizedStringKey("You must restart the app for the changes to take effect")), dismissButton: .default(Text("OK")))
+                Alert(
+                    title: Text(LocalizedStringKey("Warning")),
+                    message: Text(
+                        LocalizedStringKey(
+                            "You must restart the app for the changes to take effect")),
+                    dismissButton: .default(Text("OK")))
             }
             VStack(alignment: .leading) {
                 Text("Account").font(.system(size: 16, weight: .bold))
