@@ -5,7 +5,6 @@
 //  Created by Mak Yilam on 12/11/2024.
 //
 
-
 import Contacts
 import CoreLocation
 import MapKit
@@ -36,7 +35,7 @@ struct EnlargeMapView_V2: View {
     @State var popUp_V2: Bool = true
     @State private var showLookAroundScene: Bool = false
     @State private var propertyMapItem: MKMapItem?
-    
+
     //    @State var propertyLocations: [String: CLLocationCoordinate2D]
     var body: some View {
         NavigationStack {
@@ -46,7 +45,7 @@ struct EnlargeMapView_V2: View {
                     UserAnnotation()
                     ForEach(viewModel.properties, id: \.self) { property in
                         if let location = viewModel.getLocation(for: property.name) {
-//                            propertyMapItem = viewModel.getMapItem(for: property.id)
+                            //                            propertyMapItem = viewModel.getMapItem(for: property.id)
                             Annotation(property.name, coordinate: location) {
                                 HStack {
                                     Text(String(property.netPrice))
@@ -79,63 +78,66 @@ struct EnlargeMapView_V2: View {
                     MapUserLocationButton()
                     MapScaleView()
                 }
-//                .sheet(isPresented: $showLookAroundScene){
-//                    if let selectedPropertyId = propertySelection, let selectedProperty = viewModel.properties.first(where: { $0.id == selectedPropertyId }){
-//                        propertyMapItem = viewModel.getMapItem(for: selectedProperty.name) // Assign property map item
-//                        GetLookAroundScene(mapItem: propertyMapItem!)
-//                            .presentationDetents([.height(300)])
-//                            .presentationBackgroundInteraction(.enabled(upThrough: .height(300)))
-//                            .presentationCornerRadius(25)
-//                            .interactiveDismissDisabled(true)
-//                    }
-//                }
-                
+                //                .sheet(isPresented: $showLookAroundScene){
+                //                    if let selectedPropertyId = propertySelection, let selectedProperty = viewModel.properties.first(where: { $0.id == selectedPropertyId }){
+                //                        propertyMapItem = viewModel.getMapItem(for: selectedProperty.name) // Assign property map item
+                //                        GetLookAroundScene(mapItem: propertyMapItem!)
+                //                            .presentationDetents([.height(300)])
+                //                            .presentationBackgroundInteraction(.enabled(upThrough: .height(300)))
+                //                            .presentationCornerRadius(25)
+                //                            .interactiveDismissDisabled(true)
+                //                    }
+                //                }
+
                 VStack(alignment: .center) {
                     HStack {
                         Image(systemName: "house")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 24, height: 24)
-                            .foregroundColor(.black) // Change icon color to black
+                            .foregroundColor(.black)  // Change icon color to black
                         Text("\(viewModel.properties.count) properties on sale")
                             .font(.caption)
-                            .foregroundColor(.black) // Change text color to black
-//                            .padding(.vertical, 4)
-//                            .padding(.trailing, 4)
+                            .foregroundColor(.black)  // Change text color to black
+                        //                            .padding(.vertical, 4)
+                        //                            .padding(.trailing, 4)
                     }
-                    .background(Color.white) // Set background color to white
-                    .cornerRadius(10) // Add corner radius for rounded edges
-                    .padding() // Add padding around the HStack
+                    .background(Color.white)  // Set background color to white
+                    .cornerRadius(10)  // Add corner radius for rounded edges
+                    .padding()  // Add padding around the HStack
 
-                    Spacer() // Pushes content down from the top
+                    Spacer()  // Pushes content down from the top
                     if popUp_V2, let selectedPropertyId = propertySelection,
-                       let selectedProperty = viewModel.properties.first(where: {
-                           $0.id == selectedPropertyId
-                       }){
-                        ZStack{
-                            NavigationLink(destination: PropertyDetailView(property: selectedProperty)){
+                        let selectedProperty = viewModel.properties.first(where: {
+                            $0.id == selectedPropertyId
+                        })
+                    {
+                        ZStack {
+                            NavigationLink(
+                                destination: PropertyDetailView(property: selectedProperty)
+                            ) {
                                 MapPopUpView(property: selectedProperty, popUp: $popUp_V2)
                                     .frame(height: 270)
                                     .padding(.bottom, 35)
                                     .padding(.horizontal, 20)
                             }
-                            
-                            Button(action:{
+
+                            Button(action: {
                                 showLookAroundScene.toggle()
-                            }){
-                                HStack{
+                            }) {
+                                HStack {
                                     Image(systemName: "eyes")
-                                    // Use a globe symbol or any other relevant icon
+                                        // Use a globe symbol or any other relevant icon
                                         .resizable()
                                         .scaledToFit()
                                         .frame(width: 40, height: 40)
                                         .padding()
-                                    
+
                                     Text("Look around scene")
                                 }
-                                .background(Color.blue.opacity(0.7)) // Customize your color
+                                .background(Color.blue.opacity(0.7))  // Customize your color
                                 .foregroundColor(.white)
-                                .shadow(radius: 5) // Add shadow for
+                                .shadow(radius: 5)  // Add shadow for
                             }
                         }
                     }
@@ -143,11 +145,11 @@ struct EnlargeMapView_V2: View {
             }
         }
         .backButton()
-        .onChange(of: mapSelection){oldValue, newValue in
+        .onChange(of: mapSelection) { oldValue, newValue in
             showLookAroundScene = newValue != nil
             print(showLookAroundScene)
         }
-        
+
     }
 }
 
@@ -172,4 +174,3 @@ struct EnlargeMapView_V2: View {
 //    }
 //    return EnlargeMapView_V2_Preview()
 //}
-
