@@ -31,4 +31,12 @@ class InboxViewModel: ObservableObject {
             print("Error fetching chats data: \(error)")
         }
     }
+
+    func filteredChats(searchText: String) -> [Chat] {
+        if searchText.isEmpty {
+            return chats
+        } else {
+            return chats.filter { $0.user.name.lowercased().contains(searchText.lowercased()) }
+        }
+    }
 }

@@ -6,9 +6,24 @@
 //
 import SwiftUI
 
+struct SearchTextFieldStyle: TextFieldStyle {
+    func _body(configuration: TextField<Self._Label>) -> some View {
+        configuration
+            .font(.footnote)
+            .padding(8)
+            .padding(.horizontal, 12)
+            .background(
+                RoundedRectangle(cornerRadius: 36)
+                    .stroke(Color.black.opacity(0.7), lineWidth: 1)
+            )
+    }
+}
+
 struct InboxView: View {
     @EnvironmentObject var inboxData: InboxViewModel
     @EnvironmentObject var userViewModel: UserViewModel
+    @State private var isSearchBarVisible: Bool = false
+    @State private var searchText: String = ""
     var body: some View {
         NavigationStack {
             VStack {
@@ -26,15 +41,29 @@ struct InboxView: View {
                             .foregroundColor(.neutral60)
                             .padding(4)
                     } else {
-                        List(inboxData.chats) { chat in
-                            NavigationLink {
-                                ChatView(chat: chat)
-                                    .toolbar(.hidden, for: .tabBar)
-                            } label: {
-                                InboxItemView(user: chat.user, message: chat.messages.last!)
+                        if inboxData.filteredChats(searchText: searchText).isEmpty {
+                            Image(systemName: "magnifyingglass")
+                                .font(.largeTitle)
+                                .padding()
+                            Text("No messages found")
+                                .font(.footnote)
+                                .fontWeight(.bold)
+                                .padding(4)
+                            Text("Try searching for something else.")
+                                .font(.footnote)
+                                .foregroundColor(.neutral60)
+                                .padding(4)
+                        } else {
+                            List(inboxData.filteredChats(searchText: searchText)) { chat in
+                                NavigationLink {
+                                    ChatView(chat: chat)
+                                        .toolbar(.hidden, for: .tabBar)
+                                } label: {
+                                    InboxItemView(user: chat.user, message: chat.messages.last!)
+                                }
                             }
+                            .listStyle(InsetListStyle())
                         }
-                        .listStyle(InsetListStyle())
                     }
                 } else {
                     VStack(alignment: .leading) {
@@ -56,6 +85,41 @@ struct InboxView: View {
             }
             .background(.neutral10)
             .navigationTitle("Messages")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    if isSearchBarVisible {
+                        HStack {
+                            TextField("Search...", text: $searchText)
+                                .textFieldStyle(SearchTextFieldStyle())
+                                .frame(width: 300)
+                            Button(action: {
+                                searchText = ""
+                                isSearchBarVisible.toggle()
+                            }) {
+                                Image(systemName: "xmark")
+                                    .resizable()
+                                    .frame(width: 12, height: 12)
+                                    .foregroundColor(.black)
+                                    .padding(8)
+                                    .background(
+                                        Circle()
+                                            .fill(Color.white)
+                                    )
+                                    .addShadow()
+                            }
+                        }
+                        .transition(.move(edge: .trailing))
+                        .animation(.easeInOut, value: isSearchBarVisible)
+                    } else {
+                        Button(action: {
+                            isSearchBarVisible.toggle()
+                        }) {
+                            Image(systemName: "magnifyingglass")
+                                .foregroundColor(.black)
+                        }
+                    }
+                }
+            }
         }
     }
 }
