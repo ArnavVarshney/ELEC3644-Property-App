@@ -28,51 +28,79 @@ struct EnlargeMapView_V2: View {
     @State private var searchText: String = ""
     @State private var placemark: CLPlacemark?
     @State private var mapItem: MKMapItem?
-    @State private var mapSelection: Int?  // to identify which marker has been tapped
+    @State private var mapSelection: Int?  // to identify which marker has been tapped   //for search marker, implement it later
+    @State private var selectedPropertyId: UUID?  //no use?
+    @State private var propertySelection: UUID?  //for propertySelection using viewModel.propertyMapItems (that is a dict)
+    @State var popUp_V2: Bool = true
     @State private var showLookAroundScene: Bool = false
+    
     //    @State var propertyLocations: [String: CLLocationCoordinate2D]
     var body: some View {
         NavigationStack {
-            Text(String(viewModel.properties.count))
-            Map(position: $camera) {
-                UserAnnotation()
+            //Text(String(viewModel.properties.count))
+            ZStack{
+                Map(position: $camera, selection: $propertySelection) {
+                    UserAnnotation()
 
-                ForEach(viewModel.properties, id: \.self) { property in
-                    if let location = viewModel.getLocation(for: property.name) {
-                        Annotation(property.name, coordinate: location) {
-                            HStack {
-                                Text(String(property.netPrice))
-                                    .font(.callout)
-                                    .fontWeight(.bold)
-                                    .foregroundColor(Color.black)
-                                Text("HKD")
-                                    .font(.callout)
-                                    .fontWeight(.bold)
-                                    .foregroundColor(Color.black)
+                    ForEach(viewModel.properties, id: \.self) { property in
+                        if let location = viewModel.getLocation(for: property.name) {
+                            Annotation(property.name, coordinate: location) {
+                                HStack {
+                                    Text(String(property.netPrice))
+                                        .font(.callout)
+                                        .fontWeight(.bold)
+                                        .foregroundColor(Color.black)
+                                    Text("HKD")
+                                        .font(.callout)
+                                        .fontWeight(.bold)
+                                        .foregroundColor(Color.black)
+                                }
+                                .frame(width: 125, height: 25)
+                                .background(.white)
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                                .overlay(
+                                    Capsule()
+                                        .stroke(lineWidth: 0.5)
+                                        .foregroundColor(.white)
+                                        .addShadow()
+                                        .clipShape(RoundedRectangle(cornerRadius: 1))
+                                )
                             }
-                            .frame(width: 125, height: 25)
-                            .background(.white)
-                            .clipShape(RoundedRectangle(cornerRadius: 8))
-                            .overlay(
-                                Capsule()
-                                    .stroke(lineWidth: 0.5)
-                                    .foregroundColor(.white)
-                                    .addShadow()
-                                    .clipShape(RoundedRectangle(cornerRadius: 1))
-                            )
+                            .tag(property.id) // Set the tag for selection  !!!!!!!!!! Very Important, take me a while to find this bug. Or else, propertySelection will always be zero because user can select nothing by pressing property price bubble
+                            .annotationTitles(.visible)
                         }
-                        .annotationTitles(.visible)
                     }
-
                 }
-
+                .mapControls {
+                    MapCompass()
+                    MapUserLocationButton()
+                    MapScaleView()
+                }
+                .navigationTitle("Map")
+                
+                VStack(alignment: .center) {
+                    Spacer()
+                    if popUp_V2, let selectedPropertyId = propertySelection, let selectedProperty = viewModel.properties.first(where:{$0.id == selectedPropertyId}) {
+                        MapPopUpView(property: selectedProperty, popUp: $popUp_V2)
+                            .frame(height: 270)
+                            .padding(.bottom, 35)
+                            .padding(.horizontal, 20)
+                    }
+                    Button {
+                        popUp_V2.toggle()  // Show the PopUpView
+                        print(propertySelection)  //for debug
+                    } label: {
+                        Image(systemName: popUp_V2 ? "xmark" : "plus")  // Display xmark when popUp is true
+                            .foregroundStyle(.black)
+                            .background {
+                                Circle()
+                                    .fill(.white)
+                                    .frame(width: 50, height: 50)
+                            }
+                            .padding(.bottom, 20)
+                    }
+                }
             }
-            .mapControls {
-                MapCompass()
-                MapUserLocationButton()
-                MapScaleView()
-            }
-            .navigationTitle("Map")
         }
 
     }

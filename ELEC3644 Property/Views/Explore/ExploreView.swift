@@ -119,4 +119,5 @@ struct EstateMenuView: View {
         .environmentObject(PropertyViewModel())
         .environmentObject(UserViewModel())
         .environmentObject(AgentViewModel())
+        .environmentObject(PropertyViewModelWithLocation())
 }
