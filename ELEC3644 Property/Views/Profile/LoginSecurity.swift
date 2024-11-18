@@ -23,31 +23,24 @@ struct LoginSecurityView: View {
                     .font(.headline)
                     .fontWeight(.semibold)
                     .foregroundColor(.black)
-
                 Text(LocalizedStringKey("Current Password"))
                     .font(.footnote)
                     .foregroundColor(.black)
                     .padding(.top, 3)
-
                 SecureField("", text: $currentPassword)
                     .textFieldStyle(CustomTextFieldStyle())
-
                 Text(LocalizedStringKey("New Password"))
                     .font(.footnote)
                     .foregroundColor(.black)
                     .padding(.top)
-
                 SecureField("", text: $newPassword)
                     .textFieldStyle(CustomTextFieldStyle())
-
                 Text(LocalizedStringKey("Confirm Password"))
                     .font(.footnote)
                     .foregroundColor(.black)
                     .padding(.top)
-
                 SecureField("", text: $confirmPassword)
                     .textFieldStyle(CustomTextFieldStyle())
-
                 Button(action: {
                     if !currentPassword.isEmpty && newPassword == confirmPassword
                         && newPassword.count >= 4
@@ -73,7 +66,6 @@ struct LoginSecurityView: View {
                         }
                         showAlert = true
                     }
-
                 }) {
                     Text("Update password")
                         .foregroundColor(.black)
@@ -86,23 +78,18 @@ struct LoginSecurityView: View {
                         )
                 }
                 .padding(.top, 18)
-
                 Divider()
                     .padding(.vertical)
-
                 Text(LocalizedStringKey("Account"))
                     .font(.headline)
                     .fontWeight(.semibold)
                     .foregroundColor(.black)
-
                 HStack {
                     Text(LocalizedStringKey("Deactivate your account"))
                         .font(.footnote)
                         .foregroundColor(.black)
                         .padding(.top, 3)
-
                     Spacer()
-
                     Button {
                         showDeactivateConfirmation = true
                         showAlert = true
@@ -114,10 +101,8 @@ struct LoginSecurityView: View {
                     }
                 }
                 .padding(.top, 24)
-
                 Divider()
                     .padding(.vertical)
-
                 Spacer()
             }
             .frame(maxWidth: .infinity, alignment: .leading)
