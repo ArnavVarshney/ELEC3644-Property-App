@@ -13,7 +13,7 @@ class AgentViewModel: ObservableObject {
         self.apiClient = apiClient
         initTask()
     }
-    
+
     func initTask() {
         Task {
             await fetchAgents()

@@ -19,13 +19,13 @@ struct Chip: View {
             Text(
                 content.capitalized
             )
-                .padding(.horizontal, 16)
-                .padding(.vertical, 12)
-                .background(isSelected ? Color.primary60 : Color.neutral30)
-                .cornerRadius(40)
-                .foregroundColor(isSelected ? Color.neutral10 : Color.neutral80)
-                .animation(.snappy, value: isSelected)
-                .lineLimit(1)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
+            .background(isSelected ? Color.primary60 : Color.neutral30)
+            .cornerRadius(40)
+            .foregroundColor(isSelected ? Color.neutral10 : Color.neutral80)
+            .animation(.snappy, value: isSelected)
+            .lineLimit(1)
         }
     }
 }

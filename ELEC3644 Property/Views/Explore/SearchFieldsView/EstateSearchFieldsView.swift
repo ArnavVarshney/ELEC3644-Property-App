@@ -12,7 +12,7 @@ struct EstateSearchFieldsView: View {
     @State private var yearBuilt: Double = 1970
     let estateTypesList = ["Residential", "Commercial", "Mixed-use", "Gated Community"]
     let facilitiesList = ["Playground", "Clubhouse", "Security", "Shopping Center", "School"]
-    
+
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading) {

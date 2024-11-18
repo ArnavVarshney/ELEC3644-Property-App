@@ -10,7 +10,7 @@ import SwiftUI
 struct BottomBar: View {
     @Environment(\.dismiss) private var dismiss
     var onSubmit: () -> Void = {}
-    
+
     var body: some View {
         HStack {
             Button {

@@ -8,7 +8,7 @@ import SwiftUI
 
 struct SearchFieldsView: View {
     let currentMenu: MenuItem?
-    
+
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading) {
@@ -29,7 +29,6 @@ struct SearchFieldsView: View {
             .navigationBarTitleDisplayMode(.inline)
         }
     }
-    
 
 }
 
