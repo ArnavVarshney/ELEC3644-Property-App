@@ -11,6 +11,10 @@ class AgentViewModel: ObservableObject {
     @Published var agents: [User] = []
     init(apiClient: APIClient = NetworkManager.shared) {
         self.apiClient = apiClient
+        initTask()
+    }
+    
+    func initTask() {
         Task {
             await fetchAgents()
         }

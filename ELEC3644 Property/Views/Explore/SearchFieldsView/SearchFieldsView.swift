@@ -8,12 +8,12 @@ import SwiftUI
 
 struct SearchFieldsView: View {
     let currentMenu: MenuItem?
-    @Environment(\.dismiss) private var dismiss
+    
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading) {
                 switch currentMenu {
-                case .buy, .rent:
+                case .buy, .rent, .lease:
                     PropertySearchFieldsView()
                 case .estate:
                     EstateSearchFieldsView()
@@ -22,30 +22,6 @@ struct SearchFieldsView: View {
                 default:
                     EmptyView()
                 }
-                Spacer()
-                Divider()
-                HStack {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Text("Cancel")
-                            .font(.system(size: 16))
-                            .foregroundColor(.neutral100)
-                            .padding()
-                            .cornerRadius(10)
-                    }
-                    Spacer()
-                    Button {
-                        dismiss()
-                    } label: {
-                        Text("Search")
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundColor(.neutral10)
-                            .padding()
-                            .background(Color.primary60)
-                            .cornerRadius(10)
-                    }
-                }
             }
             .padding(.all, 16)
             .background(Color.neutral10)
@@ -53,6 +29,8 @@ struct SearchFieldsView: View {
             .navigationBarTitleDisplayMode(.inline)
         }
     }
+    
+
 }
 
 #Preview {

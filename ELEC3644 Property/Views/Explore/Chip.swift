@@ -16,7 +16,9 @@ struct Chip: View {
                 action()
             }
         }) {
-            Text(content)
+            Text(
+                content.capitalized
+            )
                 .padding(.horizontal, 16)
                 .padding(.vertical, 12)
                 .background(isSelected ? Color.primary60 : Color.neutral30)
