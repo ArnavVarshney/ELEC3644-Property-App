@@ -13,7 +13,10 @@ struct ChatView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var newMessage: String = ""
     @StateObject private var webSocketService: WebSocketService
+    @State private var isSearchBarVisible: Bool = false
+    @State private var searchText: String = ""
     var initialMessage: String?
+
     init(chat: Chat, initialMessage: String? = nil) {
         self.chat = chat
         _webSocketService = StateObject(
@@ -32,11 +35,13 @@ struct ChatView: View {
                             message: message,
                             isUser: message.senderId == userViewModel.currentUserId()
                         )
-                        let _ = print(message)
+                        .transition(.opacity)
                     }
                 }
-            }.defaultScrollAnchor(.bottom)
-                .scrollIndicators(.hidden)
+            }
+            .defaultScrollAnchor(.bottom)
+            .scrollIndicators(.hidden)
+            .animation(.default, value: searchText)
             HStack(alignment: .bottom) {
                 TextField("Type a message...", text: $newMessage, axis: .vertical)
                     .lineLimit(4)
@@ -72,6 +77,36 @@ struct ChatView: View {
                     .font(.headline)
                     .fontWeight(.bold)
             }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                HStack {
+                    TextField("Search...", text: $searchText)
+                        .textFieldStyle(SearchTextFieldStyle())
+                        .frame(width: isSearchBarVisible ? 300 : 0)
+                        .opacity(isSearchBarVisible ? 1 : 0)
+                    Button(action: {
+                        withAnimation(.easeInOut(duration: 0.3)) {
+                            isSearchBarVisible.toggle()
+                        }
+                        searchText = ""
+                    }) {
+                        if isSearchBarVisible {
+                            Image(systemName: "xmark")
+                                .resizable()
+                                .frame(width: 12, height: 12)
+                                .padding(8)
+                                .foregroundColor(.black)
+                                .background(
+                                    Circle()
+                                        .fill(Color.white)
+                                )
+                                .addShadow()
+                        } else {
+                            Image(systemName: "magnifyingglass")
+                                .foregroundColor(.black)
+                        }
+                    }
+                }
+            }
         }
         .onAppear {
             self.newMessage = initialMessage ?? ""
@@ -83,7 +118,10 @@ struct ChatView: View {
     }
 
     private var groupedMessages: [(key: Date, value: [Message])] {
-        Dictionary(grouping: chat.messages) { message in
+        let filteredMessages = chat.messages.filter { message in
+            searchText.isEmpty || message.content.localizedCaseInsensitiveContains(searchText)
+        }
+        return Dictionary(grouping: filteredMessages) { message in
             Calendar.current.startOfDay(for: message.timestamp)
         }
         .sorted { $0.key < $1.key }
@@ -159,4 +197,5 @@ struct ChatBubble: View {
 
 #Preview {
     ChatView(chat: Mock.Chats.first!)
+        .environmentObject(UserViewModel())
 }
