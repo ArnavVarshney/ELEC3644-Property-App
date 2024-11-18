@@ -13,6 +13,7 @@ struct ELEC3644_Property_App: App {
     @StateObject var propertyData = PropertyViewModel()
     @StateObject var agentData = AgentViewModel()
     @StateObject var propertyWithLocationData = PropertyViewModelWithLocation()
+    @StateObject var locationManager = LocationManager()
     var body: some Scene {
         WindowGroup {
             ContentView()
@@ -21,6 +22,7 @@ struct ELEC3644_Property_App: App {
                 .environmentObject(propertyData)
                 .environmentObject(agentData)
                 .environmentObject(propertyWithLocationData)
+                .environmentObject(locationManager)
         }
     }
 }

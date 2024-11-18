@@ -21,4 +21,5 @@ struct ContentView: View {
         .environmentObject(UserViewModel(user: Mock.Users[0]))
         .environmentObject(AgentViewModel())
         .environmentObject(PropertyViewModelWithLocation())
+        .environmentObject(LocationManager())
 }

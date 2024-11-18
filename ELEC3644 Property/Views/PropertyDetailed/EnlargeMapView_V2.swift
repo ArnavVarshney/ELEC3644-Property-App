@@ -4,6 +4,8 @@
 //
 //  Created by Mak Yilam on 12/11/2024.
 //
+
+
 import Contacts
 import CoreLocation
 import MapKit
@@ -29,11 +31,12 @@ struct EnlargeMapView_V2: View {
     @State private var placemark: CLPlacemark?
     @State private var mapItem: MKMapItem?
     @State private var mapSelection: Int?  // to identify which marker has been tapped   //for search marker, implement it later
-    @State private var selectedPropertyId: UUID?  //no use?
+    @State private var selectedPropertyId: UUID?  //only specified for the popUpView
     @State private var propertySelection: UUID?  //for propertySelection using viewModel.propertyMapItems (that is a dict)
     @State var popUp_V2: Bool = true
     @State private var showLookAroundScene: Bool = false
-
+    @State private var propertyMapItem: MKMapItem?
+    
     //    @State var propertyLocations: [String: CLLocationCoordinate2D]
     var body: some View {
         NavigationStack {
@@ -41,9 +44,9 @@ struct EnlargeMapView_V2: View {
             ZStack {
                 Map(position: $camera, selection: $propertySelection) {
                     UserAnnotation()
-
                     ForEach(viewModel.properties, id: \.self) { property in
                         if let location = viewModel.getLocation(for: property.name) {
+//                            propertyMapItem = viewModel.getMapItem(for: property.id)
                             Annotation(property.name, coordinate: location) {
                                 HStack {
                                     Text(String(property.netPrice))
@@ -76,63 +79,76 @@ struct EnlargeMapView_V2: View {
                     MapUserLocationButton()
                     MapScaleView()
                 }
-                .navigationTitle("Map")
-
+//                .sheet(isPresented: $showLookAroundScene){
+//                    if let selectedPropertyId = propertySelection, let selectedProperty = viewModel.properties.first(where: { $0.id == selectedPropertyId }){
+//                        propertyMapItem = viewModel.getMapItem(for: selectedProperty.name) // Assign property map item
+//                        GetLookAroundScene(mapItem: propertyMapItem!)
+//                            .presentationDetents([.height(300)])
+//                            .presentationBackgroundInteraction(.enabled(upThrough: .height(300)))
+//                            .presentationCornerRadius(25)
+//                            .interactiveDismissDisabled(true)
+//                    }
+//                }
+                
                 VStack(alignment: .center) {
-                    Spacer()
-                    if popUp_V2, let selectedPropertyId = propertySelection,
-                        let selectedProperty = viewModel.properties.first(where: {
-                            $0.id == selectedPropertyId
-                        })
-                    {
-                        MapPopUpView(property: selectedProperty, popUp: $popUp_V2)
-                            .frame(height: 270)
-                            .padding(.bottom, 35)
-                            .padding(.horizontal, 20)
+                    HStack {
+                        Image(systemName: "house")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 24, height: 24)
+                            .foregroundColor(.black) // Change icon color to black
+                        Text("\(viewModel.properties.count) properties on sale")
+                            .font(.caption)
+                            .foregroundColor(.black) // Change text color to black
+//                            .padding(.vertical, 4)
+//                            .padding(.trailing, 4)
                     }
-                    Button {
-                        popUp_V2.toggle()  // Show the PopUpView
-                        print(propertySelection)  //for debug
-                    } label: {
-                        Image(systemName: popUp_V2 ? "xmark" : "plus")  // Display xmark when popUp is true
-                            .foregroundStyle(.black)
-                            .background {
-                                Circle()
-                                    .fill(.white)
-                                    .frame(width: 50, height: 50)
+                    .background(Color.white) // Set background color to white
+                    .cornerRadius(10) // Add corner radius for rounded edges
+                    .padding() // Add padding around the HStack
+
+                    Spacer() // Pushes content down from the top
+                    if popUp_V2, let selectedPropertyId = propertySelection,
+                       let selectedProperty = viewModel.properties.first(where: {
+                           $0.id == selectedPropertyId
+                       }){
+                        ZStack{
+                            NavigationLink(destination: PropertyDetailView(property: selectedProperty)){
+                                MapPopUpView(property: selectedProperty, popUp: $popUp_V2)
+                                    .frame(height: 270)
+                                    .padding(.bottom, 35)
+                                    .padding(.horizontal, 20)
                             }
-                            .padding(.bottom, 20)
+                            
+                            Button(action:{
+                                showLookAroundScene.toggle()
+                            }){
+                                HStack{
+                                    Image(systemName: "eyes")
+                                    // Use a globe symbol or any other relevant icon
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 40, height: 40)
+                                        .padding()
+                                    
+                                    Text("Look around scene")
+                                }
+                                .background(Color.blue.opacity(0.7)) // Customize your color
+                                .foregroundColor(.white)
+                                .shadow(radius: 5) // Add shadow for
+                            }
+                        }
                     }
                 }
             }
         }
-
-    }
-
-    //do not change
-    func searchPlaces() {
-        CLGeocoder().geocodeAddressString(searchText, completionHandler: updatePlaces)
-    }
-
-    //do not change
-    func updatePlaces(placemarks: [CLPlacemark]?, error: Error?) {
-        mapItem = nil
-        if error != nil {
-            print("Geo failed with error: \(error!.localizedDescription)")
-            showAlert = true
-        } else if let marks = placemarks, marks.count > 0 {
-            placemark = marks[0]
-            if let address = placemark!.postalAddress {
-                let place = MKPlacemark(
-                    coordinate: placemark!.location!.coordinate, postalAddress: address)
-                result = "\(address.street), \(address.city), \(address.state), \(address.country)"
-                mapItem = MKMapItem(placemark: place)
-                mapItem?.name = searchText
-
-            }
+        .backButton()
+        .onChange(of: mapSelection){oldValue, newValue in
+            showLookAroundScene = newValue != nil
+            print(showLookAroundScene)
         }
+        
     }
-
 }
 
 //#Preview {
@@ -156,3 +172,4 @@ struct EnlargeMapView_V2: View {
 //    }
 //    return EnlargeMapView_V2_Preview()
 //}
+
