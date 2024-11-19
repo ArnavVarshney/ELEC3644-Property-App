@@ -13,27 +13,27 @@ enum ScreenState {
 struct WishlistDetailView: View {
     @EnvironmentObject private var userViewModel: UserViewModel
     @Environment(\.dismiss) private var dismiss
-    
+
     let wishlistId: UUID
     var wishlistsDEBUG: [Wishlist]? = nil
-    
-    @State var propertyNotes: [String] = ["",""]
+
+    @State var propertyNotes: [String] = ["", ""]
     @State var showingSheet = false
-    
+
     var wishlist: Wishlist {
-        let temp:[Wishlist]
+        let temp: [Wishlist]
         let wishlists = wishlistsDEBUG == nil ? userViewModel.user.wishlists : wishlistsDEBUG!
-        
+
         temp = wishlists.filter { wishlist in
             wishlist.id == wishlistId
         }
-        
+
         if temp.count == 0 {
             return Wishlist(id: wishlistId, name: "Deleted", properties: [])
         }
         return temp.first!
     }
-    
+
     var properties: [Property] {
         var picked: [Property] = []
         for idx in pickedPropertiesIdx {
@@ -57,11 +57,11 @@ struct WishlistDetailView: View {
     var body: some View {
         NavigationStack {
             //Title
-            HStack{
+            HStack {
                 Text("\(wishlist.name)").font(.largeTitle)
                 Spacer()
             }.padding()
-            
+
             if wishlist.properties.isEmpty {
                 VStack {
                     Spacer()
@@ -84,7 +84,7 @@ struct WishlistDetailView: View {
                 List {
                     ForEach(wishlist.properties.indices, id: \.self) { idx in
                         if !tickable {
-                            ScrollView{// I've no idea why this worked https://forums.developer.apple.com/forums/thread/702376
+                            ScrollView {  // I've no idea why this worked https://forums.developer.apple.com/forums/thread/702376
                                 NavigationLink {
                                     PropertyDetailView(property: wishlist.properties[idx])
                                 } label: {
@@ -106,35 +106,42 @@ struct WishlistDetailView: View {
                                 )
                             }
                         }
-                        
+
                         //Note button
-                        Button{
+                        Button {
                             showingSheet = true
-                        }label:{
-                            HStack{
-                                if propertyNotes[idx].replacingOccurrences(of: " ", with: " ").count > 0 {
+                        } label: {
+                            HStack {
+                                if propertyNotes[idx].replacingOccurrences(of: " ", with: " ").count
+                                    > 0
+                                {
                                     Text("\(propertyNotes[idx])")
                                         .font(.footnote)
                                         .foregroundColor(.neutral60)
                                         .padding(10)
                                 }
-                                
-                                Text(propertyNotes[idx].replacingOccurrences(of: " ", with: " ").count > 0 ? "Edit" : "Add note")
-                                    .font(.footnote)
-                                    .foregroundColor(.neutral60)
-                                    .padding(10)
-                                    .underline(true)
-                                
+
+                                Text(
+                                    propertyNotes[idx].replacingOccurrences(of: " ", with: " ")
+                                        .count > 0 ? "Edit" : "Add note"
+                                )
+                                .font(.footnote)
+                                .foregroundColor(.neutral60)
+                                .padding(10)
+                                .underline(true)
+
                                 Spacer()
                             }
-                            .background(Color(UIColor.lightGray)
-                                .opacity(0.3))
+                            .background(
+                                Color(UIColor.lightGray)
+                                    .opacity(0.3)
+                            )
                             .cornerRadius(6)
                         }.sheet(isPresented: $showingSheet) {
                             WishlistNoteView(note: $propertyNotes[idx])
                                 .presentationDetents([.height(500)])
                         }.listRowSeparator(.hidden)
-                        
+
                         Divider().listRowSeparator(.hidden)
                     }
                 }
@@ -307,5 +314,7 @@ struct LowerButton: View {
 }
 
 #Preview {
-    WishlistDetailView(wishlistId: Mock.Users[0].wishlists[0].id, wishlistsDEBUG: Mock.Users[0].wishlists).environmentObject(UserViewModel())
+    WishlistDetailView(
+        wishlistId: Mock.Users[0].wishlists[0].id, wishlistsDEBUG: Mock.Users[0].wishlists
+    ).environmentObject(UserViewModel())
 }

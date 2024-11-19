@@ -103,8 +103,7 @@ struct favoriteIcon: View {
                         .fill(Color.white)
                 )
                 .shadow(color: .gray.opacity(0.3), radius: 4, x: 0, y: 4)
-            
-            
+
         }
         .padding(3)
         .sheet(isPresented: $showingSheet) {
