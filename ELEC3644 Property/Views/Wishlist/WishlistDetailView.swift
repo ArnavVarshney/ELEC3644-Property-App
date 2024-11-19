@@ -94,13 +94,14 @@ struct WishlistDetailView: View {
                                     )
                                 }
                             }
-                            
+
                             //Note button
                             Button {
                                 showingSheet = true
                             } label: {
                                 HStack {
-                                    if getNote(for: idx).replacingOccurrences(of: " ", with: " ").count
+                                    if getNote(for: idx).replacingOccurrences(of: " ", with: " ")
+                                        .count
                                         > 0
                                     {
                                         Text("\(getNote(for: idx))")
@@ -248,8 +249,8 @@ struct WishlistDetailView: View {
             pickedPropertiesIdx.append(idx)
         }
     }
-    
-    func getNote(for id: Int) -> String{
+
+    func getNote(for id: Int) -> String {
         return ""
     }
 }
