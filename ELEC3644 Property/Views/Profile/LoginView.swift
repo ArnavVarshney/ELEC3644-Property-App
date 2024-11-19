@@ -34,28 +34,28 @@ struct LoginView: View {
     @State private var isLoggedIn: Bool = false
     @State private var showAlert: Bool = false
     @State private var alertMessage: String = ""
-    @State private var rememberMe: Bool = false // State for "Remember Me"
-    
+    @State private var rememberMe: Bool = false  // State for "Remember Me"
+
     var body: some View {
         NavigationStack {
             VStack {
                 Image("loginView_real")
                     .resizable()
                     .scaledToFit()
-                    .frame(height: 200) // Adjust height as necessary
-                
+                    .frame(height: 200)  // Adjust height as necessary
+
                 if !isLoggedIn {
                     Form {
                         Section(header: Text("Login")) {
                             TextField("Email", text: $username)
                                 .autocapitalization(.none)
                                 .keyboardType(.emailAddress)
-                            
+
                             SecureField("Password", text: $password)
-                            
-                            Toggle("Remember Me", isOn: $rememberMe) // Remember Me toggle
+
+                            Toggle("Remember Me", isOn: $rememberMe)  // Remember Me toggle
                         }
-                        
+
                         Button(action: login) {
                             Text("Login")
                                 .frame(maxWidth: .infinity)
@@ -79,7 +79,7 @@ struct LoginView: View {
                     Text("Welcome back, \(viewModel.user.name)!").font(.largeTitle).padding()
                 }
             }
-            .onAppear(perform: loadCredentials) // Load saved credentials if available
+            .onAppear(perform: loadCredentials)  // Load saved credentials if available
         }
     }
 
@@ -87,11 +87,11 @@ struct LoginView: View {
         // Load saved credentials from UserDefaults if "Remember Me" was previously enabled
         let savedUsername = UserDefaults.standard.string(forKey: "savedUsername") ?? ""
         let savedPassword = UserDefaults.standard.string(forKey: "savedPassword") ?? ""
-        
+
         if !savedUsername.isEmpty {
             username = savedUsername
-            password = savedPassword // Optionally pre-fill password
-            rememberMe = true // Set toggle to true if credentials are loaded
+            password = savedPassword  // Optionally pre-fill password
+            rememberMe = true  // Set toggle to true if credentials are loaded
         }
     }
 
@@ -109,11 +109,11 @@ struct LoginView: View {
             do {
                 // Call the login method from UserViewModel
                 let user = try await UserViewModel.login(with: username, password: password)
-                
+
                 // Update user data
                 viewModel.user = user
                 viewModel.initTask()
-                
+
                 // Save credentials if "Remember Me" is checked
                 if rememberMe {
                     UserDefaults.standard.set(username, forKey: "savedUsername")
@@ -123,10 +123,10 @@ struct LoginView: View {
                     UserDefaults.standard.removeObject(forKey: "savedUsername")
                     UserDefaults.standard.removeObject(forKey: "savedPassword")
                 }
-                
+
                 UserDefaults.standard.set(user.id.uuidString, forKey: "currentUserID")
                 isLoggedIn = true
-                
+
             } catch {
                 alertMessage = "Invalid email or password."
                 showAlert = true
