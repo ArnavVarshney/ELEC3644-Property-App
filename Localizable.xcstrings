@@ -134,6 +134,16 @@
         }
       }
     },
+    "%lld/%lld characters" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld/%2$lld characters"
+          }
+        }
+      }
+    },
     "%lldsqft" : {
       "localizations" : {
         "zh-HK" : {
@@ -245,6 +255,9 @@
           }
         }
       }
+    },
+    "Add note" : {
+
     },
     "Add Photos" : {
       "localizations" : {
@@ -566,6 +579,9 @@
           }
         }
       }
+    },
+    "Clear" : {
+
     },
     "Clear Water Bay" : {
       "extractionState" : "stale",
@@ -1760,6 +1776,9 @@
         }
       }
     },
+    "No chats found" : {
+
+    },
     "No facilities have been added yet." : {
       "localizations" : {
         "zh-HK" : {
@@ -1779,6 +1798,9 @@
           }
         }
       }
+    },
+    "No messages found" : {
+
     },
     "North" : {
       "extractionState" : "stale",
@@ -2304,6 +2326,9 @@
           }
         }
       }
+    },
+    "Search..." : {
+
     },
     "Secondary School Net" : {
       "localizations" : {
@@ -2977,6 +3002,9 @@
         }
       }
     },
+    "Try searching for something else." : {
+
+    },
     "Try to pick and choose from your displayed wishlist" : {
       "localizations" : {
         "zh-HK" : {
@@ -3204,6 +3232,7 @@
       }
     },
     "Wishlist - %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
