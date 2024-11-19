@@ -17,7 +17,6 @@ struct WishlistDetailView: View {
     let wishlistId: UUID
     var wishlistsDEBUG: [Wishlist]? = nil
 
-    @State var propertyNotes: [String] = ["", ""]
     @State var showingSheet = false
 
     var wishlist: Wishlist {
@@ -91,10 +90,45 @@ struct WishlistDetailView: View {
                                     WishlistItemCard(
                                         property: wishlist.properties[idx], picking: tickable,
                                         picked: pickedPropertiesIdx.contains(idx),
-                                        propertyNote: $propertyNotes[idx]
+                                        propertyNote: .constant("")
                                     )
                                 }
                             }
+                            
+                            //Note button
+                            Button {
+                                showingSheet = true
+                            } label: {
+                                HStack {
+                                    if getNote(for: idx).replacingOccurrences(of: " ", with: " ").count
+                                        > 0
+                                    {
+                                        Text("\(getNote(for: idx))")
+                                            .font(.footnote)
+                                            .foregroundColor(.neutral60)
+                                            .padding(10)
+                                    }
+
+                                    Text(
+                                        getNote(for: idx).replacingOccurrences(of: " ", with: " ")
+                                            .count > 0 ? "Edit" : "Add note"
+                                    )
+                                    .font(.footnote)
+                                    .foregroundColor(.neutral60)
+                                    .padding(10)
+                                    .underline(true)
+
+                                    Spacer()
+                                }
+                                .background(
+                                    Color(UIColor.lightGray)
+                                        .opacity(0.3)
+                                )
+                                .cornerRadius(6)
+                            }.sheet(isPresented: $showingSheet) {
+                                WishlistNoteView(note: .constant(""))
+                                    .presentationDetents([.height(500)])
+                            }.listRowSeparator(.hidden)
                         } else {
                             Button {
                                 pick(idx)
@@ -102,45 +136,10 @@ struct WishlistDetailView: View {
                                 WishlistItemCard(
                                     property: wishlist.properties[idx], picking: tickable,
                                     picked: pickedPropertiesIdx.contains(idx),
-                                    propertyNote: $propertyNotes[idx]
+                                    propertyNote: .constant("")
                                 )
                             }
                         }
-
-                        //Note button
-                        Button {
-                            showingSheet = true
-                        } label: {
-                            HStack {
-                                if propertyNotes[idx].replacingOccurrences(of: " ", with: " ").count
-                                    > 0
-                                {
-                                    Text("\(propertyNotes[idx])")
-                                        .font(.footnote)
-                                        .foregroundColor(.neutral60)
-                                        .padding(10)
-                                }
-
-                                Text(
-                                    propertyNotes[idx].replacingOccurrences(of: " ", with: " ")
-                                        .count > 0 ? "Edit" : "Add note"
-                                )
-                                .font(.footnote)
-                                .foregroundColor(.neutral60)
-                                .padding(10)
-                                .underline(true)
-
-                                Spacer()
-                            }
-                            .background(
-                                Color(UIColor.lightGray)
-                                    .opacity(0.3)
-                            )
-                            .cornerRadius(6)
-                        }.sheet(isPresented: $showingSheet) {
-                            WishlistNoteView(note: $propertyNotes[idx])
-                                .presentationDetents([.height(500)])
-                        }.listRowSeparator(.hidden)
 
                         Divider().listRowSeparator(.hidden)
                     }
@@ -195,6 +194,10 @@ struct WishlistDetailView: View {
                     state: state,
                     parent: self
                 )
+                .padding(10)
+                .background(Rectangle().fill(.black))
+                .foregroundStyle(.white)
+                .clipShape(.rect(cornerRadius: 5))
             }
         }
     }
@@ -244,6 +247,10 @@ struct WishlistDetailView: View {
             }
             pickedPropertiesIdx.append(idx)
         }
+    }
+    
+    func getNote(for id: Int) -> String{
+        return ""
     }
 }
 
