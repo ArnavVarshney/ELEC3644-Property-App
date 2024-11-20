@@ -2148,6 +2148,9 @@
         }
       }
     },
+    "Remember Me" : {
+
+    },
     "Remove %lld item%@" : {
       "extractionState" : "stale",
       "localizations" : {
