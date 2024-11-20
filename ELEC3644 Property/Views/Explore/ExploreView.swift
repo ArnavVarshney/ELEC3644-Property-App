@@ -35,7 +35,7 @@ struct ExploreView: View {
                             .frame(width: geometry.size.width)
                             ListingMenuView(
                                 properties: propertyViewModel.getByContractType(
-                                    contractType: "Buy")
+                                    contractType: "Rent")
                             )
                             .id(MenuItem.rent)
                             .frame(width: geometry.size.width)
