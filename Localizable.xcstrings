@@ -640,6 +640,12 @@
         }
       }
     },
+    "Create" : {
+
+    },
+    "Create wishlist" : {
+
+    },
     "Current Password" : {
 
     },
@@ -763,6 +769,7 @@
       }
     },
     "Enter album name" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -1825,6 +1832,7 @@
       }
     },
     "Nothing to view or compare" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -1966,6 +1974,7 @@
       }
     },
     "Pick an album name" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -2255,6 +2264,7 @@
       }
     },
     "Saleable Area/Sqft" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -2306,6 +2316,9 @@
           }
         }
       }
+    },
+    "Save to wishlist" : {
+
     },
     "School Net" : {
       "localizations" : {
@@ -3006,6 +3019,7 @@
 
     },
     "Try to pick and choose from your displayed wishlist" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
