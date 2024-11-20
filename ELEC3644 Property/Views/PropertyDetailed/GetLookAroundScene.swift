@@ -11,13 +11,15 @@ import SwiftUI
 
 struct GetLookAroundScene: View {
     @State private var lookAroundScene: MKLookAroundScene?
-    var mapItem: MKMapItem
+    var mapItem: MKMapItem //I get rid of it because idk why the code cant be build with getMapItem func in EnlargeMapView_V2
+//    var sceneLocation: CLLocationCoordinate2D
 
     func getLookaroundScene() {
         lookAroundScene = nil  //clear the old lookAroundScene
         Task {
             //Get the scene for a given map item using MKLookAroundSceneRequest
             let request = MKLookAroundSceneRequest(coordinate: mapItem.placemark.coordinate)
+            //let request = MKLookAroundSceneRequest(coordinate: sceneLocation)
             lookAroundScene = try? await request.scene  //why we use try? Ans: Use await when calling an asynchronous method which may take a longer time; also, write try before calling a throwing function.
 
         }

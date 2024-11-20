@@ -22,6 +22,7 @@ extension MKCoordinateRegion {
 
 struct EnlargeMapView_V2: View {
     @EnvironmentObject var viewModel: PropertyViewModelWithLocation
+    @Binding var currentMenu: MenuItem?
     @State var camera: MapCameraPosition = .region(.userRegion)
     @State private var showAlert: Bool = false
     @State private var result: String = ""
@@ -43,7 +44,7 @@ struct EnlargeMapView_V2: View {
             ZStack {
                 Map(position: $camera, selection: $propertySelection) {
                     UserAnnotation()
-                    ForEach(viewModel.properties, id: \.self) { property in
+                    ForEach(viewModel.getByContractType(contractType: currentMenu!.rawValue), id: \.self) { property in  //select either buy, rent or lease
                         if let location = viewModel.getLocation(for: property.name) {
                             //                            propertyMapItem = viewModel.getMapItem(for: property.id)
                             Annotation(property.name, coordinate: location) {
@@ -89,22 +90,8 @@ struct EnlargeMapView_V2: View {
                 //                    }
                 //                }
 
+                
                 VStack(alignment: .center) {
-                    HStack {
-                        Image(systemName: "house")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 24, height: 24)
-                            .foregroundColor(.black)  // Change icon color to black
-                        Text("\(viewModel.properties.count) properties on sale")
-                            .font(.caption)
-                            .foregroundColor(.black)  // Change text color to black
-                        //                            .padding(.vertical, 4)
-                        //                            .padding(.trailing, 4)
-                    }
-                    .background(Color.white)  // Set background color to white
-                    .cornerRadius(10)  // Add corner radius for rounded edges
-                    .padding()  // Add padding around the HStack
 
                     Spacer()  // Pushes content down from the top
                     if popUp_V2, let selectedPropertyId = propertySelection,
@@ -121,26 +108,36 @@ struct EnlargeMapView_V2: View {
                                     .padding(.bottom, 35)
                                     .padding(.horizontal, 20)
                             }
-
-                            Button(action: {
-                                showLookAroundScene.toggle()
-                            }) {
-                                HStack {
-                                    Image(systemName: "eyes")
-                                        // Use a globe symbol or any other relevant icon
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 40, height: 40)
-                                        .padding()
-
-                                    Text("Look around scene")
-                                }
-                                .background(Color.blue.opacity(0.7))  // Customize your color
-                                .foregroundColor(.white)
-                                .shadow(radius: 5)  // Add shadow for
-                            }
+//
+//                            Button(action: {
+//                                showLookAroundScene.toggle()
+//                            }) {
+//                                HStack {
+//                                    Image(systemName: "eyes")
+//                                        // Use a globe symbol or any other relevant icon
+//                                        .resizable()
+//                                        .scaledToFit()
+//                                        .frame(width: 40, height: 40)
+//                                        .padding()
+//
+//                                    Text("Look around scene")
+//                                }
+//                                .background(Color.blue.opacity(0.7))  // Customize your color
+//                                .foregroundColor(.white)
+//                                .shadow(radius: 5)  // Add shadow for
+//                            }
                         }
                     }
+                }
+            }
+            .navigationTitle("")
+            .navigationBarTitleDisplayMode(.inline) // Use inline mode
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("\(viewModel.getByContractType(contractType: currentMenu!.rawValue).count) properties on sale")
+                        .font(.caption)
+                        .foregroundColor(.black)
+                        .padding()
                 }
             }
         }

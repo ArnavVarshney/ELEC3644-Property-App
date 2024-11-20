@@ -63,7 +63,7 @@ struct ExploreView: View {
                 }
                 VStack {
                     Spacer()
-                    NavigationLink(destination: EnlargeMapView_V2().environmentObject(viewModel)) {
+                    NavigationLink(destination: EnlargeMapView_V2(currentMenu: $currentMenu).environmentObject(viewModel)) {
                         HStack {
                             Image(systemName: "map")
                                 .resizable()
