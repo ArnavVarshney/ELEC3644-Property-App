@@ -91,7 +91,7 @@ struct InboxView: View {
                     HStack {
                         TextField("Search...", text: $searchText)
                             .textFieldStyle(SearchTextFieldStyle())
-                            .frame(width: 300)
+                            .frame(width: isSearchBarVisible ? 300 : 0)
                             .opacity(isSearchBarVisible ? 1 : 0)
                         Button(action: {
                             withAnimation(.easeInOut(duration: 0.3)) {

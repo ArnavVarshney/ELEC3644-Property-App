@@ -88,10 +88,12 @@ struct ChatView: View {
                     Image(systemName: "chevron.left")
                 }
             }
-            ToolbarItem(placement: .principal) {
-                Text(chat.user.name)
-                    .font(.headline)
-                    .fontWeight(.bold)
+            if !isSearchBarVisible {
+                ToolbarItem(placement: .principal) {
+                    Text(chat.user.name)
+                        .font(.headline)
+                        .fontWeight(.bold)
+                }
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 HStack {
