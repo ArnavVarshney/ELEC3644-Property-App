@@ -29,19 +29,19 @@ struct ExploreView: View {
                         LazyHStack(spacing: 0) {
                             ListingMenuView(
                                 properties: propertyViewModel.getByContractType(
-                                    contractType: "buying")
+                                    contractType: "Buy")
                             )
                             .id(MenuItem.buy)
                             .frame(width: geometry.size.width)
                             ListingMenuView(
                                 properties: propertyViewModel.getByContractType(
-                                    contractType: "renting")
+                                    contractType: "Buy")
                             )
                             .id(MenuItem.rent)
                             .frame(width: geometry.size.width)
                             ListingMenuView(
                                 properties: propertyViewModel.getByContractType(
-                                    contractType: "leasing")
+                                    contractType: "Lease")
                             )
                             .id(MenuItem.lease)
                             .frame(width: geometry.size.width)
