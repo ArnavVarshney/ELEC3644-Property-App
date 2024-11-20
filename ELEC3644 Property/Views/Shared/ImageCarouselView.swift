@@ -80,34 +80,35 @@ struct favoriteIcon: View {
     }
 
     var body: some View {
-            Button {
-                if propertyIdx != nil {
-                    // Update db
-                    Task {
-                        await userViewModel.postWishlist(
-                            property: property,
-                            folderName: userViewModel.user.wishlists[propertyIdx!.0].name, delete: true
-                        )
-                        await userViewModel.fetchWishlist()
-                    }
-                } else {
-                    showingSheet = true
-                }
-            } label: {
-                Image(systemName: propertyIdx != nil ? "heart.fill" : "heart")
-                    .frame(width: 6, height: 6)
-                    .foregroundColor(propertyIdx != nil ? .red : .black)
-                    .padding(12)
-                    .background(
-                        Circle()
-                            .fill(Color.white)
+        Button {
+            if propertyIdx != nil {
+                // Update db
+                Task {
+                    await userViewModel.postWishlist(
+                        property: property,
+                        folderName: userViewModel.user.wishlists[propertyIdx!.0].name, delete: true
                     )
-                    .shadow(color: .gray.opacity(0.3), radius: 4, x: 0, y: 4)
-
+                    await userViewModel.fetchWishlist()
+                }
+            } else {
+                showingSheet = true
             }
-            .padding(3)
-            .sheet(isPresented: $showingSheet) {
-                FavoriteSubmitForm(showPrevSheet: $showingSheet, property: property).presentationDetents([.height(350)])
+        } label: {
+            Image(systemName: propertyIdx != nil ? "heart.fill" : "heart")
+                .frame(width: 6, height: 6)
+                .foregroundColor(propertyIdx != nil ? .red : .black)
+                .padding(12)
+                .background(
+                    Circle()
+                        .fill(Color.white)
+                )
+                .shadow(color: .gray.opacity(0.3), radius: 4, x: 0, y: 4)
+
+        }
+        .padding(3)
+        .sheet(isPresented: $showingSheet) {
+            FavoriteSubmitForm(showPrevSheet: $showingSheet, property: property)
+                .presentationDetents([.height(350)])
         }
     }
 }

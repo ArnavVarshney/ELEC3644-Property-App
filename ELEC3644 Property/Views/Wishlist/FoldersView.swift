@@ -10,7 +10,7 @@ import SwiftUI
 struct FoldersView: View {
     @EnvironmentObject var userViewModel: UserViewModel
     @Environment(\.dismiss) private var dismiss
-    
+
     private let flexibleColumn = [
         GridItem(.flexible()),
         GridItem(.flexible()),
