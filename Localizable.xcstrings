@@ -2145,9 +2145,6 @@
         }
       }
     },
-    "Remember Me" : {
-
-    },
     "Remove %lld item%@" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -3205,6 +3202,7 @@
       }
     },
     "Welcome back, %@!" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -3468,7 +3466,7 @@
     "Zoom in and out with dedicated buttons" : {
 
     },
-    "中文" : {
+    "繁體中文" : {
 
     }
   },
