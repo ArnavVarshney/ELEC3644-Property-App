@@ -9,12 +9,17 @@ import SwiftUI
 
 struct EnlargeMapView: View {
     @EnvironmentObject var viewModel: PropertyDetailViewModel
+    @State private var camera: MapCameraPosition = .automatic
     @Binding var showEnlargeMapView: Bool
+    @State var mapSelection: MKMapItem?
+    @State var showLookAroundScene: Bool = false
     @State var popUp: Bool = true
+
     var body: some View {
         NavigationStack {
             ZStack(alignment: .center) {
-                Map(position: $viewModel.position) {
+                // The Map View
+                Map(position: $viewModel.position, selection: $mapSelection) {
                     // Annotation for the target property
                     Annotation(viewModel.property.name, coordinate: viewModel.location) {
                         HStack {
@@ -39,42 +44,86 @@ struct EnlargeMapView: View {
                         )
                     }
                     .annotationTitles(.visible)
+
                     // Markers for other places
                     ForEach(viewModel.places, id: \.self) { place in
                         Marker(
                             place.placemark.name ?? "POI",
-                            systemImage: PropertyDetailViewModel.poiIcon(
-                                for: place.pointOfInterestCategory),
+                            systemImage: PropertyDetailViewModel.poiIcon(for: place.pointOfInterestCategory),
                             coordinate: place.placemark.coordinate
                         )
                     }
                 }
                 .mapControlVisibility(.hidden)
+                .sheet(isPresented: $showLookAroundScene){
+                    if let selectedMapItem = mapSelection{
+                        GetLookAroundScene(mapItem: selectedMapItem)
+                            .presentationDetents([.height(300)])
+                            .presentationBackgroundInteraction(.enabled(upThrough: .height(300)))
+                            .presentationCornerRadius(25)
+                            .interactiveDismissDisabled(true)
+                    }
+                }
+
+                // Pop-up view and other UI elements
                 VStack(alignment: .center) {
+                    
+                    // Button to reset camera location, reset all buttons/bool
+                    HStack {
+                        Spacer() // Pushes the button to the right
+                        Button {
+                            centerCameraOnUserLocation()
+                            popUp = false
+                            showLookAroundScene = false
+                        } label: {
+                            Image(systemName: "mappin.and.ellipse.circle.fill")
+                                //.foregroundStyle(.black)
+                                .background {
+                                    Circle()
+                                        .fill(.white)
+                                        .frame(width: 50, height: 50)
+                                }
+                                .padding(10) // Add some padding around the button
+                        }
+                    }
+                    .padding(.trailing, 20)
                     Spacer()
                     if popUp {
                         MapPopUpView(property: viewModel.property, popUp: $popUp)
                             .frame(height: 270)
-                            .padding(.bottom, 35)
+                            .padding(.bottom, 24)
                             .padding(.horizontal, 20)
                     }
                     Button {
-                        popUp.toggle()  // Show the PopUpView
+                        popUp.toggle()  // Show/Hide the PopUpView
                     } label: {
-                        Image(systemName: popUp ? "xmark" : "plus")  // Display xmark when popUp is true
+                        Image(systemName: popUp ? "xmark" : "plus")
                             .foregroundStyle(.black)
                             .background {
                                 Circle()
                                     .fill(.white)
-                                    .frame(width: 50, height: 50)
+                                    .frame(width: 30, height: 30)
                             }
                             .padding(.bottom)
-                        // .padding(.leading, 20)
                     }
                 }
             }
             .backButton()
         }
+        .onChange(of: mapSelection) { oldValue, newValue in
+            showLookAroundScene = newValue != nil
+        }
+    }
+
+    func centerCameraOnUserLocation() {
+        // Get user's current location from locationManager and set camera position accordingly.
+        let propertyCoordinate = viewModel.location
+
+        // Create a region centered on the user's current location.
+        let userRegion = MKCoordinateRegion(center: propertyCoordinate, latitudinalMeters: 1500, longitudinalMeters: 1500)
+
+        // Update camera position to center on user's location.
+        viewModel.position = .region(userRegion) // Update view model's position directly
     }
 }
 
@@ -84,6 +133,7 @@ struct EnlargeMapView: View {
         @StateObject var propertyDetailViewModel = PropertyDetailViewModel(
             property: Mock.Properties[0])
         @State private var showEnlargeMapView = false
+
         var body: some View {
             EnlargeMapView(showEnlargeMapView: $showEnlargeMapView)
                 .environmentObject(propertyDetailViewModel)

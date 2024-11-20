@@ -43,7 +43,7 @@ struct EnlargeMapView_V2: View {
             //Text(String(viewModel.properties.count))
             ZStack {
                 Map(position: $camera, selection: $propertySelection) {
-                    UserAnnotation()
+                    //UserAnnotation()
                     ForEach(
                         viewModel.getByContractType(contractType: currentMenu!.rawValue), id: \.self
                     ) { property in  //select either buy, rent or lease
