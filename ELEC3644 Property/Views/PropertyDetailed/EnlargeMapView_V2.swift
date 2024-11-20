@@ -44,7 +44,9 @@ struct EnlargeMapView_V2: View {
             ZStack {
                 Map(position: $camera, selection: $propertySelection) {
                     UserAnnotation()
-                    ForEach(viewModel.getByContractType(contractType: currentMenu!.rawValue), id: \.self) { property in  //select either buy, rent or lease
+                    ForEach(
+                        viewModel.getByContractType(contractType: currentMenu!.rawValue), id: \.self
+                    ) { property in  //select either buy, rent or lease
                         if let location = viewModel.getLocation(for: property.name) {
                             //                            propertyMapItem = viewModel.getMapItem(for: property.id)
                             Annotation(property.name, coordinate: location) {
@@ -90,7 +92,6 @@ struct EnlargeMapView_V2: View {
                 //                    }
                 //                }
 
-                
                 VStack(alignment: .center) {
 
                     Spacer()  // Pushes content down from the top
@@ -108,36 +109,38 @@ struct EnlargeMapView_V2: View {
                                     .padding(.bottom, 35)
                                     .padding(.horizontal, 20)
                             }
-//
-//                            Button(action: {
-//                                showLookAroundScene.toggle()
-//                            }) {
-//                                HStack {
-//                                    Image(systemName: "eyes")
-//                                        // Use a globe symbol or any other relevant icon
-//                                        .resizable()
-//                                        .scaledToFit()
-//                                        .frame(width: 40, height: 40)
-//                                        .padding()
-//
-//                                    Text("Look around scene")
-//                                }
-//                                .background(Color.blue.opacity(0.7))  // Customize your color
-//                                .foregroundColor(.white)
-//                                .shadow(radius: 5)  // Add shadow for
-//                            }
+                            //
+                            //                            Button(action: {
+                            //                                showLookAroundScene.toggle()
+                            //                            }) {
+                            //                                HStack {
+                            //                                    Image(systemName: "eyes")
+                            //                                        // Use a globe symbol or any other relevant icon
+                            //                                        .resizable()
+                            //                                        .scaledToFit()
+                            //                                        .frame(width: 40, height: 40)
+                            //                                        .padding()
+                            //
+                            //                                    Text("Look around scene")
+                            //                                }
+                            //                                .background(Color.blue.opacity(0.7))  // Customize your color
+                            //                                .foregroundColor(.white)
+                            //                                .shadow(radius: 5)  // Add shadow for
+                            //                            }
                         }
                     }
                 }
             }
             .navigationTitle("")
-            .navigationBarTitleDisplayMode(.inline) // Use inline mode
+            .navigationBarTitleDisplayMode(.inline)  // Use inline mode
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    Text("\(viewModel.getByContractType(contractType: currentMenu!.rawValue).count) properties on sale")
-                        .font(.caption)
-                        .foregroundColor(.black)
-                        .padding()
+                    Text(
+                        "\(viewModel.getByContractType(contractType: currentMenu!.rawValue).count) properties on sale"
+                    )
+                    .font(.caption)
+                    .foregroundColor(.black)
+                    .padding()
                 }
             }
         }

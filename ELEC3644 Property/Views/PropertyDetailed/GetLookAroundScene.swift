@@ -11,8 +11,8 @@ import SwiftUI
 
 struct GetLookAroundScene: View {
     @State private var lookAroundScene: MKLookAroundScene?
-    var mapItem: MKMapItem //I get rid of it because idk why the code cant be build with getMapItem func in EnlargeMapView_V2
-//    var sceneLocation: CLLocationCoordinate2D
+    var mapItem: MKMapItem  //I get rid of it because idk why the code cant be build with getMapItem func in EnlargeMapView_V2
+    //    var sceneLocation: CLLocationCoordinate2D
 
     func getLookaroundScene() {
         lookAroundScene = nil  //clear the old lookAroundScene
