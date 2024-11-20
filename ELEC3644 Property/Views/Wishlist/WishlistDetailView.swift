@@ -195,10 +195,12 @@ struct WishlistDetailView: View {
                     state: state,
                     parent: self
                 )
-                .padding(10)
-                .background(Rectangle().fill(.black))
-                .foregroundStyle(.white)
-                .clipShape(.rect(cornerRadius: 5))
+                .font(.system(size: 16, weight: .medium))
+                .foregroundColor(.neutral10)
+                .padding()
+                .background(.black)
+                .cornerRadius(10)
+                .padding(.vertical, 8)
             }
         }
     }

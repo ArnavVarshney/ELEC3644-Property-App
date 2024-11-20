@@ -11,7 +11,7 @@ struct HostTransitionScreen: View {
     @State private var avPlayer = AVPlayer(
         url: Bundle.main.url(forResource: "hostTransition", withExtension: "mov")!)
     @EnvironmentObject var userViewModel: UserViewModel
-    @State private var navigateToExplore = false
+    @Environment(\.dismiss) private var dismiss
     var body: some View {
         NavigationStack {
             VStack {
@@ -42,17 +42,12 @@ struct HostTransitionScreen: View {
                     queue: .main
                 ) { _ in
                     avPlayer.seek(to: .zero)
-                    navigateToExplore = true
+                    dismiss()
                 }
                 avPlayer.play()
             }
         }
         .navigationBarBackButtonHidden(true)
-        .navigationDestination(isPresented: $navigateToExplore) {
-            ProfileView()
-                .interactiveDismissDisabled(true)
-                .navigationBarBackButtonHidden(true)
-        }
     }
 }
 

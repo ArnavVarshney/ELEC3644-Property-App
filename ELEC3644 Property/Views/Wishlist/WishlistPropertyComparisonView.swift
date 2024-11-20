@@ -31,15 +31,15 @@ struct WishlistPropertyComparisonView: View {
                             } label: {
                                 VStack {
                                     ImageCarouselView(
-                                        imageUrls: property.imageUrls,
-                                        property: property
+                                        imageUrls: [property.imageUrls.first!],
+                                        height: 150, property: property
                                     )
                                     HStack {
-                                        Text(property.name).bold()
+                                        Text(property.name).bold().lineLimit(1)
                                         Spacer()
                                     }
                                     HStack {
-                                        Text("\(property.netPrice)")
+                                        Text("\(property.netPrice.toCompactCurrencyFormat())")
                                         Spacer()
                                     }
                                 }.foregroundStyle(.black)
@@ -53,7 +53,7 @@ struct WishlistPropertyComparisonView: View {
 
                 TableSection(
                     titles: [
-                        "Price",
+                        "Net Price",
                         "Price/ft² (S.A)",
                     ],
                     values: [
@@ -83,14 +83,14 @@ struct WishlistPropertyComparisonView: View {
 
                 TableSection(
                     titles: [
-                        "Saleable Area",
-                        "Age",
-                        "Characteristics",
+                        "District",
+                        "School Net",
+                        "Amenities",
                     ],
                     values: [
                         properties.map { "\($0.district)" },
                         properties.map { $0.schoolNet }.map {
-                            "Primary School: \($0.primary)\nSecondary School: \($0.secondary)"
+                            "Primary: \($0.primary)\nSecondary: \($0.secondary)"
                         },
                         properties.map { $0.facilities }.map {
                             $0.map { $0.desc }.joined(separator: ",")
@@ -107,49 +107,51 @@ struct TableEntry: View {
     let values: [String]
     let title: String
 
+    var formattedValues: [String]{
+        if ["Net Price", "Price/ft² (S.A)"].contains(title) {
+            return values.map{value in Int(value)!.toCompactCurrencyFormat()}
+        }
+        return values.map{$0.capitalized}
+    }
+    
     var body: some View {
         //I've no idea why this worked
         HStack {
-            HStack {
-                Spacer()
+            Text(title)
+                .frame(width: 140,alignment: .leading)
+                .padding(0)
+            Spacer()
+
+            ForEach(values.indices, id: \.self) {
+                idx in
+                
                 VStack {
                     Spacer()
-                    Text(title)
+                    Text(formattedValues[idx])
+                        .foregroundColor(getColour(cellValue: values[idx]))
                     Spacer()
                 }
-                Spacer()
-            }.background(Color(UIColor.lightGray).opacity(0.3))
-
-            ForEach(values, id: \.self) {
-                value in
-
-                HStack {
-                    Spacer()
-                    VStack {
-                        Spacer()
-                        Text(value)
-                        Spacer()
-                    }
-                    Spacer()
-                }.background(getColour(cellValue: value, values: values))
+                .frame(width: 100, alignment: .leading)
             }
         }
+        .padding(.horizontal)
+        .padding(.vertical, 0)
     }
 
-    func getColour(cellValue: String, values: [String]) -> Color {
+    func getColour(cellValue: String) -> Color {
         if let cV = Double(cellValue) {
             let valuesInt = values.map { Double($0)! }
-            if cV < valuesInt.max()! {
-                return Color.red
+            if cV <= valuesInt.max()! {
+                return .primary60
             }
         }
 
-        return Color.clear
+        return .black
     }
 }
 
 struct TableSection: View {
-    @State var reveal: Bool = false
+    @State var reveal: Bool = true
     let titles: [String]
     let values: [[String]]
     let section: String
@@ -169,8 +171,6 @@ struct TableSection: View {
             }.padding()
             if reveal {
                 ForEach(titles.indices, id: \.self) { idx in
-                    Divider().frame(minHeight: 1).background(.black)
-
                     TableEntry(values: values[idx], title: titles[idx])
                 }
             }
