@@ -34,7 +34,7 @@ struct ListingMenuView: View {
     struct ListingMenuView_Preview: View {
         @EnvironmentObject var viewModel: PropertyViewModel
         var body: some View {
-            ListingMenuView(properties: viewModel.getByContractType(contractType: "buying"))
+            ListingMenuView(properties: viewModel.getByContractType(contractType: "Buy"))
                 .environmentObject(UserViewModel())
         }
     }

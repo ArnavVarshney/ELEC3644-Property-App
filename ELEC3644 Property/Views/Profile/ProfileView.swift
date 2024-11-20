@@ -110,7 +110,9 @@ struct ProfileView: View {
                         )
                     }
                     Spacer()
-                    NavigationLink(destination: HostTransitionScreen()) {
+                    NavigationLink(
+                        destination: HostTransitionScreen().toolbar(.hidden, for: .tabBar)
+                    ) {
                         HStack {
                             Image(systemName: "link")
                                 .resizable()
@@ -133,6 +135,7 @@ struct ProfileView: View {
                         .cornerRadius(36)
                         .padding(.vertical, 24)
                     }
+
                 } else {
                     VStack(alignment: .leading) {
                         Text("Login to start exploring. ")

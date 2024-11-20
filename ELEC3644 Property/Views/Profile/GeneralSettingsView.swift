@@ -9,9 +9,7 @@ import SwiftUI
 struct GeneralSettingsView: View {
     @EnvironmentObject var userViewModel: UserViewModel
     @Environment(\.dismiss) private var dismiss
-    @State private var lang: String =
-        Locale.preferredLanguages.first ?? UserDefaults.standard.string(forKey: "AppleLanguages")
-        ?? "en-US"
+    @State private var lang: String = Locale.preferredLanguages.first ?? "en"
     @State private var showAlert = false
     @State private var alertMessage = ""
 
@@ -22,15 +20,15 @@ struct GeneralSettingsView: View {
                     .font(.headline)
                     .fontWeight(.semibold)
                     .foregroundColor(.black)
-                Picker(selection: $lang, label: Text("")) {
-                    Text("English").tag("en-US")
-                    Text("中文").tag("zh-Hans")
+                Picker("Language", selection: $lang) {
+                    Text("繁體中文").tag("zh-HK")
+                    Text("English").tag("en")
                 }
                 .pickerStyle(SegmentedPickerStyle())
                 .padding(.top, 3)
                 .onChange(of: lang) {
                     UserDefaults.standard.set([lang], forKey: "AppleLanguages")
-                    showAlert = true
+                    showAlert.toggle()
                 }
                 Spacer()
             }

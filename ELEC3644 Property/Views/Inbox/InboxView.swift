@@ -86,6 +86,38 @@ struct InboxView: View {
             }
             .background(.neutral10)
             .navigationTitle("Messages")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    HStack {
+                        TextField("Search...", text: $searchText)
+                            .textFieldStyle(SearchTextFieldStyle())
+                            .frame(width: isSearchBarVisible ? 300 : 0)
+                            .opacity(isSearchBarVisible ? 1 : 0)
+                        Button(action: {
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                isSearchBarVisible.toggle()
+                            }
+                            searchText = ""
+                        }) {
+                            if isSearchBarVisible {
+                                Image(systemName: "xmark")
+                                    .resizable()
+                                    .frame(width: 12, height: 12)
+                                    .padding(8)
+                                    .foregroundColor(.black)
+                                    .background(
+                                        Circle()
+                                            .fill(Color.white)
+                                    )
+                                    .addShadow()
+                            } else {
+                                Image(systemName: "magnifyingglass")
+                                    .foregroundColor(.black)
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

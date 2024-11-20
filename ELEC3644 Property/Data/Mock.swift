@@ -39,7 +39,7 @@ enum Mock {
             agent: Mock.Agents[1],
             amenities: ["pet-friendly"],
             propertyType: "apartment",
-            contractType: "buying"
+            contractType: "Buy"
         ),
         Property(
             name: "The Pavilia Hill 2",
@@ -111,7 +111,7 @@ enum Mock {
             agent: Mock.Agents[0],
             amenities: ["gym", "balcony"],
             propertyType: "townhouse",
-            contractType: "leasing"
+            contractType: "Lease"
         ),
     ]
     static var Chats: [Chat] = [

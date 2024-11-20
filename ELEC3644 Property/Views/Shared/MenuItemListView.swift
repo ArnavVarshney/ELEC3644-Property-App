@@ -7,9 +7,9 @@
 import SwiftUI
 
 enum MenuItem: String, CaseIterable {
-    case buy = "buying"  //Matt 20/11/2024, for showing properties in EnlargeMapView_V2 by categories
-    case rent = "renting"
-    case lease = "leasing"
+    case buy = "Buy"
+    case rent = "Rent"
+    case lease = "Lease"
     case transaction = "Transaction"
     case estate = "Estate"
     case agents = "Agents"

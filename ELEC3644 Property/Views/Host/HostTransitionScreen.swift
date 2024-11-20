@@ -8,10 +8,11 @@ import AVKit
 import SwiftUI
 
 struct HostTransitionScreen: View {
+    @Environment(\.dismiss) private var dismiss
     @State private var avPlayer = AVPlayer(
         url: Bundle.main.url(forResource: "hostTransition", withExtension: "mov")!)
     @EnvironmentObject var userViewModel: UserViewModel
-    @Environment(\.dismiss) private var dismiss
+
     var body: some View {
         NavigationStack {
             VStack {
