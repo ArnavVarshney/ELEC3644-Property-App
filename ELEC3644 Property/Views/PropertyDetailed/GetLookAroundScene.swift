@@ -47,7 +47,7 @@ struct GetLookAroundScene: View {
             getLookaroundScene()
         }
     }
-    
+
 }
 
 //#Preview {

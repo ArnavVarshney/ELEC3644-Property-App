@@ -49,14 +49,15 @@ struct EnlargeMapView: View {
                     ForEach(viewModel.places, id: \.self) { place in
                         Marker(
                             place.placemark.name ?? "POI",
-                            systemImage: PropertyDetailViewModel.poiIcon(for: place.pointOfInterestCategory),
+                            systemImage: PropertyDetailViewModel.poiIcon(
+                                for: place.pointOfInterestCategory),
                             coordinate: place.placemark.coordinate
                         )
                     }
                 }
                 .mapControlVisibility(.hidden)
-                .sheet(isPresented: $showLookAroundScene){
-                    if let selectedMapItem = mapSelection{
+                .sheet(isPresented: $showLookAroundScene) {
+                    if let selectedMapItem = mapSelection {
                         GetLookAroundScene(mapItem: selectedMapItem)
                             .presentationDetents([.height(300)])
                             .presentationBackgroundInteraction(.enabled(upThrough: .height(300)))
@@ -67,10 +68,10 @@ struct EnlargeMapView: View {
 
                 // Pop-up view and other UI elements
                 VStack(alignment: .center) {
-                    
+
                     // Button to reset camera location, reset all buttons/bool
                     HStack {
-                        Spacer() // Pushes the button to the right
+                        Spacer()  // Pushes the button to the right
                         Button {
                             centerCameraOnUserLocation()
                             popUp = false
@@ -83,7 +84,7 @@ struct EnlargeMapView: View {
                                         .fill(.white)
                                         .frame(width: 50, height: 50)
                                 }
-                                .padding(10) // Add some padding around the button
+                                .padding(10)  // Add some padding around the button
                         }
                     }
                     .padding(.trailing, 20)
@@ -120,10 +121,11 @@ struct EnlargeMapView: View {
         let propertyCoordinate = viewModel.location
 
         // Create a region centered on the user's current location.
-        let userRegion = MKCoordinateRegion(center: propertyCoordinate, latitudinalMeters: 1500, longitudinalMeters: 1500)
+        let userRegion = MKCoordinateRegion(
+            center: propertyCoordinate, latitudinalMeters: 1500, longitudinalMeters: 1500)
 
         // Update camera position to center on user's location.
-        viewModel.position = .region(userRegion) // Update view model's position directly
+        viewModel.position = .region(userRegion)  // Update view model's position directly
     }
 }
 
