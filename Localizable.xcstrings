@@ -134,6 +134,16 @@
         }
       }
     },
+    "%lld/%lld characters" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld/%2$lld characters"
+          }
+        }
+      }
+    },
     "%lldsqft" : {
       "localizations" : {
         "zh-HK" : {
@@ -245,6 +255,9 @@
           }
         }
       }
+    },
+    "Add note" : {
+
     },
     "Add Photos" : {
       "localizations" : {
@@ -567,6 +580,9 @@
         }
       }
     },
+    "Clear" : {
+
+    },
     "Clear Water Bay" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -623,6 +639,12 @@
           }
         }
       }
+    },
+    "Create" : {
+
+    },
+    "Create wishlist" : {
+
     },
     "Current Password" : {
 
@@ -747,6 +769,7 @@
       }
     },
     "Enter album name" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -1760,6 +1783,9 @@
         }
       }
     },
+    "No chats found" : {
+
+    },
     "No facilities have been added yet." : {
       "localizations" : {
         "zh-HK" : {
@@ -1779,6 +1805,9 @@
           }
         }
       }
+    },
+    "No messages found" : {
+
     },
     "North" : {
       "extractionState" : "stale",
@@ -1803,6 +1832,7 @@
       }
     },
     "Nothing to view or compare" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -1944,6 +1974,7 @@
       }
     },
     "Pick an album name" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -2233,6 +2264,7 @@
       }
     },
     "Saleable Area/Sqft" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -2285,6 +2317,9 @@
         }
       }
     },
+    "Save to wishlist" : {
+
+    },
     "School Net" : {
       "localizations" : {
         "zh-HK" : {
@@ -2304,6 +2339,9 @@
           }
         }
       }
+    },
+    "Search..." : {
+
     },
     "Secondary School Net" : {
       "localizations" : {
@@ -2977,7 +3015,11 @@
         }
       }
     },
+    "Try searching for something else." : {
+
+    },
     "Try to pick and choose from your displayed wishlist" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -3204,6 +3246,7 @@
       }
     },
     "Wishlist - %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {

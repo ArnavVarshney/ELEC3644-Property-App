@@ -6,14 +6,6 @@
 //
 import SwiftUI
 
-struct PropertyDetail: Hashable {
-    let id: Int
-}
-
-struct PropertyComparison: Hashable {
-    let id: Int
-}
-
 enum ScreenState {
     case view, delete, compare
 }
@@ -23,16 +15,24 @@ struct WishlistDetailView: View {
     @Environment(\.dismiss) private var dismiss
 
     let wishlistId: UUID
+    var wishlistsDEBUG: [Wishlist]? = nil
+
+    @State var showingSheet = false
 
     var wishlist: Wishlist {
-        let temp = userViewModel.user.wishlists.filter { wishlist in
+        let temp: [Wishlist]
+        let wishlists = wishlistsDEBUG == nil ? userViewModel.user.wishlists : wishlistsDEBUG!
+
+        temp = wishlists.filter { wishlist in
             wishlist.id == wishlistId
         }
+
         if temp.count == 0 {
             return Wishlist(id: wishlistId, name: "Deleted", properties: [])
         }
         return temp.first!
     }
+
     var properties: [Property] {
         var picked: [Property] = []
         for idx in pickedPropertiesIdx {
@@ -50,11 +50,17 @@ struct WishlistDetailView: View {
     @State var compareButtonDisabled: Bool = false
     @State var backButtonDisabled: Bool = false
     @State var isActive = false
-    @State var deleteButtonColour: Color = .blue
-    @State var compareButtonColour: Color = .blue
+    @State var deleteButtonColour: Color = .black
+    @State var compareButtonColour: Color = .black
 
     var body: some View {
         NavigationStack {
+            //Title
+            HStack {
+                Text("\(wishlist.name)").font(.largeTitle)
+                Spacer()
+            }.padding()
+
             if wishlist.properties.isEmpty {
                 VStack {
                     Spacer()
@@ -77,24 +83,69 @@ struct WishlistDetailView: View {
                 List {
                     ForEach(wishlist.properties.indices, id: \.self) { idx in
                         if !tickable {
-                            NavigationLink {
-                                PropertyDetailView(property: wishlist.properties[idx])
-                            } label: {
-                                WishlistItemCard(
-                                    property: wishlist.properties[idx], picking: tickable,
-                                    picked: pickedPropertiesIdx.contains(idx))
+                            ScrollView {  // I've no idea why this worked https://forums.developer.apple.com/forums/thread/702376
+                                NavigationLink {
+                                    PropertyDetailView(property: wishlist.properties[idx])
+                                } label: {
+                                    WishlistItemCard(
+                                        property: wishlist.properties[idx], picking: tickable,
+                                        picked: pickedPropertiesIdx.contains(idx),
+                                        propertyNote: .constant("")
+                                    )
+                                }
                             }
+
+                            //Note button
+                            Button {
+                                showingSheet = true
+                            } label: {
+                                HStack {
+                                    if getNote(for: idx).replacingOccurrences(of: " ", with: " ")
+                                        .count
+                                        > 0
+                                    {
+                                        Text("\(getNote(for: idx))")
+                                            .font(.footnote)
+                                            .foregroundColor(.neutral60)
+                                            .padding(10)
+                                    }
+
+                                    Text(
+                                        getNote(for: idx).replacingOccurrences(of: " ", with: " ")
+                                            .count > 0 ? "Edit" : "Add note"
+                                    )
+                                    .font(.footnote)
+                                    .foregroundColor(.neutral60)
+                                    .padding(10)
+                                    .underline(true)
+
+                                    Spacer()
+                                }
+                                .background(
+                                    Color(UIColor.lightGray)
+                                        .opacity(0.3)
+                                )
+                                .cornerRadius(6)
+                            }.sheet(isPresented: $showingSheet) {
+                                WishlistNoteView(note: .constant(""))
+                                    .presentationDetents([.height(500)])
+                            }.listRowSeparator(.hidden)
                         } else {
                             Button {
                                 pick(idx)
                             } label: {
                                 WishlistItemCard(
                                     property: wishlist.properties[idx], picking: tickable,
-                                    picked: pickedPropertiesIdx.contains(idx))
+                                    picked: pickedPropertiesIdx.contains(idx),
+                                    propertyNote: .constant("")
+                                )
                             }
                         }
+
+                        Divider().listRowSeparator(.hidden)
                     }
                 }
+                .listStyle(.plain)
                 .navigationBarBackButtonHidden()
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
@@ -104,10 +155,6 @@ struct WishlistDetailView: View {
                         } label: {
                             Image(systemName: "chevron.left")
                         }.disabled(backButtonDisabled)
-                    }
-
-                    ToolbarItem(placement: .principal) {
-                        Text("Wishlist - \(wishlist.name)").bold()
                     }
 
                     ToolbarItem(placement: .topBarTrailing) {
@@ -138,8 +185,8 @@ struct WishlistDetailView: View {
                         }
                     }
                 }
+                .scrollContentBackground(.visible)
             }
-
             Spacer()
             if showingLowerButton {
                 LowerButton(
@@ -148,6 +195,10 @@ struct WishlistDetailView: View {
                     state: state,
                     parent: self
                 )
+                .padding(10)
+                .background(Rectangle().fill(.black))
+                .foregroundStyle(.white)
+                .clipShape(.rect(cornerRadius: 5))
             }
         }
     }
@@ -161,8 +212,8 @@ struct WishlistDetailView: View {
             showingLowerButton = false
             tickable = false
             backButtonDisabled = false
-            deleteButtonColour = .blue
-            compareButtonColour = .blue
+            deleteButtonColour = .black
+            compareButtonColour = .black
         case .delete:
             compareButtonDisabled = false
             deleteButtonDisabled = false
@@ -197,6 +248,10 @@ struct WishlistDetailView: View {
             }
             pickedPropertiesIdx.append(idx)
         }
+    }
+
+    func getNote(for id: Int) -> String {
+        return ""
     }
 }
 
@@ -266,16 +321,8 @@ struct LowerButton: View {
     }
 }
 
-let numberFormatter: NumberFormatter = {
-    let formatter = NumberFormatter()
-    formatter.numberStyle = .currency
-    formatter.currencyCode = "HKD"
-    formatter.currencySymbol = "$"
-    formatter.maximumSignificantDigits = 3
-    formatter.decimalSeparator = "."
-    return formatter
-}()
-
 #Preview {
-    WishlistDetailView(wishlistId: Mock.Users[0].wishlists[0].id).environmentObject(UserViewModel())
+    WishlistDetailView(
+        wishlistId: Mock.Users[0].wishlists[0].id, wishlistsDEBUG: Mock.Users[0].wishlists
+    ).environmentObject(UserViewModel())
 }

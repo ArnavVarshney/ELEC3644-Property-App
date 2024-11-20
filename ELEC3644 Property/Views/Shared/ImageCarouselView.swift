@@ -67,6 +67,7 @@ struct favoriteIcon: View {
     @EnvironmentObject var userViewModel: UserViewModel
     @State var showingSheet = false
     let property: Property
+    var favoritable: Bool = false
     var propertyIdx: (Int, Int)? {
         for (i, wishlist) in userViewModel.user.wishlists.enumerated() {
             for (j, property) in wishlist.properties.enumerated() {
@@ -102,10 +103,12 @@ struct favoriteIcon: View {
                         .fill(Color.white)
                 )
                 .shadow(color: .gray.opacity(0.3), radius: 4, x: 0, y: 4)
+
         }
         .padding(3)
         .sheet(isPresented: $showingSheet) {
-            FavoriteSubmitForm(property: property).presentationDetents([.height(250.0)])
+            FavoriteSubmitForm(showPrevSheet: $showingSheet, property: property)
+                .presentationDetents([.height(350)])
         }
     }
 }
