@@ -7,7 +7,7 @@
 import SwiftUI
 
 enum MenuItem: String, CaseIterable {
-    case buy = "Buy"  
+    case buy = "Buy"
     case rent = "Rent"
     case lease = "Lease"
     case transaction = "Transaction"
