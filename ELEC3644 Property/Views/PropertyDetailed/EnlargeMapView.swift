@@ -51,8 +51,8 @@ struct EnlargeMapView: View {
 
                     // Markers for other places
                     ForEach(viewModel.places, id: \.self) { place in
-                        if showRoute{
-                            if place == routeDestination{
+                        if showRoute {
+                            if place == routeDestination {
                                 Marker(
                                     place.placemark.name ?? "POI",
                                     systemImage: PropertyDetailViewModel.poiIcon(
@@ -62,7 +62,7 @@ struct EnlargeMapView: View {
                                 .tag(1)
                                 .tint(.blue)
                             }
-                        }else{
+                        } else {
                             Marker(
                                 place.placemark.name ?? "POI",
                                 systemImage: PropertyDetailViewModel.poiIcon(
@@ -72,8 +72,8 @@ struct EnlargeMapView: View {
                             .tint(.blue)
                         }
                     }
-                    
-                    if let route{
+
+                    if let route {
                         MapPolyline(route.polyline)
                             .stroke(.blue, lineWidth: 6)
                     }
@@ -139,7 +139,10 @@ struct EnlargeMapView: View {
             }
             .backButton()
             .onAppear {
-                camera = .region(MKCoordinateRegion(center: viewModel.location, latitudinalMeters: 1000, longitudinalMeters: 1000))
+                camera = .region(
+                    MKCoordinateRegion(
+                        center: viewModel.location, latitudinalMeters: 1000,
+                        longitudinalMeters: 1000))
             }
         }
         .onChange(of: mapSelection) { oldValue, newValue in
@@ -151,46 +154,50 @@ struct EnlargeMapView: View {
             popUp = false
 
         }
-        .onChange(of: showDirection, {oldValue, newValue in
-            if newValue{
-                fetchRoute()
-            }
-        })
+        .onChange(
+            of: showDirection,
+            { oldValue, newValue in
+                if newValue {
+                    fetchRoute()
+                }
+            })
     }
-    
-    func fetchRoute(){
+
+    func fetchRoute() {
         let request = MKDirections.Request()
         request.source = MKMapItem(placemark: .init(coordinate: viewModel.location))
         request.destination = mapSelection
-        Task{
+        Task {
             let result = try? await MKDirections(request: request).calculate()
             route = result?.routes.first
-            routeDestination = mapSelection    //now routeDestination stores the MKMapItem obj of the selected mapItem
-            withAnimation(.snappy){
+            routeDestination = mapSelection  //now routeDestination stores the MKMapItem obj of the selected mapItem
+            withAnimation(.snappy) {
                 showLookAroundScene = false
-                if let rect = route?.polyline.boundingMapRect{
-                    let showStartDestRect = rect.insetBy(dx: -rect.width * 0.25, dy: -rect.height * 0.25)
+                if let rect = route?.polyline.boundingMapRect {
+                    let showStartDestRect = rect.insetBy(
+                        dx: -rect.width * 0.25, dy: -rect.height * 0.25)
                     camera = .rect(showStartDestRect)
                 }
             }
         }
     }
-    
-    func updateCameraPosition(){
+
+    func updateCameraPosition() {
         let request = MKDirections.Request()
         request.source = MKMapItem(placemark: .init(coordinate: viewModel.location))
         request.destination = mapSelection
-        
-        Task{
-            let result = try? await MKDirections(request: request).calculate() //create directions object and calculate route
+
+        Task {
+            let result = try? await MKDirections(request: request).calculate()  //create directions object and calculate route
             route = result?.routes.first
             routeDestination = mapSelection
-            withAnimation(.snappy){
-//                showRoute = true  we don't want to display the polyline
+            withAnimation(.snappy) {
+                //                showRoute = true  we don't want to display the polyline
                 //showLookAroundScene = false  //actually this code is not necessary cuz our showRoute button is not on the GetLookAroundScene View
-                if let rect = route?.polyline.boundingMapRect{
+                if let rect = route?.polyline.boundingMapRect {
                     //ensure the start and dest do not lie on the edge of the monitor
-                    let showStartDestRect = rect.insetBy(dx: -rect.width * 0.25, dy: -rect.height * 0.25)
+                    let showStartDestRect = rect.insetBy(
+                        dx: -rect.width * 0.25, dy: -rect.height * 0.25)
                     camera = .rect(showStartDestRect)
                 }
             }
