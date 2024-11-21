@@ -71,7 +71,7 @@ struct LoginView: View {
             .background(Color.black)
             .cornerRadius(8)
             .padding(.top, 12)
-            
+
             Spacer()
                 .navigationTitle("Login")
                 .navigationBarTitleDisplayMode(.inline)
