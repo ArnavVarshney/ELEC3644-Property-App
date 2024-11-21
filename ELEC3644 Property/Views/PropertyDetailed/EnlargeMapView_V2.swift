@@ -55,14 +55,14 @@ struct EnlargeMapView_V2: View {
     @State var popUp_V2: Bool = true
     @State private var showLookAroundScene: Bool = false
     @State private var propertyMapItem: MKMapItem?
-    
+
     // Accepting a PropertyLocation enum as a parameter
     var startMapCameraLocation: StartMapCameraLocation
-    
+
     init(currentMenu: Binding<MenuItem?>, startMapCameraLocation: StartMapCameraLocation) {
         self._currentMenu = currentMenu
         self.startMapCameraLocation = startMapCameraLocation
-        self._camera = State(initialValue: .region(startMapCameraLocation.region)) // Initialize camera based on location
+        self._camera = State(initialValue: .region(startMapCameraLocation.region))  // Initialize camera based on location
     }
 
     //    @State var propertyLocations: [String: CLLocationCoordinate2D]

@@ -181,9 +181,9 @@ struct EnlargeMapView: View {
                     camera = .rect(showStartDestRect)
                     travelTime = route?.expectedTravelTime
                     travelDistance = route?.distance
-//                    print(travelTime)
-//                    print(travelDistance)
-                    
+                    //                    print(travelTime)
+                    //                    print(travelDistance)
+
                 }
             }
         }

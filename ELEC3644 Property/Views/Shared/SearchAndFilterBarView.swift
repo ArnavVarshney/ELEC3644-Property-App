@@ -16,15 +16,15 @@ struct SearchAndFilterBarView: View {
                 .scaledToFit()
                 .frame(width: 20, height: 20)
                 .padding(10)
-            
+
             VStack(alignment: .leading, spacing: 2) {
                 Text("District | MTR | School Net | University | Estate")
                     .font(.caption)
                     .foregroundStyle(.gray)
             }
-            
+
             Spacer()
-            
+
             Button {
                 isActive.toggle()
             } label: {
@@ -57,11 +57,10 @@ struct SearchAndFilterBarView: View {
 
 #Preview {
     struct SearchAndFilterBarView_Preview: View {
-        
+
         var body: some View {
             SearchAndFilterBarView(isActive: .constant(true))
         }
     }
     return SearchAndFilterBarView_Preview()
 }
-

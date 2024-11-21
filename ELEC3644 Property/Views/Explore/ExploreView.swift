@@ -17,7 +17,7 @@ struct ExploreView: View {
     var body: some View {
         NavigationStack {
             VStack {
-//                SearchBarView(searchText: $searchText, isActive: $isSearchActive)
+                //                SearchBarView(searchText: $searchText, isActive: $isSearchActive)
                 SearchAndFilterBarView(isActive: $isSearchActive)
                     .onTapGesture {
                         withAnimation(.snappy) {
@@ -71,8 +71,12 @@ struct ExploreView: View {
                 VStack {
                     Spacer()
                     NavigationLink(
-                        destination: EnlargeMapView_V2(currentMenu: $currentMenu, startMapCameraLocation: .customLocation(latitude: 22.3193, longitude: 114.1694)).environmentObject(
-                            viewModel)   //this coordinate is the center of Hong Kong as per Google
+                        destination: EnlargeMapView_V2(
+                            currentMenu: $currentMenu,
+                            startMapCameraLocation: .customLocation(
+                                latitude: 22.3193, longitude: 114.1694)
+                        ).environmentObject(
+                            viewModel)  //this coordinate is the center of Hong Kong as per Google
                     ) {
                         HStack {
                             Image(systemName: "map")
@@ -96,15 +100,15 @@ struct ExploreView: View {
                     }
                 }
             }
-            .sheet(isPresented: $showpointSearchView){
+            .sheet(isPresented: $showpointSearchView) {
                 pointSearchView(show: $showpointSearchView, currentMenu: $currentMenu)
                     .presentationDetents([.height(800)])
                     .presentationBackgroundInteraction(.enabled(upThrough: .height(800)))
                     .presentationCornerRadius(30)
                     .interactiveDismissDisabled(true)
-                
+
             }
-            
+
         }
     }
 }
