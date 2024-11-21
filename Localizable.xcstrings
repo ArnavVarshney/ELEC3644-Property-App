@@ -769,7 +769,7 @@
         "zh-HK" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "英文"
+            "value" : "English"
           }
         }
       }
@@ -1399,6 +1399,9 @@
           }
         }
       }
+    },
+    "Loading..." : {
+
     },
     "Location" : {
       "localizations" : {
@@ -3201,6 +3204,7 @@
       }
     },
     "Warning" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -3432,6 +3436,7 @@
       }
     },
     "You must restart the app for the changes to take effect" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
