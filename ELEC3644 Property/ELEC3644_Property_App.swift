@@ -14,6 +14,8 @@ struct ELEC3644_Property_App: App {
     @StateObject var agentData = AgentViewModel()
     @StateObject var propertyWithLocationData = PropertyViewModelWithLocation()
     @StateObject var locationManager = LocationManager()
+    @StateObject var languageSetting = LanguageSetting()
+
     var body: some Scene {
         WindowGroup {
             ContentView()
@@ -23,6 +25,8 @@ struct ELEC3644_Property_App: App {
                 .environmentObject(agentData)
                 .environmentObject(propertyWithLocationData)
                 .environmentObject(locationManager)
+                .environmentObject(languageSetting)
+                .environment(\.locale, languageSetting.locale)
         }
     }
 }

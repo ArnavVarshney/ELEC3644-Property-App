@@ -15,17 +15,22 @@ struct PropertyDetailAgentView: View {
             Divider()
             Text(userViewModel.isAgent(with: viewModel.property.agent) ? "Agent" : "Host")
                 .font(.system(size: 24, weight: .medium))
-            HStack {
-                UserAvatarView(user: viewModel.property.agent, size: 64)
-                    .padding(.trailing, 8)
-                VStack(alignment: .leading) {
-                    Text(viewModel.property.agent.name)
-                        .font(.system(size: 16, weight: .bold))
-                    Text("Tel: \(viewModel.property.agent.phone)")
-                        .font(.system(size: 14, weight: .regular))
-                        .foregroundColor(.neutral60)
+            NavigationLink(
+                destination: ProfileDetailedView(user: viewModel.property.agent),
+                label: {
+                    HStack {
+                        UserAvatarView(user: viewModel.property.agent, size: 64)
+                            .padding(.trailing, 8)
+                        VStack(alignment: .leading) {
+                            Text(viewModel.property.agent.name)
+                                .font(.system(size: 16, weight: .bold))
+                            Text("Tel: \(viewModel.property.agent.phone)")
+                                .font(.system(size: 14, weight: .regular))
+                                .foregroundColor(.neutral60)
+                        }
+                    }
                 }
-            }
+            )
             HStack {
                 Button(
                     action: {

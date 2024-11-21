@@ -23,7 +23,7 @@ struct LoginButton: View {
                 )
         }
         .padding(.top, 24)
-        .sheet(isPresented: $showModal) { LoginView().presentationDetents([.height(300)]) }
+        .sheet(isPresented: $showModal) { LoginView().presentationDetents([.medium]) }
     }
 }
 
@@ -61,17 +61,15 @@ struct LoginView: View {
 
             Button(action: login) {
                 Text("Login")
-                    .foregroundColor(.black)
+                    .foregroundColor(.white)
                     .font(.system(size: 15, weight: .semibold))
                     .foregroundColor(.neutral100)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 12)
                     .padding(.horizontal, 24)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color.black, lineWidth: 1)
-                    )
             }
+            .background(Color.black)
+            .cornerRadius(8)
             .padding(.top, 12)
 
             Spacer()

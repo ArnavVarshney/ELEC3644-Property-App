@@ -27,7 +27,7 @@ struct ChatView: View {
 
     var body: some View {
         VStack {
-            if groupedMessages.isEmpty {
+            if groupedMessages.isEmpty && !chat.messages.isEmpty {
                 Spacer()
                 Image(systemName: "magnifyingglass")
                     .font(.largeTitle)

@@ -30,7 +30,7 @@ struct ReviewFieldView: View {
                         Spacer()
                         ForEach(1...5, id: \.self) { star in
                             Image(systemName: star <= rating ? "star.fill" : "star")
-                                .foregroundColor(star <= rating ? .primary60 : .neutral60)
+                                .foregroundColor(star <= rating ? .black : .neutral60)
                                 .onTapGesture {
                                     rating = star
                                 }
@@ -39,18 +39,23 @@ struct ReviewFieldView: View {
                     .padding(.vertical, 4)
                 }
                 Divider()
+                    .padding(.vertical)
                 Button(action: {
                     submitReview()
                     dismiss()
                 }) {
                     Text("Submit Review")
+                        .foregroundColor(.white)
+                        .font(.system(size: 15, weight: .semibold))
+                        .foregroundColor(.neutral100)
                         .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(.primary60)
-                        .foregroundColor(.neutral10)
-                        .cornerRadius(8)
+                        .padding(.vertical, 12)
+                        .padding(.horizontal, 24)
                 }
+                .background(Color.black)
+                .cornerRadius(8)
                 .disabled(reviewText.isEmpty || rating == 0)
+                Spacer()
             }
             .padding()
         }
@@ -94,15 +99,20 @@ struct ProfileDetailedView: View {
                     UserAvatarView(user: user, size: 100)
                     Text(firstName)
                         .font(.system(size: 24, weight: .bold))
-                    switch userViewModel.userRole {
-                    case .agent:
+                    if userViewModel.user.id == user.id {
+                        switch userViewModel.userRole {
+                        case .agent:
+                            Text("Agent")
+                                .font(.system(size: 12, weight: .semibold))
+                        case .host:
+                            Text("Host")
+                                .font(.system(size: 12, weight: .semibold))
+                        default:
+                            Text("Guest")
+                                .font(.system(size: 12, weight: .semibold))
+                        }
+                    } else {
                         Text("Agent")
-                            .font(.system(size: 12, weight: .semibold))
-                    case .host:
-                        Text("Host")
-                            .font(.system(size: 12, weight: .semibold))
-                    default:
-                        Text("Guest")
                             .font(.system(size: 12, weight: .semibold))
                     }
                 }
@@ -163,19 +173,19 @@ struct ProfileDetailedView: View {
                 .padding(.top, 18)
             }
             if user.id != userViewModel.user.id {
-                Button("Write a review") {
+                Button(action: {
                     showWriteReviewModal = true
+                }) {
+                    Text("Write a review")
+                        .foregroundColor(.white)
+                        .font(.system(size: 15, weight: .semibold))
+                        .foregroundColor(.neutral100)
+                        .frame(maxWidth: .infinity)
+                        .padding(12)
                 }
-                .foregroundColor(.black)
-                .font(.system(size: 15, weight: .semibold))
-                .foregroundColor(.neutral100)
-                .padding(12)
-                .frame(maxWidth: .infinity)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color.black, lineWidth: 1)
-                )
-                .padding(.top, 4)
+                .background(Color.black)
+                .cornerRadius(8)
+                .padding(.top, 18)
             }
             Spacer()
         }
@@ -196,8 +206,7 @@ struct ProfileDetailedView: View {
             ReviewsListModal(user: user)
         }.sheet(isPresented: $showWriteReviewModal) {
             ReviewFieldView(user: user)
-                .presentationDetents([.height(300)])
-                .presentationDragIndicator(.visible)
+                .presentationDetents([.medium])
         }
     }
 }
