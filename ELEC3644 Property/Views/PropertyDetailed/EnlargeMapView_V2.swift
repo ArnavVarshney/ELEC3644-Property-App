@@ -135,12 +135,38 @@ struct EnlargeMapView_V2: View {
             .navigationBarTitleDisplayMode(.inline)  // Use inline mode
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    Text(
-                        "\(viewModel.getByContractType(contractType: currentMenu!.rawValue).count) properties on sale"
-                    )
-                    .font(.caption)
-                    .foregroundColor(.black)
-                    .padding()
+//                    if currentMenu?.rawValue == "Buy"{
+//                        Text(
+//                            "\(viewModel.getByContractType(contractType: currentMenu!.rawValue).count) properties on sale"
+//                        )
+//                    }else if currentMenu?.rawValue == "Rent"{
+//                       Text( "\(viewModel.getByContractType(contractType: currentMenu!.rawValue).count) properties for rent")
+//                    }else if currentMenu?.rawValue == "Lease"{
+//                        Text( "\(viewModel.getByContractType(contractType: currentMenu!.rawValue).count) properties for lease")
+//                    }
+                    if currentMenu!.rawValue == "Buy"{
+                        Text(
+                              "\(viewModel.getByContractType(contractType: currentMenu!.rawValue).count) properties on sale"
+                          )
+                        .font(.caption)
+                        .foregroundColor(.black)
+                        .padding()
+                    }else if currentMenu!.rawValue == "Rent"{
+                        Text(
+                              "\(viewModel.getByContractType(contractType: currentMenu!.rawValue).count) properties for rent"
+                          )
+                        .font(.caption)
+                        .foregroundColor(.black)
+                        .padding()
+                    }else if currentMenu!.rawValue == "Lease"{
+                        Text(
+                              "\(viewModel.getByContractType(contractType: currentMenu!.rawValue).count) properties for lease"
+                          )
+                        .font(.caption)
+                        .foregroundColor(.black)
+                        .padding()
+                    }
+
                 }
             }
         }

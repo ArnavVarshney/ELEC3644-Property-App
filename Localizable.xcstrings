@@ -111,6 +111,12 @@
         }
       }
     },
+    "%lld properties for lease" : {
+
+    },
+    "%lld properties for rent" : {
+
+    },
     "%lld properties on sale" : {
 
     },
