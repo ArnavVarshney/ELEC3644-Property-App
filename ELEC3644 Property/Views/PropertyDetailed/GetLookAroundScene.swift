@@ -13,6 +13,7 @@ struct GetLookAroundScene: View {
     @State private var lookAroundScene: MKLookAroundScene?
     var mapItem: MKMapItem  //I get rid of it because idk why the code cant be build with getMapItem func in EnlargeMapView_V2
     //    var sceneLocation: CLLocationCoordinate2D
+    @Binding var showDirection: Bool
 
     func getLookaroundScene() {
         lookAroundScene = nil  //clear the old lookAroundScene
@@ -33,7 +34,14 @@ struct GetLookAroundScene: View {
                     .overlay(alignment: .bottomTrailing) {
                         HStack {
                             Text("\(mapItem.name ?? "")")
+                            Button {
+                                showDirection = true
+                            } label: {
+                                Label("Show Driving Path", systemImage: "car")
+                            }
+                            .buttonStyle(.bordered)
                         }
+                        .labelStyle(.iconOnly)
                         .font(.caption)
                         .foregroundColor(.white)
                         .padding(10)
