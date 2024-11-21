@@ -10,6 +10,7 @@ struct SettingsItem {
     let destination: AnyView
     let iconName: String
     let title: String
+    let subtitle: String
 }
 
 struct ProfileView: View {
@@ -77,17 +78,18 @@ struct ProfileView: View {
                     SettingsList(items: [
                         SettingsItem(
                             destination: AnyView(GeneralSettingsView()), iconName: "gearshape",
-                            title: "General"),
+                            title: "General", subtitle: ""),
                         SettingsItem(
                             destination: AnyView(PersonalInfoView()),
                             iconName: "person.crop.circle",
-                            title: "Personal Information"),
+                            title: "Personal Information", subtitle: ""),
                         SettingsItem(
                             destination: AnyView(LoginSecurityView()),
-                            iconName: "shield.righthalf.filled", title: "Login & Security"),
+                            iconName: "shield.righthalf.filled", title: "Login & Security",
+                            subtitle: ""),
                         SettingsItem(
                             destination: AnyView(AccessibilityView()), iconName: "accessibility",
-                            title: "Accessibility"),
+                            title: "Accessibility", subtitle: ""),
                     ])
                     Button {
                         showLogoutConfirmation = true
@@ -167,11 +169,11 @@ struct ProfileView: View {
                         SettingsList(items: [
                             SettingsItem(
                                 destination: AnyView(GeneralSettingsView()), iconName: "gearshape",
-                                title: "General"),
+                                title: "General", subtitle: ""),
                             SettingsItem(
                                 destination: AnyView(AccessibilityView()),
                                 iconName: "accessibility",
-                                title: "Accessibility"),
+                                title: "Accessibility", subtitle: ""),
                         ])
                         Spacer()
                     }
