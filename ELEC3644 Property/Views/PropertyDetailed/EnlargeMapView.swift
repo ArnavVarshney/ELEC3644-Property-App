@@ -18,6 +18,8 @@ struct EnlargeMapView: View {
     @State private var route: MKRoute?
     @State private var showRoute = false
     @State private var routeDestination: MKMapItem?
+    @State private var travelDistance: CLLocationDistance?
+    @State private var travelTime: TimeInterval?
 
     var body: some View {
         NavigationStack {
@@ -177,6 +179,11 @@ struct EnlargeMapView: View {
                     let showStartDestRect = rect.insetBy(
                         dx: -rect.width * 0.25, dy: -rect.height * 0.25)
                     camera = .rect(showStartDestRect)
+                    travelTime = route?.expectedTravelTime
+                    travelDistance = route?.distance
+//                    print(travelTime)
+//                    print(travelDistance)
+                    
                 }
             }
         }
