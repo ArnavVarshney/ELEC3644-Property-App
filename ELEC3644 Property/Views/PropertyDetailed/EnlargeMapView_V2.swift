@@ -11,6 +11,25 @@ import MapKit
 import SwiftUI
 
 //the center of HK cuz this property app should only be available in HK. The Default camera location. Will update the camera when user press the location button
+
+enum StartMapCameraLocation {  //for pointSearchView
+    case userLocation
+    case customLocation(latitude: Double, longitude: Double)
+
+    var coordinate: CLLocationCoordinate2D {
+        switch self {
+        case .userLocation:
+            return .userLocation
+        case .customLocation(let latitude, let longitude):
+            return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        }
+    }
+
+    var region: MKCoordinateRegion {
+        MKCoordinateRegion(center: coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
+    }
+}
+
 extension CLLocationCoordinate2D {
     static let userLocation = CLLocationCoordinate2D(latitude: 22.3193, longitude: 114.1694)
 }
@@ -36,6 +55,15 @@ struct EnlargeMapView_V2: View {
     @State var popUp_V2: Bool = true
     @State private var showLookAroundScene: Bool = false
     @State private var propertyMapItem: MKMapItem?
+    
+    // Accepting a PropertyLocation enum as a parameter
+    var startMapCameraLocation: StartMapCameraLocation
+    
+    init(currentMenu: Binding<MenuItem?>, startMapCameraLocation: StartMapCameraLocation) {
+        self._currentMenu = currentMenu
+        self.startMapCameraLocation = startMapCameraLocation
+        self._camera = State(initialValue: .region(startMapCameraLocation.region)) // Initialize camera based on location
+    }
 
     //    @State var propertyLocations: [String: CLLocationCoordinate2D]
     var body: some View {
@@ -81,16 +109,6 @@ struct EnlargeMapView_V2: View {
                     MapUserLocationButton()
                     MapScaleView()
                 }
-                //                .sheet(isPresented: $showLookAroundScene){
-                //                    if let selectedPropertyId = propertySelection, let selectedProperty = viewModel.properties.first(where: { $0.id == selectedPropertyId }){
-                //                        propertyMapItem = viewModel.getMapItem(for: selectedProperty.name) // Assign property map item
-                //                        GetLookAroundScene(mapItem: propertyMapItem!)
-                //                            .presentationDetents([.height(300)])
-                //                            .presentationBackgroundInteraction(.enabled(upThrough: .height(300)))
-                //                            .presentationCornerRadius(25)
-                //                            .interactiveDismissDisabled(true)
-                //                    }
-                //                }
 
                 VStack(alignment: .center) {
 
@@ -109,24 +127,6 @@ struct EnlargeMapView_V2: View {
                                     .padding(.bottom, 35)
                                     .padding(.horizontal, 20)
                             }
-                            //
-                            //                            Button(action: {
-                            //                                showLookAroundScene.toggle()
-                            //                            }) {
-                            //                                HStack {
-                            //                                    Image(systemName: "eyes")
-                            //                                        // Use a globe symbol or any other relevant icon
-                            //                                        .resizable()
-                            //                                        .scaledToFit()
-                            //                                        .frame(width: 40, height: 40)
-                            //                                        .padding()
-                            //
-                            //                                    Text("Look around scene")
-                            //                                }
-                            //                                .background(Color.blue.opacity(0.7))  // Customize your color
-                            //                                .foregroundColor(.white)
-                            //                                .shadow(radius: 5)  // Add shadow for
-                            //                            }
                         }
                     }
                 }
@@ -135,15 +135,6 @@ struct EnlargeMapView_V2: View {
             .navigationBarTitleDisplayMode(.inline)  // Use inline mode
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    //                    if currentMenu?.rawValue == "Buy"{
-                    //                        Text(
-                    //                            "\(viewModel.getByContractType(contractType: currentMenu!.rawValue).count) properties on sale"
-                    //                        )
-                    //                    }else if currentMenu?.rawValue == "Rent"{
-                    //                       Text( "\(viewModel.getByContractType(contractType: currentMenu!.rawValue).count) properties for rent")
-                    //                    }else if currentMenu?.rawValue == "Lease"{
-                    //                        Text( "\(viewModel.getByContractType(contractType: currentMenu!.rawValue).count) properties for lease")
-                    //                    }
                     if currentMenu!.rawValue == "Buy" {
                         Text(
                             "\(viewModel.getByContractType(contractType: currentMenu!.rawValue).count) properties on sale"
