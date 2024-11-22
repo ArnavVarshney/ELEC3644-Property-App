@@ -12,9 +12,9 @@ class UserViewModel: ObservableObject {
     @Published var user = User(
         name: "", email: "", phone: "", avatarUrl: "", reviews: [], wishlists: []
     )
-    @Published var otherUsers: [User] = []
     @Published var agents: [User] = []
     @Published var userRole: UserRole = .guest
+
     init(apiClient: APIClient = NetworkManager.shared, user: User? = nil) {
         self.apiClient = apiClient
         self.user.id = UUID(

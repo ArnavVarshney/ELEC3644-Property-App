@@ -887,6 +887,12 @@
         }
       }
     },
+    "Forgot Password" : {
+
+    },
+    "Forgot password?" : {
+
+    },
     "Full name" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2762,6 +2768,9 @@
           }
         }
       }
+    },
+    "Success" : {
+
     },
     "Sunny Bay" : {
       "extractionState" : "stale",

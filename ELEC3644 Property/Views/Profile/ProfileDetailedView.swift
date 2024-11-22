@@ -79,11 +79,12 @@ struct ReviewFieldView: View {
 }
 
 struct ProfileDetailedView: View {
-    var user: User
+    @State var user: User
     @State private var showReviewsModal: Bool = false
     @State private var showWriteReviewModal: Bool = false
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var userViewModel: UserViewModel
+
     var firstName: String {
         if user.name.split(separator: " ").count > 1 {
             return String(user.name.split(separator: " ")[0])
@@ -207,6 +208,14 @@ struct ProfileDetailedView: View {
         }.sheet(isPresented: $showWriteReviewModal) {
             ReviewFieldView(user: user)
                 .presentationDetents([.medium])
+        }
+        .onAppear {
+            if user.id.uuidString.lowercased() != userViewModel.currentUserId() {
+                Task {
+                    user.reviews = try await NetworkManager.shared.get(
+                        url: "/reviews/user/\(user.id.uuidString.lowercased())")
+                }
+            }
         }
     }
 }
