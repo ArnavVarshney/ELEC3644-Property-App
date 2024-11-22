@@ -11,29 +11,11 @@ enum ScreenState {
 }
 
 struct WishlistDetailView: View {
-    @EnvironmentObject private var userViewModel: UserViewModel
     @Environment(\.dismiss) private var dismiss
-
-    let wishlistId: UUID
-    var wishlistsDEBUG: [Wishlist]? = nil
-
+    
     @State var showingSheet = false
-
-    var wishlist: Wishlist {
-        let temp: [Wishlist]
-        let wishlists = wishlistsDEBUG == nil ? userViewModel.user.wishlists : wishlistsDEBUG!
-
-        temp = wishlists.filter { wishlist in
-            wishlist.id == wishlistId
-        }
-
-        if temp.count == 0 {
-            return Wishlist(id: wishlistId, name: "Deleted", properties: [])
-        }
-        return temp.first!
-    }
-
-    var properties: [Property] {
+    @State var wishlist: Wishlist
+    var pickedProperties: [Property] {
         var picked: [Property] = []
         for idx in pickedPropertiesIdx {
             picked.append(wishlist.properties[idx])
@@ -52,6 +34,8 @@ struct WishlistDetailView: View {
     @State var isActive = false
     @State var deleteButtonColour: Color = .black
     @State var compareButtonColour: Color = .black
+    
+    let callback: (_: [Property])->Void
 
     var body: some View {
         NavigationStack {
@@ -94,42 +78,6 @@ struct WishlistDetailView: View {
                                     )
                                 }
                             }
-
-                            //Note button
-                            Button {
-                                showingSheet = true
-                            } label: {
-                                HStack {
-                                    if getNote(for: idx).replacingOccurrences(of: " ", with: " ")
-                                        .count
-                                        > 0
-                                    {
-                                        Text("\(getNote(for: idx))")
-                                            .font(.footnote)
-                                            .foregroundColor(.neutral60)
-                                            .padding(10)
-                                    }
-
-                                    Text(
-                                        getNote(for: idx).replacingOccurrences(of: " ", with: " ")
-                                            .count > 0 ? "Edit" : "Add note"
-                                    )
-                                    .font(.footnote)
-                                    .foregroundColor(.neutral60)
-                                    .padding(10)
-                                    .underline(true)
-
-                                    Spacer()
-                                }
-                                .background(
-                                    Color(UIColor.lightGray)
-                                        .opacity(0.3)
-                                )
-                                .cornerRadius(6)
-                            }.sheet(isPresented: $showingSheet) {
-                                WishlistNoteView(note: .constant(""))
-                                    .presentationDetents([.height(500)])
-                            }.listRowSeparator(.hidden)
                         } else {
                             Button {
                                 pick(idx)
@@ -137,7 +85,8 @@ struct WishlistDetailView: View {
                                 WishlistItemCard(
                                     property: wishlist.properties[idx], picking: tickable,
                                     picked: pickedPropertiesIdx.contains(idx),
-                                    propertyNote: .constant("")
+                                    propertyNote: .constant(""),
+                                    showNote: false
                                 )
                             }
                         }
@@ -190,11 +139,14 @@ struct WishlistDetailView: View {
             Spacer()
             if showingLowerButton {
                 LowerButton(
-                    wishlist: wishlist,
-                    pickedPropertiesIdx: $pickedPropertiesIdx,
-                    state: state,
-                    parent: self
-                )
+                    wishlist: $wishlist,
+                    pickedPropertiesIdx: $pickedPropertiesIdx, state: state){removedIds in
+                        let removedProperties = wishlist.properties.filter { property in
+                            return removedIds.contains(property.id)
+                        }
+                        callback(removedProperties)
+                        transition(to: .view)
+                }
                 .padding(10)
                 .background(Rectangle().fill(.black))
                 .foregroundStyle(.white)
@@ -249,21 +201,16 @@ struct WishlistDetailView: View {
             pickedPropertiesIdx.append(idx)
         }
     }
-
-    func getNote(for id: Int) -> String {
-        return ""
-    }
 }
 
 struct LowerButton: View {
-    @EnvironmentObject private var userViewModel: UserViewModel
-    @State var wishlist: Wishlist
+    @Binding var wishlist: Wishlist
     @Binding var pickedPropertiesIdx: [Int]
 
     let state: ScreenState
-    let parent: WishlistDetailView
+    let callback: (_: [UUID])->Void
 
-    var properties: [Property] {
+    var pickedProperties: [Property] {
         var picked: [Property] = []
         for idx in pickedPropertiesIdx {
             picked.append(wishlist.properties[idx])
@@ -276,43 +223,28 @@ struct LowerButton: View {
         case .compare:
             if pickedPropertiesIdx.count == 2 {
                 NavigationLink {
-                    WishlistPropertyComparisonView(properties: properties)
+                    WishlistPropertyComparisonView(properties: pickedProperties)
                 } label: {
                     Text("Compare 2 items")
                 }
             }
         case .delete:
-            if properties.count > 0 {
+            if pickedProperties.count > 0 {
                 Button {
-                    wishlist.properties = wishlist.properties.filter { property in
-                        if properties.contains(property) {
-                            pickedPropertiesIdx.removeFirst()
-                            Task {
-                                await userViewModel.postWishlist(
-                                    property: property,
-                                    folderName: wishlist.name, delete: true)
-                            }
+                    var removedIds: [UUID] = []
+                    let properties = wishlist.properties.filter { property in
+                        if pickedProperties.contains(property){
+                            removedIds.append(property.id)
                             return false
                         }
                         return true
                     }
-
-                    let temp = userViewModel.user.wishlists.enumerated().filter {
-                        $1.id == wishlist.id
-                    }
-                    let wishlistIdx = temp.count > 0 ? temp.first?.0 : nil
-
-                    if let idx = wishlistIdx {
-                        if wishlist.properties.count == 0 {
-                            userViewModel.user.wishlists.remove(at: idx)
-                        } else {
-                            userViewModel.user.wishlists[idx].properties = wishlist.properties
-                        }
-                    }
-
-                    parent.transition(to: .view)
+                    pickedPropertiesIdx = []
+                    callback(removedIds)
+                    wishlist.properties = properties
+                    
                 } label: {
-                    Text("Remove \(properties.count) item\(properties.count > 1 ? "s": "") ")
+                    Text("Remove \(pickedProperties.count) item\(pickedProperties.count > 1 ? "s": "") ")
                 }
             }
         default:
@@ -323,6 +255,6 @@ struct LowerButton: View {
 
 #Preview {
     WishlistDetailView(
-        wishlistId: Mock.Users[0].wishlists[0].id, wishlistsDEBUG: Mock.Users[0].wishlists
-    ).environmentObject(UserViewModel())
+        wishlist: Mock.Users[0].wishlists[0]
+    ){w in return}.environmentObject(UserViewModel())
 }

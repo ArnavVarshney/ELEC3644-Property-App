@@ -709,6 +709,9 @@
         }
       }
     },
+    "District | MTR | School Net" : {
+
+    },
     "District | MTR | School Net | University | Estate" : {
       "localizations" : {
         "zh-HK" : {
@@ -2177,6 +2180,9 @@
           }
         }
       }
+    },
+    "Rating: " : {
+
     },
     "Remove %lld item%@" : {
       "extractionState" : "stale",

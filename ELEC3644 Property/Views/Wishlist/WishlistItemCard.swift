@@ -14,6 +14,8 @@ struct WishlistItemCard: View {
 
     @Binding var propertyNote: String
     @State var showingSheet = false
+    
+    var showNote = true
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -68,6 +70,44 @@ struct WishlistItemCard: View {
                 Spacer()
 
                 Text("\(property.netPrice)")
+            }
+            
+            //Note button
+            if showNote{
+                Button {
+                    showingSheet = true
+                } label: {
+                    HStack {
+                        if propertyNote.replacingOccurrences(of: " ", with: " ")
+                            .count
+                            > 0
+                        {
+                            Text("\(propertyNote)")
+                                .font(.footnote)
+                                .foregroundColor(.neutral60)
+                                .padding(10)
+                        }
+
+                        Text(
+                            propertyNote.replacingOccurrences(of: " ", with: " ")
+                                .count > 0 ? "Edit" : "Add note"
+                        )
+                        .font(.footnote)
+                        .foregroundColor(.neutral60)
+                        .padding(10)
+                        .underline(true)
+
+                        Spacer()
+                    }
+                    .background(
+                        Color(UIColor.lightGray)
+                            .opacity(0.3)
+                    )
+                    .cornerRadius(6)
+                }.sheet(isPresented: $showingSheet) {
+                    WishlistNoteView(note: .constant(""))
+                        .presentationDetents([.height(500)])
+                }
             }
         }
         .alignmentGuide(.listRowSeparatorLeading) { _ in 0 }
