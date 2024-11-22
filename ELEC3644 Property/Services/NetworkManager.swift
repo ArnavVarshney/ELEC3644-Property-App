@@ -13,6 +13,7 @@ protocol APIClient {
     func delete<T: Decodable, U: Encodable>(url: String, body: U) async throws -> T
     func uploadImage(imageData: Data, url: String?, fileName: String?, mimeType: String?)
         async throws -> Data
+    func resetCache()
 }
 
 enum APIError: Error {
@@ -36,11 +37,11 @@ class NetworkManager: APIClient {
     }
 
     func get<T: Decodable>(url: String = "") async throws -> T {
-        //    if let cachedResponse = urlCache.cachedResponse(for: URLRequest(url: url)) {
-        //      let decodedData = try self.decoder.decode(T.self, from: cachedResponse.data)
-        //      return decodedData
-        //    }
         let finalUrl = URL(string: baseURL + url)
+        if let cachedResponse = urlCache.cachedResponse(for: URLRequest(url: finalUrl!)) {
+            let decodedData = try self.decoder.decode(T.self, from: cachedResponse.data)
+            return decodedData
+        }
         let (data, response) = try await URLSession.shared.data(from: finalUrl!)
         if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
             let cachedResponse = CachedURLResponse(response: response, data: data)
@@ -128,5 +129,9 @@ class NetworkManager: APIClient {
         let (data, _) = try await URLSession.shared.data(for: request)
         print("[DEBUG] Response data: \(String(data: data, encoding: .utf8)!)")
         return data
+    }
+
+    func resetCache() {
+        urlCache.removeAllCachedResponses()
     }
 }
