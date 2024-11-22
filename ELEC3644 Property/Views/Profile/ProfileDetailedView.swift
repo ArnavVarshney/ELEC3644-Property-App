@@ -229,19 +229,38 @@ struct ReviewsListModal: View {
             ScrollView {
                 VStack(alignment: .leading) {
                     ForEach(user.reviews, id: \.id) { review in
+                        var relativeTime: String {
+                            let formatter = RelativeDateTimeFormatter()
+                            formatter.unitsStyle = .full
+                            return formatter.localizedString(
+                                for: review.timestamp, relativeTo: Date())
+                        }
                         VStack(alignment: .leading) {
                             HStack {
-                                UserAvatarView(user: review.author, size: 36)
-                                VStack(alignment: .leading, spacing: 0) {
-                                    Text(review.author.name)
-                                        .font(.system(size: 18, weight: .bold))
+                                UserAvatarView(user: review.author, size: 48)
+                                    .padding(.trailing, 8)
+                                VStack(alignment: .leading) {
                                     HStack {
-                                        Image(systemName: "star.fill")
-                                            .resizable()
-                                            .frame(width: 12, height: 12)
-                                        Text("\(Int(review.rating))")
-                                            .font(.system(size: 12, weight: .semibold))
+                                        Text(review.author.name)
+                                            .font(.headline)
+                                            .fontWeight(.bold)
+                                        Spacer()
+                                        Text("Rating: ")
+                                            .font(.footnote)
+                                            .fontWeight(.bold)
+                                        ForEach(0..<5, id: \.self) { index in
+                                            Image(systemName: "star.fill")
+                                                .resizable()
+                                                .frame(width: 12, height: 12)
+                                                .foregroundColor(.black)
+                                                .padding(-3)
+                                                .opacity(index < Int(review.rating) ? 1 : 0)
+                                        }
                                     }
+                                    Text(relativeTime)
+                                        .font(.footnote)
+                                        .fontWeight(.semibold)
+                                        .foregroundColor(.neutral60)
                                 }
                                 Spacer()
                             }
