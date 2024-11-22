@@ -14,6 +14,7 @@ struct SignupView: View {
     @State private var phone: String = ""
     @State private var username: String = ""
     @State private var password: String = ""
+    @State private var avatarUrl: String = ""
     @State private var showAlert: Bool = false
     @State private var isEditing: Bool = false
     @State private var selectedItems: [PhotosPickerItem] = []
@@ -21,7 +22,7 @@ struct SignupView: View {
 
     var body: some View {
         NavigationStack {
-            ScrollView {
+            ScrollView(showsIndicators: false) {
                 ZStack {
                     UserAvatarView(user: userViewModel.user, size: 144)
                         .padding(.top, 24)
@@ -62,8 +63,6 @@ struct SignupView: View {
 
                 TextField("Name", text: $name)
                     .textFieldStyle(LoginTextFieldStyle())
-                    .autocapitalization(.none)
-                    .keyboardType(.emailAddress)
 
                 Text(LocalizedStringKey("Phone"))
                     .font(.footnote)
@@ -72,10 +71,9 @@ struct SignupView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.top, 12)
 
-                TextField("Phone (optional)", text: $username)
+                TextField("Phone (optional)", text: $phone)
                     .textFieldStyle(LoginTextFieldStyle())
-                    .autocapitalization(.none)
-                    .keyboardType(.emailAddress)
+                    .keyboardType(.numberPad)
 
                 Text(LocalizedStringKey("Email"))
                     .font(.footnote)
@@ -100,7 +98,7 @@ struct SignupView: View {
                     .textFieldStyle(LoginTextFieldStyle())
 
                 Button(action: signup) {
-                    Text("Login")
+                    Text("Signup")
                         .foregroundColor(.white)
                         .font(.system(size: 15, weight: .semibold))
                         .foregroundColor(.neutral100)
@@ -138,21 +136,18 @@ struct SignupView: View {
                     if let json = json as? [String: Any],
                         let imageUrl = json["url"] as? String
                     {
-                        if await !userViewModel.updateUser(with: [
-                            "avatarUrl": imageUrl
-                        ]) {
-                            alertMessage = "Failed to update profile picture."
-                            showAlert = true
-                        }
+                        avatarUrl = imageUrl
+                        userViewModel.user.avatarUrl = imageUrl
                     }
                 }
-                sleep(1)
-                isEditing = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    isEditing = false
+                }
             }
         }
         .alert(isPresented: $showAlert) {
             Alert(
-                title: Text("Login Failed"),
+                title: Text("Error"),
                 message: Text(alertMessage),
                 dismissButton: .default(Text("OK"))
             )
@@ -163,12 +158,29 @@ struct SignupView: View {
     private func signup() {
         Task {
             do {
-                let user = try await UserViewModel.login(with: username, password: password)
-                userViewModel.user = user
+                if name.isEmpty || username.isEmpty || password.isEmpty {
+                    alertMessage = "Please fill in all fields."
+                    showAlert = true
+                    return
+                } else if !username.contains("@") {
+                    alertMessage = "Invalid email."
+                    showAlert = true
+                    return
+                } else if !phone.isEmpty && (phone.count != 8 || !phone.allSatisfy(\.isNumber)) {
+                    alertMessage = "Invalid phone number."
+                    showAlert = true
+                    return
+                }
+                
+                let res: User = try await UserViewModel.signup(
+                    with: name, email: username, phone: phone, password: password,
+                    avatarUrl: avatarUrl)
+                
+                userViewModel.user = res
                 userViewModel.initTask()
-                UserDefaults.standard.set(user.id.uuidString, forKey: "currentUserID")
+                UserDefaults.standard.set(res.id.uuidString, forKey: "currentUserID")
             } catch {
-                alertMessage = "Invalid email or password."
+                alertMessage = "Failed to create account."
                 showAlert = true
             }
         }

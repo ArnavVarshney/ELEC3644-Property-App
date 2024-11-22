@@ -22,7 +22,6 @@ struct BottomNavigationView: View {
                     Label(userViewModel.isLoggedIn() ? "Profile" : "Log in", systemImage: "person")
                 }
         }
-        .transition(.asymmetric(insertion: .scale, removal: .opacity))
         .onAppear {
             let appearance = UITabBarAppearance()
             appearance.configureWithOpaqueBackground()
