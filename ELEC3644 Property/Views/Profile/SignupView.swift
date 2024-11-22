@@ -171,11 +171,11 @@ struct SignupView: View {
                     showAlert = true
                     return
                 }
-                
+
                 let res: User = try await UserViewModel.signup(
                     with: name, email: username, phone: phone, password: password,
                     avatarUrl: avatarUrl)
-                
+
                 userViewModel.user = res
                 userViewModel.initTask()
                 UserDefaults.standard.set(res.id.uuidString, forKey: "currentUserID")
