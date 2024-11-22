@@ -10,6 +10,9 @@ import SwiftUI
 struct PropertyDetailView: View {
     var property: Property
     @ObservedObject var viewModel: PropertyDetailViewModel
+    @EnvironmentObject private var userViewModel: UserViewModel
+    @Environment(\.managedObjectContext) private var viewContext
+    
     init(property: Property) {
         self.property = property
         viewModel = .init(property: property)
@@ -33,6 +36,20 @@ struct PropertyDetailView: View {
         }
         .backButton()
         .ignoresSafeArea()
+        .onAppear{
+            let p = PropertyHistory(context: viewContext)
+            let d = Date()
+            
+            p.userId = UUID(uuidString: userViewModel.currentUserId())
+            p.propertyId = p.id
+            p.dateTime = d
+            
+            do{
+                try viewContext.save()
+            }catch{
+                print("Error saving history: \(error)")
+            }
+        }
     }
 }
 
@@ -48,4 +65,5 @@ struct PropertyDetailView: View {
         .environmentObject(PropertyViewModel())
         .environmentObject(UserViewModel())
         .environmentObject(InboxViewModel())
+        .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }

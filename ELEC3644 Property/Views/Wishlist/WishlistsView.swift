@@ -28,7 +28,7 @@ struct WishlistsView: View {
                         SettingsItem(
                             destination: AnyView(FoldersView()),
                             iconName: "calendar.day.timeline.trailing",
-                            title: "Property Comparison", subtitle: "Compare your wishes"),
+                            title: "History", subtitle: "Reminded of something?"),
                     ])
                     Spacer()
                 } else {

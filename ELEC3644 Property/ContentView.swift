@@ -20,5 +20,4 @@ struct ContentView: View {
         .environmentObject(AgentViewModel())
         .environmentObject(LocationManager())
         .environmentObject(LanguageSetting())
-        .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }
