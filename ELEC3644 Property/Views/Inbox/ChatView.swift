@@ -16,6 +16,7 @@ struct ChatView: View {
     @State private var isSearchBarVisible: Bool = false
     @State private var searchText: String = ""
     var initialMessage: String?
+    @FocusState var foc: Bool?
 
     init(chat: Chat, initialMessage: String? = nil) {
         self.chat = chat
@@ -26,7 +27,7 @@ struct ChatView: View {
 
     var body: some View {
         VStack {
-            if groupedMessages.isEmpty {
+            if groupedMessages.isEmpty && !chat.messages.isEmpty {
                 Spacer()
                 Image(systemName: "magnifyingglass")
                     .font(.largeTitle)
@@ -59,14 +60,16 @@ struct ChatView: View {
                 .animation(.default, value: searchText)
             }
             HStack(alignment: .bottom) {
-                TextField("Type a message...", text: $newMessage, axis: .vertical)
-                    .lineLimit(4)
-                    .frame(minHeight: 30)
-                    .padding(12)
-                    .background(.neutral30)
-                    .foregroundColor(.neutral100)
-                    .cornerRadius(36)
-                    .frame(maxWidth: .infinity)
+                TextField("Type a message...", text: $newMessage, axis: .vertical).focused(
+                    $foc, equals: true
+                )
+                .lineLimit(4)
+                .frame(minHeight: 30)
+                .padding(12)
+                .background(.neutral30)
+                .foregroundColor(.neutral100)
+                .cornerRadius(36)
+                .frame(maxWidth: .infinity)
                 Button(action: sendMessage) {
                     Image(systemName: "paperplane")
                         .resizable()
@@ -76,7 +79,10 @@ struct ChatView: View {
                         .background(.neutral30)
                         .cornerRadius(36)
                 }
-            }.padding(.top, 24)
+            }.padding((foc ?? false) ? .vertical : .top, 24)
+        }
+        .onTapGesture {
+            foc = nil
         }
         .padding(.horizontal, 24)
         .navigationBarBackButtonHidden()

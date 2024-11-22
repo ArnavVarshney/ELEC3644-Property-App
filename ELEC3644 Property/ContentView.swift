@@ -20,4 +20,5 @@ struct ContentView: View {
         .environmentObject(AgentViewModel())
         .environmentObject(PropertyViewModelWithLocation())
         .environmentObject(LocationManager())
+        .environmentObject(LanguageSetting())
 }

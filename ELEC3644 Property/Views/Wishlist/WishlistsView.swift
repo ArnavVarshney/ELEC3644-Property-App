@@ -21,32 +21,16 @@ struct WishlistsView: View {
                         }
                         Image("wishlist").resizable().scaledToFit().frame(width: 250, height: 250)
                     }.padding(.horizontal)
-                    List {
-                        NavigationLink {
-                            FoldersView()
-                        } label: {
-                            HStack {
-                                Image(systemName: "heart")
-                                VStack(alignment: .leading) {
-                                    Text("Folders").bold()
-                                    Text("Look at what you had in mind").font(.footnote)
-                                        .foregroundColor(
-                                            .neutral60)
-                                }
-                            }
-                        }.alignmentGuide(.listRowSeparatorLeading) { _ in 0 }
-                        NavigationLink {
-                        } label: {
-                            HStack {
-                                Image(systemName: "calendar.day.timeline.trailing")
-                                VStack(alignment: .leading) {
-                                    Text("Property Comparison").bold()
-                                    Text("Compare your wishes").font(.footnote).foregroundColor(
-                                        .neutral60)
-                                }
-                            }
-                        }
-                    }
+                    WishlistsList(items: [
+                        SettingsItem(
+                            destination: AnyView(FoldersView()), iconName: "heart",
+                            title: "Folders", subtitle: "Look at what you had in mind"),
+                        SettingsItem(
+                            destination: AnyView(FoldersView()),
+                            iconName: "calendar.day.timeline.trailing",
+                            title: "Property Comparison", subtitle: "Compare your wishes"),
+                    ])
+                    Spacer()
                 } else {
                     VStack(alignment: .leading) {
                         Text("Log in to view your wishlists")
@@ -72,6 +56,47 @@ struct WishlistsView: View {
                 await userViewModel.fetchWishlist()
             }
         }
+    }
+}
+
+struct WishlistsList: View {
+    let items: [SettingsItem]
+
+    var body: some View {
+        LazyVStack {
+            ForEach(0..<items.count, id: \.self) { index in
+                NavigationLink(destination: items[index].destination) {
+                    HStack(spacing: 15) {
+                        Image(systemName: items[index].iconName)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 24, height: 24)
+                            .foregroundColor(.black)
+                        VStack(alignment: .leading, spacing: 6) {
+                            Text(LocalizedStringKey(items[index].title))
+                                .font(.subheadline)
+                                .fontWeight(.semibold)
+                                .foregroundColor(.black)
+                            Text(LocalizedStringKey(items[index].subtitle))
+                                .font(.footnote)
+                                .foregroundColor(.neutral70)
+                        }
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                            .resizable()
+                            .scaledToFit()
+                            .fontWeight(.semibold)
+                            .foregroundColor(.black)
+                            .frame(width: 12, height: 12)
+                    }
+                    .padding(.vertical, 3)
+                }
+                if index < items.count - 1 {
+                    Divider()
+                }
+            }
+        }
+        .padding(.horizontal)
     }
 }
 

@@ -111,6 +111,12 @@
         }
       }
     },
+    "%lld properties for lease" : {
+
+    },
+    "%lld properties for rent" : {
+
+    },
     "%lld properties on sale" : {
 
     },
@@ -763,7 +769,7 @@
         "zh-HK" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "英文"
+            "value" : "English"
           }
         }
       }
@@ -1393,6 +1399,9 @@
           }
         }
       }
+    },
+    "Loading..." : {
+
     },
     "Location" : {
       "localizations" : {
@@ -2556,6 +2565,9 @@
         }
       }
     },
+    "Show Driving Path" : {
+
+    },
     "Show profile" : {
       "localizations" : {
         "zh-HK" : {
@@ -3192,6 +3204,7 @@
       }
     },
     "Warning" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -3423,6 +3436,7 @@
       }
     },
     "You must restart the app for the changes to take effect" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
