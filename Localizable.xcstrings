@@ -611,6 +611,7 @@
       }
     },
     "Compare your wishes" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -1517,6 +1518,7 @@
       }
     },
     "Look at what you had in mind" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -2084,6 +2086,7 @@
       }
     },
     "Property Comparison" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {

@@ -15,6 +15,11 @@ protocol APIClient {
         async throws -> Data
 }
 
+enum APIError: Error {
+    case invalidResponse
+    case unknown
+}
+
 class NetworkManager: APIClient {
     private let urlCache: URLCache
     private let decoder = JSONDecoder()

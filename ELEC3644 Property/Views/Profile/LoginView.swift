@@ -49,15 +49,27 @@ struct LoginView: View {
 
     var body: some View {
         NavigationStack {
+            Text(LocalizedStringKey("Email"))
+                .font(.footnote)
+                .fontWeight(.semibold)
+                .foregroundColor(.black)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.top, 24)
+
             TextField("Email", text: $username)
                 .textFieldStyle(LoginTextFieldStyle())
                 .autocapitalization(.none)
                 .keyboardType(.emailAddress)
-                .padding(.top, 24)
+
+            Text(LocalizedStringKey("Password"))
+                .font(.footnote)
+                .fontWeight(.semibold)
+                .foregroundColor(.black)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.top, 12)
 
             SecureField("Password", text: $password)
                 .textFieldStyle(LoginTextFieldStyle())
-                .padding(.top, 12)
 
             Button(action: login) {
                 Text("Login")

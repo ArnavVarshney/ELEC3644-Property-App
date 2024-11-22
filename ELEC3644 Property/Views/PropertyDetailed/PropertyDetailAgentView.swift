@@ -88,4 +88,5 @@ struct PropertyDetailAgentView: View {
     return PropertyDetailAgentView_Preview()
         .environmentObject(PropertyViewModel())
         .environmentObject(InboxViewModel())
+        .environmentObject(UserViewModel())
 }

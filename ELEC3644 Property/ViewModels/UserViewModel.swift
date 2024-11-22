@@ -113,13 +113,35 @@ class UserViewModel: ObservableObject {
         UserDefaults.standard.removeObject(forKey: "currentUserID")
     }
 
-    static func register(with name: String, email: String, phone: String, password: String)
+    static func register(
+        with name: String, email: String, phone: String, password: String, avatar: Data
+    )
         async throws -> User
     {
         let apiClient = NetworkManager.shared
-        let data = [
+        var data = [
             "name": name, "email": email, "phone": phone, "password": password,
         ]
+
+        var res: Data = try await apiClient.get(url: "/users/exists/\(email)")
+        var json = try JSONSerialization.jsonObject(with: res, options: [])
+        if let json = json as? [String: Any],
+            let exists = json["exists"] as? Bool
+        {
+            if exists {
+                throw APIError.invalidResponse
+            }
+        }
+
+        res = try await apiClient.uploadImage(
+            imageData: avatar)
+        json = try JSONSerialization.jsonObject(with: res, options: [])
+        if let json = json as? [String: Any],
+            let imageUrl = json["url"] as? String
+        {
+            data["avatarUrl"] = imageUrl
+        }
+
         let newUser: User = try await apiClient.post(url: "/users", body: data)
         return newUser
     }
