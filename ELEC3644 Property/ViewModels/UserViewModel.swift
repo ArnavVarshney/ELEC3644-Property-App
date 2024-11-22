@@ -24,8 +24,11 @@ class UserViewModel: ObservableObject {
         }
     }
 
-    func initTask() {
+    func initTask(resetCache: Bool = false) {
         Task {
+            if resetCache {
+                apiClient.resetCache()
+            }
             await fetchUser(with: currentUserId())
             await fetchWishlist()
             if isAgent(with: user) {

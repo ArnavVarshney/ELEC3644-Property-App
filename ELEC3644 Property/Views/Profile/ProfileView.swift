@@ -21,7 +21,7 @@ struct ProfileView: View {
 
     var body: some View {
         NavigationStack {
-            VStack {
+            ScrollView(showsIndicators: false) {
                 if userViewModel.isLoggedIn() {
                     NavigationLink(destination: ProfileDetailedView(user: user)) {
                         HStack(spacing: 18) {
@@ -181,6 +181,9 @@ struct ProfileView: View {
                     }
                     .sheet(isPresented: $showModal) { SignupView().presentationDetents([.large]) }
                 }
+            }
+            .refreshable {
+                userViewModel.initTask()
             }
             .padding(.horizontal, 18)
             .navigationTitle("Profile")
