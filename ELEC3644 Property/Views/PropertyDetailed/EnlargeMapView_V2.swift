@@ -166,7 +166,7 @@ struct EnlargeMapView_V2: View {
             showLookAroundScene = newValue != nil
             print(showLookAroundScene)
         }
-
+        .toolbar(.hidden, for: .tabBar)
     }
 }
 
