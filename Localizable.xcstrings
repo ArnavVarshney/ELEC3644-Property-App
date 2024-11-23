@@ -4,6 +4,9 @@
     "" : {
 
     },
+    " transactions found" : {
+
+    },
     ", " : {
 
     },
@@ -149,9 +152,6 @@
           }
         }
       }
-    },
-    "%lld transactions found" : {
-
     },
     "%lld/%lld characters" : {
       "localizations" : {
@@ -2198,6 +2198,9 @@
     "Rating: " : {
 
     },
+    "Recently viewed properties will be recorded here" : {
+
+    },
     "Remove %lld item%@" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -3523,6 +3526,9 @@
           }
         }
       }
+    },
+    "Your history is empty" : {
+
     },
     "Your listings" : {
       "localizations" : {

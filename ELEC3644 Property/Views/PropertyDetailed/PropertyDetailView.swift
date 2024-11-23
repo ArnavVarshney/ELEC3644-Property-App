@@ -17,6 +17,11 @@ struct PropertyDetailView: View {
         self.property = property
         viewModel = .init(property: property)
     }
+    
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \PropertyHistory.dateTime, ascending: true)],
+        animation: .default)
+    private var records: FetchedResults<PropertyHistory>
 
     var body: some View {
         VStack {
@@ -37,12 +42,21 @@ struct PropertyDetailView: View {
         .backButton()
         .ignoresSafeArea()
         .onAppear {
-            let p = PropertyHistory(context: viewContext)
-            let d = Date()
-
-            p.userId = UUID(uuidString: userViewModel.currentUserId())
-            p.propertyId = property.id
-            p.dateTime = d
+            var p: PropertyHistory
+            
+            if let record = records.first(where: { p in
+                p.propertyId! == property.id &&
+                p.userId! == UUID(uuidString: userViewModel.currentUserId())!
+            }){
+                p = record
+            }else{
+                p = PropertyHistory(context: viewContext)
+                p.id = UUID()
+                p.userId = UUID(uuidString: userViewModel.currentUserId())
+                p.propertyId = property.id
+            }
+            
+            p.dateTime = Date()
 
             do {
                 try viewContext.save()

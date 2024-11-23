@@ -26,7 +26,7 @@ struct WishlistsView: View {
                             destination: AnyView(FoldersView()), iconName: "heart",
                             title: "Folders", subtitle: "Look at what you had in mind"),
                         SettingsItem(
-                            destination: AnyView(FoldersView()),
+                            destination: AnyView(HistoryView()),
                             iconName: "calendar.day.timeline.trailing",
                             title: "History", subtitle: "Reminded of something?"),
                     ])

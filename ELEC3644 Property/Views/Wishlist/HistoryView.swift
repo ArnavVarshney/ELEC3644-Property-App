@@ -19,7 +19,7 @@ struct HistoryView: View {
     ]
 
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \PropertyHistory.dateTime, ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \PropertyHistory.dateTime, ascending: false)],
         animation: .default)
     private var records: FetchedResults<PropertyHistory>
 
@@ -61,15 +61,10 @@ struct HistoryView: View {
     }
 
     @State var state: WishlistState = .view
-    @State var pickedPropertiesIdx: [Int] = []
-    @State var showingLowerButton = false
     @State var tickable: Bool = false
     @State var deleteButtonDisabled: Bool = false
-    @State var compareButtonDisabled: Bool = false
     @State var backButtonDisabled: Bool = false
-    @State var isActive = false
     @State var deleteButtonColour: Color = .black
-    @State var compareButtonColour: Color = .black
 
     var body: some View {
         NavigationStack {
@@ -77,115 +72,155 @@ struct HistoryView: View {
                 Text("\("Recently Viewed")").font(.largeTitle)
                 Spacer()
             }.padding()
-            ScrollView {
-                ForEach(groups) {
-                    group in
-                    HStack {
-                        Text(
-                            "\(group.date == itemFormatter.string(from: Date()) ? "Today" : group.date)"
-                        )
-                        Spacer()
+            if groups.isEmpty{
+                VStack {
+                    Spacer()
+                    Image(systemName: "book.closed")
+                        .font(.largeTitle)
+                        .padding()
+
+                    Text("Your history is empty")
+                        .font(.footnote)
+                        .fontWeight(.bold)
+                        .padding(4)
+
+                    Text("Recently viewed properties will be recorded here")
+                        .font(.footnote)
+                        .foregroundColor(.neutral60)
+                        .padding(4)
+                    Spacer()
+                }
+                .toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button {
+                            dismiss()
+                        } label: {
+                            Image(systemName: "chevron.left")
+                        }.disabled(backButtonDisabled)
                     }
 
-                    ForEach(group.properties.indices.filter { $0 % 2 == 0 }, id: \.self) { idx in
-                        HStack(spacing: 10) {
-                            if !tickable {
-                                NavigationLink {
-                                    PropertyDetailView(property: group.properties[idx])
-                                } label: {
-                                    WishlistItemCard(
-                                        property: group.properties[idx],
-                                        imageHeight: 170,
-                                        moreDetail: false,
-                                        propertyNote: .constant(""),
-                                        showingSheet: false,
-                                        showNote: false)
-                                }
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button {
+                            if state != .delete {
+                                transition(to: .delete)
+                            } else {
+                                transition(to: .view)
+                            }
+                        } label: {
+                            Image(systemName: "xmark.bin")
+                        }.foregroundStyle(deleteButtonColour).disabled(deleteButtonDisabled)
+                    }
+                }
+                .navigationBarBackButtonHidden()
+            }else{
+                ScrollView{
+                    ForEach(groups) {
+                        group in
+                        HStack {
+                            Text(
+                                "\(group.date == itemFormatter.string(from: Date()) ? "Today" : group.date)"
+                            )
+                            Spacer()
+                        }
 
-                                if idx + 1 < group.properties.count {
+                        ForEach(group.properties.indices.filter { $0 % 2 == 0 }, id: \.self) { idx in
+                            HStack(spacing: 10) {
+                                if !tickable {
                                     NavigationLink {
-                                        PropertyDetailView(property: group.properties[idx + 1])
+                                        PropertyDetailView(property: group.properties[idx])
                                     } label: {
                                         WishlistItemCard(
-                                            property: group.properties[idx + 1],
+                                            property: group.properties[idx],
                                             imageHeight: 170,
                                             moreDetail: false,
                                             propertyNote: .constant(""),
                                             showingSheet: false,
                                             showNote: false)
-                                    }
-                                }
-                            } else {
-                                Button {
-                                    let record = group.propertyHistories[idx]
-                                    delete(record: record)
-                                } label: {
-                                    WishlistItemCard(
-                                        property: group.properties[idx],
-                                        deletable: true,
-                                        imageHeight: 170,
-                                        moreDetail: false,
-                                        propertyNote: .constant(""),
-                                        showNote: false)
-                                }
+                                    }.frame(width: 170)
 
-                                if idx + 1 < group.properties.count {
+                                    if idx + 1 < group.properties.count {
+                                        NavigationLink {
+                                            PropertyDetailView(property: group.properties[idx + 1])
+                                        } label: {
+                                            WishlistItemCard(
+                                                property: group.properties[idx + 1],
+                                                imageHeight: 170,
+                                                moreDetail: false,
+                                                propertyNote: .constant(""),
+                                                showingSheet: false,
+                                                showNote: false)
+                                        }.frame(width: 170)
+                                    }
+                                } else {
                                     Button {
-                                        let record = group.propertyHistories[idx + 1]
+                                        let record = group.propertyHistories[idx]
                                         delete(record: record)
                                     } label: {
                                         WishlistItemCard(
-                                            property: group.properties[idx + 1],
+                                            property: group.properties[idx],
                                             deletable: true,
-                                            imageHeight: 170, moreDetail: false,
+                                            imageHeight: 170,
+                                            moreDetail: false,
                                             propertyNote: .constant(""),
                                             showNote: false)
+                                    }.frame(width: 170)
+
+                                    if idx + 1 < group.properties.count {
+                                        Button {
+                                            let record = group.propertyHistories[idx + 1]
+                                            delete(record: record)
+                                        } label: {
+                                            WishlistItemCard(
+                                                property: group.properties[idx + 1],
+                                                deletable: true,
+                                                imageHeight: 170, moreDetail: false,
+                                                propertyNote: .constant(""),
+                                                showNote: false)
+                                        }.frame(width: 170)
                                     }
                                 }
+                                Spacer()
                             }
                         }
+                    }.padding()
+                }
+                .toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button {
+                            dismiss()
+                        } label: {
+                            Image(systemName: "chevron.left")
+                        }.disabled(backButtonDisabled)
                     }
-                }.padding()
-            }
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Image(systemName: "chevron.left")
-                    }.disabled(backButtonDisabled)
-                }
 
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        if state != .delete {
-                            transition(to: .delete)
-                        } else {
-                            transition(to: .view)
-                        }
-                    } label: {
-                        Image(systemName: "xmark.bin")
-                    }.foregroundStyle(deleteButtonColour).disabled(deleteButtonDisabled)
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button {
+                            if state != .delete {
+                                transition(to: .delete)
+                            } else {
+                                transition(to: .view)
+                            }
+                        } label: {
+                            Image(systemName: "xmark.bin")
+                        }.foregroundStyle(deleteButtonColour).disabled(deleteButtonDisabled)
+                    }
                 }
+                .navigationBarBackButtonHidden()
             }
+            
 
         }
     }
 
     func transition(to state: WishlistState) {
-        pickedPropertiesIdx = []
         switch state {
         case .view:
-            compareButtonDisabled = false
             deleteButtonDisabled = false
-            showingLowerButton = false
             tickable = false
             backButtonDisabled = false
             deleteButtonColour = .black
         case .delete:
-            compareButtonDisabled = false
             deleteButtonDisabled = false
-            showingLowerButton = true
             tickable = true
             backButtonDisabled = true
             deleteButtonColour = .red

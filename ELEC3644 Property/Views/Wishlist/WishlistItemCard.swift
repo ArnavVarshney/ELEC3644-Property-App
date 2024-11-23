@@ -67,7 +67,7 @@ struct WishlistItemCard: View {
                 } placeholder: {
                     ProgressView()
                 }
-            }.frame(width: imageHeight, height: imageHeight).cornerRadius(10)
+            }.frame(height: imageHeight).cornerRadius(10)
 
             HStack {
                 VStack(alignment: moreDetail ? .leading : .center) {
@@ -143,7 +143,7 @@ struct WishlistItemCard: View {
 #Preview {
     WishlistItemCard(
         property: Mock.Properties.first!, picking: false, picked: true, deletable: true,
-        imageHeight: 150,
+        imageHeight: 300,
         moreDetail: false, propertyNote: .constant(""), showNote: false
     )
     .environmentObject(UserViewModel())
