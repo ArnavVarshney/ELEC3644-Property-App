@@ -54,7 +54,7 @@ struct WishlistItemCard: View {
                 VStack(alignment: moreDetail ? .leading : .center) {
                     Text(property.name).font(.headline).foregroundStyle(.black)
                     Text("\(property.area)")
-                    if moreDetail{
+                    if moreDetail {
                         Text("MTR info?")
 
                         HStack {
@@ -72,8 +72,8 @@ struct WishlistItemCard: View {
                 .lineLimit(1)
 
                 Spacer()
-                
-                if moreDetail{
+
+                if moreDetail {
                     Text("\(property.netPrice)")
                 }
             }
@@ -123,7 +123,8 @@ struct WishlistItemCard: View {
 
 #Preview {
     WishlistItemCard(
-        property: Mock.Properties.first!, picking: false, picked: true, imageHeight: 150, moreDetail: false, propertyNote: .constant(""), showNote: false
+        property: Mock.Properties.first!, picking: false, picked: true, imageHeight: 150,
+        moreDetail: false, propertyNote: .constant(""), showNote: false
     )
     .environmentObject(UserViewModel())
 }

@@ -14,17 +14,20 @@ struct PersistenceController {
     static let preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
-        
+
         let uids = ["68b696d7-320b-4402-a412-d9cee10fc6a3"]
-        let propertyIds = ["c96e735d-fd0b-48f1-a40e-5cafa57dab31", "86c46f5f-0ff0-438b-873d-9e4e40beede7", "0e287890-277c-47fb-aafc-ff92ca770852"]
+        let propertyIds = [
+            "c96e735d-fd0b-48f1-a40e-5cafa57dab31", "86c46f5f-0ff0-438b-873d-9e4e40beede7",
+            "0e287890-277c-47fb-aafc-ff92ca770852",
+        ]
         for uid in uids {
-            for pid in propertyIds{
+            for pid in propertyIds {
                 let newItem = PropertyHistory(context: viewContext)
                 newItem.userId = UUID(uuidString: uid)
                 newItem.id = UUID()
                 newItem.propertyId = UUID(uuidString: pid)
                 var d = Date()
-//                d = d - Double.random(in: 0...60*60*24*30)
+                //                d = d - Double.random(in: 0...60*60*24*30)
                 newItem.dateTime = d
             }
         }

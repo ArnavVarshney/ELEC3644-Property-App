@@ -9,7 +9,7 @@ import Foundation
 enum Mock {
     static var Properties: [Property] = [
         Property(
-            id:UUID(uuidString: "c96e735d-fd0b-48f1-a40e-5cafa57dab31")!,
+            id: UUID(uuidString: "c96e735d-fd0b-48f1-a40e-5cafa57dab31")!,
             name: "The Pavilia Hill",
             address: "18 Pak Tai Street, Ma On Shan",
             area: "Ma On Shan",
@@ -187,7 +187,7 @@ enum Mock {
             amenities: ["gym", "balcony"],
             propertyType: "townhouse",
             contractType: "Lease"
-        )
+        ),
     ]
     static var Chats: [Chat] = [
         Chat(
