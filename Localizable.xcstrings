@@ -5,7 +5,14 @@
 
     },
     " transactions found" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "找到交易紀錄"
+          }
+        }
+      }
     },
     ", " : {
 
@@ -125,13 +132,34 @@
       }
     },
     "%lld properties for lease" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld長租物業"
+          }
+        }
+      }
     },
     "%lld properties for rent" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld出租物業"
+          }
+        }
+      }
     },
     "%lld properties on sale" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld待售物業"
+          }
+        }
+      }
     },
     "%lld Review%@" : {
       "localizations" : {
@@ -149,6 +177,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "已儲存 %lld"
+          }
+        }
+      }
+    },
+    "%lld sqft" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld平方尺"
           }
         }
       }
@@ -276,7 +314,14 @@
       }
     },
     "Add note" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新增備註"
+          }
+        }
+      }
     },
     "Add Photos" : {
       "localizations" : {
@@ -395,7 +440,14 @@
       }
     },
     "Are you sure you want to deactivate?" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "確定要關掉此功能？"
+          }
+        }
+      }
     },
     "Are you sure you want to log out?" : {
       "localizations" : {
@@ -428,7 +480,14 @@
       }
     },
     "Area: %@" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "面積：%@"
+          }
+        }
+      }
     },
     "Balcony" : {
       "extractionState" : "manual",
@@ -603,7 +662,14 @@
       }
     },
     "Clear" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "清空"
+          }
+        }
+      }
     },
     "Clear Water Bay" : {
       "extractionState" : "stale",
@@ -638,7 +704,14 @@
       }
     },
     "Confirm Deactivate" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "確認關掉"
+          }
+        }
+      }
     },
     "Confirm Logout" : {
       "localizations" : {
@@ -651,10 +724,24 @@
       }
     },
     "Confirm Password" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "確認密碼"
+          }
+        }
+      }
     },
     "Contract Type" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "合約種類"
+          }
+        }
+      }
     },
     "Copy" : {
       "localizations" : {
@@ -667,13 +754,34 @@
       }
     },
     "Create" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "創建"
+          }
+        }
+      }
     },
     "Create wishlist" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "創建願望清單"
+          }
+        }
+      }
     },
     "Current Password" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "目前密碼"
+          }
+        }
+      }
     },
     "Date" : {
       "localizations" : {
@@ -686,10 +794,24 @@
       }
     },
     "Deactivate" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "停用"
+          }
+        }
+      }
     },
     "Deactivate your account" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "停用密碼"
+          }
+        }
+      }
     },
     "Description" : {
       "localizations" : {
@@ -723,7 +845,14 @@
       }
     },
     "District | MTR | School Net" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "地區｜地鐵｜校網"
+          }
+        }
+      }
     },
     "District | MTR | School Net | University | Estate" : {
       "localizations" : {
@@ -736,7 +865,14 @@
       }
     },
     "District: %@" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "地區：%@"
+          }
+        }
+      }
     },
     "Don't have an account?" : {
       "localizations" : {
@@ -904,10 +1040,24 @@
       }
     },
     "Forgot Password" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "忘記密碼"
+          }
+        }
+      }
     },
     "Forgot password?" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "忘記密碼？"
+          }
+        }
+      }
     },
     "Full name" : {
       "extractionState" : "manual",
@@ -1434,7 +1584,14 @@
       }
     },
     "Loading..." : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "載入中"
+          }
+        }
+      }
     },
     "Location" : {
       "localizations" : {
@@ -1659,10 +1816,24 @@
       }
     },
     "Map pan controls" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "地圖平移"
+          }
+        }
+      }
     },
     "Map zoom controls" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "地圖縮放"
+          }
+        }
+      }
     },
     "Max: %lld" : {
       "localizations" : {
@@ -1778,7 +1949,14 @@
       }
     },
     "New Password" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新密碼"
+          }
+        }
+      }
     },
     "New Territories" : {
       "extractionState" : "stale",
@@ -1824,7 +2002,14 @@
       }
     },
     "No chats found" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "沒有對話紀錄"
+          }
+        }
+      }
     },
     "No facilities have been added yet." : {
       "localizations" : {
@@ -1847,7 +2032,14 @@
       }
     },
     "No messages found" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "沒有訊息紀錄"
+          }
+        }
+      }
     },
     "North" : {
       "extractionState" : "stale",
@@ -1903,6 +2095,9 @@
         }
       }
     },
+    "on %@" : {
+
+    },
     "Once you login, you'll find messages here." : {
       "localizations" : {
         "zh-HK" : {
@@ -1914,7 +2109,14 @@
       }
     },
     "Pan around the map with directional buttons" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "請用方向鍵移動地圖"
+          }
+        }
+      }
     },
     "Parking" : {
       "extractionState" : "manual",
@@ -2014,7 +2216,14 @@
       }
     },
     "Phone (optional)" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "電話"
+          }
+        }
+      }
     },
     "Pick an album name" : {
       "extractionState" : "stale",
@@ -2080,6 +2289,9 @@
         }
       }
     },
+    "Price Delta" : {
+
+    },
     "Price per sq ft" : {
       "localizations" : {
         "zh-HK" : {
@@ -2096,6 +2308,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "價格範圍"
+          }
+        }
+      }
+    },
+    "Price/Sqft" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "尺價"
           }
         }
       }
@@ -2142,7 +2364,14 @@
       }
     },
     "Property Location Selector" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "選擇物業地點"
+          }
+        }
+      }
     },
     "Property Name" : {
       "localizations" : {
@@ -2196,10 +2425,14 @@
       }
     },
     "Rating: " : {
-
-    },
-    "Recently viewed properties will be recorded here" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "評分："
+          }
+        }
+      }
     },
     "Remove %lld item%@" : {
       "extractionState" : "stale",
@@ -2218,6 +2451,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Remove %1$lld item%2$@ "
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "移除 %1$lld 個項目%2$@"
           }
         }
       }
@@ -2382,7 +2621,14 @@
       }
     },
     "Save to wishlist" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "儲存至"
+          }
+        }
+      }
     },
     "School Net" : {
       "localizations" : {
@@ -2405,7 +2651,14 @@
       }
     },
     "Search..." : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "搜尋。。。"
+          }
+        }
+      }
     },
     "Secondary School Net" : {
       "localizations" : {
@@ -2441,7 +2694,14 @@
       }
     },
     "Select Contract type" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "選擇合約種類"
+          }
+        }
+      }
     },
     "Select District" : {
       "localizations" : {
@@ -2630,7 +2890,14 @@
       }
     },
     "Show Driving Path" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "顯示駕駛路線"
+          }
+        }
+      }
     },
     "Show profile" : {
       "localizations" : {
@@ -2675,7 +2942,14 @@
       }
     },
     "Signup" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "註冊"
+          }
+        }
+      }
     },
     "Siu Sai Wan" : {
       "extractionState" : "stale",
@@ -2804,7 +3078,14 @@
       }
     },
     "Success" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "成功"
+          }
+        }
+      }
     },
     "Sunny Bay" : {
       "extractionState" : "stale",
@@ -3096,7 +3377,14 @@
       }
     },
     "Try searching for something else." : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "試試搜尋其他"
+          }
+        }
+      }
     },
     "Try to pick and choose from your displayed wishlist" : {
       "extractionState" : "stale",
@@ -3229,7 +3517,24 @@
       }
     },
     "Update password" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更新密碼"
+          }
+        }
+      }
+    },
+    "View Property" : {
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "查看物業"
+          }
+        }
+      }
     },
     "Villa" : {
       "extractionState" : "manual",
@@ -3552,10 +3857,24 @@
       }
     },
     "Zoom in and out with dedicated buttons" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "以不同按鍵縮放"
+          }
+        }
+      }
     },
     "繁體中文" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "繁體中文"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

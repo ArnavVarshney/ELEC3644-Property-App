@@ -43,17 +43,19 @@ struct InboxView: View {
                             .padding(4)
                     } else {
                         if inboxData.filteredChats(searchText: searchText).isEmpty {
-                            Image(systemName: "magnifyingglass")
-                                .font(.largeTitle)
-                                .padding()
-                            Text("No chats found")
-                                .font(.footnote)
-                                .fontWeight(.bold)
-                                .padding(4)
-                            Text("Try searching for something else.")
-                                .font(.footnote)
-                                .foregroundColor(.neutral60)
-                                .padding(4)
+                            VStack {
+                                Image(systemName: "magnifyingglass")
+                                    .font(.largeTitle)
+                                    .padding()
+                                Text("No chats found")
+                                    .font(.footnote)
+                                    .fontWeight(.bold)
+                                    .padding(4)
+                                Text("Try searching for something else.")
+                                    .font(.footnote)
+                                    .foregroundColor(.neutral60)
+                                    .padding(4)
+                            }
                         } else {
                             List(inboxData.filteredChats(searchText: searchText)) { chat in
                                 NavigationLink {

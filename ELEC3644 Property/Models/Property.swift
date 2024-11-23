@@ -45,6 +45,15 @@ struct Transaction: Identifiable, Hashable, Codable {
     private enum CodingKeys: String, CodingKey { case date, price }
 }
 
+struct PropertyTransaction {
+    var transaction: Transaction
+    var property: Property
+    var priceDelta: Int
+    var pricePerSqft: Int {
+        return transaction.price / property.saleableArea
+    }
+}
+
 struct SchoolNet: Identifiable, Hashable, Codable {
     var id = UUID()
     var primary: String

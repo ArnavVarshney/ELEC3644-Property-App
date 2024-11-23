@@ -46,8 +46,6 @@ struct LocationSheetView: View {
                         tag.content = selectSubdistrict
                         dismiss()
                     }
-                    //                    .disabled(buttonDisabled)
-                    //                    .foregroundColor(buttonDisabled ? .neutral60 : .primary60)
                 }
             }
         }

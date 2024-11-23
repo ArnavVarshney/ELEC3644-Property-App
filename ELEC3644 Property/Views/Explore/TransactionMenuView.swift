@@ -7,15 +7,6 @@
 
 import SwiftUI
 
-struct PropertyTransaction {
-    var transaction: Transaction
-    var property: Property
-    var priceDelta: Int
-    var pricePerSqft: Int {
-        return transaction.price / property.saleableArea
-    }
-}
-
 struct TransactionMenuView: View {
     @EnvironmentObject private var viewModel: PropertyViewModel
 
@@ -58,7 +49,12 @@ struct TransactionMenuView: View {
             ScrollView(showsIndicators: false) {
                 LazyVStack {
                     ForEach(transactions, id: \.transaction.id) { propertyTransaction in
-                        TransactionListView(propertyTransaction: propertyTransaction)
+                        NavigationLink(
+                            destination: TransactionDetailedView(
+                                propertyTransaction: propertyTransaction)
+                        ) {
+                            TransactionListView(propertyTransaction: propertyTransaction)
+                        }
                         Divider()
                     }
                 }
@@ -91,6 +87,7 @@ struct TransactionListView: View {
             Text("\(propertyTransaction.property.name)・\(propertyTransaction.property.address)")
                 .font(.title2)
                 .fontWeight(.medium)
+                .multilineTextAlignment(.leading)
             HStack(alignment: .center) {
                 Text(
                     "S.A. \(propertyTransaction.property.saleableArea)sqft @ \(propertyTransaction.pricePerSqft.toCompactCurrencyFormat())/sqft"
