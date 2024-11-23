@@ -6,7 +6,7 @@
 //
 import SwiftUI
 
-enum ScreenState {
+enum WishlistState {
     case view, delete, compare
 }
 
@@ -41,7 +41,7 @@ struct WishlistDetailView: View {
     var debug = false
 
     //State management
-    @State var state: ScreenState = .view
+    @State var state: WishlistState = .view
     @State var pickedPropertiesIdx: [Int] = []
     @State var showingLowerButton = false
     @State var tickable: Bool = false
@@ -174,7 +174,7 @@ struct WishlistDetailView: View {
         }
     }
 
-    func transition(to state: ScreenState) {
+    func transition(to state: WishlistState) {
         pickedPropertiesIdx = []
         switch state {
         case .view:
@@ -226,7 +226,7 @@ struct LowerButton: View {
     @State var wishlist: Wishlist
     @State var pickedPropertiesIdx: [Int]
 
-    let state: ScreenState
+    let state: WishlistState
     let callback: (_: [UUID]) -> Void
 
     var pickedProperties: [Property] {

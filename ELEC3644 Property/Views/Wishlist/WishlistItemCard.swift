@@ -9,8 +9,9 @@ import SwiftUI
 
 struct WishlistItemCard: View {
     let property: Property
-    let picking: Bool
-    var picked: Bool
+    var picking: Bool = false
+    var picked: Bool = false
+    var deletable: Bool = false
     var imageHeight: Double = 300
     var moreDetail: Bool = true
 
@@ -37,6 +38,24 @@ struct WishlistItemCard: View {
                                 )
                                 .shadow(color: .gray.opacity(0.3), radius: 4, x: 0, y: 4)
                                 .frame(width: 24, height: 24)
+                        }
+                        Spacer()
+                    }.padding(.init(top: 5, leading: 5, bottom: 5, trailing: 5)).zIndex(1)
+                }
+                
+                if deletable{
+                    VStack {
+                        HStack {
+                            Image(systemName: "xmark")
+                                .frame(width: 3, height: 3)
+                                .foregroundColor(.black)
+                                .padding(12)
+                                .background(
+                                    Circle()
+                                        .fill(Color.white)
+                                )
+                                .shadow(color: .gray.opacity(0.3), radius: 4, x: 0, y: 4)
+                            Spacer()
                         }
                         Spacer()
                     }.padding(.init(top: 5, leading: 5, bottom: 5, trailing: 5)).zIndex(1)
@@ -123,7 +142,7 @@ struct WishlistItemCard: View {
 
 #Preview {
     WishlistItemCard(
-        property: Mock.Properties.first!, picking: false, picked: true, imageHeight: 150,
+        property: Mock.Properties.first!, picking: false, picked: true, deletable: true, imageHeight: 150,
         moreDetail: false, propertyNote: .constant(""), showNote: false
     )
     .environmentObject(UserViewModel())

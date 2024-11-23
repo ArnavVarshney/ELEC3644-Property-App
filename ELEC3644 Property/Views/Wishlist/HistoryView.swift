@@ -9,7 +9,9 @@ import SwiftUI
 
 struct HistoryView: View {
     @EnvironmentObject private var propertyViewModel: PropertyViewModel
+    @EnvironmentObject private var userViewModel: UserViewModel
     @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.dismiss) private var dismiss
 
     let coloumns = [
         GridItem(.flexible()),
@@ -27,13 +29,9 @@ struct HistoryView: View {
         }
     }
 
-    init() {
-
-    }
-
     private var groups: [HistorySection] {
         var sections: [HistorySection] = []
-        var groups: [String: [UUID]] = [:]
+        var groups: [String: [PropertyHistory]] = [:]
         let dateTimes = Set(
             records.map {
                 itemFormatter.string(from: $0.dateTime!)
@@ -44,22 +42,33 @@ struct HistoryView: View {
         }
 
         for record in records {
-            groups[itemFormatter.string(from: record.dateTime!)]!.append(record.propertyId!)
+            groups[itemFormatter.string(from: record.dateTime!)]!.append(record)
         }
 
         for date in groups.keys {
-            let propertyIds = groups[date]!
-            let properties = propertyIds.map { id in
+            let propertyHistories = groups[date]!
+            let properties = propertyHistories.map { h in
                 propertyViewModel.properties.first { p in
-                    p.id == id
+                    p.id == h.propertyId
                 } ?? Mock.Properties[0]
             }
 
-            let section = HistorySection(date: date, properties: properties)
+            let section = HistorySection(date: date, properties: properties, propertyHistories: propertyHistories)
             sections.append(section)
         }
         return sections
     }
+    
+    @State var state: WishlistState = .view
+    @State var pickedPropertiesIdx: [Int] = []
+    @State var showingLowerButton = false
+    @State var tickable: Bool = false
+    @State var deleteButtonDisabled: Bool = false
+    @State var compareButtonDisabled: Bool = false
+    @State var backButtonDisabled: Bool = false
+    @State var isActive = false
+    @State var deleteButtonColour: Color = .black
+    @State var compareButtonColour: Color = .black
 
     var body: some View {
         NavigationStack {
@@ -79,25 +88,58 @@ struct HistoryView: View {
 
                     ForEach(group.properties.indices.filter { $0 % 2 == 0 }, id: \.self) { idx in
                         HStack(spacing: 10) {
-                            NavigationLink {
-                                PropertyDetailView(property: group.properties[idx])
-                            } label: {
-                                WishlistItemCard(
-                                    property: group.properties[idx], picking: false, picked: false,
-                                    imageHeight: 170, moreDetail: false,
-                                    propertyNote: .constant(""), showingSheet: false,
-                                    showNote: false)
-                            }
-
-                            if idx + 1 < group.properties.count {
+                            if !tickable{
                                 NavigationLink {
                                     PropertyDetailView(property: group.properties[idx])
                                 } label: {
                                     WishlistItemCard(
-                                        property: group.properties[idx + 1], picking: false,
-                                        picked: false, imageHeight: 170, moreDetail: false,
-                                        propertyNote: .constant(""), showingSheet: false,
+                                        property: group.properties[idx],
+                                        imageHeight: 170,
+                                        moreDetail: false,
+                                        propertyNote: .constant(""),
+                                        showingSheet: false,
                                         showNote: false)
+                                }
+
+                                if idx + 1 < group.properties.count {
+                                    NavigationLink {
+                                        PropertyDetailView(property: group.properties[idx + 1])
+                                    } label: {
+                                        WishlistItemCard(
+                                            property: group.properties[idx + 1],
+                                            imageHeight: 170,
+                                            moreDetail: false,
+                                            propertyNote: .constant(""),
+                                            showingSheet: false,
+                                            showNote: false)
+                                    }
+                                }
+                            }else{
+                                Button {
+                                    let record = group.propertyHistories[idx]
+                                    delete(record: record)
+                                } label: {
+                                    WishlistItemCard(
+                                        property: group.properties[idx],
+                                        deletable: true,
+                                        imageHeight: 170,
+                                        moreDetail: false,
+                                        propertyNote: .constant(""),
+                                        showNote: false)
+                                }
+
+                                if idx + 1 < group.properties.count {
+                                    Button {
+                                        let record = group.propertyHistories[idx + 1]
+                                        delete(record: record)
+                                    } label: {
+                                        WishlistItemCard(
+                                            property: group.properties[idx + 1],
+                                            deletable: true,
+                                            imageHeight: 170, moreDetail: false,
+                                            propertyNote: .constant(""),
+                                            showNote: false)
+                                    }
                                 }
                             }
                         }
@@ -107,21 +149,62 @@ struct HistoryView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
-
+                        dismiss()
                     } label: {
-                        Text("Back")
-                    }
+                        Image(systemName: "chevron.left")
+                    }.disabled(backButtonDisabled)
                 }
 
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-
+                        if state != .delete {
+                            transition(to: .delete)
+                        } else {
+                            transition(to: .view)
+                        }
                     } label: {
-                        Text("Delete")
-                    }
+                        Image(systemName: "xmark.bin")
+                    }.foregroundStyle(deleteButtonColour).disabled(deleteButtonDisabled)
                 }
             }
 
+        }
+    }
+    
+    func transition(to state: WishlistState) {
+        pickedPropertiesIdx = []
+        switch state {
+        case .view:
+            compareButtonDisabled = false
+            deleteButtonDisabled = false
+            showingLowerButton = false
+            tickable = false
+            backButtonDisabled = false
+            deleteButtonColour = .black
+        case .delete:
+            compareButtonDisabled = false
+            deleteButtonDisabled = false
+            showingLowerButton = true
+            tickable = true
+            backButtonDisabled = true
+            deleteButtonColour = .red
+        default:
+            break
+        }
+
+        self.state = state
+    }
+    
+    func delete(record: PropertyHistory) {
+        //Disable navigation, we're picking stuff
+        withAnimation{
+            viewContext.delete(record)
+        }
+        
+        do{
+            try viewContext.save()
+        }catch{
+            print("Couldn't delete from db: \(error)")
         }
     }
 
@@ -137,10 +220,11 @@ struct HistorySection: Identifiable {
     let id = UUID()
     let date: String
     let properties: [Property]
+    let propertyHistories: [PropertyHistory]
 }
 
 #Preview {
     HistoryView().environment(
         \.managedObjectContext, PersistenceController.preview.container.viewContext
-    ).environmentObject(PropertyViewModel())
+    ).environmentObject(PropertyViewModel()).environmentObject(UserViewModel())
 }
