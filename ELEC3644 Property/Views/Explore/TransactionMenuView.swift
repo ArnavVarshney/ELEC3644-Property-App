@@ -21,12 +21,12 @@ struct TransactionMenuView: View {
 
     var properties: [Property]
     var transactions: [PropertyTransaction] = []
-    
+
     init(properties: [Property]) {
         self.properties = properties
         self.transactions = getTransactions()
     }
-    
+
     private func getTransactions() -> [PropertyTransaction] {
         var transactions: [PropertyTransaction] = []
         for property in properties {
@@ -35,7 +35,8 @@ struct TransactionMenuView: View {
                 let propertyTransaction = PropertyTransaction(
                     transaction: transaction,
                     property: property,
-                    priceDelta: idx == 0 ? 0 : transaction.price - property.transactionHistory[idx - 1].price
+                    priceDelta: idx == 0
+                        ? 0 : transaction.price - property.transactionHistory[idx - 1].price
                 )
                 transactions.append(propertyTransaction)
             }
@@ -43,7 +44,7 @@ struct TransactionMenuView: View {
         transactions.sort { $0.transaction.date > $1.transaction.date }
         return transactions
     }
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             Text("\(transactions.count) transactions found")
@@ -80,27 +81,33 @@ struct TransactionMenuView: View {
 
 struct TransactionListView: View {
     let propertyTransaction: PropertyTransaction
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             Text("\(propertyTransaction.property.name)・\(propertyTransaction.property.address)")
                 .font(.title2)
                 .fontWeight(.medium)
             HStack(alignment: .center) {
-                Text("S.A. \(propertyTransaction.property.saleableArea)sqft @ \(propertyTransaction.pricePerSqft.toCompactCurrencyFormat())/sqft")
-                    .font(.subheadline)
-                    .foregroundColor(.neutral60)
+                Text(
+                    "S.A. \(propertyTransaction.property.saleableArea)sqft @ \(propertyTransaction.pricePerSqft.toCompactCurrencyFormat())/sqft"
+                )
+                .font(.subheadline)
+                .foregroundColor(.neutral60)
                 Spacer()
-                Text("\(propertyTransaction.transaction.date.formatted(.dateTime.year().month().day()))")
-                    .font(.subheadline)
-                    .foregroundColor(.neutral100)
+                Text(
+                    "\(propertyTransaction.transaction.date.formatted(.dateTime.year().month().day()))"
+                )
+                .font(.subheadline)
+                .foregroundColor(.neutral100)
             }.padding(.bottom, 4)
             HStack {
                 HStack {
-                    Image(systemName: propertyTransaction.priceDelta > 0 ? "arrow.up" : "arrow.down")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 8)
+                    Image(
+                        systemName: propertyTransaction.priceDelta > 0 ? "arrow.up" : "arrow.down"
+                    )
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 8)
                     Text(abs(propertyTransaction.priceDelta).toCompactCurrencyFormat())
                 }
                 .font(.subheadline)
