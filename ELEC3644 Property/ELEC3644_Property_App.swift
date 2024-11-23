@@ -12,7 +12,6 @@ struct ELEC3644_Property_App: App {
     @StateObject var userData = UserViewModel()
     @StateObject var propertyData = PropertyViewModel()
     @StateObject var agentData = AgentViewModel()
-    @StateObject var propertyWithLocationData = PropertyViewModelWithLocation()
     @StateObject var locationManager = LocationManager()
     @StateObject var languageSetting = LanguageSetting()
 
@@ -23,7 +22,6 @@ struct ELEC3644_Property_App: App {
                 .environmentObject(userData)
                 .environmentObject(propertyData)
                 .environmentObject(agentData)
-                .environmentObject(propertyWithLocationData)
                 .environmentObject(locationManager)
                 .environmentObject(languageSetting)
                 .environment(\.locale, languageSetting.locale)

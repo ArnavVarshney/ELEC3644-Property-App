@@ -13,7 +13,6 @@ struct ExploreView: View {
     @State private var showpointSearchView = false
     @EnvironmentObject private var propertyViewModel: PropertyViewModel
     @EnvironmentObject private var agentViewModel: AgentViewModel
-    @EnvironmentObject var viewModel: PropertyViewModelWithLocation
     var body: some View {
         NavigationStack {
             VStack {
@@ -75,8 +74,8 @@ struct ExploreView: View {
                             currentMenu: $currentMenu,
                             startMapCameraLocation: .customLocation(
                                 latitude: 22.3193, longitude: 114.1694)
-                        ).environmentObject(
-                            viewModel)  //this coordinate is the center of Hong Kong as per Google
+                        )
+                        .environmentObject(propertyViewModel)
                     ) {
                         HStack {
                             Image(systemName: "map")
@@ -142,5 +141,4 @@ struct EstateMenuView: View {
         .environmentObject(PropertyViewModel())
         .environmentObject(UserViewModel())
         .environmentObject(AgentViewModel())
-        .environmentObject(PropertyViewModelWithLocation())
 }

@@ -16,10 +16,12 @@ struct SettingsItem {
 struct ProfileView: View {
     @EnvironmentObject var userViewModel: UserViewModel
     @State private var showLogoutConfirmation = false
+    @State private var showModal = false
     var user: User { userViewModel.user }
+
     var body: some View {
         NavigationStack {
-            VStack {
+            ScrollView(showsIndicators: false) {
                 if userViewModel.isLoggedIn() {
                     NavigationLink(destination: ProfileDetailedView(user: user)) {
                         HStack(spacing: 18) {
@@ -151,8 +153,8 @@ struct ProfileView: View {
                             Text("Don't have an account?")
                                 .font(.footnote)
                                 .foregroundColor(.black)
-                            NavigationLink {
-                                LoginView()  // TODO: Create Sign up view
+                            Button {
+                                showModal = true
                             } label: {
                                 Text("Sign up")
                                     .font(.footnote)
@@ -177,7 +179,11 @@ struct ProfileView: View {
                         ])
                         Spacer()
                     }
+                    .sheet(isPresented: $showModal) { SignupView().presentationDetents([.large]) }
                 }
+            }
+            .refreshable {
+                userViewModel.initTask()
             }
             .padding(.horizontal, 18)
             .navigationTitle("Profile")

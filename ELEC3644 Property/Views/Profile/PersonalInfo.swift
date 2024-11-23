@@ -99,8 +99,9 @@ struct PersonalInfoView: View {
                             }
                         }
                     }
-                    sleep(1)
-                    isEditing = false
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        isEditing = false
+                    }
                 }
             }
             .alert(isPresented: $showAlert) {

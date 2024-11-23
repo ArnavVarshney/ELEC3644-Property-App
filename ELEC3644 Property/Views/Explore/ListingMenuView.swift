@@ -21,12 +21,8 @@ struct ListingMenuView: View {
             }
         }
         .refreshable {
-            await refreshData()
+            viewModel.initTask(resetCache: true)
         }
-    }
-
-    func refreshData() async {
-        await viewModel.fetchProperties()
     }
 }
 

@@ -24,9 +24,22 @@ struct UserReviewCardView: View {
                 UserAvatarView(user: review.author, size: 48)
                     .padding(.trailing, 8)
                 VStack(alignment: .leading) {
-                    Text(review.author.name)
-                        .font(.footnote)
-                        .fontWeight(.bold)
+                    HStack {
+                        Text(review.author.name)
+                            .font(.footnote)
+                            .fontWeight(.bold)
+                        Spacer()
+                        Text("Rating: ")
+                            .font(.footnote)
+                            .fontWeight(.bold)
+                        ForEach(0..<Int(review.rating)) { _ in
+                            Image(systemName: "star.fill")
+                                .resizable()
+                                .frame(width: 12, height: 12)
+                                .foregroundColor(.black)
+                                .padding(-3)
+                        }
+                    }
                     Text(relativeTime)
                         .font(.footnote)
                         .fontWeight(.semibold)

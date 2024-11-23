@@ -12,9 +12,9 @@ class UserViewModel: ObservableObject {
     @Published var user = User(
         name: "", email: "", phone: "", avatarUrl: "", reviews: [], wishlists: []
     )
-    @Published var otherUsers: [User] = []
     @Published var agents: [User] = []
     @Published var userRole: UserRole = .guest
+
     init(apiClient: APIClient = NetworkManager.shared, user: User? = nil) {
         self.apiClient = apiClient
         self.user.id = UUID(
@@ -24,8 +24,11 @@ class UserViewModel: ObservableObject {
         }
     }
 
-    func initTask() {
+    func initTask(resetCache: Bool = false) {
         Task {
+            if resetCache {
+                apiClient.resetCache()
+            }
             await fetchUser(with: currentUserId())
             await fetchWishlist()
             if isAgent(with: user) {
@@ -110,16 +113,26 @@ class UserViewModel: ObservableObject {
 
     func logout() {
         user.id = UUID(uuidString: defaultUUID)!
+        user.name = ""
+        user.email = ""
+        user.phone = ""
+        user.avatarUrl = ""
+        user.reviews = []
+        user.wishlists = []
         UserDefaults.standard.removeObject(forKey: "currentUserID")
     }
 
-    static func register(with name: String, email: String, phone: String, password: String)
+    static func signup(
+        with name: String, email: String, phone: String, password: String, avatarUrl: String
+    )
         async throws -> User
     {
         let apiClient = NetworkManager.shared
         let data = [
             "name": name, "email": email, "phone": phone, "password": password,
+            "avatarUrl": avatarUrl,
         ]
+
         let newUser: User = try await apiClient.post(url: "/users", body: data)
         return newUser
     }

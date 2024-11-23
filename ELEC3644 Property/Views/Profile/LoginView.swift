@@ -46,18 +46,39 @@ struct LoginView: View {
     @State private var password: String = ""
     @State private var showAlert: Bool = false
     @State private var alertMessage: String = ""
+    @State private var forgotPassword: Bool = false
 
     var body: some View {
         NavigationStack {
+            Text(LocalizedStringKey("Email"))
+                .font(.footnote)
+                .fontWeight(.semibold)
+                .foregroundColor(.black)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.top, 24)
+
             TextField("Email", text: $username)
                 .textFieldStyle(LoginTextFieldStyle())
                 .autocapitalization(.none)
                 .keyboardType(.emailAddress)
-                .padding(.top, 24)
+
+            Text(LocalizedStringKey("Password"))
+                .font(.footnote)
+                .fontWeight(.semibold)
+                .foregroundColor(.black)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.top, 12)
 
             SecureField("Password", text: $password)
                 .textFieldStyle(LoginTextFieldStyle())
-                .padding(.top, 12)
+
+            Button(action: { forgotPassword = true }) {
+                Text("Forgot password?")
+                    .font(.footnote)
+                    .foregroundColor(.black)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.top, 12)
+            }
 
             Button(action: login) {
                 Text("Login")
@@ -87,6 +108,10 @@ struct LoginView: View {
                 }
 
         }
+        .sheet(isPresented: $forgotPassword) {
+            ForgotPasswordView()
+                .presentationDetents([.medium])
+        }
         .alert(isPresented: $showAlert) {
             Alert(
                 title: Text("Login Failed"),
@@ -100,6 +125,15 @@ struct LoginView: View {
     private func login() {
         Task {
             do {
+                if username.isEmpty || password.isEmpty {
+                    alertMessage = "Please fill in all fields."
+                    showAlert = true
+                    return
+                } else if !username.contains("@") {
+                    alertMessage = "Invalid email format."
+                    showAlert = true
+                    return
+                }
                 let user = try await UserViewModel.login(with: username, password: password)
                 viewModel.user = user
                 viewModel.initTask()

@@ -40,7 +40,7 @@ extension MKCoordinateRegion {
 }
 
 struct EnlargeMapView_V2: View {
-    @EnvironmentObject var viewModel: PropertyViewModelWithLocation
+    @EnvironmentObject var viewModel: PropertyViewModel
     @Binding var currentMenu: MenuItem?
     @State var camera: MapCameraPosition = .region(.userRegion)
     @State private var showAlert: Bool = false
@@ -166,7 +166,7 @@ struct EnlargeMapView_V2: View {
             showLookAroundScene = newValue != nil
             print(showLookAroundScene)
         }
-
+        .toolbar(.hidden, for: .tabBar)
     }
 }
 

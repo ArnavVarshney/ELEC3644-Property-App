@@ -414,6 +414,9 @@
         }
       }
     },
+    "Area: %@" : {
+
+    },
     "Balcony" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -611,6 +614,7 @@
       }
     },
     "Compare your wishes" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -634,6 +638,9 @@
       }
     },
     "Confirm Password" : {
+
+    },
+    "Contract Type" : {
 
     },
     "Copy" : {
@@ -711,6 +718,9 @@
           }
         }
       }
+    },
+    "District: %@" : {
+
     },
     "Don't have an account?" : {
       "localizations" : {
@@ -876,6 +886,12 @@
           }
         }
       }
+    },
+    "Forgot Password" : {
+
+    },
+    "Forgot password?" : {
+
     },
     "Full name" : {
       "extractionState" : "manual",
@@ -1517,6 +1533,7 @@
       }
     },
     "Look at what you had in mind" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -1979,6 +1996,9 @@
         }
       }
     },
+    "Phone (optional)" : {
+
+    },
     "Pick an album name" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -2084,6 +2104,7 @@
       }
     },
     "Property Comparison" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -2102,6 +2123,9 @@
           }
         }
       }
+    },
+    "Property Location Selector" : {
+
     },
     "Property Name" : {
       "localizations" : {
@@ -2382,6 +2406,9 @@
         }
       }
     },
+    "Select Contract type" : {
+
+    },
     "Select District" : {
       "localizations" : {
         "zh-HK" : {
@@ -2401,6 +2428,9 @@
           }
         }
       }
+    },
+    "Selected Values" : {
+
     },
     "Settings" : {
       "localizations" : {
@@ -2610,6 +2640,9 @@
         }
       }
     },
+    "Signup" : {
+
+    },
     "Siu Sai Wan" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -2735,6 +2768,9 @@
           }
         }
       }
+    },
+    "Success" : {
+
     },
     "Sunny Bay" : {
       "extractionState" : "stale",
