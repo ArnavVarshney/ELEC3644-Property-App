@@ -14,6 +14,7 @@ protocol APIClient {
     func uploadImage(imageData: Data, url: String?, fileName: String?, mimeType: String?)
         async throws -> Data
     func resetCache()
+    func resetRequestCache(path: String)
 }
 
 enum APIError: Error {
@@ -133,5 +134,9 @@ class NetworkManager: APIClient {
 
     func resetCache() {
         urlCache.removeAllCachedResponses()
+    }
+    
+    func resetRequestCache(path: String) {
+        urlCache.removeCachedResponse(for: URLRequest(url: URL(string: baseURL + path)!))
     }
 }

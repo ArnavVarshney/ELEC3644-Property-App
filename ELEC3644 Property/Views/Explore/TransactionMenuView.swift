@@ -46,9 +46,13 @@ struct TransactionMenuView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("\(transactions.count) transactions found")
-                .font(.subheadline)
-                .fontWeight(.bold)
+            HStack {
+                Text("\(transactions.count)")
+                    .fontWeight(.bold)
+                    .font(.subheadline)
+                Text(" transactions found")
+                    .font(.subheadline)
+            }
             Divider()
             ScrollView(showsIndicators: false) {
                 LazyVStack {
@@ -109,11 +113,13 @@ struct TransactionListView: View {
                 .background(propertyTransaction.priceDelta > 0 ? .green : .red)
                 .cornerRadius(4)
                 .foregroundColor(.neutral10)
-
-                Spacer()
-                Text(propertyTransaction.transaction.price.toCompactCurrencyFormat())
-                    .font(.headline)
-                    .foregroundColor(.neutral100)
+                Text(propertyTransaction.property.contractType)
+                .font(.subheadline)
+                .padding(.vertical, 4)
+                .padding(.horizontal, 8)
+                .background(.neutral100)
+                .cornerRadius(4)
+                .foregroundColor(.neutral10)
             }
         }
         .padding(.vertical)
