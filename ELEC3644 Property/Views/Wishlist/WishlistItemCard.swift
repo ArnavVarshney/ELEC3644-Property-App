@@ -42,8 +42,8 @@ struct WishlistItemCard: View {
                         Spacer()
                     }.padding(.init(top: 5, leading: 5, bottom: 5, trailing: 5)).zIndex(1)
                 }
-                
-                if deletable{
+
+                if deletable {
                     VStack {
                         HStack {
                             Image(systemName: "xmark")
@@ -142,7 +142,8 @@ struct WishlistItemCard: View {
 
 #Preview {
     WishlistItemCard(
-        property: Mock.Properties.first!, picking: false, picked: true, deletable: true, imageHeight: 150,
+        property: Mock.Properties.first!, picking: false, picked: true, deletable: true,
+        imageHeight: 150,
         moreDetail: false, propertyNote: .constant(""), showNote: false
     )
     .environmentObject(UserViewModel())

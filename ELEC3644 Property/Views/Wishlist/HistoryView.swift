@@ -53,12 +53,13 @@ struct HistoryView: View {
                 } ?? Mock.Properties[0]
             }
 
-            let section = HistorySection(date: date, properties: properties, propertyHistories: propertyHistories)
+            let section = HistorySection(
+                date: date, properties: properties, propertyHistories: propertyHistories)
             sections.append(section)
         }
         return sections
     }
-    
+
     @State var state: WishlistState = .view
     @State var pickedPropertiesIdx: [Int] = []
     @State var showingLowerButton = false
@@ -88,7 +89,7 @@ struct HistoryView: View {
 
                     ForEach(group.properties.indices.filter { $0 % 2 == 0 }, id: \.self) { idx in
                         HStack(spacing: 10) {
-                            if !tickable{
+                            if !tickable {
                                 NavigationLink {
                                     PropertyDetailView(property: group.properties[idx])
                                 } label: {
@@ -114,7 +115,7 @@ struct HistoryView: View {
                                             showNote: false)
                                     }
                                 }
-                            }else{
+                            } else {
                                 Button {
                                     let record = group.propertyHistories[idx]
                                     delete(record: record)
@@ -170,7 +171,7 @@ struct HistoryView: View {
 
         }
     }
-    
+
     func transition(to state: WishlistState) {
         pickedPropertiesIdx = []
         switch state {
@@ -194,16 +195,16 @@ struct HistoryView: View {
 
         self.state = state
     }
-    
+
     func delete(record: PropertyHistory) {
         //Disable navigation, we're picking stuff
-        withAnimation{
+        withAnimation {
             viewContext.delete(record)
         }
-        
-        do{
+
+        do {
             try viewContext.save()
-        }catch{
+        } catch {
             print("Couldn't delete from db: \(error)")
         }
     }
