@@ -2434,6 +2434,9 @@
         }
       }
     },
+    "Recently viewed properties will be recorded here" : {
+
+    },
     "Remove %lld item%@" : {
       "extractionState" : "stale",
       "localizations" : {
