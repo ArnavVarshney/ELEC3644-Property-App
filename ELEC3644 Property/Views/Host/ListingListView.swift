@@ -7,6 +7,7 @@
 import SwiftUI
 
 struct ListingListView: View {
+    @EnvironmentObject private var propertyViewModel: PropertyViewModel
     let properties: [Property]
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -17,6 +18,9 @@ struct ListingListView: View {
                     }
                 }
             }
+        }
+        .refreshable {
+            propertyViewModel.initTask(resetCache: true)
         }
     }
 }

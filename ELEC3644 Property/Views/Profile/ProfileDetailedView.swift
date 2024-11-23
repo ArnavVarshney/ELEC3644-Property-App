@@ -94,128 +94,133 @@ struct ProfileDetailedView: View {
     }
 
     var body: some View {
-        VStack {
-            HStack(spacing: 60) {
-                VStack {
-                    UserAvatarView(user: user, size: 100)
-                    Text(firstName)
-                        .font(.system(size: 24, weight: .bold))
-                    if userViewModel.user.id == user.id {
-                        switch userViewModel.userRole {
-                        case .agent:
+        ScrollView {
+            VStack {
+                HStack(spacing: 60) {
+                    VStack {
+                        UserAvatarView(user: user, size: 100)
+                        Text(firstName)
+                            .font(.system(size: 24, weight: .bold))
+                        if userViewModel.user.id == user.id {
+                            switch userViewModel.userRole {
+                            case .agent:
+                                Text("Agent")
+                                    .font(.system(size: 12, weight: .semibold))
+                            case .host:
+                                Text("Host")
+                                    .font(.system(size: 12, weight: .semibold))
+                            default:
+                                Text("Guest")
+                                    .font(.system(size: 12, weight: .semibold))
+                            }
+                        } else {
                             Text("Agent")
                                 .font(.system(size: 12, weight: .semibold))
-                        case .host:
-                            Text("Host")
-                                .font(.system(size: 12, weight: .semibold))
-                        default:
-                            Text("Guest")
-                                .font(.system(size: 12, weight: .semibold))
                         }
-                    } else {
-                        Text("Agent")
-                            .font(.system(size: 12, weight: .semibold))
                     }
-                }
-                .padding(.leading, 36)
-                .padding(.vertical, 24)
-                VStack(alignment: .leading, spacing: 15) {
-                    VStack(alignment: .leading, spacing: 6) {
-                        Text("\(user.reviews.count)")
-                            .font(.headline)
-                            .fontWeight(.bold)
-                        Text("Reviews")
-                            .font(.system(size: 12, weight: .semibold))
-                    }
-                    Divider()
-                    VStack(alignment: .leading, spacing: 6) {
-                        HStack {
-                            Text(String(format: "%.2f", UserViewModel.averageRating(for: user)))
+                    .padding(.leading, 36)
+                    .padding(.vertical, 24)
+                    VStack(alignment: .leading, spacing: 15) {
+                        VStack(alignment: .leading, spacing: 6) {
+                            Text("\(user.reviews.count)")
                                 .font(.headline)
                                 .fontWeight(.bold)
-                            Image(systemName: "star.fill")
-                                .resizable()
-                                .frame(width: 12, height: 12)
+                            Text("Reviews")
+                                .font(.system(size: 12, weight: .semibold))
                         }
-                        Text("Rating")
-                            .font(.system(size: 12, weight: .semibold))
+                        Divider()
+                        VStack(alignment: .leading, spacing: 6) {
+                            HStack {
+                                Text(String(format: "%.2f", UserViewModel.averageRating(for: user)))
+                                    .font(.headline)
+                                    .fontWeight(.bold)
+                                Image(systemName: "star.fill")
+                                    .resizable()
+                                    .frame(width: 12, height: 12)
+                            }
+                            Text("Rating")
+                                .font(.system(size: 12, weight: .semibold))
+                        }
+                    }
+                    .padding(.trailing, 36)
+                    .frame(maxWidth: 100)
+                }
+                .background(.white)
+                .cornerRadius(24)
+                .addShadow()
+                .padding(.vertical, 24)
+                if user.reviews.count > 0 {
+                    HStack {
+                        Text("\(firstName)'s reviews")
+                            .font(.title3)
+                            .fontWeight(.semibold)
+                        Spacer()
+                    }
+                    UserReviewListView(user: user)
+                        .padding(.top, 12)
+                }
+                if user.reviews.count > 1 {
+                    Button("Show all \(user.reviews.count) reviews") {
+                        showReviewsModal = true
+                    }
+                    .foregroundColor(.black)
+                    .font(.system(size: 15, weight: .semibold))
+                    .foregroundColor(.neutral100)
+                    .padding(12)
+                    .frame(maxWidth: .infinity)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(Color.black, lineWidth: 1)
+                    )
+                    .padding(.top, 18)
+                }
+                if user.id != userViewModel.user.id {
+                    Button(action: {
+                        showWriteReviewModal = true
+                    }) {
+                        Text("Write a review")
+                            .foregroundColor(.white)
+                            .font(.system(size: 15, weight: .semibold))
+                            .foregroundColor(.neutral100)
+                            .frame(maxWidth: .infinity)
+                            .padding(12)
+                    }
+                    .background(Color.black)
+                    .cornerRadius(8)
+                    .padding(.top, 18)
+                }
+                Spacer()
+            }
+            .padding(.horizontal, 24)
+            .navigationBarBackButtonHidden()
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "chevron.left")
+                            .frame(width: 18, height: 18)
+                            .foregroundColor(.black)
+                            .padding(12)
                     }
                 }
-                .padding(.trailing, 36)
-                .frame(maxWidth: 100)
+            }.sheet(isPresented: $showReviewsModal) {
+                ReviewsListModal(user: user)
+            }.sheet(isPresented: $showWriteReviewModal) {
+                ReviewFieldView(user: user)
+                    .presentationDetents([.medium])
             }
-            .background(.white)
-            .cornerRadius(24)
-            .addShadow()
-            .padding(.vertical, 24)
-            if user.reviews.count > 0 {
-                HStack {
-                    Text("\(firstName)'s reviews")
-                        .font(.title3)
-                        .fontWeight(.semibold)
-                    Spacer()
+            .onAppear {
+                if user.id.uuidString.lowercased() != userViewModel.currentUserId() {
+                    Task {
+                        user.reviews = try await NetworkManager.shared.get(
+                            url: "/reviews/user/\(user.id.uuidString.lowercased())")
+                    }
                 }
-                UserReviewListView(user: user)
-                    .padding(.top, 12)
             }
-            if user.reviews.count > 1 {
-                Button("Show all \(user.reviews.count) reviews") {
-                    showReviewsModal = true
-                }
-                .foregroundColor(.black)
-                .font(.system(size: 15, weight: .semibold))
-                .foregroundColor(.neutral100)
-                .padding(12)
-                .frame(maxWidth: .infinity)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color.black, lineWidth: 1)
-                )
-                .padding(.top, 18)
-            }
-            if user.id != userViewModel.user.id {
-                Button(action: {
-                    showWriteReviewModal = true
-                }) {
-                    Text("Write a review")
-                        .foregroundColor(.white)
-                        .font(.system(size: 15, weight: .semibold))
-                        .foregroundColor(.neutral100)
-                        .frame(maxWidth: .infinity)
-                        .padding(12)
-                }
-                .background(Color.black)
-                .cornerRadius(8)
-                .padding(.top, 18)
-            }
-            Spacer()
         }
-        .padding(.horizontal, 24)
-        .navigationBarBackButtonHidden()
-        .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "chevron.left")
-                        .frame(width: 18, height: 18)
-                        .foregroundColor(.black)
-                        .padding(12)
-                }
-            }
-        }.sheet(isPresented: $showReviewsModal) {
-            ReviewsListModal(user: user)
-        }.sheet(isPresented: $showWriteReviewModal) {
-            ReviewFieldView(user: user)
-                .presentationDetents([.medium])
-        }
-        .onAppear {
-            if user.id.uuidString.lowercased() != userViewModel.currentUserId() {
-                Task {
-                    user.reviews = try await NetworkManager.shared.get(
-                        url: "/reviews/user/\(user.id.uuidString.lowercased())")
-                }
-            }
+        .refreshable {
+            userViewModel.initTask(resetCache: true)
         }
     }
 }

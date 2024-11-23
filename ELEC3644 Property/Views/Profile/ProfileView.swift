@@ -135,6 +135,7 @@ struct ProfileView: View {
                             .padding(.trailing, 16)
                             .addShadow()
                         }
+                        .padding(.horizontal, 4)
                         .background(.black)
                         .cornerRadius(36)
                         .padding(.vertical, 24)

@@ -10,13 +10,21 @@ class InboxViewModel: ObservableObject {
     private let apiClient: APIClient
     private let userViewModel = UserViewModel.shared
     @Published var chats: [Chat] = []
+
     init(apiClient: APIClient = NetworkManager.shared, chats: [Chat] = []) {
         self.chats = chats
         self.apiClient = apiClient
         if chats.isEmpty {
-            Task {
-                await fetchChats()
+            initTask()
+        }
+    }
+
+    func initTask(resetCache: Bool = false) {
+        Task {
+            if resetCache {
+                apiClient.resetCache()
             }
+            await fetchChats()
         }
     }
 

@@ -64,6 +64,9 @@ struct InboxView: View {
                                 }
                             }
                             .listStyle(InsetListStyle())
+                            .refreshable {
+                                inboxData.initTask(resetCache: true)
+                            }
                         }
                     }
                 } else {

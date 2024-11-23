@@ -107,24 +107,24 @@ struct TableEntry: View {
     let values: [String]
     let title: String
 
-    var formattedValues: [String]{
+    var formattedValues: [String] {
         if ["Net Price", "Price/ft² (S.A)"].contains(title) {
-            return values.map{value in Int(value)!.toCompactCurrencyFormat()}
+            return values.map { value in Int(value)!.toCompactCurrencyFormat() }
         }
-        return values.map{$0.capitalized}
+        return values.map { $0.capitalized }
     }
-    
+
     var body: some View {
         //I've no idea why this worked
         HStack {
             Text(title)
-                .frame(width: 140,alignment: .leading)
+                .frame(width: 140, alignment: .leading)
                 .padding(0)
             Spacer()
 
             ForEach(values.indices, id: \.self) {
                 idx in
-                
+
                 VStack {
                     Spacer()
                     Text(formattedValues[idx])

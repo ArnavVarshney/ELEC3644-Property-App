@@ -18,57 +18,60 @@ struct FoldersView: View {
 
     var body: some View {
         NavigationStack {
-            VStack {
+            ScrollView(showsIndicators: false) {
                 if userViewModel.user.wishlists.isEmpty {
-                    Image(systemName: "heart")
-                        .font(.largeTitle)
-                        .padding()
+                    VStack {
+                        Image(systemName: "heart")
+                            .font(.largeTitle)
+                            .padding()
 
-                    Text("You don't have any wishlists")
-                        .font(.footnote)
-                        .fontWeight(.bold)
-                        .padding(4)
+                        Text("You don't have any wishlists")
+                            .font(.footnote)
+                            .fontWeight(.bold)
+                            .padding(4)
 
-                    Text("When you create a new wishlist, it will appear here.")
-                        .font(.footnote)
-                        .foregroundColor(.neutral60)
-                        .padding(4)
+                        Text("When you create a new wishlist, it will appear here.")
+                            .font(.footnote)
+                            .foregroundColor(.neutral60)
+                            .padding(4)
+                    }
                 } else {
-                    ScrollView(showsIndicators: false) {
-                        LazyVGrid(columns: flexibleColumn) {
-                            ForEach(userViewModel.user.wishlists.indices, id: \.self) { idx in
-                                NavigationLink(
-                                    destination: WishlistDetailView(
-                                        wishlistId: userViewModel.user.wishlists[idx].id)
-                                ) {
-                                    WishlistItemView(wishlist: userViewModel.user.wishlists[idx])
-                                }
+                    LazyVGrid(columns: flexibleColumn) {
+                        ForEach(userViewModel.user.wishlists.indices, id: \.self) { idx in
+                            NavigationLink(
+                                destination: WishlistDetailView(
+                                    wishlistId: userViewModel.user.wishlists[idx].id)
+                            ) {
+                                WishlistItemView(wishlist: userViewModel.user.wishlists[idx])
                             }
                         }
                     }
                 }
             }
-            .padding(.horizontal)
-            .navigationTitle("Folders")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(
-                        action: {
+            .refreshable {
+                userViewModel.initTask(resetCache: true)
+            }
+        }
+        .padding(.horizontal)
+        .navigationTitle("Folders")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(
+                    action: {
 
-                        },
-                        label: {
-                            Image(systemName: "square.and.pencil")
-                        })
-                }
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(
-                        action: {
-                            dismiss()
-                        },
-                        label: {
-                            Image(systemName: "chevron.left")
-                        })
-                }
+                    },
+                    label: {
+                        Image(systemName: "square.and.pencil")
+                    })
+            }
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(
+                    action: {
+                        dismiss()
+                    },
+                    label: {
+                        Image(systemName: "chevron.left")
+                    })
             }
         }.navigationBarBackButtonHidden()
     }
