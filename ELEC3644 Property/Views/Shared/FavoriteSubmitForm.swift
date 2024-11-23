@@ -9,17 +9,17 @@ import SwiftUI
 struct FavoriteSubmitForm: View {
     @EnvironmentObject var userViewModel: UserViewModel
     @Environment(\.dismiss) private var dismiss
-    
+
     @State var albumName: String = ""
     @State var showSheet = false
     @Binding var showPrevSheet: Bool
-    
+
     let property: Property
     private let flexibleColumn = [
         GridItem(.flexible()),
         GridItem(.flexible()),
     ]
-    
+
     var body: some View {
         NavigationStack {
             ScrollView(showsIndicators: false) {
@@ -41,9 +41,9 @@ struct FavoriteSubmitForm: View {
                         }
                     }
                 }
-                
+
             }
-            
+
             Button {
                 showSheet = true
             } label: {
@@ -62,7 +62,7 @@ struct FavoriteSubmitForm: View {
                             Image(systemName: "xmark")
                         }.foregroundStyle(.black)
                     }
-                    
+
                     ToolbarItem(placement: .principal) {
                         Text("Save to wishlist")
                     }
