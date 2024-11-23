@@ -14,7 +14,7 @@ struct WishlistItemCard: View {
 
     @Binding var propertyNote: String
     @State var showingSheet = false
-    
+
     var showNote = true
 
     var body: some View {
@@ -71,9 +71,9 @@ struct WishlistItemCard: View {
 
                 Text("\(property.netPrice)")
             }
-            
+
             //Note button
-            if showNote{
+            if showNote {
                 Button {
                     showingSheet = true
                 } label: {

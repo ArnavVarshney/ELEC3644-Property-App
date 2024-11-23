@@ -13,23 +13,23 @@ enum ScreenState {
 struct WishlistDetailView: View {
     @EnvironmentObject private var userViewModel: UserViewModel
     @Environment(\.dismiss) private var dismiss
-    
+
     let wishlistId: UUID
     var coloumns = [
-        GridItem(.flexible()),
+        GridItem(.flexible())
     ]
-    
+
     @State var showingSheet = false
-    var wishlist: Wishlist{
-        if debug{
+    var wishlist: Wishlist {
+        if debug {
             return userViewModel.user.wishlists.first ?? Wishlist(name: "Deleted", properties: [])
         }
-        
+
         return userViewModel.user.wishlists.first { w in
             w.id == wishlistId
         } ?? Wishlist(name: "Deleted", properties: [])
     }
-    
+
     var pickedProperties: [Property] {
         var picked: [Property] = []
         for idx in pickedPropertiesIdx {
@@ -37,7 +37,7 @@ struct WishlistDetailView: View {
         }
         return picked
     }
-    
+
     var debug = false
 
     //State management
@@ -51,8 +51,8 @@ struct WishlistDetailView: View {
     @State var isActive = false
     @State var deleteButtonColour: Color = .black
     @State var compareButtonColour: Color = .black
-    
-    let callback: (_: [Property])->Void
+
+    let callback: (_: [Property]) -> Void
 
     var body: some View {
         NavigationStack {
@@ -61,7 +61,7 @@ struct WishlistDetailView: View {
                 Text("\(wishlist.name)").font(.largeTitle)
                 Spacer()
             }.padding()
-            ScrollView{
+            ScrollView {
                 if wishlist.properties.isEmpty {
                     VStack {
                         Spacer()
@@ -81,7 +81,7 @@ struct WishlistDetailView: View {
                         Spacer()
                     }
                 } else {
-                    LazyVGrid(columns:coloumns) {
+                    LazyVGrid(columns: coloumns) {
                         ForEach(wishlist.properties.indices, id: \.self) { idx in
                             if !tickable {
                                 ScrollView {  // I've no idea why this worked https://forums.developer.apple.com/forums/thread/702376
@@ -116,13 +116,14 @@ struct WishlistDetailView: View {
                 if showingLowerButton {
                     LowerButton(
                         wishlist: wishlist,
-                        pickedPropertiesIdx: pickedPropertiesIdx, state: state){
-                            removedIds in
-                            let removedProperties = wishlist.properties.filter { property in
-                                return removedIds.contains(property.id)
-                            }
-                            callback(removedProperties)
-                            transition(to: .view)
+                        pickedPropertiesIdx: pickedPropertiesIdx, state: state
+                    ) {
+                        removedIds in
+                        let removedProperties = wishlist.properties.filter { property in
+                            return removedIds.contains(property.id)
+                        }
+                        callback(removedProperties)
+                        transition(to: .view)
                     }
                     .padding(10)
                     .background(Rectangle().fill(.black))
@@ -131,45 +132,45 @@ struct WishlistDetailView: View {
                 }
             }
             .navigationBarBackButtonHidden()
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .topBarLeading) {
-                        Button {
-                            dismiss()
-                        } label: {
-                            Image(systemName: "chevron.left")
-                        }.disabled(backButtonDisabled)
-                    }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "chevron.left")
+                    }.disabled(backButtonDisabled)
+                }
 
-                    ToolbarItem(placement: .topBarTrailing) {
-                        //delete button
-                        Button {
-                            if state != .delete {
-                                transition(to: .delete)
-                            } else {
-                                transition(to: .view)
-                            }
-                        } label: {
-                            Image(systemName: "xmark.bin")
-                        }.foregroundStyle(deleteButtonColour).disabled(deleteButtonDisabled)
-                    }
-
-                    ToolbarItem(placement: .topBarTrailing) {
-                        //compare button
-                        Button {
-                            if state != .compare {
-                                transition(to: .compare)
-                            } else {
-                                transition(to: .view)
-                            }
-                        } label: {
-                            Image(systemName: "calendar.day.timeline.trailing").foregroundStyle(
-                                compareButtonColour
-                            ).disabled(compareButtonDisabled)
+                ToolbarItem(placement: .topBarTrailing) {
+                    //delete button
+                    Button {
+                        if state != .delete {
+                            transition(to: .delete)
+                        } else {
+                            transition(to: .view)
                         }
+                    } label: {
+                        Image(systemName: "xmark.bin")
+                    }.foregroundStyle(deleteButtonColour).disabled(deleteButtonDisabled)
+                }
+
+                ToolbarItem(placement: .topBarTrailing) {
+                    //compare button
+                    Button {
+                        if state != .compare {
+                            transition(to: .compare)
+                        } else {
+                            transition(to: .view)
+                        }
+                    } label: {
+                        Image(systemName: "calendar.day.timeline.trailing").foregroundStyle(
+                            compareButtonColour
+                        ).disabled(compareButtonDisabled)
                     }
                 }
-            
+            }
+
         }
     }
 
@@ -226,7 +227,7 @@ struct LowerButton: View {
     @State var pickedPropertiesIdx: [Int]
 
     let state: ScreenState
-    let callback: (_: [UUID])->Void
+    let callback: (_: [UUID]) -> Void
 
     var pickedProperties: [Property] {
         var picked: [Property] = []
@@ -251,16 +252,18 @@ struct LowerButton: View {
                 Button {
                     var removedIds: [UUID] = []
                     let _ = wishlist.properties.filter { property in
-                        if pickedProperties.contains(property){
+                        if pickedProperties.contains(property) {
                             removedIds.append(property.id)
                             return false
                         }
                         return true
                     }
                     callback(removedIds)
-                    
+
                 } label: {
-                    Text("Remove \(pickedProperties.count) item\(pickedProperties.count > 1 ? "s": "") ")
+                    Text(
+                        "Remove \(pickedProperties.count) item\(pickedProperties.count > 1 ? "s": "") "
+                    )
                 }
             }
         default:
@@ -272,7 +275,10 @@ struct LowerButton: View {
 struct WishlistDetailViewPreview: View {
     @State var wishlist = Mock.Users[0].wishlists[0]
     var body: some View {
-        WishlistDetailView(wishlistId: UUID(uuidString: "FB7F5ED8-8673-4539-9F45-3BA51D148B10")!, debug: true, callback: {_ in }).environmentObject(UserViewModel(user: Mock.Users[0]))
+        WishlistDetailView(
+            wishlistId: UUID(uuidString: "FB7F5ED8-8673-4539-9F45-3BA51D148B10")!, debug: true,
+            callback: { _ in }
+        ).environmentObject(UserViewModel(user: Mock.Users[0]))
     }
 }
 

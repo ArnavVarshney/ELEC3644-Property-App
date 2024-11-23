@@ -77,5 +77,5 @@ struct Wishlist: Hashable, Identifiable, Codable {
     var id = UUID()
     var name: String
     var properties: [Property]
-    private enum CodingKeys: String, CodingKey { case name, properties, id}
+    private enum CodingKeys: String, CodingKey { case name, properties, id }
 }

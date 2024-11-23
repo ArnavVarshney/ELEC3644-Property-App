@@ -12,7 +12,7 @@ struct PropertyDetailView: View {
     @ObservedObject var viewModel: PropertyDetailViewModel
     @EnvironmentObject private var userViewModel: UserViewModel
     @Environment(\.managedObjectContext) private var viewContext
-    
+
     init(property: Property) {
         self.property = property
         viewModel = .init(property: property)
@@ -36,17 +36,17 @@ struct PropertyDetailView: View {
         }
         .backButton()
         .ignoresSafeArea()
-        .onAppear{
+        .onAppear {
             let p = PropertyHistory(context: viewContext)
             let d = Date()
-            
+
             p.userId = UUID(uuidString: userViewModel.currentUserId())
             p.propertyId = p.id
             p.dateTime = d
-            
-            do{
+
+            do {
                 try viewContext.save()
-            }catch{
+            } catch {
                 print("Error saving history: \(error)")
             }
         }

@@ -14,7 +14,7 @@ struct ELEC3644_Property_App: App {
     @StateObject var agentData = AgentViewModel()
     @StateObject var locationManager = LocationManager()
     @StateObject var languageSetting = LanguageSetting()
-    
+
     let persistenceController = PersistenceController.shared
 
     var body: some Scene {
