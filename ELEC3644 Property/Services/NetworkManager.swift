@@ -135,7 +135,7 @@ class NetworkManager: APIClient {
     func resetCache() {
         urlCache.removeAllCachedResponses()
     }
-    
+
     func resetRequestCache(path: String) {
         urlCache.removeCachedResponse(for: URLRequest(url: URL(string: baseURL + path)!))
     }

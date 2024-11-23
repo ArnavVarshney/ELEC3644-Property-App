@@ -121,12 +121,12 @@ struct TransactionListView: View {
                 .cornerRadius(4)
                 .foregroundColor(.neutral10)
                 Text(propertyTransaction.property.contractType)
-                .font(.subheadline)
-                .padding(.vertical, 4)
-                .padding(.horizontal, 8)
-                .background(.neutral100)
-                .cornerRadius(4)
-                .foregroundColor(.neutral10)
+                    .font(.subheadline)
+                    .padding(.vertical, 4)
+                    .padding(.horizontal, 8)
+                    .background(.neutral100)
+                    .cornerRadius(4)
+                    .foregroundColor(.neutral10)
             }
         }
         .padding(.vertical)

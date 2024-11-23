@@ -26,7 +26,8 @@ class PropertyDetailViewModel: ObservableObject {
 
     func geocodeAddress() {  // recieve address, get address, have the correct longitude
         let geocoder = CLGeocoder()
-        geocoder.geocodeAddressString("\(property.address), \(property.subDistrict)") { placemarks, error in
+        geocoder.geocodeAddressString("\(property.address), \(property.subDistrict)") {
+            placemarks, error in
             if let error = error {
                 print("Geocoding error: \(error.localizedDescription)")
             } else if let placemark = placemarks?.first, let marker = placemark.location {
@@ -39,7 +40,7 @@ class PropertyDetailViewModel: ObservableObject {
                     ))
                 self.performSearch()
             }
-        }	
+        }
     }
 
     func performSearch() {
