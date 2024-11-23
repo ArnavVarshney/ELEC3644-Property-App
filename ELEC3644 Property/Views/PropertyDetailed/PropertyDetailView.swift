@@ -41,7 +41,7 @@ struct PropertyDetailView: View {
             let d = Date()
 
             p.userId = UUID(uuidString: userViewModel.currentUserId())
-            p.propertyId = p.id
+            p.propertyId = property.id
             p.dateTime = d
 
             do {

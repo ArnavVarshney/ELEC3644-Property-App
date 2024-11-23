@@ -50,6 +50,16 @@
         }
       }
     },
+    "%@・%@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@・%2$@"
+          }
+        }
+      }
+    },
     "%@, %@" : {
       "localizations" : {
         "zh-HK" : {
@@ -139,6 +149,9 @@
           }
         }
       }
+    },
+    "%lld transactions found" : {
+
     },
     "%lld/%lld characters" : {
       "localizations" : {
@@ -1358,6 +1371,7 @@
       }
     },
     "Lease" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -2206,6 +2220,7 @@
       }
     },
     "Rent" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -2252,6 +2267,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "實用面積 %lld 平方呎"
+          }
+        }
+      }
+    },
+    "S.A. %lldsqft @ %@/sqft" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "S.A. %1$lldsqft @ %2$@/sqft"
           }
         }
       }
@@ -3037,6 +3062,7 @@
       }
     },
     "Transaction" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {

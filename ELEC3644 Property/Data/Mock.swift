@@ -9,6 +9,7 @@ import Foundation
 enum Mock {
     static var Properties: [Property] = [
         Property(
+            id:UUID(uuidString: "c96e735d-fd0b-48f1-a40e-5cafa57dab31")!,
             name: "The Pavilia Hill",
             address: "18 Pak Tai Street, Ma On Shan",
             area: "Ma On Shan",
@@ -42,6 +43,7 @@ enum Mock {
             contractType: "Buy"
         ),
         Property(
+            id: UUID(uuidString: "86c46f5f-0ff0-438b-873d-9e4e40beede7")!,
             name: "The Pavilia Hill 2",
             address: "18 Pak Tai Street, Ma On Shan",
             area: "Ma On Shan",
@@ -113,6 +115,79 @@ enum Mock {
             propertyType: "townhouse",
             contractType: "Lease"
         ),
+        Property(
+            id: UUID(uuidString: "0e287890-277c-47fb-aafc-ff92ca770852")!,
+            name: "The Pavilia Hill 2",
+            address: "18 Pak Tai Street, Ma On Shan",
+            area: "Ma On Shan",
+            district: "Sha Tin",
+            subDistrict: "Ma On Shan",
+            facilities: [
+                Facility(desc: "Swimming Pool", measure: 1, measureUnit: "unit")
+            ],
+            schoolNet: SchoolNet(primary: "89", secondary: "89"),
+            saleableArea: 500,
+            saleableAreaPricePerSquareFoot: 15000,
+            grossFloorArea: 600,
+            grossFloorAreaPricePerSquareFoot: 13000,
+            netPrice: 7_500_000,
+            buildingAge: 5,
+            buildingDirection: "North",
+            estate: "The Pavilia Hill",
+            imageUrls: [
+                "https://chat-server.home-nas.xyz/images/Property1.jpg",
+                "https://chat-server.home-nas.xyz/images/Property2.jpg",
+                "https://chat-server.home-nas.xyz/images/Property3.jpg",
+                "https://chat-server.home-nas.xyz/images/Property4.jpg",
+                "https://chat-server.home-nas.xyz/images/Property5.jpg",
+            ],
+            transactionHistory: [
+                Transaction(
+                    date: Date(timeIntervalSince1970: 1_609_459_200),
+                    price: Int.random(in: 6_000_000...8_500_000)
+                ),
+                Transaction(
+                    date: Date(timeIntervalSince1970: 1_612_137_600),
+                    price: Int.random(in: 6_000_000...8_500_000)
+                ),
+                Transaction(
+                    date: Date(timeIntervalSince1970: 1_614_556_800),
+                    price: Int.random(in: 6_000_000...8_500_000)
+                ),
+                Transaction(
+                    date: Date(timeIntervalSince1970: 1_617_235_200),
+                    price: Int.random(in: 6_000_000...8_500_000)
+                ),
+                Transaction(
+                    date: Date(timeIntervalSince1970: 1_619_827_200),
+                    price: Int.random(in: 6_000_000...8_500_000)
+                ),
+                Transaction(
+                    date: Date(timeIntervalSince1970: 1_622_505_600),
+                    price: Int.random(in: 6_000_000...8_500_000)
+                ),
+                Transaction(
+                    date: Date(timeIntervalSince1970: 1_625_097_600),
+                    price: Int.random(in: 6_000_000...8_500_000)
+                ),
+                Transaction(
+                    date: Date(timeIntervalSince1970: 1_627_776_000),
+                    price: Int.random(in: 6_000_000...8_500_000)
+                ),
+                Transaction(
+                    date: Date(timeIntervalSince1970: 1_630_454_400),
+                    price: Int.random(in: 6_000_000...8_500_000)
+                ),
+                Transaction(
+                    date: Date(timeIntervalSince1970: 1_633_046_400),
+                    price: Int.random(in: 6_000_000...8_500_000)
+                ),
+            ],
+            agent: Mock.Agents[0],
+            amenities: ["gym", "balcony"],
+            propertyType: "townhouse",
+            contractType: "Lease"
+        )
     ]
     static var Chats: [Chat] = [
         Chat(
@@ -169,7 +244,8 @@ enum Mock {
             wishlists: [
                 Wishlist(name: "Holiday", properties: [Properties[0], Properties[1]]),
                 Wishlist(name: "Home", properties: [Properties[0]]),
-            ]
+            ],
+            id: "68b696d7-320b-4402-a412-d9cee10fc6a3"
         ),
         User(
             name: "Abel Haris Harsono", email: "b@gmail.com",

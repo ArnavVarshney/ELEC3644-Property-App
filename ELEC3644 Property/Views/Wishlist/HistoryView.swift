@@ -8,11 +8,23 @@
 import SwiftUI
 
 struct HistoryView: View {
+    @Environment(\.managedObjectContext) private var viewContext
+    
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \PropertyHistory.dateTime, ascending: true)],
+        animation: .default)
+    private var records: FetchedResults<PropertyHistory>
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack{
+            ForEach(records.indices.filter({$0 % 2 == 0}), id: \.self){
+                idx in
+                Text("Hello")
+            }
+        }
     }
 }
 
 #Preview {
-    HistoryView()
+    HistoryView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }

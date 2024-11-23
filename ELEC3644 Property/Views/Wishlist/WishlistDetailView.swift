@@ -16,6 +16,7 @@ struct WishlistDetailView: View {
 
     let wishlistId: UUID
     var coloumns = [
+        GridItem(.flexible()),
         GridItem(.flexible())
     ]
 
