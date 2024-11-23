@@ -22,9 +22,9 @@ struct PersistenceController {
                 let newItem = PropertyHistory(context: viewContext)
                 newItem.userId = UUID(uuidString: uid)
                 newItem.id = UUID()
-                newItem.propertyId = UUID(uuidString: uid)
+                newItem.propertyId = UUID(uuidString: pid)
                 var d = Date()
-                d = d - Double.random(in: 0...60*60*24*30)
+//                d = d - Double.random(in: 0...60*60*24*30)
                 newItem.dateTime = d
             }
         }

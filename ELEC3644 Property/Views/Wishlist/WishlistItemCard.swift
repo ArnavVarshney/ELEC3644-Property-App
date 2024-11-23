@@ -11,6 +11,8 @@ struct WishlistItemCard: View {
     let property: Property
     let picking: Bool
     var picked: Bool
+    var imageHeight: Double = 300
+    var moreDetail: Bool = true
 
     @Binding var propertyNote: String
     @State var showingSheet = false
@@ -46,21 +48,23 @@ struct WishlistItemCard: View {
                 } placeholder: {
                     ProgressView()
                 }
-            }.frame(height: 300).cornerRadius(10)
+            }.frame(width: imageHeight, height: imageHeight).cornerRadius(10)
 
             HStack {
-                VStack(alignment: .leading) {
+                VStack(alignment: moreDetail ? .leading : .center) {
                     Text(property.name).font(.headline).foregroundStyle(.black)
                     Text("\(property.area)")
-                    Text("MTR info?")
+                    if moreDetail{
+                        Text("MTR info?")
 
-                    HStack {
-                        Text("S.A \(property.saleableArea) ft²").foregroundStyle(.black)
-                        Text("@ \(property.saleableAreaPricePerSquareFoot)")
-                    }
-                    HStack {
-                        Text("GFA \(property.grossFloorArea) ft²").foregroundStyle(.black)
-                        Text("@ \(property.grossFloorAreaPricePerSquareFoot)")
+                        HStack {
+                            Text("S.A \(property.saleableArea) ft²").foregroundStyle(.black)
+                            Text("@ \(property.saleableAreaPricePerSquareFoot)")
+                        }
+                        HStack {
+                            Text("GFA \(property.grossFloorArea) ft²").foregroundStyle(.black)
+                            Text("@ \(property.grossFloorAreaPricePerSquareFoot)")
+                        }
                     }
                 }
                 .foregroundColor(.neutral60)
@@ -68,8 +72,10 @@ struct WishlistItemCard: View {
                 .lineLimit(1)
 
                 Spacer()
-
-                Text("\(property.netPrice)")
+                
+                if moreDetail{
+                    Text("\(property.netPrice)")
+                }
             }
 
             //Note button
@@ -117,7 +123,7 @@ struct WishlistItemCard: View {
 
 #Preview {
     WishlistItemCard(
-        property: Mock.Properties.first!, picking: false, picked: true, propertyNote: .constant("")
+        property: Mock.Properties.first!, picking: false, picked: true, imageHeight: 150, moreDetail: false, propertyNote: .constant(""), showNote: false
     )
     .environmentObject(UserViewModel())
 }
