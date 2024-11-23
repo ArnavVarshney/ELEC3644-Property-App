@@ -72,7 +72,7 @@ struct HistoryView: View {
                 Text("\("Recently Viewed")").font(.largeTitle)
                 Spacer()
             }.padding()
-            if groups.isEmpty{
+            if groups.isEmpty {
                 VStack {
                     Spacer()
                     Image(systemName: "book.closed")
@@ -112,8 +112,8 @@ struct HistoryView: View {
                     }
                 }
                 .navigationBarBackButtonHidden()
-            }else{
-                ScrollView{
+            } else {
+                ScrollView {
                     ForEach(groups) {
                         group in
                         HStack {
@@ -123,7 +123,8 @@ struct HistoryView: View {
                             Spacer()
                         }
 
-                        ForEach(group.properties.indices.filter { $0 % 2 == 0 }, id: \.self) { idx in
+                        ForEach(group.properties.indices.filter { $0 % 2 == 0 }, id: \.self) {
+                            idx in
                             HStack(spacing: 10) {
                                 if !tickable {
                                     NavigationLink {
@@ -207,7 +208,6 @@ struct HistoryView: View {
                 }
                 .navigationBarBackButtonHidden()
             }
-            
 
         }
     }
