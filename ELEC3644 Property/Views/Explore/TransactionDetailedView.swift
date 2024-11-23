@@ -21,8 +21,8 @@ struct TransactionDetailedView: View {
                     )
                     VStack(alignment: .leading) {
                         Text(propertyTransaction.property.name)
-                                .font(.system(size: 32, weight: .medium))
-                                .foregroundColor(.neutral100)
+                            .font(.system(size: 32, weight: .medium))
+                            .foregroundColor(.neutral100)
                         Text(propertyTransaction.property.address)
                             .font(.system(size: 18, weight: .regular))
                             .foregroundColor(.neutral100)
@@ -61,9 +61,9 @@ struct TransactionDetailedView: View {
                                     .font(.subheadline)
                                     .foregroundColor(.neutral100)
                             }
-                            
+
                             Spacer()
-                            
+
                             VStack(alignment: .leading) {
                                 Text("Price/Sqft")
                                     .font(.subheadline)
@@ -72,9 +72,9 @@ struct TransactionDetailedView: View {
                                     .font(.subheadline)
                                     .foregroundColor(.neutral100)
                             }
-                            
+
                             Spacer()
-                            
+
                             VStack(alignment: .leading) {
                                 Text("Saleable Area")
                                     .font(.subheadline)
@@ -105,14 +105,14 @@ struct TransactionDetailedView: View {
                                 }
                             }
                         }
-                        
+
                         Color.clear.frame(height: 80)
                     }.padding(.horizontal, 32)
                 }
             }
             .backButton()
             .ignoresSafeArea()
-            
+
             VStack {
                 Spacer()
                 NavigationLink {
