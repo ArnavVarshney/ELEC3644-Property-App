@@ -62,7 +62,7 @@ struct InboxView: View {
                                 } label: {
                                     InboxItemView(user: chat.user, message: chat.messages.last!)
                                 }
-                            }
+                            }	
                             .listStyle(InsetListStyle())
                             .refreshable {
                                 inboxData.initTask(resetCache: true)

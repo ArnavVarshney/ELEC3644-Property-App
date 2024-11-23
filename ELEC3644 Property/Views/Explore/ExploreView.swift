@@ -51,7 +51,7 @@ struct ExploreView: View {
                             )
                             .id(MenuItem.lease)
                             .frame(width: geometry.size.width)
-                            TransactionMenuView()
+                            TransactionMenuView(properties: propertyViewModel.properties)
                                 .id(MenuItem.transaction)
                                 .frame(width: geometry.size.width)
                             EstateMenuView()
@@ -105,28 +105,8 @@ struct ExploreView: View {
                     .presentationBackgroundInteraction(.enabled(upThrough: .height(800)))
                     .presentationCornerRadius(30)
                     .interactiveDismissDisabled(true)
-
             }
-
         }
-    }
-}
-
-struct RentMenuView: View {
-    var body: some View {
-        Text("Rent")
-    }
-}
-
-struct LeaseMenuView: View {
-    var body: some View {
-        Text("Lease")
-    }
-}
-
-struct TransactionMenuView: View {
-    var body: some View {
-        Text("Transaction")
     }
 }
 
