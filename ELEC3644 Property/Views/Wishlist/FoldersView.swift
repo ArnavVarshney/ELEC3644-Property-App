@@ -39,7 +39,7 @@ struct FoldersView: View {
                             ForEach(userViewModel.user.wishlists.indices, id: \.self) { idx in
                                 NavigationLink(
                                     destination: WishlistDetailView(
-                                        wishlist: userViewModel.user.wishlists[idx]){removedProperties in
+                                        wishlistId: userViewModel.user.wishlists[idx].id){removedProperties in
                                             for property in removedProperties{
                                                 Task {
                                                     await userViewModel.postWishlist(

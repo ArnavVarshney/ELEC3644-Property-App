@@ -11,10 +11,25 @@ enum ScreenState {
 }
 
 struct WishlistDetailView: View {
+    @EnvironmentObject private var userViewModel: UserViewModel
     @Environment(\.dismiss) private var dismiss
     
+    let wishlistId: UUID
+    var coloumns = [
+        GridItem(.flexible()),
+    ]
+    
     @State var showingSheet = false
-    @State var wishlist: Wishlist
+    var wishlist: Wishlist{
+        if debug{
+            return userViewModel.user.wishlists.first ?? Wishlist(name: "Deleted", properties: [])
+        }
+        
+        return userViewModel.user.wishlists.first { w in
+            w.id == wishlistId
+        } ?? Wishlist(name: "Deleted", properties: [])
+    }
+    
     var pickedProperties: [Property] {
         var picked: [Property] = []
         for idx in pickedPropertiesIdx {
@@ -22,6 +37,8 @@ struct WishlistDetailView: View {
         }
         return picked
     }
+    
+    var debug = false
 
     //State management
     @State var state: ScreenState = .view
@@ -44,58 +61,76 @@ struct WishlistDetailView: View {
                 Text("\(wishlist.name)").font(.largeTitle)
                 Spacer()
             }.padding()
+            ScrollView{
+                if wishlist.properties.isEmpty {
+                    VStack {
+                        Spacer()
+                        Image(systemName: "heart")
+                            .font(.largeTitle)
+                            .padding()
 
-            if wishlist.properties.isEmpty {
-                VStack {
-                    Spacer()
-                    Image(systemName: "heart")
-                        .font(.largeTitle)
-                        .padding()
+                        Text("This wishlist is empty")
+                            .font(.footnote)
+                            .fontWeight(.bold)
+                            .padding(4)
 
-                    Text("This wishlist is empty")
-                        .font(.footnote)
-                        .fontWeight(.bold)
-                        .padding(4)
-
-                    Text("You removed everything here. Go back to browsing!")
-                        .font(.footnote)
-                        .foregroundColor(.neutral60)
-                        .padding(4)
-                    Spacer()
-                }
-            } else {
-                List {
-                    ForEach(wishlist.properties.indices, id: \.self) { idx in
-                        if !tickable {
-                            ScrollView {  // I've no idea why this worked https://forums.developer.apple.com/forums/thread/702376
-                                NavigationLink {
-                                    PropertyDetailView(property: wishlist.properties[idx])
+                        Text("You removed everything here. Go back to browsing!")
+                            .font(.footnote)
+                            .foregroundColor(.neutral60)
+                            .padding(4)
+                        Spacer()
+                    }
+                } else {
+                    LazyVGrid(columns:coloumns) {
+                        ForEach(wishlist.properties.indices, id: \.self) { idx in
+                            if !tickable {
+                                ScrollView {  // I've no idea why this worked https://forums.developer.apple.com/forums/thread/702376
+                                    NavigationLink {
+                                        PropertyDetailView(property: wishlist.properties[idx])
+                                    } label: {
+                                        WishlistItemCard(
+                                            property: wishlist.properties[idx], picking: tickable,
+                                            picked: pickedPropertiesIdx.contains(idx),
+                                            propertyNote: .constant("")
+                                        )
+                                    }
+                                }
+                            } else {
+                                Button {
+                                    pick(idx)
                                 } label: {
                                     WishlistItemCard(
                                         property: wishlist.properties[idx], picking: tickable,
                                         picked: pickedPropertiesIdx.contains(idx),
-                                        propertyNote: .constant("")
+                                        propertyNote: .constant(""),
+                                        showNote: false
                                     )
                                 }
                             }
-                        } else {
-                            Button {
-                                pick(idx)
-                            } label: {
-                                WishlistItemCard(
-                                    property: wishlist.properties[idx], picking: tickable,
-                                    picked: pickedPropertiesIdx.contains(idx),
-                                    propertyNote: .constant(""),
-                                    showNote: false
-                                )
-                            }
-                        }
 
-                        Divider().listRowSeparator(.hidden)
-                    }
+                            Divider().listRowSeparator(.hidden)
+                        }
+                    }.padding()
                 }
-                .listStyle(.plain)
-                .navigationBarBackButtonHidden()
+                Spacer()
+                if showingLowerButton {
+                    LowerButton(
+                        wishlist: wishlist,
+                        pickedPropertiesIdx: pickedPropertiesIdx, state: state){
+                            removedIds in
+                            let removedProperties = wishlist.properties.filter { property in
+                                return removedIds.contains(property.id)
+                            }
+                            callback(removedProperties)
+                            transition(to: .view)
+                    }
+                    .padding(10)
+                    .background(Rectangle().fill(.black))
+                    .foregroundStyle(.white)
+                    .clipShape(.rect(cornerRadius: 5))
+                }
+            }
+            .navigationBarBackButtonHidden()
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
@@ -134,24 +169,7 @@ struct WishlistDetailView: View {
                         }
                     }
                 }
-                .scrollContentBackground(.visible)
-            }
-            Spacer()
-            if showingLowerButton {
-                LowerButton(
-                    wishlist: $wishlist,
-                    pickedPropertiesIdx: $pickedPropertiesIdx, state: state){removedIds in
-                        let removedProperties = wishlist.properties.filter { property in
-                            return removedIds.contains(property.id)
-                        }
-                        callback(removedProperties)
-                        transition(to: .view)
-                }
-                .padding(10)
-                .background(Rectangle().fill(.black))
-                .foregroundStyle(.white)
-                .clipShape(.rect(cornerRadius: 5))
-            }
+            
         }
     }
 
@@ -204,8 +222,8 @@ struct WishlistDetailView: View {
 }
 
 struct LowerButton: View {
-    @Binding var wishlist: Wishlist
-    @Binding var pickedPropertiesIdx: [Int]
+    @State var wishlist: Wishlist
+    @State var pickedPropertiesIdx: [Int]
 
     let state: ScreenState
     let callback: (_: [UUID])->Void
@@ -232,16 +250,14 @@ struct LowerButton: View {
             if pickedProperties.count > 0 {
                 Button {
                     var removedIds: [UUID] = []
-                    let properties = wishlist.properties.filter { property in
+                    let _ = wishlist.properties.filter { property in
                         if pickedProperties.contains(property){
                             removedIds.append(property.id)
                             return false
                         }
                         return true
                     }
-                    pickedPropertiesIdx = []
                     callback(removedIds)
-                    wishlist.properties = properties
                     
                 } label: {
                     Text("Remove \(pickedProperties.count) item\(pickedProperties.count > 1 ? "s": "") ")
@@ -253,8 +269,13 @@ struct LowerButton: View {
     }
 }
 
+struct WishlistDetailViewPreview: View {
+    @State var wishlist = Mock.Users[0].wishlists[0]
+    var body: some View {
+        WishlistDetailView(wishlistId: UUID(uuidString: "FB7F5ED8-8673-4539-9F45-3BA51D148B10")!, debug: true, callback: {_ in }).environmentObject(UserViewModel(user: Mock.Users[0]))
+    }
+}
+
 #Preview {
-    WishlistDetailView(
-        wishlist: Mock.Users[0].wishlists[0]
-    ){w in return}.environmentObject(UserViewModel())
+    WishlistDetailViewPreview()
 }
