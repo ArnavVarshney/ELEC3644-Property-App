@@ -33,7 +33,7 @@ struct HistoryView: View {
         let records = self.records.filter { p in
             p.userId == UUID(uuidString: userViewModel.currentUserId())
         }
-        
+
         var sections: [HistorySection] = []
         var groups: [String: [PropertyHistory]] = [:]
         let dateTimes = Set(
