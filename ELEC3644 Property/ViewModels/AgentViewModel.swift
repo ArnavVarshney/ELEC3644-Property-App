@@ -14,8 +14,11 @@ class AgentViewModel: ObservableObject {
         initTask()
     }
 
-    func initTask() {
+    func initTask(resetCache: Bool = false) {
         Task {
+            if resetCache {
+                apiClient.resetCache()
+            }
             await fetchAgents()
         }
     }
@@ -23,7 +26,6 @@ class AgentViewModel: ObservableObject {
     func fetchAgents() async {
         do {
             let fetchedAgents: [User] = try await apiClient.get(url: "/users/agents")
-            // Fetch reviews for each agent
             var agentsWithReviews: [User] = []
             for var agent in fetchedAgents {
                 let reviews: [Review] = try await apiClient.get(
@@ -31,9 +33,7 @@ class AgentViewModel: ObservableObject {
                 agent.reviews = reviews
                 agentsWithReviews.append(agent)
             }
-            DispatchQueue.main.async {
-                self.agents = agentsWithReviews
-            }
+            self.agents = agentsWithReviews
         } catch {
             print("Error fetching agents data: \(error)")
         }

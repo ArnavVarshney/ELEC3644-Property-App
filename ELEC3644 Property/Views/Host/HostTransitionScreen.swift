@@ -12,6 +12,7 @@ struct HostTransitionScreen: View {
     @State private var avPlayer = AVPlayer(
         url: Bundle.main.url(forResource: "hostTransition", withExtension: "mov")!)
     @EnvironmentObject var userViewModel: UserViewModel
+
     var body: some View {
         NavigationStack {
             VStack {

@@ -41,7 +41,7 @@ struct AgentMenuView: View {
         }
         .padding(.horizontal)
         .refreshable {
-            agentViewModel.initTask()
+            agentViewModel.initTask(resetCache: true)
         }
     }
 }

@@ -10,6 +10,7 @@ struct ListingView: View {
     @EnvironmentObject private var propertyViewModel: PropertyViewModel
     @EnvironmentObject private var agentViewModel: AgentViewModel
     @State private var showListingModal: Bool = false
+
     var body: some View {
         NavigationStack {
             VStack {

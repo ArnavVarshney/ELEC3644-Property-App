@@ -51,16 +51,6 @@ struct WishlistsView: View {
             }
             .padding(.horizontal)
             .navigationTitle("Wishlists")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(
-                        action: {},
-                        label: {
-                            Image(systemName: "square.and.pencil")
-                        }
-                    )
-                }
-            }
         }.onAppear {
             Task {
                 await userViewModel.fetchWishlist()
