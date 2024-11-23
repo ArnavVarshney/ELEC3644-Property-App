@@ -36,13 +36,29 @@ struct FoldersView: View {
                             .padding(4)
                     }
                 } else {
-                    LazyVGrid(columns: flexibleColumn) {
-                        ForEach(userViewModel.user.wishlists.indices, id: \.self) { idx in
-                            NavigationLink(
-                                destination: WishlistDetailView(
-                                    wishlistId: userViewModel.user.wishlists[idx].id)
-                            ) {
-                                WishlistItemView(wishlist: userViewModel.user.wishlists[idx])
+                    ScrollView(showsIndicators: false) {
+                        LazyVGrid(columns: flexibleColumn) {
+                            ForEach(userViewModel.user.wishlists.indices, id: \.self) { idx in
+                                NavigationLink(
+                                    destination: WishlistDetailView(
+                                        wishlistId: userViewModel.user.wishlists[idx].id
+                                    ) { removedProperties in
+                                        for property in removedProperties {
+                                            Task {
+                                                await userViewModel.postWishlist(
+                                                    property: property,
+                                                    folderName: userViewModel.user.wishlists[idx]
+                                                        .name, delete: true)
+                                            }
+                                        }
+                                        Task {
+                                            await userViewModel.fetchWishlist()
+                                        }
+
+                                    }
+                                ) {
+                                    WishlistItemView(wishlist: userViewModel.user.wishlists[idx])
+                                }
                             }
                         }
                     }

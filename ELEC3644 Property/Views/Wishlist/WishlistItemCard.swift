@@ -9,11 +9,16 @@ import SwiftUI
 
 struct WishlistItemCard: View {
     let property: Property
-    let picking: Bool
-    var picked: Bool
+    var picking: Bool = false
+    var picked: Bool = false
+    var deletable: Bool = false
+    var imageHeight: Double = 300
+    var moreDetail: Bool = true
 
     @Binding var propertyNote: String
     @State var showingSheet = false
+
+    var showNote = true
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -38,27 +43,47 @@ struct WishlistItemCard: View {
                     }.padding(.init(top: 5, leading: 5, bottom: 5, trailing: 5)).zIndex(1)
                 }
 
+                if deletable {
+                    VStack {
+                        HStack {
+                            Image(systemName: "xmark")
+                                .frame(width: 3, height: 3)
+                                .foregroundColor(.black)
+                                .padding(12)
+                                .background(
+                                    Circle()
+                                        .fill(Color.white)
+                                )
+                                .shadow(color: .gray.opacity(0.3), radius: 4, x: 0, y: 4)
+                            Spacer()
+                        }
+                        Spacer()
+                    }.padding(.init(top: 5, leading: 5, bottom: 5, trailing: 5)).zIndex(1)
+                }
+
                 AsyncImage(url: URL(string: property.imageUrls[0])) { image in
                     image
                         .resizable()
                 } placeholder: {
                     ProgressView()
                 }
-            }.frame(height: 300).cornerRadius(10)
+            }.frame(height: imageHeight).cornerRadius(10)
 
             HStack {
-                VStack(alignment: .leading) {
+                VStack(alignment: moreDetail ? .leading : .center) {
                     Text(property.name).font(.headline).foregroundStyle(.black)
                     Text("\(property.area)")
-                    Text("MTR info?")
+                    if moreDetail {
+                        Text("MTR info?")
 
-                    HStack {
-                        Text("S.A \(property.saleableArea) ft²").foregroundStyle(.black)
-                        Text("@ \(property.saleableAreaPricePerSquareFoot)")
-                    }
-                    HStack {
-                        Text("GFA \(property.grossFloorArea) ft²").foregroundStyle(.black)
-                        Text("@ \(property.grossFloorAreaPricePerSquareFoot)")
+                        HStack {
+                            Text("S.A \(property.saleableArea) ft²").foregroundStyle(.black)
+                            Text("@ \(property.saleableAreaPricePerSquareFoot)")
+                        }
+                        HStack {
+                            Text("GFA \(property.grossFloorArea) ft²").foregroundStyle(.black)
+                            Text("@ \(property.grossFloorAreaPricePerSquareFoot)")
+                        }
                     }
                 }
                 .foregroundColor(.neutral60)
@@ -67,7 +92,47 @@ struct WishlistItemCard: View {
 
                 Spacer()
 
-                Text("\(property.netPrice)")
+                if moreDetail {
+                    Text("\(property.netPrice)")
+                }
+            }
+
+            //Note button
+            if showNote {
+                Button {
+                    showingSheet = true
+                } label: {
+                    HStack {
+                        if propertyNote.replacingOccurrences(of: " ", with: " ")
+                            .count
+                            > 0
+                        {
+                            Text("\(propertyNote)")
+                                .font(.footnote)
+                                .foregroundColor(.neutral60)
+                                .padding(10)
+                        }
+
+                        Text(
+                            propertyNote.replacingOccurrences(of: " ", with: " ")
+                                .count > 0 ? "Edit" : "Add note"
+                        )
+                        .font(.footnote)
+                        .foregroundColor(.neutral60)
+                        .padding(10)
+                        .underline(true)
+
+                        Spacer()
+                    }
+                    .background(
+                        Color(UIColor.lightGray)
+                            .opacity(0.3)
+                    )
+                    .cornerRadius(6)
+                }.sheet(isPresented: $showingSheet) {
+                    WishlistNoteView(note: .constant(""))
+                        .presentationDetents([.height(500)])
+                }
             }
         }
         .alignmentGuide(.listRowSeparatorLeading) { _ in 0 }
@@ -77,7 +142,9 @@ struct WishlistItemCard: View {
 
 #Preview {
     WishlistItemCard(
-        property: Mock.Properties.first!, picking: false, picked: true, propertyNote: .constant("")
+        property: Mock.Properties.first!, picking: false, picked: true, deletable: true,
+        imageHeight: 300,
+        moreDetail: false, propertyNote: .constant(""), showNote: false
     )
     .environmentObject(UserViewModel())
 }

@@ -6,7 +6,7 @@
 //
 import SwiftUI
 
-enum ScreenState {
+enum WishlistState {
     case view, delete, compare
 }
 
@@ -15,25 +15,22 @@ struct WishlistDetailView: View {
     @Environment(\.dismiss) private var dismiss
 
     let wishlistId: UUID
-    var wishlistsDEBUG: [Wishlist]? = nil
+    var coloumns = [
+        GridItem(.flexible())
+    ]
 
     @State var showingSheet = false
-
     var wishlist: Wishlist {
-        let temp: [Wishlist]
-        let wishlists = wishlistsDEBUG == nil ? userViewModel.user.wishlists : wishlistsDEBUG!
-
-        temp = wishlists.filter { wishlist in
-            wishlist.id == wishlistId
+        if debug {
+            return userViewModel.user.wishlists.first ?? Wishlist(name: "Deleted", properties: [])
         }
 
-        if temp.count == 0 {
-            return Wishlist(id: wishlistId, name: "Deleted", properties: [])
-        }
-        return temp.first!
+        return userViewModel.user.wishlists.first { w in
+            w.id == wishlistId
+        } ?? Wishlist(name: "Deleted", properties: [])
     }
 
-    var properties: [Property] {
+    var pickedProperties: [Property] {
         var picked: [Property] = []
         for idx in pickedPropertiesIdx {
             picked.append(wishlist.properties[idx])
@@ -41,8 +38,10 @@ struct WishlistDetailView: View {
         return picked
     }
 
+    var debug = false
+
     //State management
-    @State var state: ScreenState = .view
+    @State var state: WishlistState = .view
     @State var pickedPropertiesIdx: [Int] = []
     @State var showingLowerButton = false
     @State var tickable: Bool = false
@@ -53,6 +52,8 @@ struct WishlistDetailView: View {
     @State var deleteButtonColour: Color = .black
     @State var compareButtonColour: Color = .black
 
+    let callback: (_: [Property]) -> Void
+
     var body: some View {
         NavigationStack {
             //Title
@@ -60,152 +61,120 @@ struct WishlistDetailView: View {
                 Text("\(wishlist.name)").font(.largeTitle)
                 Spacer()
             }.padding()
+            ScrollView {
+                if wishlist.properties.isEmpty {
+                    VStack {
+                        Spacer()
+                        Image(systemName: "heart")
+                            .font(.largeTitle)
+                            .padding()
 
-            if wishlist.properties.isEmpty {
-                VStack {
-                    Spacer()
-                    Image(systemName: "heart")
-                        .font(.largeTitle)
-                        .padding()
+                        Text("This wishlist is empty")
+                            .font(.footnote)
+                            .fontWeight(.bold)
+                            .padding(4)
 
-                    Text("This wishlist is empty")
-                        .font(.footnote)
-                        .fontWeight(.bold)
-                        .padding(4)
-
-                    Text("You removed everything here. Go back to browsing!")
-                        .font(.footnote)
-                        .foregroundColor(.neutral60)
-                        .padding(4)
-                    Spacer()
-                }
-            } else {
-                List {
-                    ForEach(wishlist.properties.indices, id: \.self) { idx in
-                        if !tickable {
-                            ScrollView {  // I've no idea why this worked https://forums.developer.apple.com/forums/thread/702376
-                                NavigationLink {
-                                    PropertyDetailView(property: wishlist.properties[idx])
+                        Text("You removed everything here. Go back to browsing!")
+                            .font(.footnote)
+                            .foregroundColor(.neutral60)
+                            .padding(4)
+                        Spacer()
+                    }
+                } else {
+                    LazyVGrid(columns: coloumns) {
+                        ForEach(wishlist.properties.indices, id: \.self) { idx in
+                            if !tickable {
+                                ScrollView {  // I've no idea why this worked https://forums.developer.apple.com/forums/thread/702376
+                                    NavigationLink {
+                                        PropertyDetailView(property: wishlist.properties[idx])
+                                    } label: {
+                                        WishlistItemCard(
+                                            property: wishlist.properties[idx], picking: tickable,
+                                            picked: pickedPropertiesIdx.contains(idx),
+                                            propertyNote: .constant("")
+                                        )
+                                    }
+                                }
+                            } else {
+                                Button {
+                                    pick(idx)
                                 } label: {
                                     WishlistItemCard(
                                         property: wishlist.properties[idx], picking: tickable,
                                         picked: pickedPropertiesIdx.contains(idx),
-                                        propertyNote: .constant("")
+                                        propertyNote: .constant(""),
+                                        showNote: false
                                     )
                                 }
                             }
 
-                            //Note button
-                            Button {
-                                showingSheet = true
-                            } label: {
-                                HStack {
-                                    if getNote(for: idx).replacingOccurrences(of: " ", with: " ")
-                                        .count
-                                        > 0
-                                    {
-                                        Text("\(getNote(for: idx))")
-                                            .font(.footnote)
-                                            .foregroundColor(.neutral60)
-                                            .padding(10)
-                                    }
+                            Divider().listRowSeparator(.hidden)
+                        }
+                    }.padding()
+                }
+                Spacer()
+                if showingLowerButton {
+                    LowerButton(
+                        wishlist: wishlist,
+                        pickedPropertiesIdx: pickedPropertiesIdx, state: state
+                    ) {
+                        removedIds in
+                        let removedProperties = wishlist.properties.filter { property in
+                            return removedIds.contains(property.id)
+                        }
+                        callback(removedProperties)
+                        transition(to: .view)
+                    }
+                    .padding(10)
+                    .background(Rectangle().fill(.black))
+                    .foregroundStyle(.white)
+                    .clipShape(.rect(cornerRadius: 5))
+                }
+            }
+            .navigationBarBackButtonHidden()
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "chevron.left")
+                    }.disabled(backButtonDisabled)
+                }
 
-                                    Text(
-                                        getNote(for: idx).replacingOccurrences(of: " ", with: " ")
-                                            .count > 0 ? "Edit" : "Add note"
-                                    )
-                                    .font(.footnote)
-                                    .foregroundColor(.neutral60)
-                                    .padding(10)
-                                    .underline(true)
-
-                                    Spacer()
-                                }
-                                .background(
-                                    Color(UIColor.lightGray)
-                                        .opacity(0.3)
-                                )
-                                .cornerRadius(6)
-                            }.sheet(isPresented: $showingSheet) {
-                                WishlistNoteView(note: .constant(""))
-                                    .presentationDetents([.height(500)])
-                            }.listRowSeparator(.hidden)
+                ToolbarItem(placement: .topBarTrailing) {
+                    //delete button
+                    Button {
+                        if state != .delete {
+                            transition(to: .delete)
                         } else {
-                            Button {
-                                pick(idx)
-                            } label: {
-                                WishlistItemCard(
-                                    property: wishlist.properties[idx], picking: tickable,
-                                    picked: pickedPropertiesIdx.contains(idx),
-                                    propertyNote: .constant("")
-                                )
-                            }
+                            transition(to: .view)
                         }
+                    } label: {
+                        Image(systemName: "xmark.bin")
+                    }.foregroundStyle(deleteButtonColour).disabled(deleteButtonDisabled)
+                }
 
-                        Divider().listRowSeparator(.hidden)
+                ToolbarItem(placement: .topBarTrailing) {
+                    //compare button
+                    Button {
+                        if state != .compare {
+                            transition(to: .compare)
+                        } else {
+                            transition(to: .view)
+                        }
+                    } label: {
+                        Image(systemName: "calendar.day.timeline.trailing").foregroundStyle(
+                            compareButtonColour
+                        ).disabled(compareButtonDisabled)
                     }
                 }
-                .listStyle(.plain)
-                .navigationBarBackButtonHidden()
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .topBarLeading) {
-                        Button {
-                            dismiss()
-                        } label: {
-                            Image(systemName: "chevron.left")
-                        }.disabled(backButtonDisabled)
-                    }
-
-                    ToolbarItem(placement: .topBarTrailing) {
-                        //delete button
-                        Button {
-                            if state != .delete {
-                                transition(to: .delete)
-                            } else {
-                                transition(to: .view)
-                            }
-                        } label: {
-                            Image(systemName: "xmark.bin")
-                        }.foregroundStyle(deleteButtonColour).disabled(deleteButtonDisabled)
-                    }
-
-                    ToolbarItem(placement: .topBarTrailing) {
-                        //compare button
-                        Button {
-                            if state != .compare {
-                                transition(to: .compare)
-                            } else {
-                                transition(to: .view)
-                            }
-                        } label: {
-                            Image(systemName: "calendar.day.timeline.trailing").foregroundStyle(
-                                compareButtonColour
-                            ).disabled(compareButtonDisabled)
-                        }
-                    }
-                }
-                .scrollContentBackground(.visible)
             }
-            Spacer()
-            if showingLowerButton {
-                LowerButton(
-                    wishlist: wishlist,
-                    pickedPropertiesIdx: $pickedPropertiesIdx,
-                    state: state,
-                    parent: self
-                )
-                .font(.system(size: 16, weight: .medium))
-                .foregroundColor(.neutral10)
-                .padding()
-                .background(.black)
-                .cornerRadius(10)
-                .padding(.vertical, 8)
-            }
+
         }
     }
 
-    func transition(to state: ScreenState) {
+    func transition(to state: WishlistState) {
         pickedPropertiesIdx = []
         switch state {
         case .view:
@@ -251,21 +220,16 @@ struct WishlistDetailView: View {
             pickedPropertiesIdx.append(idx)
         }
     }
-
-    func getNote(for id: Int) -> String {
-        return ""
-    }
 }
 
 struct LowerButton: View {
-    @EnvironmentObject private var userViewModel: UserViewModel
     @State var wishlist: Wishlist
-    @Binding var pickedPropertiesIdx: [Int]
+    @State var pickedPropertiesIdx: [Int]
 
-    let state: ScreenState
-    let parent: WishlistDetailView
+    let state: WishlistState
+    let callback: (_: [UUID]) -> Void
 
-    var properties: [Property] {
+    var pickedProperties: [Property] {
         var picked: [Property] = []
         for idx in pickedPropertiesIdx {
             picked.append(wishlist.properties[idx])
@@ -278,43 +242,28 @@ struct LowerButton: View {
         case .compare:
             if pickedPropertiesIdx.count == 2 {
                 NavigationLink {
-                    WishlistPropertyComparisonView(properties: properties)
+                    WishlistPropertyComparisonView(properties: pickedProperties)
                 } label: {
                     Text("Compare 2 items")
                 }
             }
         case .delete:
-            if properties.count > 0 {
+            if pickedProperties.count > 0 {
                 Button {
-                    wishlist.properties = wishlist.properties.filter { property in
-                        if properties.contains(property) {
-                            pickedPropertiesIdx.removeFirst()
-                            Task {
-                                await userViewModel.postWishlist(
-                                    property: property,
-                                    folderName: wishlist.name, delete: true)
-                            }
+                    var removedIds: [UUID] = []
+                    let _ = wishlist.properties.filter { property in
+                        if pickedProperties.contains(property) {
+                            removedIds.append(property.id)
                             return false
                         }
                         return true
                     }
+                    callback(removedIds)
 
-                    let temp = userViewModel.user.wishlists.enumerated().filter {
-                        $1.id == wishlist.id
-                    }
-                    let wishlistIdx = temp.count > 0 ? temp.first?.0 : nil
-
-                    if let idx = wishlistIdx {
-                        if wishlist.properties.count == 0 {
-                            userViewModel.user.wishlists.remove(at: idx)
-                        } else {
-                            userViewModel.user.wishlists[idx].properties = wishlist.properties
-                        }
-                    }
-
-                    parent.transition(to: .view)
                 } label: {
-                    Text("Remove \(properties.count) item\(properties.count > 1 ? "s": "") ")
+                    Text(
+                        "Remove \(pickedProperties.count) item\(pickedProperties.count > 1 ? "s": "") "
+                    )
                 }
             }
         default:
@@ -323,8 +272,16 @@ struct LowerButton: View {
     }
 }
 
+struct WishlistDetailViewPreview: View {
+    @State var wishlist = Mock.Users[0].wishlists[0]
+    var body: some View {
+        WishlistDetailView(
+            wishlistId: UUID(uuidString: "FB7F5ED8-8673-4539-9F45-3BA51D148B10")!, debug: true,
+            callback: { _ in }
+        ).environmentObject(UserViewModel(user: Mock.Users[0]))
+    }
+}
+
 #Preview {
-    WishlistDetailView(
-        wishlistId: Mock.Users[0].wishlists[0].id, wishlistsDEBUG: Mock.Users[0].wishlists
-    ).environmentObject(UserViewModel())
+    WishlistDetailViewPreview()
 }

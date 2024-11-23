@@ -10,10 +10,18 @@ import SwiftUI
 struct PropertyDetailView: View {
     var property: Property
     @ObservedObject var viewModel: PropertyDetailViewModel
+    @EnvironmentObject private var userViewModel: UserViewModel
+    @Environment(\.managedObjectContext) private var viewContext
+
     init(property: Property) {
         self.property = property
         viewModel = .init(property: property)
     }
+
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \PropertyHistory.dateTime, ascending: true)],
+        animation: .default)
+    private var records: FetchedResults<PropertyHistory>
 
     var body: some View {
         VStack {
@@ -33,6 +41,29 @@ struct PropertyDetailView: View {
         }
         .backButton()
         .ignoresSafeArea()
+        .onAppear {
+            var p: PropertyHistory
+
+            if let record = records.first(where: { p in
+                p.propertyId! == property.id
+                    && p.userId! == UUID(uuidString: userViewModel.currentUserId())!
+            }) {
+                p = record
+            } else {
+                p = PropertyHistory(context: viewContext)
+                p.id = UUID()
+                p.userId = UUID(uuidString: userViewModel.currentUserId())
+                p.propertyId = property.id
+            }
+
+            p.dateTime = Date()
+
+            do {
+                try viewContext.save()
+            } catch {
+                print("Error saving history: \(error)")
+            }
+        }
     }
 }
 
@@ -48,4 +79,5 @@ struct PropertyDetailView: View {
         .environmentObject(PropertyViewModel())
         .environmentObject(UserViewModel())
         .environmentObject(InboxViewModel())
+        .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }

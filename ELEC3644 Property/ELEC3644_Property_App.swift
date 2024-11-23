@@ -15,6 +15,8 @@ struct ELEC3644_Property_App: App {
     @StateObject var locationManager = LocationManager()
     @StateObject var languageSetting = LanguageSetting()
 
+    let persistenceController = PersistenceController.shared
+
     var body: some Scene {
         WindowGroup {
             ContentView()
@@ -25,6 +27,7 @@ struct ELEC3644_Property_App: App {
                 .environmentObject(locationManager)
                 .environmentObject(languageSetting)
                 .environment(\.locale, languageSetting.locale)
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }
