@@ -21,7 +21,7 @@ struct ListingMenuView: View {
             }
         }
         .refreshable {
-            viewModel.initTask(resetCache: true)
+            viewModel.initTask()
         }
     }
 }

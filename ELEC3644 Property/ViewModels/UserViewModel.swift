@@ -24,11 +24,8 @@ class UserViewModel: ObservableObject {
         }
     }
 
-    func initTask(resetCache: Bool = false) {
+    func initTask() {
         Task {
-            if resetCache {
-                apiClient.resetCache()
-            }
             await fetchUser(with: currentUserId())
             await fetchWishlist()
             if isAgent(with: user) {
@@ -76,7 +73,6 @@ class UserViewModel: ObservableObject {
 
     func fetchWishlist() async {
         do {
-            apiClient.resetRequestCache(path: "/wishlists/\(currentUserId())")
             let json: [String: [Property]] = try await apiClient.get(
                 url: "/wishlists/\(currentUserId())")
             let folderNames = json.keys
@@ -91,7 +87,6 @@ class UserViewModel: ObservableObject {
 
     func postWishlist(property: Property, folderName: String, delete: Bool = false) async {
         do {
-            apiClient.resetRequestCache(path: "/wishlists/\(currentUserId())")
             let data = [
                 "userId": currentUserId(), "propertyId": "\(property.id)".lowercased(),
                 "folderName": folderName.lowercased(),

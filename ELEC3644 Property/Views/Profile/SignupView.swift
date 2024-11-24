@@ -118,6 +118,8 @@ struct SignupView: View {
                                 dismiss()
                             }) {
                                 Image(systemName: "xmark")
+                                    .resizable()
+                                    .frame(width: 15, height: 15)
                                     .foregroundColor(.black)
                             }
                         }

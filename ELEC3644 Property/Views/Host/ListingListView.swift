@@ -20,7 +20,7 @@ struct ListingListView: View {
             }
         }
         .refreshable {
-            propertyViewModel.initTask(resetCache: true)
+            propertyViewModel.initTask()
         }
     }
 }

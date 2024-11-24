@@ -13,8 +13,6 @@ protocol APIClient {
     func delete<T: Decodable, U: Encodable>(url: String, body: U) async throws -> T
     func uploadImage(imageData: Data, url: String?, fileName: String?, mimeType: String?)
         async throws -> Data
-    func resetCache()
-    func resetRequestCache(path: String)
 }
 
 enum APIError: Error {
@@ -23,15 +21,13 @@ enum APIError: Error {
 }
 
 class NetworkManager: APIClient {
-    private let urlCache: URLCache
     private let decoder = JSONDecoder()
     private let baseURL = "https://chat-server.home-nas.xyz"
     //    private let baseURL = "http://localhost:6969"
 
     static let shared = NetworkManager()
 
-    private init(urlCache: URLCache = .shared) {
-        self.urlCache = urlCache
+    private init() {
         let df = DateFormatter()
         df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
         decoder.dateDecodingStrategy = .formatted(df)
@@ -39,14 +35,8 @@ class NetworkManager: APIClient {
 
     func get<T: Decodable>(url: String = "") async throws -> T {
         let finalUrl = URL(string: baseURL + url)
-        if let cachedResponse = urlCache.cachedResponse(for: URLRequest(url: finalUrl!)) {
-            let decodedData = try self.decoder.decode(T.self, from: cachedResponse.data)
-            return decodedData
-        }
         let (data, response) = try await URLSession.shared.data(from: finalUrl!)
         if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
-            let cachedResponse = CachedURLResponse(response: response, data: data)
-            urlCache.storeCachedResponse(cachedResponse, for: URLRequest(url: finalUrl!))
             let decodedData = try decoder.decode(T.self, from: data)
             return decodedData
         } else {
@@ -130,13 +120,5 @@ class NetworkManager: APIClient {
         let (data, _) = try await URLSession.shared.data(for: request)
         print("[DEBUG] Response data: \(String(data: data, encoding: .utf8)!)")
         return data
-    }
-
-    func resetCache() {
-        urlCache.removeAllCachedResponses()
-    }
-
-    func resetRequestCache(path: String) {
-        urlCache.removeCachedResponse(for: URLRequest(url: URL(string: baseURL + path)!))
     }
 }

@@ -60,7 +60,7 @@ struct TransactionMenuView: View {
                 }
             }
             .refreshable {
-                viewModel.initTask(resetCache: true)
+                viewModel.initTask()
             }
         }
         .padding(.horizontal, 32)

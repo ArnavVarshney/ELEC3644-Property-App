@@ -26,7 +26,7 @@ enum StartMapCameraLocation {  //for pointSearchView
     }
 
     var region: MKCoordinateRegion {
-        MKCoordinateRegion(center: coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
+        MKCoordinateRegion(center: coordinate, latitudinalMeters: 50000, longitudinalMeters: 50000)
     }
 }
 
@@ -44,17 +44,21 @@ struct EnlargeMapView_V2: View {
     @Binding var currentMenu: MenuItem?
     @State var camera: MapCameraPosition = .region(.userRegion)
     @State private var showAlert: Bool = false
+    @State private var showSearch:Bool = false
     @State private var result: String = ""
-    @State private var showSearch: Bool = false
     @State private var searchText: String = ""
     @State private var placemark: CLPlacemark?
     @State private var mapItem: MKMapItem?
     @State private var mapSelection: Int?  // to identify which marker has been tapped   //for search marker, implement it later
+    @State private var errorMessage = "Place not found!"
     @State private var selectedPropertyId: UUID?  //only specified for the popUpView
     @State private var propertySelection: UUID?  //for propertySelection using viewModel.propertyMapItems (that is a dict)
     @State var popUp_V2: Bool = true
-    @State private var showLookAroundScene: Bool = false
+    //@State private var showLookAroundScene: Bool = false
     @State private var propertyMapItem: MKMapItem?
+//    @State var searchFromPSV: Bool = false
+    
+    @State private var showpointSearchView = false
 
     // Accepting a PropertyLocation enum as a parameter
     var startMapCameraLocation: StartMapCameraLocation
@@ -103,6 +107,11 @@ struct EnlargeMapView_V2: View {
                             .annotationTitles(.visible)
                         }
                     }
+                    
+                    if let item = mapItem{
+                        Marker(item: item)
+                            .tint(.red)
+                    }
                 }
                 .mapControls {
                     MapCompass()
@@ -111,7 +120,18 @@ struct EnlargeMapView_V2: View {
                 }
 
                 VStack(alignment: .center) {
-
+                    SearchAndFilterBarView(searchText: $searchText, isActive: $showpointSearchView){
+                        print("Search submitted with text: \(searchText)") // Check if this line executes
+                        Task{
+                            guard !searchText.isEmpty else {return}
+                            searchPlaces()
+                        }
+                    }
+//                        .onTapGesture {
+//                            withAnimation(.snappy) {
+//                                showpointSearchView.toggle()
+//                            }
+//                        }
                     Spacer()  // Pushes content down from the top
                     if popUp_V2, let selectedPropertyId = propertySelection,
                         let selectedProperty = viewModel.properties.first(where: {
@@ -131,6 +151,7 @@ struct EnlargeMapView_V2: View {
                     }
                 }
             }
+            .searchable(text: $searchText, isPresented: $showSearch)
             .navigationTitle("")
             .navigationBarTitleDisplayMode(.inline)  // Use inline mode
             .toolbar {
@@ -160,14 +181,76 @@ struct EnlargeMapView_V2: View {
 
                 }
             }
+            .sheet(isPresented: $showpointSearchView) {
+                //pointSearchView(show: $showpointSearchView, currentMenu: $currentMenu, mapItem: $mapItem, placemark: $placemark)
+                pointSearchView(show: $showpointSearchView, currentMenu: $currentMenu, mapItem: $mapItem, popUp_V2: $popUp_V2, camera: $camera, showSearch: $showSearch)
+//                {
+//                    searchPlaces()
+//                }
+                    .presentationDetents([.height(550)])
+                    .presentationBackgroundInteraction(.enabled(upThrough: .height(550)))
+                    .presentationCornerRadius(24)
+                    //.interactiveDismissDisabled(true)
+            }
         }
-        .backButton()
-        .onChange(of: mapSelection) { oldValue, newValue in
-            showLookAroundScene = newValue != nil
-            print(showLookAroundScene)
+        //.backButton().background(ignoresSafeAreaEdges: .top)
+//        .onChange(of: mapSelection) { oldValue, newValue in
+//            showLookAroundScene = newValue != nil
+//            print(showLookAroundScene)
+//        }
+        .onSubmit(of: .search) {
+            Task{
+                guard !searchText.isEmpty else {return}
+                searchPlaces()
+                showSearch = false
+
+                
+            }
+        }
+        .alert(errorMessage, isPresented: $showAlert){
+            Button("OK", role: .cancel){}
+        }
+        .onChange(of: showSearch){
+            if !showSearch{
+                mapItem = nil
+                camera = .region(.userRegion)
+                
+            }
         }
         .toolbar(.hidden, for: .tabBar)
     }
+    
+    func searchPlaces() {
+        CLGeocoder()
+            .geocodeAddressString(searchText, completionHandler: updatePlaces)
+    }
+
+    func updatePlaces(placemarks: [CLPlacemark]?, error: Error?) {
+        mapItem = nil
+        if error != nil {
+            print("Geo failed with error: \(error!.localizedDescription)")
+            showAlert = true
+        } else if let marks = placemarks, marks.count > 0 {
+            placemark = marks[0]
+            if let address = placemark!.postalAddress {
+                let place = MKPlacemark(
+                    coordinate: placemark!.location!.coordinate, postalAddress: address)
+                result = "\(address.street), \(address.city), \(address.state), \(address.country)"
+                mapItem = MKMapItem(placemark: place)
+                mapItem?.name = searchText
+                zoomIntoTheSelectedPlace(searchedLatitude: placemark!.location!.coordinate.latitude, searchedLongitude: placemark!.location!.coordinate.longitude)
+            }
+        }
+    }
+    
+    func zoomIntoTheSelectedPlace(searchedLatitude: Double, searchedLongitude: Double) {
+        let searchedCoor = CLLocationCoordinate2D(latitude: searchedLatitude, longitude: searchedLongitude)
+        
+        let searchedRegion = MKCoordinateRegion(center: searchedCoor, latitudinalMeters: 3000, longitudinalMeters: 3000)
+        
+        camera = .region(searchedRegion)
+        }
+    
 }
 
 //#Preview {

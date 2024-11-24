@@ -92,9 +92,11 @@ struct WishlistNoteView: View {
                         dismiss()
                     } label: {
                         Image(systemName: "xmark")
-                    }.foregroundStyle(.black)
+                            .resizable()
+                            .frame(width: 15, height: 15)
+                            .foregroundColor(.black)
+                    }
                 }
-
                 ToolbarItem(placement: .principal) {
                     Text("Add note")
                 }

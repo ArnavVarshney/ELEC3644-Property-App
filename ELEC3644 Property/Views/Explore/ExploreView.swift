@@ -10,19 +10,13 @@ struct ExploreView: View {
     @State private var searchText: String = ""
     @State private var currentMenu: MenuItem? = MenuItem.buy
     @State private var isSearchActive: Bool = false
-    @State private var showpointSearchView = false
+    //    @State private var showpointSearchView = false
     @EnvironmentObject private var propertyViewModel: PropertyViewModel
     @EnvironmentObject private var agentViewModel: AgentViewModel
     var body: some View {
         NavigationStack {
             VStack {
-                //                SearchBarView(searchText: $searchText, isActive: $isSearchActive)
-                SearchAndFilterBarView(isActive: $isSearchActive)
-                    .onTapGesture {
-                        withAnimation(.snappy) {
-                            showpointSearchView.toggle()
-                        }
-                    }
+                SearchBarView(searchText: $searchText, isActive: $isSearchActive)
                 MenuItemListView(selectedMenu: $currentMenu)
             }
             .padding(.bottom, 12)
@@ -101,20 +95,12 @@ struct ExploreView: View {
                     }
                 }
             }
-            .sheet(isPresented: $showpointSearchView) {
-                pointSearchView(show: $showpointSearchView, currentMenu: $currentMenu)
-                    .presentationDetents([.height(800)])
-                    .presentationBackgroundInteraction(.enabled(upThrough: .height(800)))
-                    .presentationCornerRadius(30)
-                    .interactiveDismissDisabled(true)
-            }
         }
     }
-}
-
-struct EstateMenuView: View {
-    var body: some View {
-        Text("Estate")
+    struct EstateMenuView: View {
+        var body: some View {
+            Text("Estate")
+        }
     }
 }
 

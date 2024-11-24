@@ -17,7 +17,7 @@ struct MenuItemView: View {
             Text(LocalizedStringKey(item.rawValue))
                 .font(.system(size: 12, weight: .medium))
         }
-        .padding(.all, 8)
+        .frame(minWidth: 55)
         .frame(height: 60)
         .padding(.bottom, 4)
     }

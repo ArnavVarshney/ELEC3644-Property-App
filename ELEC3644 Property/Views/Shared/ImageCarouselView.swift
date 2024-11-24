@@ -7,6 +7,7 @@
 import SwiftUI
 
 struct ImageCarouselView: View {
+    @EnvironmentObject var userViewModel: UserViewModel
     let property: Property
     let images: [String]
     let imageUrls: [String]
@@ -29,7 +30,7 @@ struct ImageCarouselView: View {
 
     var body: some View {
         ZStack {
-            if favoritable {
+            if favoritable && userViewModel.isLoggedIn() {
                 VStack {
                     HStack {
                         Spacer()
@@ -107,8 +108,14 @@ struct favoriteIcon: View {
         }
         .padding(3)
         .sheet(isPresented: $showingSheet) {
-            FavoriteSubmitForm(showPrevSheet: $showingSheet, property: property)
-                .presentationDetents([.height(350)])
+            if !userViewModel.user.wishlists.isEmpty {
+                FavoriteSubmitForm(showPrevSheet: $showingSheet, property: property)
+                    .presentationDetents([.height(350), .large])
+                    .presentationDragIndicator(.hidden)
+            } else {
+                CreateWishlistForm(showSheet: $showingSheet, property: property)
+                    .presentationDetents([.height(250)])
+            }
         }
     }
 }

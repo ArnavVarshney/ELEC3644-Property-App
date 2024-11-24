@@ -13,6 +13,7 @@ struct ReviewFieldView: View {
     @EnvironmentObject private var userViewModel: UserViewModel
     @Environment(\.dismiss) private var dismiss
     var user: User
+
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading, spacing: 12) {
@@ -57,6 +58,20 @@ struct ReviewFieldView: View {
                 .disabled(reviewText.isEmpty || rating == 0)
                 Spacer()
             }
+            .navigationTitle("Review \(user.firstName())")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button(action: {
+                        dismiss()
+                    }) {
+                        Image(systemName: "xmark")
+                            .resizable()
+                            .frame(width: 15, height: 15)
+                            .foregroundColor(.black)
+                    }
+                }
+            }
             .padding()
         }
     }
@@ -85,21 +100,13 @@ struct ProfileDetailedView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var userViewModel: UserViewModel
 
-    var firstName: String {
-        if user.name.split(separator: " ").count > 1 {
-            return String(user.name.split(separator: " ")[0])
-        } else {
-            return user.name
-        }
-    }
-
     var body: some View {
         ScrollView {
             VStack {
                 HStack(spacing: 60) {
                     VStack {
                         UserAvatarView(user: user, size: 100)
-                        Text(firstName)
+                        Text(user.firstName())
                             .font(.system(size: 24, weight: .bold))
                         if userViewModel.user.id == user.id {
                             switch userViewModel.userRole {
@@ -151,7 +158,7 @@ struct ProfileDetailedView: View {
                 .padding(.vertical, 24)
                 if user.reviews.count > 0 {
                     HStack {
-                        Text("\(firstName)'s reviews")
+                        Text("\(user.firstName())'s reviews")
                             .font(.title3)
                             .fontWeight(.semibold)
                         Spacer()
@@ -220,7 +227,7 @@ struct ProfileDetailedView: View {
             }
         }
         .refreshable {
-            userViewModel.initTask(resetCache: true)
+            userViewModel.initTask()
         }
     }
 }

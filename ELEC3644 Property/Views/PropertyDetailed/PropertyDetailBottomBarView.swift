@@ -29,7 +29,8 @@ struct PropertyDetailBottomBarView: View {
                     Text("Request")
                         .font(.system(size: 16, weight: .medium))
                         .foregroundColor(.white)
-                        .padding()
+                        .padding(.horizontal, 24)
+                        .padding(.vertical, 12)
                         .background(Color.black)
                         .cornerRadius(10)
                 }

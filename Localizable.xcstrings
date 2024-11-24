@@ -848,6 +848,7 @@
       }
     },
     "District | MTR | School Net" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -2499,6 +2500,9 @@
           }
         }
       }
+    },
+    "Review %@" : {
+
     },
     "Reviews" : {
       "localizations" : {
