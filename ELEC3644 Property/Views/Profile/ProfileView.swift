@@ -69,6 +69,7 @@ struct ProfileView: View {
                             .background(.white)
                             .cornerRadius(12)
                             .addShadow()
+                            .padding(.horizontal, 3)
                             .padding(.vertical, 24)
                         }
                         .buttonStyle(PlainButtonStyle())
