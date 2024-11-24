@@ -100,6 +100,16 @@ struct ChatView: View {
                         .font(.headline)
                         .fontWeight(.bold)
                 }
+                if !chat.user.phone.isEmpty {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button(action: {
+                            UIApplication.shared.open(
+                                URL(string: "tel://\(chat.user.phone)")!)
+                        }) {
+                            Image(systemName: "phone")
+                        }
+                    }
+                }
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 HStack {
@@ -181,7 +191,8 @@ struct DateHeader: View {
     let date: Date
     var body: some View {
         Text(formattedDate(date))
-            .font(.subheadline)
+            .font(.footnote)
+            .fontWeight(.bold)
             .foregroundColor(.gray)
             .padding(.vertical, 8)
     }
