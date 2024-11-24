@@ -83,8 +83,6 @@ struct WishlistItemCard: View {
                     Text(property.name).font(.headline).foregroundStyle(.black)
                     Text("\(property.area)")
                     if moreDetail {
-                        Text("MTR info?")
-
                         HStack {
                             Text("S.A \(property.saleableArea) ft²").foregroundStyle(.black)
                             Text("@ \(property.saleableAreaPricePerSquareFoot)")
@@ -133,6 +131,7 @@ struct WishlistItemCard: View {
 
                         Spacer()
                     }
+                    .lineLimit(1)
                     .background(
                         Color(UIColor.lightGray)
                             .opacity(0.3)
@@ -170,7 +169,7 @@ struct WishlistItemCard: View {
     WishlistItemCard(
         property: Mock.Properties.first!, picking: false, picked: true, deletable: true,
         imageHeight: 300,
-        moreDetail: false, showNote: true
+        moreDetail: true, showNote: true
     )
     .environmentObject(UserViewModel())
     .environment(
