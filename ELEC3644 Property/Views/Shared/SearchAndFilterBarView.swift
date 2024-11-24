@@ -10,7 +10,7 @@ import SwiftUI
 struct SearchAndFilterBarView: View {
     @Binding var searchText: String
     @Binding var isActive: Bool
-    var onSearch: () -> Void // Closure to call when searching
+    var onSearch: () -> Void  // Closure to call when searching
     var body: some View {
         HStack {
             HStack {
@@ -20,13 +20,13 @@ struct SearchAndFilterBarView: View {
                     .frame(width: 20, height: 20)
                     .padding(10)
                     .fontWeight(.semibold)
-                
+
                 TextField("District | MTR | School Net | University | Estate", text: $searchText)
                     .font(.system(size: 15))
                     .foregroundColor(.gray)
                     .onSubmit(of: .search) {
-                        print("Search submitted with text: \(searchText)") // Debugging line
-                        onSearch() // Call the parent's function
+                        print("Search submitted with text: \(searchText)")  // Debugging line
+                        onSearch()  // Call the parent's function
                     }
             }
             .padding(8)

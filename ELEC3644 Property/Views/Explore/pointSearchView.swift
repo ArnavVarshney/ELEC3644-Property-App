@@ -63,11 +63,11 @@ struct pointSearchView: View {
     @Binding var show: Bool
     @Binding var currentMenu: MenuItem?
     @Binding var mapItem: MKMapItem?  //need to update EnlargeMpaView_V2
-//    @Binding var placemark: CLPlacemark? //need to update EnlargeMpaView_V2
-//    @State var mapItem: MKMapItem?  //need to update EnlargeMpaView_V2
+    //    @Binding var placemark: CLPlacemark? //need to update EnlargeMpaView_V2
+    //    @State var mapItem: MKMapItem?  //need to update EnlargeMpaView_V2
     @State var errorMessage: String = "Place not found!"
-    @State var placemark: CLPlacemark? //need to update EnlargeMpaView_V2
-//    @State var showAlert: Bool
+    @State var placemark: CLPlacemark?  //need to update EnlargeMpaView_V2
+    //    @State var showAlert: Bool
     @State private var result: String = ""
     //@State private var showAlert: Bool = false
     @State private var selectedArea: Area = .hkIsland
@@ -75,12 +75,12 @@ struct pointSearchView: View {
     @State private var selectedContract: ContractType = .buy
     @Binding var popUp_V2: Bool
     @Binding var camera: MapCameraPosition
-    @Binding var showSearch:Bool
-//    @Binding var searchFromPSV: Bool
+    @Binding var showSearch: Bool
+    //    @Binding var searchFromPSV: Bool
     //var onSearchPlaces: () -> Void
 
     // State variable for navigation to EnlargeMpaView_V2
-//    @State private var navigateToMapView: Bool = false
+    //    @State private var navigateToMapView: Bool = false
     var body: some View {
         NavigationStack {
             VStack {
@@ -135,10 +135,10 @@ struct pointSearchView: View {
                         searchPlaces()
                         show = false
                         popUp_V2 = false
-                        currentMenu = MenuItem(rawValue: selectedContract.rawValue)//this line of code switch to the user's slectedContract EnlargeMpaView_V2.
+                        currentMenu = MenuItem(rawValue: selectedContract.rawValue)  //this line of code switch to the user's slectedContract EnlargeMpaView_V2.
                         showSearch = false
-//                        onSearchPlaces()
-                        
+                        //                        onSearchPlaces()
+
                     }) {
                         HStack(alignment: .center) {
                             Spacer()
@@ -148,16 +148,16 @@ struct pointSearchView: View {
                     }
                     .disabled(selectedDistrict == nil)
                 }
-//
+                //
 
             }
             .navigationTitle("Property Location Selector")
             .navigationBarTitleDisplayMode(.inline)
         }
         .backButton()
-//        .alert(errorMessage, isPresented: $showAlert){
-//            Button("OK", role: .cancel){}
-//        }
+        //        .alert(errorMessage, isPresented: $showAlert){
+        //            Button("OK", role: .cancel){}
+        //        }
 
     }
     func searchPlaces() {
@@ -178,19 +178,22 @@ struct pointSearchView: View {
                 result = "\(address.street), \(address.city), \(address.state), \(address.country)"
                 mapItem = MKMapItem(placemark: place)
                 mapItem?.name = selectedDistrict!.rawValue
-                zoomIntoTheSelectedPlace(searchedLatitude: placemark!.location!.coordinate.latitude, searchedLongitude: placemark!.location!.coordinate.longitude)
+                zoomIntoTheSelectedPlace(
+                    searchedLatitude: placemark!.location!.coordinate.latitude,
+                    searchedLongitude: placemark!.location!.coordinate.longitude)
             }
         }
     }
     func zoomIntoTheSelectedPlace(searchedLatitude: Double, searchedLongitude: Double) {
-        let searchedCoor = CLLocationCoordinate2D(latitude: searchedLatitude, longitude: searchedLongitude)
-        
-        let searchedRegion = MKCoordinateRegion(center: searchedCoor, latitudinalMeters: 3000, longitudinalMeters: 3000)
-        
+        let searchedCoor = CLLocationCoordinate2D(
+            latitude: searchedLatitude, longitude: searchedLongitude)
+
+        let searchedRegion = MKCoordinateRegion(
+            center: searchedCoor, latitudinalMeters: 3000, longitudinalMeters: 3000)
+
         camera = .region(searchedRegion)
-        }
-    
-    
+    }
+
 }
 //
 //#Preview {

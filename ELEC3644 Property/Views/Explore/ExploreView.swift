@@ -64,7 +64,9 @@ struct ExploreView: View {
                 VStack {
                     Spacer()
 
-                    if currentMenu?.rawValue == "Buy" || currentMenu?.rawValue == "Rent" || currentMenu?.rawValue == "Lease"{
+                    if currentMenu?.rawValue == "Buy" || currentMenu?.rawValue == "Rent"
+                        || currentMenu?.rawValue == "Lease"
+                    {
                         NavigationLink(
                             destination: EnlargeMapView_V2(
                                 currentMenu: $currentMenu,
