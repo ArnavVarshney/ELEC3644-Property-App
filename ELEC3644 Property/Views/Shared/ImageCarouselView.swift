@@ -108,8 +108,14 @@ struct favoriteIcon: View {
         }
         .padding(3)
         .sheet(isPresented: $showingSheet) {
-            FavoriteSubmitForm(showPrevSheet: $showingSheet, property: property)
-                .presentationDetents([.height(350)])
+            if !userViewModel.user.wishlists.isEmpty {
+                FavoriteSubmitForm(showPrevSheet: $showingSheet, property: property)
+                    .presentationDetents([.height(350), .large])
+                    .presentationDragIndicator(.hidden)
+            } else {
+                CreateWishlistForm(showSheet: $showingSheet, property: property)
+                    .presentationDetents([.height(250)])
+            }
         }
     }
 }
