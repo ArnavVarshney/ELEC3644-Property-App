@@ -19,11 +19,8 @@ class InboxViewModel: ObservableObject {
         }
     }
 
-    func initTask(resetCache: Bool = false) {
+    func initTask() {
         Task {
-            if resetCache {
-                apiClient.resetCache()
-            }
             await fetchChats()
         }
     }

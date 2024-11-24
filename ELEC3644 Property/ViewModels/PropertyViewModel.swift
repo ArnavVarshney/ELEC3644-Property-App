@@ -23,11 +23,8 @@ class PropertyViewModel: ObservableObject {
         initTask()
     }
 
-    func initTask(resetCache: Bool = false) {
+    func initTask() {
         Task {
-            if resetCache {
-                apiClient.resetCache()
-            }
             await fetchProperties()
         }
     }

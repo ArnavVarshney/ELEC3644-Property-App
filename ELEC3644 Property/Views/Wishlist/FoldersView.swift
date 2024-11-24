@@ -65,7 +65,7 @@ struct FoldersView: View {
                 }
             }
             .refreshable {
-                userViewModel.initTask(resetCache: true)
+                userViewModel.initTask()
             }
         }
         .padding(.horizontal)

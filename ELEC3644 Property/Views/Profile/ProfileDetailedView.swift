@@ -220,7 +220,7 @@ struct ProfileDetailedView: View {
             }
         }
         .refreshable {
-            userViewModel.initTask(resetCache: true)
+            userViewModel.initTask()
         }
     }
 }
