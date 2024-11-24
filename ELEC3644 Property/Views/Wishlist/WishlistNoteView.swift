@@ -20,7 +20,7 @@ struct WishlistNoteView: View {
         NavigationStack {
             VStack(alignment: .leading) {
                 TextField("", text: $note, axis: .vertical).font(.system(size: 15)).focused(
-                    $foc, equals: true)
+                    $foc, equals: true).multilineTextAlignment(.leading)
                 Text(
                     "\(note.replacingOccurrences(of: " ", with: "").count)/\(TEXT_LIMIT) characters"
                 ).font(.footnote).foregroundStyle(.neutral60).padding(

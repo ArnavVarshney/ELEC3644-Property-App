@@ -84,16 +84,14 @@ struct WishlistDetailView: View {
                     LazyVGrid(columns: coloumns) {
                         ForEach(wishlist.properties.indices, id: \.self) { idx in
                             if !tickable {
-                                ScrollView {  // I've no idea why this worked https://forums.developer.apple.com/forums/thread/702376
-                                    NavigationLink {
-                                        PropertyDetailView(property: wishlist.properties[idx])
-                                    } label: {
-                                        WishlistItemCard(
-                                            property: wishlist.properties[idx], picking: tickable,
-                                            picked: pickedPropertiesIdx.contains(idx),
-                                            propertyNote: .constant("")
-                                        )
-                                    }
+                                NavigationLink {
+                                    PropertyDetailView(property: wishlist.properties[idx])
+                                } label: {
+                                    WishlistItemCard(
+                                        property: wishlist.properties[idx], picking: tickable,
+                                        picked: pickedPropertiesIdx.contains(idx),
+                                        propertyNote: .constant("")
+                                    )
                                 }
                             } else {
                                 Button {
