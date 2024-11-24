@@ -138,7 +138,6 @@ struct HistoryView: View {
                                             property: group.properties[idx],
                                             imageHeight: 170,
                                             moreDetail: false,
-                                            propertyNote: .constant(""),
                                             showingSheet: false,
                                             showNote: false)
                                     }.frame(width: 170)
@@ -151,7 +150,6 @@ struct HistoryView: View {
                                                 property: group.properties[idx + 1],
                                                 imageHeight: 170,
                                                 moreDetail: false,
-                                                propertyNote: .constant(""),
                                                 showingSheet: false,
                                                 showNote: false)
                                         }.frame(width: 170)
@@ -166,7 +164,6 @@ struct HistoryView: View {
                                             deletable: true,
                                             imageHeight: 170,
                                             moreDetail: false,
-                                            propertyNote: .constant(""),
                                             showNote: false)
                                     }.frame(width: 170)
 
@@ -179,7 +176,6 @@ struct HistoryView: View {
                                                 property: group.properties[idx + 1],
                                                 deletable: true,
                                                 imageHeight: 170, moreDetail: false,
-                                                propertyNote: .constant(""),
                                                 showNote: false)
                                         }.frame(width: 170)
                                     }

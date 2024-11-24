@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct WishlistNoteView: View {
+    @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
 
     @Binding var note: String
@@ -15,6 +16,9 @@ struct WishlistNoteView: View {
     @FocusState var foc: Bool?
 
     let TEXT_LIMIT = 250
+    @State var record: PropertyNotes?
+    let userId: UUID
+    let propertyId: UUID
 
     var body: some View {
         NavigationStack {
@@ -44,6 +48,20 @@ struct WishlistNoteView: View {
                 Spacer()
 
                 Button {
+                    if record == nil {
+                        record = PropertyNotes(context: viewContext)
+                        record!.id = UUID()
+                        record!.userId = userId
+                        record!.propertyId = propertyId
+                    }
+                    record!.note = note
+
+                    do {
+                        try viewContext.save()
+                    } catch {
+                        print("Couldn't save note: \(error)")
+                    }
+
                     dismiss()
                 } label: {
                     Text("Save").bold().padding(
@@ -83,5 +101,10 @@ struct WishlistNoteView: View {
 }
 
 #Preview {
-    WishlistNoteView(note: .constant(""))
+    WishlistNoteView(
+        note: .constant(""), record: PropertyNotes(), userId: UUID(), propertyId: UUID()
+    )
+    .environment(
+        \.managedObjectContext, PersistenceController.preview.container.viewContext
+    )
 }

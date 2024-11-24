@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct WishlistItemCard: View {
+    @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject private var userViewModel: UserViewModel
+
     let property: Property
     var picking: Bool = false
     var picked: Bool = false
@@ -15,8 +18,14 @@ struct WishlistItemCard: View {
     var imageHeight: Double = 300
     var moreDetail: Bool = true
 
-    @Binding var propertyNote: String
+    @State var propertyNote: String = ""
     @State var showingSheet = false
+    @State var noteRecord: PropertyNotes?
+
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \PropertyNotes.id, ascending: true)],
+        animation: .default)
+    private var records: FetchedResults<PropertyNotes>
 
     var showNote = true
 
@@ -74,8 +83,6 @@ struct WishlistItemCard: View {
                     Text(property.name).font(.headline).foregroundStyle(.black)
                     Text("\(property.area)")
                     if moreDetail {
-                        Text("MTR info?")
-
                         HStack {
                             Text("S.A \(property.saleableArea) ft²").foregroundStyle(.black)
                             Text("@ \(property.saleableAreaPricePerSquareFoot)")
@@ -124,19 +131,37 @@ struct WishlistItemCard: View {
 
                         Spacer()
                     }
+                    .lineLimit(1)
                     .background(
                         Color(UIColor.lightGray)
                             .opacity(0.3)
                     )
                     .cornerRadius(6)
                 }.sheet(isPresented: $showingSheet) {
-                    WishlistNoteView(note: .constant(""))
-                        .presentationDetents([.height(500)])
+                    WishlistNoteView(
+                        note: $propertyNote, record: noteRecord,
+                        userId: UUID(uuidString: userViewModel.currentUserId())!,
+                        propertyId: property.id
+                    )
+                    .presentationDetents([.height(500)])
                 }
             }
         }
         .alignmentGuide(.listRowSeparatorLeading) { _ in 0 }
         .foregroundStyle(.black)
+        .onAppear {
+            getNotes()
+        }
+    }
+
+    func getNotes() {
+        noteRecord = records.first { p in
+            p.propertyId == property.id
+                && p.userId == UUID(uuidString: userViewModel.currentUserId())
+        }
+        if let nr = noteRecord {
+            propertyNote = nr.note!
+        }
     }
 }
 
@@ -144,7 +169,10 @@ struct WishlistItemCard: View {
     WishlistItemCard(
         property: Mock.Properties.first!, picking: false, picked: true, deletable: true,
         imageHeight: 300,
-        moreDetail: false, propertyNote: .constant(""), showNote: false
+        moreDetail: true, showNote: true
     )
     .environmentObject(UserViewModel())
+    .environment(
+        \.managedObjectContext, PersistenceController.preview.container.viewContext
+    )
 }
