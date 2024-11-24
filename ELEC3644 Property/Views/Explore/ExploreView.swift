@@ -83,7 +83,7 @@ struct ExploreView: View {
                                 .scaledToFit()
                                 .frame(width: 24, height: 24)
                                 .foregroundColor(.white)
-                                .symbolEffect(.variableColor)
+                                .symbolEffect(.pulse, options: .speed(0.75))
                                 .padding(.leading, 16)
                             Text("Map")
                                 .font(.headline)
