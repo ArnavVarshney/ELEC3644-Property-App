@@ -32,6 +32,18 @@ struct PersistenceController {
             }
         }
 
+        for uid in uids {
+            for pid in propertyIds {
+                let newItem = PropertyNotes(context: viewContext)
+                newItem.userId = UUID(uuidString: uid)
+                newItem.id = UUID()
+                newItem.propertyId = UUID(uuidString: pid)
+                var d = Date()
+                //                d = d - Double.random(in: 0...60*60*24*30)
+                newItem.note = "Hello"
+            }
+        }
+
         do {
             try viewContext.save()
         } catch {
