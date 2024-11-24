@@ -137,7 +137,7 @@ struct WishlistItemCard: View {
                             .opacity(0.3)
                     )
                     .cornerRadius(6)
-                }.sheet(isPresented: $showingSheet) {
+                }.sheet(isPresented: $showingSheet, onDismiss: getNotes) {
                     WishlistNoteView(
                         note: $propertyNote, record: noteRecord,
                         userId: UUID(uuidString: userViewModel.currentUserId())!,

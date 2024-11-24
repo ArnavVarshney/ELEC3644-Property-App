@@ -813,6 +813,9 @@
         }
       }
     },
+    "Delete" : {
+
+    },
     "Description" : {
       "localizations" : {
         "zh-HK" : {

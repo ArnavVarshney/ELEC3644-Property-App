@@ -40,8 +40,19 @@ struct WishlistNoteView: View {
             HStack {
                 Button {
                     note = ""
+                    if record != nil{
+                        viewContext.delete(record!)
+                        do{
+                            try viewContext.save()
+                        }catch{
+                            print("couldn't delete note: \(error)")
+                        }
+                        viewContext.refresh(record!, mergeChanges: true)
+                        
+                        dismiss()
+                    }
                 } label: {
-                    Text("Clear").underline()
+                    Text(record == nil ? "Clear" : "Delete").underline()
                 }
                 .foregroundStyle(note.isEmpty ? .gray : .black)
                 .disabled(note.isEmpty)
