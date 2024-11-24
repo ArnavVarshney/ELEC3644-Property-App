@@ -38,13 +38,10 @@ class PropertyViewModel: ObservableObject {
             DispatchQueue.main.async {
                 self.properties = fetchedProperties
             }
+            await geocodePropertiesAddresses(fetchedProperties)
         } catch {
             print("Error fetching property data: \(error)")
         }
-    }
-
-    func getByContractType(contractType: String) -> [Property] {
-        return properties.filter { $0.contractType == contractType }
     }
 
     func query(query: [String: String]) async {
@@ -92,6 +89,10 @@ class PropertyViewModel: ObservableObject {
                 }
             }
         }
+    }
+    
+    func getByContractType(contractType: String) -> [Property] {
+        return properties.filter { $0.contractType == contractType }
     }
 
     func getLocation(for propertyName: String) -> CLLocationCoordinate2D? {
