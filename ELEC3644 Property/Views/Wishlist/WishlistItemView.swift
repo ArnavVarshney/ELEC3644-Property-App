@@ -7,42 +7,47 @@
 import SwiftUI
 
 struct WishlistItemView: View {
+    @EnvironmentObject var userViewModel: UserViewModel
     let wishlist: Wishlist
     let firstProperty: Property
-    init(wishlist: Wishlist) {
+    var size: CGFloat
+
+    init(wishlist: Wishlist, size: CGFloat = UIScreen.main.bounds.width / 2 - 32) {
         self.wishlist = wishlist
+        self.size = size
         firstProperty = wishlist.properties[0]
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack {
             AsyncImage(url: URL(string: firstProperty.imageUrls[0])) { image in
                 image
                     .resizable()
                     .scaledToFill()
+                    .frame(
+                        width: size, height: size)
             } placeholder: {
-                let index = Int.random(in: 0..<mockPropertyImages.count)
-                Image(mockPropertyImages[index])
-                    .resizable()
-                    .scaledToFill()
+                ProgressView()
             }
             .clipShape(RoundedRectangle(cornerRadius: 16))
             .overlay(
                 RoundedRectangle(cornerRadius: 16)
                     .stroke(.neutral20, lineWidth: 4)
             )
+            .padding(.bottom, 4)
             .addShadow()
-            .padding(.bottom, 2)
-            VStack(alignment: .leading) {
-                Text(wishlist.name)
-                    .fontWeight(.bold)
-                    .foregroundColor(.neutral100)
-                Text("\(wishlist.properties.count) saved")
-                    .foregroundColor(.neutral60)
-                    .font(.caption)
-            }
+
+            Text(wishlist.name)
+                .font(.footnote)
+                .fontWeight(.semibold)
+                .foregroundColor(.neutral100)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            Text("\(wishlist.properties.count) saved")
+                .foregroundColor(.neutral60)
+                .fontWeight(.semibold)
+                .font(.caption)
+                .frame(maxWidth: .infinity, alignment: .leading)
         }
-        .padding(.all, 4)
     }
 }
 
@@ -50,7 +55,6 @@ struct WishlistItemView: View {
     struct WishlistItemViewPreview: View {
         var body: some View {
             WishlistItemView(wishlist: Mock.Users[0].wishlists[0])
-                .frame(width: 160, height: 200)
         }
     }
     return WishlistItemViewPreview()

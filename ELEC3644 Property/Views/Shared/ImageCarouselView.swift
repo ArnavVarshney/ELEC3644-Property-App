@@ -110,11 +110,11 @@ struct favoriteIcon: View {
         .sheet(isPresented: $showingSheet) {
             if !userViewModel.user.wishlists.isEmpty {
                 FavoriteSubmitForm(showPrevSheet: $showingSheet, property: property)
-                    .presentationDetents([.height(350), .large])
+                    .presentationDetents([.medium, .large])
                     .presentationDragIndicator(.hidden)
             } else {
                 CreateWishlistForm(showSheet: $showingSheet, property: property)
-                    .presentationDetents([.height(250)])
+                    .presentationDetents([.height(350)])
             }
         }
     }

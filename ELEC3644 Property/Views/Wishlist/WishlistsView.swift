@@ -13,24 +13,26 @@ struct WishlistsView: View {
         NavigationStack {
             VStack {
                 if userViewModel.isLoggedIn() {
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text("Wishlists").bold()
-                            Text("A place to view what you saved").font(.footnote).foregroundColor(
-                                .neutral60)
+                    if userViewModel.user.wishlists.isEmpty {
+                        VStack {
+                            Image(systemName: "heart")
+                                .font(.largeTitle)
+                                .padding()
+
+                            Text("You don't have any wishlists")
+                                .font(.footnote)
+                                .fontWeight(.bold)
+                                .padding(4)
+
+                            Text("When you create a new wishlist, it will appear here.")
+                                .font(.footnote)
+                                .foregroundColor(.neutral60)
+                                .padding(4)
                         }
-                        Image("wishlist").resizable().scaledToFit().frame(width: 250, height: 250)
-                    }.padding(.horizontal)
-                    WishlistsList(items: [
-                        SettingsItem(
-                            destination: AnyView(FoldersView()), iconName: "heart",
-                            title: "Folders", subtitle: "Look at what you had in mind"),
-                        SettingsItem(
-                            destination: AnyView(HistoryView()),
-                            iconName: "calendar.day.timeline.trailing",
-                            title: "History", subtitle: "Reminded of something?"),
-                    ])
-                    Spacer()
+                    } else {
+                        WishlistGrid()
+                            .padding(.top, 16)
+                    }
                 } else {
                     VStack(alignment: .leading) {
                         Text("Log in to view your wishlists")
@@ -51,6 +53,13 @@ struct WishlistsView: View {
             }
             .padding(.horizontal)
             .navigationTitle("Wishlists")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink(destination: HistoryView()) {
+                        Image(systemName: "clock.arrow.trianglehead.counterclockwise.rotate.90")
+                    }
+                }
+            }
         }.onAppear {
             Task {
                 await userViewModel.fetchWishlist()
@@ -59,45 +68,74 @@ struct WishlistsView: View {
     }
 }
 
-struct WishlistsList: View {
-    let items: [SettingsItem]
+struct WishlistGrid: View {
+    @EnvironmentObject var userViewModel: UserViewModel
 
     var body: some View {
-        LazyVStack {
-            ForEach(0..<items.count, id: \.self) { index in
-                NavigationLink(destination: items[index].destination) {
-                    HStack(spacing: 15) {
-                        Image(systemName: items[index].iconName)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 24, height: 24)
-                            .foregroundColor(.black)
-                        VStack(alignment: .leading, spacing: 6) {
-                            Text(LocalizedStringKey(items[index].title))
-                                .font(.subheadline)
-                                .fontWeight(.semibold)
-                                .foregroundColor(.black)
-                            Text(LocalizedStringKey(items[index].subtitle))
-                                .font(.footnote)
-                                .foregroundColor(.neutral70)
+        ScrollView {
+            VStack(spacing: 16) {
+                ForEach(0..<userViewModel.user.wishlists.count, id: \.self) { index in
+                    if index % 2 == 0 {
+                        HStack(spacing: 32) {
+                            NavigationLink(
+                                destination: WishlistDetailView(
+                                    wishlistId: userViewModel.user.wishlists[index].id
+                                ) { removedProperties in
+                                    for property in removedProperties {
+                                        Task {
+                                            await userViewModel.postWishlist(
+                                                property: property,
+                                                folderName: userViewModel.user.wishlists[index]
+                                                    .name, delete: true)
+                                        }
+                                    }
+                                    Task {
+                                        await userViewModel.fetchWishlist()
+                                    }
+                                }
+                            ) {
+                                WishlistItemView(
+                                    wishlist: userViewModel.user.wishlists[index],
+                                    size: UIScreen.main.bounds.width / 2 - 32)
+                            }
+                            if index + 1 < userViewModel.user.wishlists.count {
+                                NavigationLink(
+                                    destination: WishlistDetailView(
+                                        wishlistId: userViewModel.user.wishlists[index + 1].id
+                                    ) { removedProperties in
+                                        for property in removedProperties {
+                                            Task {
+                                                await userViewModel.postWishlist(
+                                                    property: property,
+                                                    folderName: userViewModel.user.wishlists[
+                                                        index + 1
+                                                    ].name, delete: true)
+                                            }
+                                        }
+                                        Task {
+                                            await userViewModel.fetchWishlist()
+                                        }
+                                    }
+                                ) {
+                                    WishlistItemView(
+                                        wishlist: userViewModel.user.wishlists[index + 1],
+                                        size: UIScreen.main.bounds.width / 2 - 32)
+                                }
+                            } else {
+                                WishlistItemView(
+                                    wishlist: userViewModel.user.wishlists[index],
+                                    size: UIScreen.main.bounds.width / 2 - 32
+                                )
+                                .hidden()
+                            }
                         }
-                        Spacer()
-                        Image(systemName: "chevron.right")
-                            .resizable()
-                            .scaledToFit()
-                            .fontWeight(.semibold)
-                            .foregroundColor(.black)
-                            .frame(width: 12, height: 12)
+                        .padding(.horizontal)
                     }
-                    .padding(.vertical, 3)
-                }
-                if index < items.count - 1 {
-                    Divider()
                 }
             }
         }
-        .padding(.horizontal)
     }
+
 }
 
 #Preview {
