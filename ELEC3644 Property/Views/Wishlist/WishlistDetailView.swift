@@ -89,8 +89,7 @@ struct WishlistDetailView: View {
                                 } label: {
                                     WishlistItemCard(
                                         property: wishlist.properties[idx], picking: tickable,
-                                        picked: pickedPropertiesIdx.contains(idx),
-                                        propertyNote: .constant("")
+                                        picked: pickedPropertiesIdx.contains(idx)
                                     )
                                 }
                             } else {

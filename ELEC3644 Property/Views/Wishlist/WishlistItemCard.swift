@@ -169,7 +169,7 @@ struct WishlistItemCard: View {
     WishlistItemCard(
         property: Mock.Properties.first!, picking: false, picked: true, deletable: true,
         imageHeight: 300,
-        moreDetail: false, propertyNote: .constant(""), showNote: true
+        moreDetail: false, showNote: true
     )
     .environmentObject(UserViewModel())
     .environment(
