@@ -90,7 +90,7 @@ class PropertyViewModel: ObservableObject {
             }
         }
     }
-    
+
     func getByContractType(contractType: String) -> [Property] {
         return properties.filter { $0.contractType == contractType }
     }
