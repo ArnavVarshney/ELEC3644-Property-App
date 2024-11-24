@@ -20,44 +20,39 @@ struct CreateWishlistForm: View {
     var body: some View {
         NavigationStack {
             VStack {
-                VStack(alignment: .leading) {
-                    Text(
-                        "Name"
-                    ).font(.footnote).foregroundStyle(.neutral60).padding(
-                        .init(top: 0, leading: 0, bottom: 5, trailing: 0))
-
-                    TextField("", text: $folderName, axis: .vertical).font(.system(size: 15))
-                        .multilineTextAlignment(.leading)
-
-                }
-                .padding(.init(top: 10, leading: 10, bottom: 10, trailing: 10))
-                .overlay {
-                    RoundedRectangle(cornerRadius: 10).stroke(.black)
-                }
-                .padding(10)
-
-                HStack {
-                    Text(
-                        "\(folderName.replacingOccurrences(of: " ", with: "").count)/\(TEXT_LIMIT) characters"
-                    )
+                Text(LocalizedStringKey("Name"))
                     .font(.footnote)
-                    .foregroundStyle(.neutral60)
-                    .padding(.init(top: 0, leading: 0, bottom: 5, trailing: 0))
-                    Spacer()
-                }.padding(.init(top: 0, leading: 10, bottom: 10, trailing: 10))
+                    .fontWeight(.semibold)
+                    .foregroundColor(.black)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.top, 24)
+
+                TextField("Name", text: $folderName)
+                    .textFieldStyle(LoginTextFieldStyle())
+                    .multilineTextAlignment(.leading)
+
+                Text(
+                    "\(folderName.replacingOccurrences(of: " ", with: "").count)/\(TEXT_LIMIT) characters"
+                )
+                .font(.caption2)
+                .fontWeight(.bold)
+                .foregroundStyle(.neutral70)
+                .padding(.top, 4)
+                .frame(maxWidth: .infinity, alignment: .leading)
 
                 Divider()
+                    .padding(.vertical)
 
                 HStack {
                     Button {
                         folderName = ""
                     } label: {
-                        Text("Clear").underline()
+                        Text("Clear")
+                            .font(.footnote)
+                            .fontWeight(.semibold)
+                            .foregroundColor(.black)
+                            .underline()
                     }
-                    .foregroundStyle(
-                        folderName.replacingOccurrences(of: " ", with: "").isEmpty ? .gray : .black
-                    )
-                    .disabled(folderName.replacingOccurrences(of: " ", with: "").isEmpty)
 
                     Spacer()
 
@@ -70,8 +65,13 @@ struct CreateWishlistForm: View {
                         showSheet = false
                         dismiss()
                     } label: {
-                        Text("Create").bold().padding(
-                            .init(top: 15, leading: 20, bottom: 15, trailing: 20))
+                        Text("Create")
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 24)
+                            .padding(.vertical, 12)
+                            .background(Color.black)
+                            .cornerRadius(10)
                     }
                     .foregroundStyle(.white)
                     .background(
@@ -80,30 +80,28 @@ struct CreateWishlistForm: View {
                     .clipShape(.buttonBorder)
                     .disabled(folderName.replacingOccurrences(of: " ", with: "").isEmpty)
                 }
-                .padding()
-                Spacer()
             }
-            .navigationBarBackButtonHidden()
+            .navigationTitle("Create wishlist")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button {
+                    Button(action: {
                         dismiss()
-                    } label: {
+                    }) {
                         Image(systemName: "xmark")
-                    }.foregroundStyle(.black)
-                }
-
-                ToolbarItem(placement: .principal) {
-                    Text("Create wishlist")
+                            .resizable()
+                            .frame(width: 15, height: 15)
+                            .foregroundColor(.black)
+                    }
                 }
             }
+            .padding()
         }
         .onChange(of: folderName) { oldValue, newValue in
             if newValue.replacingOccurrences(of: " ", with: "").count > TEXT_LIMIT {
                 folderName = oldValue
             }
         }
-
     }
 }
 
