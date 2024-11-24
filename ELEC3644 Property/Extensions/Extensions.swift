@@ -98,6 +98,16 @@ extension UINavigationController: @retroactive UIGestureRecognizerDelegate {
     }
 }
 
+extension User {
+    func firstName() -> String {
+        if name.split(separator: " ").count > 1 {
+            return String(name.split(separator: " ")[0])
+        } else {
+            return name
+        }
+    }
+}
+
 #Preview {
     NavigationStack {
         VStack {
