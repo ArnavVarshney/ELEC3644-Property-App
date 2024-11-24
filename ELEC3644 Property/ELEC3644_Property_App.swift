@@ -14,6 +14,8 @@ struct ELEC3644_Property_App: App {
     @StateObject var agentData = AgentViewModel()
     @StateObject var locationManager = LocationManager()
     @StateObject var languageSetting = LanguageSetting()
+    @State var showResetPassword = false
+    @State var userId = ""
 
     let persistenceController = PersistenceController.shared
 
@@ -28,6 +30,18 @@ struct ELEC3644_Property_App: App {
                 .environmentObject(languageSetting)
                 .environment(\.locale, languageSetting.locale)
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .onOpenURL { url in
+                    if url.absoluteString.contains("reset-password") {
+                        showResetPassword = true
+                        userId = url.lastPathComponent
+                        print("Reset password for user: \(userId)")
+
+                    }
+                }
+                .sheet(isPresented: $showResetPassword) {
+                    ResetPasswordView(userId: userId)
+                        .presentationDetents([.medium])
+                }
         }
     }
 }
