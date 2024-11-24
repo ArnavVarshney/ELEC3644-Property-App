@@ -7,6 +7,7 @@
 import SwiftUI
 
 struct ImageCarouselView: View {
+    @EnvironmentObject var userViewModel: UserViewModel
     let property: Property
     let images: [String]
     let imageUrls: [String]
@@ -29,7 +30,7 @@ struct ImageCarouselView: View {
 
     var body: some View {
         ZStack {
-            if favoritable {
+            if favoritable && userViewModel.isLoggedIn() {
                 VStack {
                     HStack {
                         Spacer()
