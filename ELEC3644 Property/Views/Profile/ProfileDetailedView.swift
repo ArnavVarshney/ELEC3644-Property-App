@@ -13,6 +13,7 @@ struct ReviewFieldView: View {
     @EnvironmentObject private var userViewModel: UserViewModel
     @Environment(\.dismiss) private var dismiss
     var user: User
+
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading, spacing: 12) {
@@ -56,6 +57,20 @@ struct ReviewFieldView: View {
                 .cornerRadius(8)
                 .disabled(reviewText.isEmpty || rating == 0)
                 Spacer()
+            }
+            .navigationTitle("Review \(user.firstName())")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button(action: {
+                        dismiss()
+                    }) {
+                        Image(systemName: "xmark")
+                            .resizable()
+                            .frame(width: 15, height: 15)
+                            .foregroundColor(.black)
+                    }
+                }
             }
             .padding()
         }
