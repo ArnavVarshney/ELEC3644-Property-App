@@ -7,7 +7,7 @@
 import SwiftUI
 
 class LanguageSetting: ObservableObject {
-    var locale = Locale(identifier: UserDefaults.standard.string(forKey: "AppleLanguages") ?? "en")
+    @Published var locale = Locale(identifier: UserDefaults.standard.string(forKey: "AppleLanguages") ?? "en")
 }
 
 struct GeneralSettingsView: View {
