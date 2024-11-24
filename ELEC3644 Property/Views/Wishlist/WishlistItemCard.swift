@@ -10,7 +10,7 @@ import SwiftUI
 struct WishlistItemCard: View {
     @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject private var userViewModel: UserViewModel
-    
+
     let property: Property
     var picking: Bool = false
     var picked: Bool = false
@@ -26,7 +26,7 @@ struct WishlistItemCard: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \PropertyNotes.id, ascending: true)],
         animation: .default)
     private var records: FetchedResults<PropertyNotes>
-    
+
     var showNote = true
 
     var body: some View {
@@ -139,23 +139,28 @@ struct WishlistItemCard: View {
                     )
                     .cornerRadius(6)
                 }.sheet(isPresented: $showingSheet) {
-                    WishlistNoteView(note: $propertyNote, record: noteRecord, userId: UUID(uuidString: userViewModel.currentUserId())!, propertyId: property.id)
-                        .presentationDetents([.height(500)])
+                    WishlistNoteView(
+                        note: $propertyNote, record: noteRecord,
+                        userId: UUID(uuidString: userViewModel.currentUserId())!,
+                        propertyId: property.id
+                    )
+                    .presentationDetents([.height(500)])
                 }
             }
         }
         .alignmentGuide(.listRowSeparatorLeading) { _ in 0 }
         .foregroundStyle(.black)
-        .onAppear{
+        .onAppear {
             getNotes()
         }
     }
-    
-    func getNotes(){
+
+    func getNotes() {
         noteRecord = records.first { p in
-            p.propertyId == property.id && p.userId == UUID(uuidString: userViewModel.currentUserId())
+            p.propertyId == property.id
+                && p.userId == UUID(uuidString: userViewModel.currentUserId())
         }
-        if let nr = noteRecord{
+        if let nr = noteRecord {
             propertyNote = nr.note!
         }
     }

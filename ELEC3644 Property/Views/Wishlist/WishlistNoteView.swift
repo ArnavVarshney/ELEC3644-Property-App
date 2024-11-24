@@ -48,7 +48,7 @@ struct WishlistNoteView: View {
                 Spacer()
 
                 Button {
-                    if record == nil{
+                    if record == nil {
                         record = PropertyNotes(context: viewContext)
                         record!.id = UUID()
                         record!.userId = userId
@@ -56,12 +56,12 @@ struct WishlistNoteView: View {
                     }
                     record!.note = note
 
-                    do{
+                    do {
                         try viewContext.save()
-                    }catch{
+                    } catch {
                         print("Couldn't save note: \(error)")
                     }
-                    
+
                     dismiss()
                 } label: {
                     Text("Save").bold().padding(
@@ -101,8 +101,10 @@ struct WishlistNoteView: View {
 }
 
 #Preview {
-    WishlistNoteView(note: .constant(""), record: PropertyNotes(), userId: UUID(), propertyId: UUID())
-        .environment(
-            \.managedObjectContext, PersistenceController.preview.container.viewContext
-        )
+    WishlistNoteView(
+        note: .constant(""), record: PropertyNotes(), userId: UUID(), propertyId: UUID()
+    )
+    .environment(
+        \.managedObjectContext, PersistenceController.preview.container.viewContext
+    )
 }

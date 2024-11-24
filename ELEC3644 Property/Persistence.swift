@@ -31,7 +31,7 @@ struct PersistenceController {
                 newItem.dateTime = d
             }
         }
-        
+
         for uid in uids {
             for pid in propertyIds {
                 let newItem = PropertyNotes(context: viewContext)
