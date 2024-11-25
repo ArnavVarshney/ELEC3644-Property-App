@@ -5,9 +5,9 @@
 //  Created by Mak Yilam on 25/11/2024.
 //
 
+import Combine
 import Foundation
 import SwiftUI
-import Combine
 
 class MapSettingsViewModel: ObservableObject {
     @Published var mapZoomEnabled: Bool {
@@ -15,7 +15,7 @@ class MapSettingsViewModel: ObservableObject {
             UserDefaults.standard.set(mapZoomEnabled, forKey: "mapZoomEnabled")
         }
     }
-    
+
     @Published var mapPanEnabled: Bool {
         didSet {
             UserDefaults.standard.set(mapPanEnabled, forKey: "mapPanEnabled")
