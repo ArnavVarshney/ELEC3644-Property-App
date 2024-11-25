@@ -120,19 +120,7 @@ struct EnlargeMapView_V2: View {
                 }
 
                 VStack(alignment: .center) {
-                    SearchAndFilterBarView(searchText: $searchText, isActive: $showpointSearchView)
-                    {
-                        print("Search submitted with text: \(searchText)")  // Check if this line executes
-                        Task {
-                            guard !searchText.isEmpty else { return }
-                            searchPlaces()
-                        }
-                    }
-                    //                        .onTapGesture {
-                    //                            withAnimation(.snappy) {
-                    //                                showpointSearchView.toggle()
-                    //                            }
-                    //                        }
+//                    SearchAndFilterBarView(searchText: $searchText, isActive: $showpointSearchView)
                     Spacer()  // Pushes content down from the top
                     if popUp_V2, let selectedPropertyId = propertySelection,
                         let selectedProperty = viewModel.properties.first(where: {
@@ -182,26 +170,18 @@ struct EnlargeMapView_V2: View {
 
                 }
             }
-            .sheet(isPresented: $showpointSearchView) {
-                //pointSearchView(show: $showpointSearchView, currentMenu: $currentMenu, mapItem: $mapItem, placemark: $placemark)
-                pointSearchView(
-                    show: $showpointSearchView, currentMenu: $currentMenu, mapItem: $mapItem,
-                    popUp_V2: $popUp_V2, camera: $camera, showSearch: $showSearch
-                )
-                //                {
-                //                    searchPlaces()
-                //                }
-                .presentationDetents([.height(550)])
-                .presentationBackgroundInteraction(.enabled(upThrough: .height(550)))
-                .presentationCornerRadius(24)
-                //.interactiveDismissDisabled(true)
-            }
+//            .sheet(isPresented: $showpointSearchView) {
+//                //pointSearchView(show: $showpointSearchView, currentMenu: $currentMenu, mapItem: $mapItem, placemark: $placemark)
+//                pointSearchView(
+//                    show: $showpointSearchView, currentMenu: $currentMenu, mapItem: $mapItem,
+//                    popUp_V2: $popUp_V2, camera: $camera, showSearch: $showSearch
+//                )
+//                .presentationDetents([.height(550)])
+//                .presentationBackgroundInteraction(.enabled(upThrough: .height(550)))
+//                .presentationCornerRadius(24)
+//                //.interactiveDismissDisabled(true)
+//            }
         }
-        //.backButton().background(ignoresSafeAreaEdges: .top)
-        //        .onChange(of: mapSelection) { oldValue, newValue in
-        //            showLookAroundScene = newValue != nil
-        //            print(showLookAroundScene)
-        //        }
         .onSubmit(of: .search) {
             Task {
                 guard !searchText.isEmpty else { return }
