@@ -52,7 +52,7 @@ class PropertyViewModel: ObservableObject {
             print("Error fetching queried properties: \(error)")
         }
     }
-    
+
     private func geocodePropertiesAddresses(_ properties: [Property]) async {
         let geocoder = CLGeocoder()
 

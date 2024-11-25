@@ -12,21 +12,21 @@ struct ExploreView: View {
     @State private var isSearchActive: Bool = false
     @EnvironmentObject private var propertyViewModel: PropertyViewModel
     @EnvironmentObject private var agentViewModel: AgentViewModel
-    
+
     func queryString(properties: [Property], query: String) -> [Property] {
         return properties.filter({ property in
             if query.isEmpty {
                 return true
             } else {
                 return property.name.contains(query)
-                || property.address.contains(query)
-                || property.district.contains(query)
-                || property.schoolNet.primary.contains(query)
-                || property.schoolNet.secondary.contains(query)
+                    || property.address.contains(query)
+                    || property.district.contains(query)
+                    || property.schoolNet.primary.contains(query)
+                    || property.schoolNet.secondary.contains(query)
             }
         })
     }
-    
+
     var body: some View {
         NavigationStack {
             VStack {
@@ -42,20 +42,23 @@ struct ExploreView: View {
                     ScrollView(.horizontal) {
                         LazyHStack(spacing: 0) {
                             ListingMenuView(
-                                properties: queryString(properties: propertyViewModel.getByContractType(
-                                    contractType: "Buy"), query: searchText)
+                                properties: queryString(
+                                    properties: propertyViewModel.getByContractType(
+                                        contractType: "Buy"), query: searchText)
                             )
                             .id(MenuItem.buy)
                             .frame(width: geometry.size.width)
                             ListingMenuView(
-                                properties: queryString(properties: propertyViewModel.getByContractType(
-                                    contractType: "Rent"), query: searchText)
+                                properties: queryString(
+                                    properties: propertyViewModel.getByContractType(
+                                        contractType: "Rent"), query: searchText)
                             )
                             .id(MenuItem.rent)
                             .frame(width: geometry.size.width)
                             ListingMenuView(
-                                properties: queryString(properties: propertyViewModel.getByContractType(
-                                    contractType: "Lease"), query: searchText)
+                                properties: queryString(
+                                    properties: propertyViewModel.getByContractType(
+                                        contractType: "Lease"), query: searchText)
                             )
                             .id(MenuItem.lease)
                             .frame(width: geometry.size.width)
