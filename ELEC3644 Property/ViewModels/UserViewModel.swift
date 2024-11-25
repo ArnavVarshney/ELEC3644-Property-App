@@ -75,7 +75,7 @@ class UserViewModel: ObservableObject {
         do {
             let json: [String: [Property]] = try await apiClient.get(
                 url: "/wishlists/\(currentUserId())")
-            let folderNames = json.keys
+            let folderNames = json.keys.sorted()
             let wishlists = folderNames.map { Wishlist(name: $0, properties: json[$0]!) }
             DispatchQueue.main.async {
                 self.user.wishlists = wishlists
@@ -89,7 +89,7 @@ class UserViewModel: ObservableObject {
         do {
             let data = [
                 "userId": currentUserId(), "propertyId": "\(property.id)".lowercased(),
-                "folderName": folderName.lowercased(),
+                "folderName": folderName,
             ]
             if delete {
                 let _: DeleteResponse = try await apiClient.delete(url: "/wishlists", body: data)

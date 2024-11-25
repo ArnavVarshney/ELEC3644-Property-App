@@ -859,7 +859,11 @@
         }
       }
     },
+    "District | MTR | School Net | Estate" : {
+
+    },
     "District | MTR | School Net | University | Estate" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
