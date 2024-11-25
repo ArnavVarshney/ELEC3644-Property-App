@@ -50,6 +50,8 @@ struct HistoryView: View {
             groups[itemFormatter.string(from: record.dateTime!)]!.append(record)
         }
 
+        let df = DateFormatter()
+        df.dateFormat = "dd MMM yyyy"
         for date in groups.keys {
             let propertyHistories = groups[date]!
             let properties = propertyHistories.map { h in
@@ -59,12 +61,10 @@ struct HistoryView: View {
             }
 
             let section = HistorySection(
-                date: date, properties: properties, propertyHistories: propertyHistories)
+                date: date, properties: properties, propertyHistories: propertyHistories, comparableDate: df.date(from: date)!)
             sections.append(section)
         }
 
-        let df = DateFormatter()
-        df.dateFormat = "dd MMM yyyy"
         sections = sections.sorted(by: { s1, s2 in
             s1.comparableDate > s2.comparableDate
         })
@@ -239,7 +239,6 @@ struct HistoryView: View {
     }
 
     func delete(record: PropertyHistory) {
-        //Disable navigation, we're picking stuff
         withAnimation {
             viewContext.delete(record)
         }
@@ -265,17 +264,6 @@ struct HistorySection: Identifiable {
     let properties: [Property]
     let propertyHistories: [PropertyHistory]
     let comparableDate: Date
-    let df: DateFormatter
-
-    init(date: String, properties: [Property], propertyHistories: [PropertyHistory]) {
-        self.date = date
-        self.properties = properties
-        self.propertyHistories = propertyHistories
-
-        df = DateFormatter()
-        df.dateFormat = "dd MMM yyyy"
-        self.comparableDate = df.date(from: date)!
-    }
 }
 
 #Preview {
