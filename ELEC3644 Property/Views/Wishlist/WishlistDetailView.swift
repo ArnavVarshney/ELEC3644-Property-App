@@ -108,24 +108,6 @@ struct WishlistDetailView: View {
                         }
                     }.padding()
                 }
-                Spacer()
-                if showingLowerButton {
-                    LowerButton(
-                        wishlist: wishlist,
-                        pickedPropertiesIdx: pickedPropertiesIdx, state: state
-                    ) {
-                        removedIds in
-                        let removedProperties = wishlist.properties.filter { property in
-                            return removedIds.contains(property.id)
-                        }
-                        callback(removedProperties)
-                        transition(to: .view)
-                    }
-                    .padding(10)
-                    .background(Rectangle().fill(.black))
-                    .foregroundStyle(.white)
-                    .clipShape(.rect(cornerRadius: 5))
-                }
             }
             .navigationBarBackButtonHidden()
             .navigationBarTitleDisplayMode(.inline)
@@ -165,6 +147,24 @@ struct WishlistDetailView: View {
                         ).disabled(compareButtonDisabled)
                     }
                 }
+            }
+            Spacer()
+            if showingLowerButton {
+                LowerButton(
+                    wishlist: wishlist,
+                    pickedPropertiesIdx: $pickedPropertiesIdx, state: state
+                ) {
+                    removedIds in
+                    let removedProperties = wishlist.properties.filter { property in
+                        return removedIds.contains(property.id)
+                    }
+                    callback(removedProperties)
+                    transition(to: .view)
+                }
+                .padding(10)
+                .background(Rectangle().fill(.black))
+                .foregroundStyle(.white)
+                .clipShape(.rect(cornerRadius: 5))
             }
 
         }
@@ -220,7 +220,7 @@ struct WishlistDetailView: View {
 
 struct LowerButton: View {
     @State var wishlist: Wishlist
-    @State var pickedPropertiesIdx: [Int]
+    @Binding var pickedPropertiesIdx: [Int]
 
     let state: WishlistState
     let callback: (_: [UUID]) -> Void
