@@ -10,9 +10,23 @@ struct ExploreView: View {
     @State private var searchText: String = ""
     @State private var currentMenu: MenuItem? = MenuItem.buy
     @State private var isSearchActive: Bool = false
-    //    @State private var showpointSearchView = false
     @EnvironmentObject private var propertyViewModel: PropertyViewModel
     @EnvironmentObject private var agentViewModel: AgentViewModel
+    
+    func queryString(properties: [Property], query: String) -> [Property] {
+        return properties.filter({ property in
+            if query.isEmpty {
+                return true
+            } else {
+                return property.name.contains(query)
+                || property.address.contains(query)
+                || property.district.contains(query)
+                || property.schoolNet.primary.contains(query)
+                || property.schoolNet.secondary.contains(query)
+            }
+        })
+    }
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -28,27 +42,27 @@ struct ExploreView: View {
                     ScrollView(.horizontal) {
                         LazyHStack(spacing: 0) {
                             ListingMenuView(
-                                properties: propertyViewModel.getByContractType(
-                                    contractType: "Buy")
+                                properties: queryString(properties: propertyViewModel.getByContractType(
+                                    contractType: "Buy"), query: searchText)
                             )
                             .id(MenuItem.buy)
                             .frame(width: geometry.size.width)
                             ListingMenuView(
-                                properties: propertyViewModel.getByContractType(
-                                    contractType: "Rent")
+                                properties: queryString(properties: propertyViewModel.getByContractType(
+                                    contractType: "Rent"), query: searchText)
                             )
                             .id(MenuItem.rent)
                             .frame(width: geometry.size.width)
                             ListingMenuView(
-                                properties: propertyViewModel.getByContractType(
-                                    contractType: "Lease")
+                                properties: queryString(properties: propertyViewModel.getByContractType(
+                                    contractType: "Lease"), query: searchText)
                             )
                             .id(MenuItem.lease)
                             .frame(width: geometry.size.width)
                             TransactionMenuView(properties: propertyViewModel.properties)
                                 .id(MenuItem.transaction)
                                 .frame(width: geometry.size.width)
-                            EstateMenuView()
+                            EstateMenuView(properties: propertyViewModel.properties)
                                 .id(MenuItem.estate)
                                 .frame(width: geometry.size.width)
                             AgentMenuView()
@@ -98,11 +112,6 @@ struct ExploreView: View {
                     }
                 }
             }
-        }
-    }
-    struct EstateMenuView: View {
-        var body: some View {
-            Text("Estate")
         }
     }
 }

@@ -23,6 +23,7 @@ struct TransactionDetailedView: View {
                         Text(propertyTransaction.property.name)
                             .font(.system(size: 32, weight: .medium))
                             .foregroundColor(.neutral100)
+                            .lineLimit(1)
                         Text(propertyTransaction.property.address)
                             .font(.system(size: 18, weight: .regular))
                             .foregroundColor(.neutral100)
@@ -84,10 +85,10 @@ struct TransactionDetailedView: View {
                                     .foregroundColor(.neutral100)
                             }
                         }
-                        VStack {
+                        VStack(alignment: .leading) {
                             Text("Transaction History")
                                 .font(.subheadline)
-                                .foregroundColor(.neutral70)
+                                .foregroundColor(.neutral100)
                                 .padding(.top, 16)
                             Divider()
                             ForEach(
@@ -159,9 +160,8 @@ struct TransactionRow: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 2) {
             HStack {
-                Label(
-                    propertyTransaction.transaction.date.formatted(.dateTime.month().day().year()),
-                    systemImage: "calendar"
+                Text(
+                    propertyTransaction.transaction.date.formatted(.dateTime.month().day().year())
                 )
                 .font(.subheadline)
                 .foregroundColor(.secondary)
@@ -175,7 +175,7 @@ struct TransactionRow: View {
 
                     Text(
                         (transaction.price / propertyTransaction.property.saleableArea)
-                            .toCompactCurrencyFormat() + "/m²"
+                            .toCompactCurrencyFormat() + "/sqft"
                     )
                     .font(.subheadline)
                     .foregroundColor(.secondary)

@@ -15,25 +15,7 @@ struct TransactionMenuView: View {
 
     init(properties: [Property]) {
         self.properties = properties
-        self.transactions = getTransactions()
-    }
-
-    private func getTransactions() -> [PropertyTransaction] {
-        var transactions: [PropertyTransaction] = []
-        for property in properties {
-
-            for (idx, transaction) in property.transactionHistory.enumerated() {
-                let propertyTransaction = PropertyTransaction(
-                    transaction: transaction,
-                    property: property,
-                    priceDelta: idx == 0
-                        ? 0 : transaction.price - property.transactionHistory[idx - 1].price
-                )
-                transactions.append(propertyTransaction)
-            }
-        }
-        transactions.sort { $0.transaction.date > $1.transaction.date }
-        return transactions
+        self.transactions = properties.getTransactions()
     }
 
     var body: some View {
@@ -53,7 +35,7 @@ struct TransactionMenuView: View {
                             destination: TransactionDetailedView(
                                 propertyTransaction: propertyTransaction)
                         ) {
-                            TransactionListView(propertyTransaction: propertyTransaction)
+                            TransactionRowView(propertyTransaction: propertyTransaction)
                         }
                         Divider()
                     }
@@ -79,7 +61,7 @@ struct TransactionMenuView: View {
         .environmentObject(PropertyViewModel())
 }
 
-struct TransactionListView: View {
+struct TransactionRowView: View {
     let propertyTransaction: PropertyTransaction
 
     var body: some View {
