@@ -61,7 +61,8 @@ struct HistoryView: View {
             }
 
             let section = HistorySection(
-                date: date, properties: properties, propertyHistories: propertyHistories, comparableDate: df.date(from: date)!)
+                date: date, properties: properties, propertyHistories: propertyHistories,
+                comparableDate: df.date(from: date)!)
             sections.append(section)
         }
 
