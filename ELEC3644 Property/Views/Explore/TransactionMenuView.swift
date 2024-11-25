@@ -80,13 +80,13 @@ struct TransactionRowView: View {
                     )
                     .font(.subheadline)
                     .foregroundColor(.neutral60)
-                    
+
                     Text(
-                        "G.F.A. \(propertyTransaction.property.grossFloorArea)sqft @ \(propertyTransaction.pricePerGrossArea.toCompactCurrencyFormat())/sqft")
+                        "G.F.A. \(propertyTransaction.property.grossFloorArea)sqft @ \(propertyTransaction.pricePerGrossArea.toCompactCurrencyFormat())/sqft"
+                    )
                     .font(.subheadline)
                     .foregroundColor(.neutral60)
 
-                    
                     Text(propertyTransaction.property.contractType)
                         .font(.subheadline)
                         .padding(.vertical, 4)
@@ -95,15 +95,14 @@ struct TransactionRowView: View {
                         .cornerRadius(4)
                         .foregroundColor(.neutral10)
                 }
-                
+
                 Spacer()
-                                
-                VStack(alignment:.trailing) {
+
+                VStack(alignment: .trailing) {
                     Text("\(propertyTransaction.transaction.price.toCompactCurrencyFormat())")
                         .font(.title3)
                         .fontWeight(.medium)
 
-                    
                     Text(
                         "\(propertyTransaction.transaction.date.formatted(.dateTime.year().month().day()))"
                     )
