@@ -30,7 +30,9 @@ class AgentViewModel: ObservableObject {
                 agent.reviews = reviews
                 agentsWithReviews.append(agent)
             }
-            self.agents = agentsWithReviews
+            DispatchQueue.main.async {
+                self.agents = agentsWithReviews
+            }
         } catch {
             print("Error fetching agents data: \(error)")
         }
