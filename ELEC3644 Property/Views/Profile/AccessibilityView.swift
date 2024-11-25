@@ -8,15 +8,16 @@
 import SwiftUI
 
 struct AccessibilityView: View {
+    @EnvironmentObject var mapSettingsViewModel: MapSettingsViewModel
     @EnvironmentObject var userViewModel: UserViewModel
     @Environment(\.dismiss) private var dismiss
-    @State private var mapZoomEnabled = false
-    @State private var mapPanEnabled = false
+//    @State private var mapZoomEnabled = false
+//    @State private var mapPanEnabled = false
 
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading) {
-                Toggle(isOn: $mapZoomEnabled) {
+                Toggle(isOn: $mapSettingsViewModel.mapZoomEnabled) {
                     VStack(alignment: .leading, spacing: 4) {
                         Text("Map zoom controls")
                             .font(.subheadline)
@@ -28,7 +29,7 @@ struct AccessibilityView: View {
                     }
                     .padding(.vertical, 12)
                 }
-                Toggle(isOn: $mapPanEnabled) {
+                Toggle(isOn: $mapSettingsViewModel.mapPanEnabled) {
                     VStack(alignment: .leading, spacing: 4) {
                         Text("Map pan controls")
                             .font(.subheadline)
@@ -42,12 +43,12 @@ struct AccessibilityView: View {
                 }
                 Spacer()
             }
-            .onChange(of: mapZoomEnabled) {
-                UserDefaults.standard.set(mapZoomEnabled, forKey: "mapZoomEnabled")
-            }
-            .onChange(of: mapPanEnabled) {
-                UserDefaults.standard.set(mapPanEnabled, forKey: "mapPanEnabled")
-            }
+//            .onChange(of: mapZoomEnabled) {
+//                UserDefaults.standard.set(mapZoomEnabled, forKey: "mapZoomEnabled")
+//            }
+//            .onChange(of: mapPanEnabled) {
+//                UserDefaults.standard.set(mapPanEnabled, forKey: "mapPanEnabled")
+//            }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding()
             .navigationTitle("Accessibility")
@@ -66,6 +67,7 @@ struct AccessibilityView: View {
 }
 
 #Preview {
-    struct AccessibilityView_Preview: View { var body: some View { AccessibilityView() } }
+    struct AccessibilityView_Preview: View {
+        var body: some View { AccessibilityView() } }
     return AccessibilityView_Preview()
 }

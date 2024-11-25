@@ -15,7 +15,7 @@ import SwiftUI
 enum StartMapCameraLocation {  //for pointSearchView
     case userLocation
     case customLocation(latitude: Double, longitude: Double)
-
+    
     var coordinate: CLLocationCoordinate2D {
         switch self {
         case .userLocation:
@@ -24,9 +24,9 @@ enum StartMapCameraLocation {  //for pointSearchView
             return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         }
     }
-
+    
     var region: MKCoordinateRegion {
-        MKCoordinateRegion(center: coordinate, latitudinalMeters: 50000, longitudinalMeters: 50000)
+        MKCoordinateRegion(center: coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
     }
 }
 
@@ -36,11 +36,12 @@ extension CLLocationCoordinate2D {
 
 extension MKCoordinateRegion {
     static let userRegion = MKCoordinateRegion(
-        center: .userLocation, latitudinalMeters: 60000, longitudinalMeters: 60000)
+        center: .userLocation, latitudinalMeters: 10000, longitudinalMeters: 10000)
 }
 
 struct EnlargeMapView_V2: View {
     @EnvironmentObject var viewModel: PropertyViewModel
+    @EnvironmentObject var mapSettingsViewModel: MapSettingsViewModel
     @Binding var currentMenu: MenuItem?
     @State var camera: MapCameraPosition = .region(.userRegion)
     @State private var showAlert: Bool = false
@@ -57,18 +58,24 @@ struct EnlargeMapView_V2: View {
     //@State private var showLookAroundScene: Bool = false
     @State private var propertyMapItem: MKMapItem?
     //    @State var searchFromPSV: Bool = false
-
+    
     @State private var showpointSearchView = false
-
+    
+    // Zoom level state
+    @State private var zoomLevel: Double = 10000 // Default zoom level
+    @State private var addedLatitude: Double = 0.0  // Default additional latitude
+    @State private var addedLongitude: Double = 0.0 // Default additional longitude
+    
+    
     // Accepting a PropertyLocation enum as a parameter
     var startMapCameraLocation: StartMapCameraLocation
-
+    
     init(currentMenu: Binding<MenuItem?>, startMapCameraLocation: StartMapCameraLocation) {
         self._currentMenu = currentMenu
         self.startMapCameraLocation = startMapCameraLocation
         self._camera = State(initialValue: .region(startMapCameraLocation.region))  // Initialize camera based on location
     }
-
+    
     //    @State var propertyLocations: [String: CLLocationCoordinate2D]
     var body: some View {
         NavigationStack {
@@ -107,7 +114,7 @@ struct EnlargeMapView_V2: View {
                             .annotationTitles(.visible)
                         }
                     }
-
+                    
                     if let item = mapItem {
                         Marker(item: item)
                             .tint(.red)
@@ -118,14 +125,176 @@ struct EnlargeMapView_V2: View {
                     MapUserLocationButton()
                     MapScaleView()
                 }
-
+                // Zoom and Pan Controls
+                HStack(spacing: 20) {
+                    Spacer()
+                    if mapSettingsViewModel.mapZoomEnabled == true && mapSettingsViewModel.mapPanEnabled == false{
+                        VStack {
+                            Button(action: {
+                                zoomIn()
+                                zoomIntoTheSelectedPlace()
+                            }) {
+                                Image(systemName: "plus")
+                                    .padding(20)
+                                    .frame(width: 45, height: 45)
+                                    .background(Color.white)
+                                    .foregroundColor(.black)
+                                    .cornerRadius(8)
+                            }
+                            Button(action: {
+                                zoomOut()
+                                zoomIntoTheSelectedPlace()
+                            }) {
+                                Image(systemName: "minus")
+                                    .padding(25)
+                                    .frame(width: 45, height: 45)
+                                    .background(Color.white)
+                                    .foregroundColor(.black)
+                                    .cornerRadius(8)
+                            }
+                            Spacer()
+                            
+                        }
+                        .padding(.top, 50)
+                    }
+                    
+                    else if mapSettingsViewModel.mapPanEnabled == true && mapSettingsViewModel.mapZoomEnabled == false{
+                        VStack {
+                            Button(action: {
+                                panUp()
+                                setCameraPan()
+                            }) {
+                                Image(systemName: "chevron.up")
+                                    .padding(20)
+                                    .frame(width: 45, height: 45)
+                                    .background(Color.white)
+                                    .foregroundColor(.black)
+                                    .cornerRadius(8)
+                            }
+                            Button(action: {
+                                panDown()
+                                setCameraPan()
+                            }) {
+                                Image(systemName: "chevron.down")
+                                    .padding(25)
+                                    .frame(width: 45, height: 45)
+                                    .background(Color.white)
+                                    .foregroundColor(.black)
+                                    .cornerRadius(8)
+                            }
+                            Button(action: {
+                                panLeft()
+                                setCameraPan()
+                            }) {
+                                Image(systemName: "chevron.left")
+                                    .padding(25)
+                                    .frame(width: 45, height: 45)
+                                    .background(Color.white)
+                                    .foregroundColor(.black)
+                                    .cornerRadius(8)
+                            }
+                            Button(action: {
+                                panRight()
+                                setCameraPan()
+                            }) {
+                                Image(systemName: "chevron.right")
+                                    .padding(25)
+                                    .frame(width: 45, height: 45)
+                                    .background(Color.white)
+                                    .foregroundColor(.black)
+                                    .cornerRadius(8)
+                            }
+                            Spacer()
+                            
+                        }
+                        .padding(.top, 50)
+                    }
+                    
+                    else if mapSettingsViewModel.mapPanEnabled == true && mapSettingsViewModel.mapZoomEnabled == true{
+                        
+                        VStack {
+                            Button(action: {
+                                zoomIn()
+                                zoomIntoTheSelectedPlace()
+                            }) {
+                                Image(systemName: "plus")
+                                    .padding(20)
+                                    .frame(width: 45, height: 45)
+                                    .background(Color.white)
+                                    .foregroundColor(.black)
+                                    .cornerRadius(8)
+                            }
+                            Button(action: {
+                                zoomOut()
+                                zoomIntoTheSelectedPlace()
+                            }) {
+                                Image(systemName: "minus")
+                                    .padding(25)
+                                    .frame(width: 45, height: 45)
+                                    .background(Color.white)
+                                    .foregroundColor(.black)
+                                    .cornerRadius(8)
+                            }
+                            Button(action: {
+                                panUp()
+                                setCameraPan()
+                            }) {
+                                Image(systemName: "chevron.up")
+                                    .padding(20)
+                                    .frame(width: 45, height: 45)
+                                    .background(Color.white)
+                                    .foregroundColor(.black)
+                                    .cornerRadius(8)
+                            }
+                            Button(action: {
+                                panDown()
+                                setCameraPan()
+                            }) {
+                                Image(systemName: "chevron.down")
+                                    .padding(25)
+                                    .frame(width: 45, height: 45)
+                                    .background(Color.white)
+                                    .foregroundColor(.black)
+                                    .cornerRadius(8)
+                            }
+                            Button(action: {
+                                panLeft()
+                                setCameraPan()
+                            }) {
+                                Image(systemName: "chevron.left")
+                                    .padding(25)
+                                    .frame(width: 45, height: 45)
+                                    .background(Color.white)
+                                    .foregroundColor(.black)
+                                    .cornerRadius(8)
+                            }
+                            Button(action: {
+                                panRight()
+                                setCameraPan()
+                            }) {
+                                Image(systemName: "chevron.right")
+                                    .padding(25)
+                                    .frame(width: 45, height: 45)
+                                    .background(Color.white)
+                                    .foregroundColor(.black)
+                                    .cornerRadius(8)
+                            }
+                            Spacer()
+                            
+                        }
+                        .padding(.top, 50)
+                    }
+                }
+                .padding(5)
+                
+                
                 VStack(alignment: .center) {
                     //                    SearchAndFilterBarView(searchText: $searchText, isActive: $showpointSearchView)
                     Spacer()  // Pushes content down from the top
                     if popUp_V2, let selectedPropertyId = propertySelection,
-                        let selectedProperty = viewModel.properties.first(where: {
-                            $0.id == selectedPropertyId
-                        })
+                       let selectedProperty = viewModel.properties.first(where: {
+                           $0.id == selectedPropertyId
+                       })
                     {
                         ZStack {
                             NavigationLink(
@@ -167,27 +336,16 @@ struct EnlargeMapView_V2: View {
                         .foregroundColor(.black)
                         .padding()
                     }
-
+                    
                 }
             }
-            //            .sheet(isPresented: $showpointSearchView) {
-            //                //pointSearchView(show: $showpointSearchView, currentMenu: $currentMenu, mapItem: $mapItem, placemark: $placemark)
-            //                pointSearchView(
-            //                    show: $showpointSearchView, currentMenu: $currentMenu, mapItem: $mapItem,
-            //                    popUp_V2: $popUp_V2, camera: $camera, showSearch: $showSearch
-            //                )
-            //                .presentationDetents([.height(550)])
-            //                .presentationBackgroundInteraction(.enabled(upThrough: .height(550)))
-            //                .presentationCornerRadius(24)
-            //                //.interactiveDismissDisabled(true)
-            //            }
         }
         .onSubmit(of: .search) {
             Task {
                 guard !searchText.isEmpty else { return }
                 searchPlaces()
                 showSearch = false
-
+                
             }
         }
         .alert(errorMessage, isPresented: $showAlert) {
@@ -197,17 +355,17 @@ struct EnlargeMapView_V2: View {
             if !showSearch {
                 mapItem = nil
                 camera = .region(.userRegion)
-
+                
             }
         }
         .toolbar(.hidden, for: .tabBar)
     }
-
+    
     func searchPlaces() {
         CLGeocoder()
             .geocodeAddressString(searchText, completionHandler: updatePlaces)
     }
-
+    
     func updatePlaces(placemarks: [CLPlacemark]?, error: Error?) {
         mapItem = nil
         if error != nil {
@@ -221,23 +379,79 @@ struct EnlargeMapView_V2: View {
                 result = "\(address.street), \(address.city), \(address.state), \(address.country)"
                 mapItem = MKMapItem(placemark: place)
                 mapItem?.name = searchText
-                zoomIntoTheSelectedPlace(
-                    searchedLatitude: placemark!.location!.coordinate.latitude,
-                    searchedLongitude: placemark!.location!.coordinate.longitude)
+                zoomIntoTheSelectedPlace()
             }
         }
     }
-
-    func zoomIntoTheSelectedPlace(searchedLatitude: Double, searchedLongitude: Double) {
-        let searchedCoor = CLLocationCoordinate2D(
-            latitude: searchedLatitude, longitude: searchedLongitude)
-
-        let searchedRegion = MKCoordinateRegion(
-            center: searchedCoor, latitudinalMeters: 3000, longitudinalMeters: 3000)
-
-        camera = .region(searchedRegion)
+    
+    //    func zoomIntoTheSelectedPlace(searchedLatitude: Double, searchedLongitude: Double) {
+    func zoomIntoTheSelectedPlace() {
+        if placemark != nil{
+            let searchedCoor = CLLocationCoordinate2D(
+                latitude: placemark!.location!.coordinate.latitude, longitude: placemark!.location!.coordinate.longitude)
+            
+            let searchedRegion = MKCoordinateRegion(
+                center: searchedCoor, latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
+            
+            camera = .region(searchedRegion)
+        }
+        
+        else{
+            setCameraZoom(latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
+        }
     }
-
+    
+    func zoomIn() {
+        if zoomLevel > 500 { // Prevent zooming in too much
+            zoomLevel /= 2 // Zoom in by halving the current level
+        }
+    }
+    
+    func zoomOut() {
+        if zoomLevel < 600000 { // Prevent zooming out too much
+            zoomLevel *= 2 // Zoom out by doubling the current level
+        }
+    }
+    
+    func panUp() {
+        addedLatitude+=0.005
+    }
+    
+    func panDown() {
+        addedLatitude-=0.005
+    }
+    
+    func panLeft() {
+        addedLongitude-=0.005
+    }
+    
+    func panRight() {
+        addedLongitude+=0.005
+    }
+    
+    func setCameraPan(){
+        if placemark != nil{
+            let updatedCenter = CLLocationCoordinate2D(latitude: placemark!.location!.coordinate.latitude + addedLatitude, longitude: placemark!.location!.coordinate.longitude + addedLongitude)
+            let newRegion = MKCoordinateRegion(center: updatedCenter, latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
+            
+            camera = .region(newRegion)
+        }
+        else{
+            let updatedCenter = CLLocationCoordinate2D(latitude: 22.3193 + addedLatitude, longitude: 114.1694 + addedLongitude)
+            let newRegion = MKCoordinateRegion(center: updatedCenter, latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
+            
+            camera = .region(newRegion)
+        }
+    }
+    
+    func setCameraZoom(latitudinalMeters: CLLocationDistance, longitudinalMeters: CLLocationDistance) {
+        let currentCenter = CLLocationCoordinate2D.userLocation // or any other coordinate you want to center on
+        let newRegion = MKCoordinateRegion(center: currentCenter,
+                                           latitudinalMeters: latitudinalMeters,
+                                           longitudinalMeters: longitudinalMeters)
+        camera = .region(newRegion)
+    }
+    
 }
 
 //#Preview {

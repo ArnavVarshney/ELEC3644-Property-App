@@ -20,4 +20,5 @@ struct ContentView: View {
         .environmentObject(AgentViewModel())
         .environmentObject(LocationManager())
         .environmentObject(LanguageSetting())
+        .environmentObject(MapSettingsViewModel())
 }
