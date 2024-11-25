@@ -53,6 +53,9 @@ struct PropertyTransaction: Identifiable, Hashable {
     var pricePerSqft: Int {
         return transaction.price / property.saleableArea
     }
+    var pricePerGrossArea: Int {
+        return transaction.price / property.grossFloorArea
+    }
 }
 
 struct SchoolNet: Identifiable, Hashable, Codable {

@@ -66,46 +66,50 @@ struct TransactionRowView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text("\(propertyTransaction.property.name)・\(propertyTransaction.property.address)")
+            Text("\(propertyTransaction.property.name)")
                 .font(.title2)
                 .fontWeight(.medium)
                 .multilineTextAlignment(.leading)
-            HStack(alignment: .center) {
-                Text(
-                    "S.A. \(propertyTransaction.property.saleableArea)sqft @ \(propertyTransaction.pricePerSqft.toCompactCurrencyFormat())/sqft"
-                )
+            Text("\(propertyTransaction.property.address)")
                 .font(.subheadline)
-                .foregroundColor(.neutral60)
-                Spacer()
-                Text(
-                    "\(propertyTransaction.transaction.date.formatted(.dateTime.year().month().day()))"
-                )
-                .font(.subheadline)
-                .foregroundColor(.neutral100)
-            }.padding(.bottom, 4)
-            HStack {
-                HStack {
-                    Image(
-                        systemName: propertyTransaction.priceDelta > 0 ? "arrow.up" : "arrow.down"
+                .fontWeight(.medium)
+            HStack(alignment: .bottom) {
+                VStack(alignment: .leading) {
+                    Text(
+                        "S.A. \(propertyTransaction.property.saleableArea)sqft @ \(propertyTransaction.pricePerSqft.toCompactCurrencyFormat())/sqft"
                     )
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 8)
-                    Text(abs(propertyTransaction.priceDelta).toCompactCurrencyFormat())
-                }
-                .font(.subheadline)
-                .padding(.vertical, 4)
-                .padding(.horizontal, 8)
-                .background(propertyTransaction.priceDelta > 0 ? .green : .red)
-                .cornerRadius(4)
-                .foregroundColor(.neutral10)
-                Text(propertyTransaction.property.contractType)
                     .font(.subheadline)
-                    .padding(.vertical, 4)
-                    .padding(.horizontal, 8)
-                    .background(.neutral100)
-                    .cornerRadius(4)
-                    .foregroundColor(.neutral10)
+                    .foregroundColor(.neutral60)
+                    
+                    Text(
+                        "G.F.A. \(propertyTransaction.property.grossFloorArea)sqft @ \(propertyTransaction.pricePerGrossArea.toCompactCurrencyFormat())/sqft")
+                    .font(.subheadline)
+                    .foregroundColor(.neutral60)
+
+                    
+                    Text(propertyTransaction.property.contractType)
+                        .font(.subheadline)
+                        .padding(.vertical, 4)
+                        .padding(.horizontal, 8)
+                        .background(.neutral100)
+                        .cornerRadius(4)
+                        .foregroundColor(.neutral10)
+                }
+                
+                Spacer()
+                                
+                VStack(alignment:.trailing) {
+                    Text("\(propertyTransaction.transaction.price.toCompactCurrencyFormat())")
+                        .font(.title3)
+                        .fontWeight(.medium)
+
+                    
+                    Text(
+                        "\(propertyTransaction.transaction.date.formatted(.dateTime.year().month().day()))"
+                    )
+                    .font(.subheadline)
+                    .foregroundColor(.neutral100)
+                }
             }
         }
         .padding(.vertical)
