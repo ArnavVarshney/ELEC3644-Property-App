@@ -112,17 +112,24 @@ extension [Property] {
     func getTransactions() -> [PropertyTransaction] {
         var transactions: [PropertyTransaction] = []
         for property in self {
-            for (idx, transaction) in property.transactionHistory.enumerated() {
-                let propertyTransaction = PropertyTransaction(
-                    transaction: transaction,
-                    property: property,
-                    priceDelta: idx == 0
-                        ? 0 : transaction.price - property.transactionHistory[idx - 1].price
-                )
-                transactions.append(propertyTransaction)
-            }
+            transactions.append(contentsOf: property.getTransactions())
         }
         transactions.sort { $0.transaction.date > $1.transaction.date }
+        return transactions
+    }
+}
+
+extension Property {
+    func getTransactions() -> [PropertyTransaction] {
+        var transactions: [PropertyTransaction] = []
+        for (idx, transaction) in self.transactionHistory.enumerated() {
+            let propertyTransaction = PropertyTransaction(
+                transaction: transaction, property: self,
+                priceDelta: idx == 0
+                    ? 0 : transaction.price - self.transactionHistory[idx - 1].price
+            )
+            transactions.append(propertyTransaction)
+        }
         return transactions
     }
 }

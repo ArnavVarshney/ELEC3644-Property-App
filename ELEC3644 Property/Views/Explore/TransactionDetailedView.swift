@@ -19,21 +19,23 @@ struct TransactionDetailedView: View {
                         imageUrls: propertyTransaction.property.imageUrls, cornerRadius: 0,
                         property: propertyTransaction.property
                     )
-                    VStack(alignment: .leading) {
-                        Text(propertyTransaction.property.name)
-                            .font(.system(size: 32, weight: .medium))
-                            .foregroundColor(.neutral100)
-                            .lineLimit(1)
-                        Text(propertyTransaction.property.address)
+                    VStack {
+                        VStack(alignment: .leading) {
+                            Text(propertyTransaction.property.name)
+                                .font(.system(size: 32, weight: .medium))
+                                .foregroundColor(.neutral100)
+                                .lineLimit(1)
+                            Text(propertyTransaction.property.address)
+                                .font(.system(size: 18, weight: .regular))
+                                .foregroundColor(.neutral100)
+                            HStack(spacing: 0) {
+                                Text(LocalizedStringKey(propertyTransaction.property.district))
+                                Text(", ")
+                                Text(LocalizedStringKey(propertyTransaction.property.area))
+                            }
                             .font(.system(size: 18, weight: .regular))
-                            .foregroundColor(.neutral100)
-                        HStack(spacing: 0) {
-                            Text(LocalizedStringKey(propertyTransaction.property.district))
-                            Text(", ")
-                            Text(LocalizedStringKey(propertyTransaction.property.area))
+                            .foregroundColor(.neutral70)
                         }
-                        .font(.system(size: 18, weight: .regular))
-                        .foregroundColor(.neutral70)
                         HStack(alignment: .center) {
                             Text(propertyTransaction.transaction.price.toCompactCurrencyFormat())
                                 .font(.subheadline)
@@ -91,45 +93,20 @@ struct TransactionDetailedView: View {
                                 .foregroundColor(.neutral100)
                                 .padding(.top, 16)
                             Divider()
-                            ForEach(
-                                propertyTransaction.property.transactionHistory.sorted(by: {
-                                    $0.date > $1.date
-                                })
-                            ) { transaction in
-                                VStack(alignment: .leading) {
-                                    TransactionRow(
-                                        transaction: transaction,
-                                        propertyTransaction: propertyTransaction
-                                    )
-                                    .padding(.vertical, 4)
-                                    Divider()
-                                }
+                            ForEach(propertyTransaction.property.getTransactions(), id: \.id) {
+                                transaction in
+                                TransactionRow(propertyTransaction: transaction)
                             }
                         }
+                    }
+                    .padding(.horizontal, 32)
 
-                        Color.clear.frame(height: 80)
-                    }.padding(.horizontal, 32)
                 }
             }
+            .padding(.bottom, 64)
             .backButton()
-            .ignoresSafeArea()
-
-            VStack {
-                Spacer()
-                NavigationLink {
-                    PropertyDetailView(property: propertyTransaction.property)
-                } label: {
-                    Text("View Property")
-                        .font(.headline)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(.neutral100)
-                        .cornerRadius(8)
-                        .foregroundColor(.neutral10)
-                }
-                .padding(.horizontal, 32)
-                .padding(.bottom, 16)
-            }
+            .ignoresSafeArea(edges: [.top, .horizontal])
+            ViewPropertyButtonView(property: propertyTransaction.property)
         }
     }
 }
@@ -154,33 +131,74 @@ struct TransactionDetailedView: View {
 }
 
 struct TransactionRow: View {
-    let transaction: Transaction
     let propertyTransaction: PropertyTransaction
 
     var body: some View {
         VStack(alignment: .leading, spacing: 2) {
             HStack {
+                HStack {
+                    Image(
+                        systemName: propertyTransaction.priceDelta > 0 ? "arrow.up" : "arrow.down"
+                    )
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 8)
+                    Text(abs(propertyTransaction.priceDelta).toCompactCurrencyFormat())
+                }
+                .font(.subheadline)
+                .padding(.vertical, 4)
+                .padding(.horizontal, 8)
+                .background(propertyTransaction.priceDelta > 0 ? .green : .red)
+                .cornerRadius(4)
+                .foregroundColor(.neutral10)
+                Spacer()
+
                 Text(
                     propertyTransaction.transaction.date.formatted(.dateTime.month().day().year())
                 )
                 .font(.subheadline)
                 .foregroundColor(.secondary)
                 .padding(.bottom, 4)
-
-                Spacer()
+                .padding(.trailing, 24)
 
                 VStack(alignment: .leading) {
-                    Text(transaction.price.toCompactCurrencyFormat())
-                        .font(.headline)
+                    Text(propertyTransaction.transaction.price.toCompactCurrencyFormat()).font(
+                        .headline)
 
                     Text(
-                        (transaction.price / propertyTransaction.property.saleableArea)
+                        (propertyTransaction.transaction.price
+                            / propertyTransaction.property.saleableArea)
                             .toCompactCurrencyFormat() + "/sqft"
                     )
                     .font(.subheadline)
                     .foregroundColor(.secondary)
                 }
             }
+        }
+    }
+}
+
+struct ViewPropertyButtonView: View {
+    var property: Property
+
+    var body: some View {
+        VStack {
+            Spacer()
+            NavigationLink {
+                PropertyDetailView(property: property)
+            } label: {
+                Text("View Property")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .padding(.vertical, 16)
+                    .padding(.horizontal, 16)
+                    .addShadow()
+                    .background(.black)
+                    .cornerRadius(36)
+                    .ignoresSafeArea(.keyboard, edges: .bottom)
+            }
+            .padding(.horizontal, 32)
+            .padding(.bottom, 16)
         }
     }
 }
