@@ -23,15 +23,8 @@ class AgentViewModel: ObservableObject {
     func fetchAgents() async {
         do {
             let fetchedAgents: [User] = try await apiClient.get(url: "/users/agents")
-            var agentsWithReviews: [User] = []
-            for var agent in fetchedAgents {
-                let reviews: [Review] = try await apiClient.get(
-                    url: "/reviews/user/\(agent.id.uuidString.lowercased())")
-                agent.reviews = reviews
-                agentsWithReviews.append(agent)
-            }
             DispatchQueue.main.async {
-                self.agents = agentsWithReviews
+                self.agents = fetchedAgents
             }
         } catch {
             print("Error fetching agents data: \(error)")

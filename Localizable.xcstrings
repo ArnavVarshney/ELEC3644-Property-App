@@ -70,16 +70,6 @@
         }
       }
     },
-    "%@・%@" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$@・%2$@"
-          }
-        }
-      }
-    },
     "%@, %@" : {
       "localizations" : {
         "zh-HK" : {
@@ -1081,6 +1071,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "姓名"
+          }
+        }
+      }
+    },
+    "G.F.A. %lldsqft @ %@/sqft" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "G.F.A. %1$lldsqft @ %2$@/sqft"
           }
         }
       }
