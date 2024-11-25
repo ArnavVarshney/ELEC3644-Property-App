@@ -120,7 +120,7 @@ struct EnlargeMapView_V2: View {
                 }
 
                 VStack(alignment: .center) {
-//                    SearchAndFilterBarView(searchText: $searchText, isActive: $showpointSearchView)
+                    //                    SearchAndFilterBarView(searchText: $searchText, isActive: $showpointSearchView)
                     Spacer()  // Pushes content down from the top
                     if popUp_V2, let selectedPropertyId = propertySelection,
                         let selectedProperty = viewModel.properties.first(where: {
@@ -170,17 +170,17 @@ struct EnlargeMapView_V2: View {
 
                 }
             }
-//            .sheet(isPresented: $showpointSearchView) {
-//                //pointSearchView(show: $showpointSearchView, currentMenu: $currentMenu, mapItem: $mapItem, placemark: $placemark)
-//                pointSearchView(
-//                    show: $showpointSearchView, currentMenu: $currentMenu, mapItem: $mapItem,
-//                    popUp_V2: $popUp_V2, camera: $camera, showSearch: $showSearch
-//                )
-//                .presentationDetents([.height(550)])
-//                .presentationBackgroundInteraction(.enabled(upThrough: .height(550)))
-//                .presentationCornerRadius(24)
-//                //.interactiveDismissDisabled(true)
-//            }
+            //            .sheet(isPresented: $showpointSearchView) {
+            //                //pointSearchView(show: $showpointSearchView, currentMenu: $currentMenu, mapItem: $mapItem, placemark: $placemark)
+            //                pointSearchView(
+            //                    show: $showpointSearchView, currentMenu: $currentMenu, mapItem: $mapItem,
+            //                    popUp_V2: $popUp_V2, camera: $camera, showSearch: $showSearch
+            //                )
+            //                .presentationDetents([.height(550)])
+            //                .presentationBackgroundInteraction(.enabled(upThrough: .height(550)))
+            //                .presentationCornerRadius(24)
+            //                //.interactiveDismissDisabled(true)
+            //            }
         }
         .onSubmit(of: .search) {
             Task {
