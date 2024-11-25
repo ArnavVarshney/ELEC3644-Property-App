@@ -36,7 +36,7 @@ struct HistoryView: View {
 
         var sections: [HistorySection] = []
         var groups: [String: [PropertyHistory]] = [:]
-        var dateTimes = Array(
+        let dateTimes = Array(
             Set(
                 records.map {
                     itemFormatter.string(from: $0.dateTime!)
@@ -147,7 +147,7 @@ struct HistoryView: View {
                                             moreDetail: false,
                                             showingSheet: false,
                                             showNote: false)
-                                    }.frame(width: 170)
+                                    }.frame(width: UIScreen.main.bounds.width / 2 - 32)
 
                                     if idx + 1 < group.properties.count {
                                         NavigationLink {
@@ -159,7 +159,7 @@ struct HistoryView: View {
                                                 moreDetail: false,
                                                 showingSheet: false,
                                                 showNote: false)
-                                        }.frame(width: 170)
+                                        }.frame(width: UIScreen.main.bounds.width / 2 - 32)
                                     }
                                 } else {
                                     Button {
@@ -172,7 +172,7 @@ struct HistoryView: View {
                                             imageHeight: 170,
                                             moreDetail: false,
                                             showNote: false)
-                                    }.frame(width: 170)
+                                    }.frame(width: UIScreen.main.bounds.width / 2 - 32)
 
                                     if idx + 1 < group.properties.count {
                                         Button {
@@ -184,7 +184,7 @@ struct HistoryView: View {
                                                 deletable: true,
                                                 imageHeight: 170, moreDetail: false,
                                                 showNote: false)
-                                        }.frame(width: 170)
+                                        }.frame(width: UIScreen.main.bounds.width / 2 - 32)
                                     }
                                 }
                                 Spacer()
