@@ -10,6 +10,9 @@ struct ExploreView: View {
     @State private var searchText: String = ""
     @State private var currentMenu: MenuItem? = MenuItem.buy
     @State private var isSearchActive: Bool = false
+    @State private var showENlargeMpaView_V2: Bool = false
+    //    @State private var showpointSearchView = false
+
     @EnvironmentObject private var propertyViewModel: PropertyViewModel
     @EnvironmentObject private var agentViewModel: AgentViewModel
 
@@ -84,14 +87,9 @@ struct ExploreView: View {
                     if currentMenu?.rawValue == "Buy" || currentMenu?.rawValue == "Rent"
                         || currentMenu?.rawValue == "Lease"
                     {
-                        NavigationLink(
-                            destination: EnlargeMapView_V2(
-                                currentMenu: $currentMenu,
-                                startMapCameraLocation: .customLocation(
-                                    latitude: 22.3193, longitude: 114.1694)
-                            )
-                            .environmentObject(propertyViewModel)
-                        ) {
+                        Button(action: {
+                            showENlargeMpaView_V2 = true
+                        }) {
                             HStack {
                                 Image(systemName: "map")
                                     .resizable()
@@ -112,9 +110,46 @@ struct ExploreView: View {
                             .padding(.vertical, 24)
                             .ignoresSafeArea(.keyboard, edges: .bottom)
                         }
+                        }
+//                        NavigationLink(
+//                            destination: EnlargeMapView_V2(
+//                                currentMenu: $currentMenu,
+//                                startMapCameraLocation: .customLocation(
+//                                    latitude: 22.3193, longitude: 114.1694)
+//                            )
+//                            .environmentObject(propertyViewModel)
+//                        ) {
+//                            HStack {
+//                                Image(systemName: "map")
+//                                    .resizable()
+//                                    .scaledToFit()
+//                                    .frame(width: 24, height: 24)
+//                                    .foregroundColor(.white)
+//                                    .symbolEffect(.variableColor)
+//                                    .padding(.leading, 16)
+//                                Text("Map")
+//                                    .font(.headline)
+//                                    .foregroundColor(.white)
+//                                    .padding(.vertical, 16)
+//                                    .padding(.trailing, 16)
+//                                    .addShadow()
+//                            }
+//                            .background(.black)
+//                            .cornerRadius(36)
+//                            .padding(.vertical, 24)
+//                            .ignoresSafeArea(.keyboard, edges: .bottom)
+//                        }
                     }
+                .sheet(isPresented:$showENlargeMpaView_V2){
+                    EnlargeMapView_V2(currentMenu: $currentMenu,startMapCameraLocation: .customLocation(latitude: 22.3193, longitude: 114.1694)
+                    )
+                    .environmentObject(propertyViewModel)
+                    .presentationDetents([.height(700)])
+                    .presentationBackgroundInteraction(.enabled(upThrough: .height(700)))
+                    .presentationCornerRadius(24)
                 }
             }
+            
         }
     }
 }

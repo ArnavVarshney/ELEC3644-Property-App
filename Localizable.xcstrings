@@ -1173,9 +1173,6 @@
         }
       }
     },
-    "Hello" : {
-
-    },
     "HK Island" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -3296,9 +3293,6 @@
           }
         }
       }
-    },
-    "Test" : {
-
     },
     "This wishlist is empty" : {
       "localizations" : {
