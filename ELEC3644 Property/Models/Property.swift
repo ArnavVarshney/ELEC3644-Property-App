@@ -45,7 +45,8 @@ struct Transaction: Identifiable, Hashable, Codable {
     private enum CodingKeys: String, CodingKey { case date, price }
 }
 
-struct PropertyTransaction {
+struct PropertyTransaction: Identifiable, Hashable {
+    var id = UUID()
     var transaction: Transaction
     var property: Property
     var priceDelta: Int
