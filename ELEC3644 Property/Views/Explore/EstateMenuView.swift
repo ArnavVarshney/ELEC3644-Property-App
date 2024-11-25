@@ -26,7 +26,7 @@ struct EstateMenuView: View {
         self.properties = properties
         self.estates = getEstates()
     }
-    
+
     private func getEstates() -> [Estate] {
         var estates: [Estate] = []
         for property in properties {
@@ -53,7 +53,7 @@ struct EstateMenuView: View {
         }
         return estates
     }
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             ScrollView(showsIndicators: false) {
@@ -96,9 +96,11 @@ struct EstateRowView: View {
                 .fontWeight(.medium)
                 .foregroundColor(.neutral100)
                 .multilineTextAlignment(.leading)
-            Text("\(estate.properties.first?.district ?? ""), \(estate.properties.first?.area ?? "")")
-                .font(.subheadline)
-                .foregroundColor(.neutral60)
+            Text(
+                "\(estate.properties.first?.district ?? ""), \(estate.properties.first?.area ?? "")"
+            )
+            .font(.subheadline)
+            .foregroundColor(.neutral60)
             HStack(alignment: .center) {
                 Text(
                     "S.A. \(estate.averageArea)sqft @ \(estate.averagePricePerSqFt.toCompactCurrencyFormat())/sqft"
@@ -110,13 +112,15 @@ struct EstateRowView: View {
             .padding(.bottom, 4)
             HStack {
                 ForEach(["Buy", "Rent", "Lease"], id: \.self) { contractType in
-                    Text("\(estate.properties.filter { $0.contractType == contractType }.count) \(contractType)")
-                        .font(.subheadline)
-                        .padding(.vertical, 4)
-                        .padding(.horizontal, 8)
-                        .background(.neutral100)
-                        .cornerRadius(4)
-                        .foregroundColor(.neutral10)
+                    Text(
+                        "\(estate.properties.filter { $0.contractType == contractType }.count) \(contractType)"
+                    )
+                    .font(.subheadline)
+                    .padding(.vertical, 4)
+                    .padding(.horizontal, 8)
+                    .background(.neutral100)
+                    .cornerRadius(4)
+                    .foregroundColor(.neutral10)
                 }
             }
         }
@@ -127,7 +131,7 @@ struct EstateRowView: View {
 struct EstateDetailedView: View {
     @EnvironmentObject private var viewModel: PropertyViewModel
     let estate: Estate
-    
+
     var body: some View {
         ScrollView(showsIndicators: false) {
             LazyVStack {
@@ -147,10 +151,10 @@ struct EstateDetailedView: View {
 
 struct PropertyRowView: View {
     let property: Property
-    
+
     var body: some View {
         HStack {
-            
+
             AsyncImage(url: URL(string: property.imageUrls[0])) { image in
                 image
                     .resizable()

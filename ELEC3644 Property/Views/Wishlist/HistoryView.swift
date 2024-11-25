@@ -36,10 +36,11 @@ struct HistoryView: View {
 
         var sections: [HistorySection] = []
         var groups: [String: [PropertyHistory]] = [:]
-        let dateTimes = Set(
-            records.map {
-                itemFormatter.string(from: $0.dateTime!)
-            })
+        var dateTimes = Array(
+            Set(
+                records.map {
+                    itemFormatter.string(from: $0.dateTime!)
+                }))
 
         for time in dateTimes {
             groups[time] = []
@@ -61,6 +62,12 @@ struct HistoryView: View {
                 date: date, properties: properties, propertyHistories: propertyHistories)
             sections.append(section)
         }
+
+        let df = DateFormatter()
+        df.dateFormat = "dd MMM yyyy"
+        sections = sections.sorted(by: { s1, s2 in
+            s1.comparableDate > s2.comparableDate
+        })
         return sections
     }
 
@@ -257,6 +264,18 @@ struct HistorySection: Identifiable {
     let date: String
     let properties: [Property]
     let propertyHistories: [PropertyHistory]
+    let comparableDate: Date
+    let df: DateFormatter
+
+    init(date: String, properties: [Property], propertyHistories: [PropertyHistory]) {
+        self.date = date
+        self.properties = properties
+        self.propertyHistories = propertyHistories
+
+        df = DateFormatter()
+        df.dateFormat = "dd MMM yyyy"
+        self.comparableDate = df.date(from: date)!
+    }
 }
 
 #Preview {
