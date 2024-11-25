@@ -124,9 +124,10 @@ extension Property {
         var transactions: [PropertyTransaction] = []
         for (idx, transaction) in self.transactionHistory.enumerated() {
             let propertyTransaction = PropertyTransaction(
-                transaction: transaction, property: self, priceDelta: idx == 0
+                transaction: transaction, property: self,
+                priceDelta: idx == 0
                     ? 0 : transaction.price - self.transactionHistory[idx - 1].price
-                )
+            )
             transactions.append(propertyTransaction)
         }
         return transactions

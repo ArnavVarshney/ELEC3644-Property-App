@@ -64,9 +64,9 @@ struct TransactionDetailedView: View {
                                     .font(.subheadline)
                                     .foregroundColor(.neutral100)
                             }
-                            
+
                             Spacer()
-                            
+
                             VStack(alignment: .leading) {
                                 Text("Price/Sqft")
                                     .font(.subheadline)
@@ -75,9 +75,9 @@ struct TransactionDetailedView: View {
                                     .font(.subheadline)
                                     .foregroundColor(.neutral100)
                             }
-                            
+
                             Spacer()
-                            
+
                             VStack(alignment: .leading) {
                                 Text("Saleable Area")
                                     .font(.subheadline)
@@ -93,7 +93,8 @@ struct TransactionDetailedView: View {
                                 .foregroundColor(.neutral100)
                                 .padding(.top, 16)
                             Divider()
-                            ForEach(propertyTransaction.property.getTransactions(), id: \.id) { transaction in
+                            ForEach(propertyTransaction.property.getTransactions(), id: \.id) {
+                                transaction in
                                 TransactionRow(propertyTransaction: transaction)
                             }
                         }
@@ -159,12 +160,14 @@ struct TransactionRow: View {
                 .foregroundColor(.secondary)
                 .padding(.bottom, 4)
                 .padding(.trailing, 24)
-                
+
                 VStack(alignment: .leading) {
-                    Text(propertyTransaction.transaction.price.toCompactCurrencyFormat())                 .font(.headline)
+                    Text(propertyTransaction.transaction.price.toCompactCurrencyFormat()).font(
+                        .headline)
 
                     Text(
-                        (propertyTransaction.transaction.price / propertyTransaction.property.saleableArea)
+                        (propertyTransaction.transaction.price
+                            / propertyTransaction.property.saleableArea)
                             .toCompactCurrencyFormat() + "/sqft"
                     )
                     .font(.subheadline)
@@ -177,7 +180,7 @@ struct TransactionRow: View {
 
 struct ViewPropertyButtonView: View {
     var property: Property
-    
+
     var body: some View {
         VStack {
             Spacer()
