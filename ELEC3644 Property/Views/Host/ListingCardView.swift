@@ -9,7 +9,7 @@ import SwiftUI
 struct ListingCardView: View {
     let property: Property
     var body: some View {
-        VStack(spacing: 8) {
+        HStack(spacing: 8) {
             ImageCarouselView(imageUrls: self.property.imageUrls, property: property)
             HStack(alignment: .top) {
                 VStack(alignment: .leading) {
@@ -23,8 +23,6 @@ struct ListingCardView: View {
             }
             .font(.footnote)
         }
-        .padding(.horizontal, 24)
-        .padding(.bottom, 24)
     }
 }
 

@@ -116,4 +116,7 @@ class PropertyViewModel: ObservableObject {
         return propertyMapItems[propertyId]
     }
 
+    func getByAgent(agentId: String) -> [Property] {
+        return properties.filter { $0.agent.id == UUID(uuidString: agentId) }
+    }
 }

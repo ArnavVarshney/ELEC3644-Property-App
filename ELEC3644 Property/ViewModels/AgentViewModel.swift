@@ -19,7 +19,7 @@ class AgentViewModel: ObservableObject {
             await fetchAgents()
         }
     }
-
+    
     func fetchAgents() async {
         do {
             let fetchedAgents: [User] = try await apiClient.get(url: "/users/agents")

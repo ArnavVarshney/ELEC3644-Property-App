@@ -63,7 +63,7 @@ struct TransactionMenuView: View {
 
 struct TransactionRowView: View {
     let propertyTransaction: PropertyTransaction
-
+    
     var body: some View {
         VStack(alignment: .leading) {
             Text("\(propertyTransaction.property.name)")
@@ -112,5 +112,33 @@ struct TransactionRowView: View {
             }
         }
         .padding(.vertical)
+    }
+}
+
+struct CompactTransactionRowView: View {
+    let propertyTransaction: PropertyTransaction
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            HStack {
+                Text("\(propertyTransaction.property.name)")
+                    .font(.title2)
+                    .fontWeight(.medium)
+                    .multilineTextAlignment(.leading)
+                
+                Spacer()
+                
+                Text("\(propertyTransaction.transaction.price.toCompactCurrencyFormat())")
+                    .font(.title3)
+                    .fontWeight(.medium)
+            }
+            .padding(.bottom, 4)
+            Text("Contract type: \(propertyTransaction.property.contractType)")
+                .font(.caption)
+                .foregroundColor(.neutral60)
+            Text("Posting date: \(propertyTransaction.transaction.date.formatted(.dateTime.year().month().day()))")
+                .font(.caption)
+                .foregroundColor(.neutral60)
+        }
     }
 }
