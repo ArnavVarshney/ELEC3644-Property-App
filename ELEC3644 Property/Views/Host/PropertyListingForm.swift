@@ -7,7 +7,6 @@
 import PhotosUI
 import SwiftUI
 
-
 //TODO: Acually submit the property
 //TODO: Add message after submit
 //TODO: Form validation; Type checking
@@ -164,13 +163,18 @@ struct PropertyListingForm: View {
             // TODO: Implement image upload
         }
     }
-    
-    private func disabledButton(at selectedTab: Int) -> Bool{
-        switch selectedTab{
+
+    private func disabledButton(at selectedTab: Int) -> Bool {
+        switch selectedTab {
         case 0:
-            return propertyName.isEmpty || address.isEmpty || estate.isEmpty || buildingDirection.isEmpty || buildingDirection.isEmpty || buildingAge.isEmpty || selectedArea.isEmpty || selectedDistrict.isEmpty || selectedSubDistrict.isEmpty || propertyType.isEmpty
+            return propertyName.isEmpty || address.isEmpty || estate.isEmpty
+                || buildingDirection.isEmpty || buildingDirection.isEmpty || buildingAge.isEmpty
+                || selectedArea.isEmpty || selectedDistrict.isEmpty || selectedSubDistrict.isEmpty
+                || propertyType.isEmpty
         case 1:
-            return netPrice.isEmpty || saleableArea.isEmpty || saleableAreaPricePerSqFt.isEmpty || grossFloorArea.isEmpty || grossFloorAreaPricePerSqFt.isEmpty || selectedContractType.isEmpty
+            return netPrice.isEmpty || saleableArea.isEmpty || saleableAreaPricePerSqFt.isEmpty
+                || grossFloorArea.isEmpty || grossFloorAreaPricePerSqFt.isEmpty
+                || selectedContractType.isEmpty
         case 2:
             return primarySchoolNet.isEmpty || secondarySchoolNet.isEmpty
         case 3:
@@ -190,7 +194,7 @@ struct PropertyDetailsSection: View {
     @Binding var grossFloorArea: String
     var grossFloorAreaPricePerSqFt: String
     @Binding var contractType: String
-    
+
     var body: some View {
         Form {
             Section {

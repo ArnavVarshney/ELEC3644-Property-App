@@ -16,7 +16,7 @@ struct BasicInfoSection: View {
     @Binding var selectedDistrict: String
     @Binding var selectedSubDistrict: String
     @Binding var propertyType: String
-    
+
     var body: some View {
         Form {
             Section(header: Text("Property Information")) {
