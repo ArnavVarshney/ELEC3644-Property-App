@@ -437,36 +437,37 @@ struct EnlargeMapView_V2: View {
     //    func zoomIntoTheSelectedPlace(searchedLatitude: Double, searchedLongitude: Double) {
     func zoomIntoTheSelectedPlace() {
         setCameraZoom(latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
-//        if placemark != nil {
-//            let searchedCoor = CLLocationCoordinate2D(
-//                latitude: placemark!.location!.coordinate.latitude,
-//                longitude: placemark!.location!.coordinate.longitude)
-//
-//            let searchedRegion = MKCoordinateRegion(
-//                center: searchedCoor, latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
-//
-//            camera = .region(searchedRegion)
-//        } else {
-//            setCameraZoom(latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
-//        }
+        //        if placemark != nil {
+        //            let searchedCoor = CLLocationCoordinate2D(
+        //                latitude: placemark!.location!.coordinate.latitude,
+        //                longitude: placemark!.location!.coordinate.longitude)
+        //
+        //            let searchedRegion = MKCoordinateRegion(
+        //                center: searchedCoor, latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
+        //
+        //            camera = .region(searchedRegion)
+        //        } else {
+        //            setCameraZoom(latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
+        //        }
     }
-    
-    
-    func setCameraZoom(latitudinalMeters: CLLocationDistance, longitudinalMeters: CLLocationDistance) {
-        //let currentCenter = CLLocationCoordinate2D.userLocation  // or any other coordinate you want to center on
-//        if let c = camera.camera{
-//        newLatitude = camera.camera!.centerCoordinate.latitude
-//        newLongitude = camera.camera!.centerCoordinate.longitude
 
-//            let currentCenter = CLLocationCoordinate2D.init(latitude: newLatitude, longitude: newLongitude)
+    func setCameraZoom(
+        latitudinalMeters: CLLocationDistance, longitudinalMeters: CLLocationDistance
+    ) {
+        //let currentCenter = CLLocationCoordinate2D.userLocation  // or any other coordinate you want to center on
+        //        if let c = camera.camera{
+        //        newLatitude = camera.camera!.centerCoordinate.latitude
+        //        newLongitude = camera.camera!.centerCoordinate.longitude
+
+        //            let currentCenter = CLLocationCoordinate2D.init(latitude: newLatitude, longitude: newLongitude)
         let currentCenter = CLLocationCoordinate2D.userLocation
-            let newRegion = MKCoordinateRegion(
-                center: currentCenter,
-                latitudinalMeters: latitudinalMeters,
-                longitudinalMeters: longitudinalMeters)
-            camera = .region(newRegion)
-//        }
-//        print("\(camera.region?.center)")  //idk why when the user swipe the map then back using the buttons, the code collapses
+        let newRegion = MKCoordinateRegion(
+            center: currentCenter,
+            latitudinalMeters: latitudinalMeters,
+            longitudinalMeters: longitudinalMeters)
+        camera = .region(newRegion)
+        //        }
+        //        print("\(camera.region?.center)")  //idk why when the user swipe the map then back using the buttons, the code collapses
     }
 
 }

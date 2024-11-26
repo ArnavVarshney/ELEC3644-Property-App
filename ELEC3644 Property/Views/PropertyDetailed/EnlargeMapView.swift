@@ -99,7 +99,7 @@ struct EnlargeMapView: View {
 
                 // Pop-up view and other UI elements
                 VStack(alignment: .center) {
-                    
+
                     // Button to reset camera location, reset all buttons/bool
                     HStack {
                         Spacer()  // Pushes the button to the right
@@ -120,12 +120,12 @@ struct EnlargeMapView: View {
                                 .background(Color.white)
                                 .foregroundColor(.black)
                                 .cornerRadius(8)
-                            
+
                                 .padding(.trailing, 5)  // Add some padding around the button
                         }
                     }
                     .padding(.top, 115)
-                   
+
                     Spacer()
                     if popUp {
                         MapPopUpView(property: viewModel.property, popUp: $popUp)
