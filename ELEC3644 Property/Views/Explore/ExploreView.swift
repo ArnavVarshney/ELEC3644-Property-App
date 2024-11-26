@@ -87,9 +87,14 @@ struct ExploreView: View {
                     if currentMenu?.rawValue == "Buy" || currentMenu?.rawValue == "Rent"
                         || currentMenu?.rawValue == "Lease"
                     {
-                        Button(action: {
-                            showENlargeMpaView_V2 = true
-                        }) {
+                        NavigationLink(
+                            destination: EnlargeMapView_V2(
+                                currentMenu: $currentMenu,
+                                startMapCameraLocation: .customLocation(
+                                    latitude: 22.3193, longitude: 114.1694)
+                            )
+                            .environmentObject(propertyViewModel)
+                        ) {
                             HStack {
                                 Image(systemName: "map")
                                     .resizable()

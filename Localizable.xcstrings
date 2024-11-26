@@ -564,6 +564,9 @@
         }
       }
     },
+    "Camera" : {
+
+    },
     "Cancel" : {
       "localizations" : {
         "zh-HK" : {
@@ -650,6 +653,9 @@
           }
         }
       }
+    },
+    "Choose a source" : {
+
     },
     "Chung Hom Kok" : {
       "extractionState" : "stale",
@@ -2245,6 +2251,9 @@
         }
       }
     },
+    "Photo Library" : {
+
+    },
     "Pick an album name" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -2741,6 +2750,9 @@
           }
         }
       }
+    },
+    "Select Image" : {
+
     },
     "Select Sub-District" : {
       "localizations" : {
