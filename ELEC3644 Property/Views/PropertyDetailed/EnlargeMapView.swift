@@ -80,7 +80,13 @@ struct EnlargeMapView: View {
                             .stroke(.blue, lineWidth: 6)
                     }
                 }
-                .mapControlVisibility(.hidden)
+                .mapControls {
+                    MapCompass()
+                    MapUserLocationButton()
+                    MapPitchToggle()
+                    MapScaleView()
+                }
+                .mapControlVisibility(.visible)
                 .sheet(isPresented: $showLookAroundScene) {
                     if let selectedMapItem = mapSelection {
                         GetLookAroundScene(mapItem: selectedMapItem, showDirection: $showDirection)
@@ -93,7 +99,7 @@ struct EnlargeMapView: View {
 
                 // Pop-up view and other UI elements
                 VStack(alignment: .center) {
-
+                    
                     // Button to reset camera location, reset all buttons/bool
                     HStack {
                         Spacer()  // Pushes the button to the right
@@ -107,17 +113,19 @@ struct EnlargeMapView: View {
                             routeDestination = nil
                             mapSelection = nil
                         } label: {
-                            Image(systemName: "mappin.and.ellipse.circle.fill")
-                                //.foregroundStyle(.black)
-                                .background {
-                                    Circle()
-                                        .fill(.white)
-                                        .frame(width: 50, height: 50)
-                                }
-                                .padding(10)  // Add some padding around the button
+                            Image(systemName: "mappin.and.ellipse.circle")
+                                .foregroundStyle(.blue)
+                                .padding(20)
+                                .frame(width: 45, height: 45)
+                                .background(Color.white)
+                                .foregroundColor(.black)
+                                .cornerRadius(8)
+                            
+                                .padding(.trailing, 5)  // Add some padding around the button
                         }
                     }
-                    .padding(.trailing, 20)
+                    .padding(.top, 115)
+                   
                     Spacer()
                     if popUp {
                         MapPopUpView(property: viewModel.property, popUp: $popUp)

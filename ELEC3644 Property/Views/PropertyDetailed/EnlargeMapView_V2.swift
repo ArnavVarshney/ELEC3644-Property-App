@@ -65,6 +65,8 @@ struct EnlargeMapView_V2: View {
     @State private var zoomLevel: Double = 10000  // Default zoom level
     @State private var addedLatitude: Double = 0.0  // Default additional latitude
     @State private var addedLongitude: Double = 0.0  // Default additional longitude
+    @State private var newLatitude: Double = 0.0
+    @State private var newLongitude: Double = 0.0
 
     // Accepting a PropertyLocation enum as a parameter
     var startMapCameraLocation: StartMapCameraLocation
@@ -122,6 +124,7 @@ struct EnlargeMapView_V2: View {
                 .mapControls {
                     MapCompass()
                     MapUserLocationButton()
+                    MapPitchToggle()
                     MapScaleView()
                 }
                 // Zoom and Pan Controls
@@ -156,7 +159,7 @@ struct EnlargeMapView_V2: View {
                             Spacer()
 
                         }
-                        .padding(.top, 50)
+                        .padding(.top, 105)
                     } else if mapSettingsViewModel.mapPanEnabled == true
                         && mapSettingsViewModel.mapZoomEnabled == false
                     {
@@ -208,7 +211,7 @@ struct EnlargeMapView_V2: View {
                             Spacer()
 
                         }
-                        .padding(.top, 50)
+                        .padding(.top, 105)
                     } else if mapSettingsViewModel.mapPanEnabled == true
                         && mapSettingsViewModel.mapZoomEnabled == true
                     {
@@ -283,7 +286,7 @@ struct EnlargeMapView_V2: View {
                             Spacer()
 
                         }
-                        .padding(.top, 50)
+                        .padding(.top, 105)
                     }
                 }
                 .padding(5)
@@ -340,6 +343,7 @@ struct EnlargeMapView_V2: View {
                 }
             }
         }
+        .backButton()
         .onSubmit(of: .search) {
             Task {
                 guard !searchText.isEmpty else { return }
@@ -381,22 +385,6 @@ struct EnlargeMapView_V2: View {
                 mapItem?.name = searchText
                 zoomIntoTheSelectedPlace()
             }
-        }
-    }
-
-    //    func zoomIntoTheSelectedPlace(searchedLatitude: Double, searchedLongitude: Double) {
-    func zoomIntoTheSelectedPlace() {
-        if placemark != nil {
-            let searchedCoor = CLLocationCoordinate2D(
-                latitude: placemark!.location!.coordinate.latitude,
-                longitude: placemark!.location!.coordinate.longitude)
-
-            let searchedRegion = MKCoordinateRegion(
-                center: searchedCoor, latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
-
-            camera = .region(searchedRegion)
-        } else {
-            setCameraZoom(latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
         }
     }
 
@@ -446,16 +434,39 @@ struct EnlargeMapView_V2: View {
             camera = .region(newRegion)
         }
     }
+    //    func zoomIntoTheSelectedPlace(searchedLatitude: Double, searchedLongitude: Double) {
+    func zoomIntoTheSelectedPlace() {
+        setCameraZoom(latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
+//        if placemark != nil {
+//            let searchedCoor = CLLocationCoordinate2D(
+//                latitude: placemark!.location!.coordinate.latitude,
+//                longitude: placemark!.location!.coordinate.longitude)
+//
+//            let searchedRegion = MKCoordinateRegion(
+//                center: searchedCoor, latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
+//
+//            camera = .region(searchedRegion)
+//        } else {
+//            setCameraZoom(latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
+//        }
+    }
+    
+    
+    func setCameraZoom(latitudinalMeters: CLLocationDistance, longitudinalMeters: CLLocationDistance) {
+        //let currentCenter = CLLocationCoordinate2D.userLocation  // or any other coordinate you want to center on
+//        if let c = camera.camera{
+//        newLatitude = camera.camera!.centerCoordinate.latitude
+//        newLongitude = camera.camera!.centerCoordinate.longitude
 
-    func setCameraZoom(
-        latitudinalMeters: CLLocationDistance, longitudinalMeters: CLLocationDistance
-    ) {
-        let currentCenter = CLLocationCoordinate2D.userLocation  // or any other coordinate you want to center on
-        let newRegion = MKCoordinateRegion(
-            center: currentCenter,
-            latitudinalMeters: latitudinalMeters,
-            longitudinalMeters: longitudinalMeters)
-        camera = .region(newRegion)
+//            let currentCenter = CLLocationCoordinate2D.init(latitude: newLatitude, longitude: newLongitude)
+        let currentCenter = CLLocationCoordinate2D.userLocation
+            let newRegion = MKCoordinateRegion(
+                center: currentCenter,
+                latitudinalMeters: latitudinalMeters,
+                longitudinalMeters: longitudinalMeters)
+            camera = .region(newRegion)
+//        }
+//        print("\(camera.region?.center)")  //idk why when the user swipe the map then back using the buttons, the code collapses
     }
 
 }
