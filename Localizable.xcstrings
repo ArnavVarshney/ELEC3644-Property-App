@@ -212,7 +212,14 @@
       }
     },
     "📷 Photo" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "📷 照片"
+          }
+        }
+      }
     },
     "$%@" : {
       "localizations" : {
@@ -748,7 +755,14 @@
       }
     },
     "Contract type: %@" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "合約種類： %@"
+          }
+        }
+      }
     },
     "Copy" : {
       "localizations" : {
@@ -771,7 +785,14 @@
       }
     },
     "Create a new listing" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "創建新的上架清單"
+          }
+        }
+      }
     },
     "Create wishlist" : {
       "localizations" : {
@@ -824,7 +845,14 @@
       }
     },
     "Delete" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "刪除"
+          }
+        }
+      }
     },
     "Description" : {
       "localizations" : {
@@ -869,7 +897,14 @@
       }
     },
     "District | MTR | School Net | Estate" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "地區｜港鐵｜校網｜屋苑"
+          }
+        }
+      }
     },
     "District | MTR | School Net | University | Estate" : {
       "extractionState" : "stale",
@@ -1094,6 +1129,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "G.F.A. %1$lldsqft @ %2$@/sqft"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "建築面積 %1$lld平方呎 @ %2$@/平方呎"
           }
         }
       }
@@ -2051,7 +2092,14 @@
       }
     },
     "No listings found" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未找到上架的物業"
+          }
+        }
+      }
     },
     "No Look Around Scene Available" : {
       "localizations" : {
@@ -2068,13 +2116,20 @@
         "zh-HK" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "沒有訊息紀錄"
+            "value" : "未找到訊息紀錄"
           }
         }
       }
     },
     "No transactions found" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未找到相關交易記錄"
+          }
+        }
+      }
     },
     "North" : {
       "extractionState" : "stale",
@@ -2305,7 +2360,14 @@
       }
     },
     "Posting date: %@" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "上架日期"
+          }
+        }
+      }
     },
     "Previous" : {
       "localizations" : {
@@ -2328,7 +2390,14 @@
       }
     },
     "Price Delta" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "價格差異"
+          }
+        }
+      }
     },
     "Price per sq ft" : {
       "localizations" : {
@@ -2473,10 +2542,24 @@
       }
     },
     "Recent transactions" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "最近交易"
+          }
+        }
+      }
     },
     "Recently viewed properties will be recorded here" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "這裏記錄近來所查看的物業"
+          }
+        }
+      }
     },
     "Remove %lld item%@" : {
       "extractionState" : "stale",
@@ -2538,10 +2621,24 @@
       }
     },
     "Reset Password" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重設密碼"
+          }
+        }
+      }
     },
     "Review %@" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "評價%@"
+          }
+        }
+      }
     },
     "Reviews" : {
       "localizations" : {
@@ -2569,6 +2666,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "S.A. %1$lldsqft @ %2$@/sqft"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "實用面積 %1$lld平方呎@ %2$@/平方呎"
           }
         }
       }
@@ -2701,7 +2804,14 @@
       }
     },
     "Search listings & transactions" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "搜尋上架的物業及相關交易"
+          }
+        }
+      }
     },
     "Search..." : {
       "localizations" : {
@@ -3644,7 +3754,14 @@
       }
     },
     "Welcome Back, %@" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "歡迎回來， %@"
+          }
+        }
+      }
     },
     "Welcome back, %@!" : {
       "extractionState" : "stale",
@@ -3889,7 +4006,14 @@
       }
     },
     "Your history is empty" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "沒有瀏覽歷史記錄"
+          }
+        }
+      }
     },
     "Your listings" : {
       "localizations" : {
