@@ -17,9 +17,15 @@ struct InboxItemView: View {
                 Text(user.name)
                     .font(.subheadline)
                     .fontWeight(.bold)
-                Text(message.content)
-                    .font(.footnote)
-                    .lineLimit(1)
+                if message.content.hasPrefix("https://chat-server.home-nas.xyz/images/") {
+                    Text("📷 Photo")
+                        .font(.footnote)
+                        .lineLimit(1)
+                } else {
+                    Text(message.content)
+                        .font(.footnote)
+                        .lineLimit(1)
+                }
             }
             Spacer()
             Text(message.timestamp, style: .time)
