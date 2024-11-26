@@ -14,6 +14,7 @@ struct ELEC3644_Property_App: App {
     @StateObject var agentData = AgentViewModel()
     @StateObject var locationManager = LocationManager()
     @StateObject var languageSetting = LanguageSetting()
+    @StateObject var mapSettingsViewModel = MapSettingsViewModel()
     @State var showResetPassword = false
     @State var userId = ""
 
@@ -28,6 +29,7 @@ struct ELEC3644_Property_App: App {
                 .environmentObject(agentData)
                 .environmentObject(locationManager)
                 .environmentObject(languageSetting)
+                .environmentObject(mapSettingsViewModel)
                 .environment(\.locale, languageSetting.locale)
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .onOpenURL { url in
