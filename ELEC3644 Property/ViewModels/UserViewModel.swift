@@ -116,6 +116,7 @@ class UserViewModel: ObservableObject {
         user.avatarUrl = ""
         user.reviews = []
         user.wishlists = []
+        userRole = .guest
         UserDefaults.standard.removeObject(forKey: "currentUserID")
     }
 
