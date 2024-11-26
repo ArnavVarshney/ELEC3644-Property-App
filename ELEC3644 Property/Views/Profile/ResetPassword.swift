@@ -14,6 +14,7 @@ struct ResetPasswordView: View {
     @State private var confirmPassword: String = ""
     @State private var showAlert: Bool = false
     @State private var alertMessage: String = ""
+    @State private var isLoading = false
     var userId: String = ""
 
     var body: some View {
@@ -39,14 +40,23 @@ struct ResetPasswordView: View {
                 .textFieldStyle(LoginTextFieldStyle())
 
             Button(action: resetPassword) {
-                Text("Submit")
-                    .foregroundColor(.white)
-                    .font(.system(size: 15, weight: .semibold))
-                    .foregroundColor(.neutral100)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 12)
-                    .padding(.horizontal, 24)
+                if isLoading {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 12)
+                        .padding(.horizontal, 24)
+                } else {
+                    Text("Submit")
+                        .foregroundColor(.white)
+                        .font(.system(size: 15, weight: .semibold))
+                        .foregroundColor(.neutral100)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 12)
+                        .padding(.horizontal, 24)
+                }
             }
+            .disabled(isLoading)
             .background(Color.black)
             .cornerRadius(8)
             .padding(.top, 12)
@@ -79,6 +89,7 @@ struct ResetPasswordView: View {
     }
 
     private func resetPassword() {
+        isLoading = true
         Task {
             do {
                 if newPassword.isEmpty || confirmPassword.isEmpty {
@@ -99,6 +110,7 @@ struct ResetPasswordView: View {
                 showAlert = true
             }
         }
+        isLoading = false
     }
 }
 

@@ -12,6 +12,7 @@ struct ReviewFieldView: View {
     @EnvironmentObject private var agentViewModel: AgentViewModel
     @EnvironmentObject private var userViewModel: UserViewModel
     @Environment(\.dismiss) private var dismiss
+    @State private var isLoading = false
     var user: User
 
     var body: some View {
@@ -45,13 +46,21 @@ struct ReviewFieldView: View {
                     submitReview()
                     dismiss()
                 }) {
-                    Text("Submit Review")
-                        .foregroundColor(.white)
-                        .font(.system(size: 15, weight: .semibold))
-                        .foregroundColor(.neutral100)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 12)
-                        .padding(.horizontal, 24)
+                    if isLoading {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 12)
+                            .padding(.horizontal, 24)
+                    } else {
+                        Text("Submit Review")
+                            .foregroundColor(.white)
+                            .font(.system(size: 15, weight: .semibold))
+                            .foregroundColor(.neutral100)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 12)
+                            .padding(.horizontal, 24)
+                    }
                 }
                 .background(Color.black)
                 .cornerRadius(8)
@@ -77,6 +86,7 @@ struct ReviewFieldView: View {
     }
 
     private func submitReview() {
+        isLoading = true
         let newReview = Review(
             author: userViewModel.user,
             rating: Double(rating),
@@ -86,6 +96,7 @@ struct ReviewFieldView: View {
             await agentViewModel.writeReview(review: newReview, reviewedUserId: user.id)
             reviewText = ""
             rating = 0
+            isLoading = false
         }
         if let reviewedUser = agentViewModel.agents.firstIndex(where: { $0.id == user.id }) {
             agentViewModel.agents[reviewedUser].reviews.append(newReview)

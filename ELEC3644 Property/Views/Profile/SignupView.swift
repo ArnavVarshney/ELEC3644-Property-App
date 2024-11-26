@@ -19,6 +19,7 @@ struct SignupView: View {
     @State private var isEditing: Bool = false
     @State private var selectedItems: [PhotosPickerItem] = []
     @State private var alertMessage: String = ""
+    @State private var isLoading = false
 
     var body: some View {
         NavigationStack {
@@ -98,14 +99,23 @@ struct SignupView: View {
                     .textFieldStyle(LoginTextFieldStyle())
 
                 Button(action: signup) {
-                    Text("Signup")
-                        .foregroundColor(.white)
-                        .font(.system(size: 15, weight: .semibold))
-                        .foregroundColor(.neutral100)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 12)
-                        .padding(.horizontal, 24)
+                    if isLoading {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 12)
+                            .padding(.horizontal, 24)
+                    } else {
+                        Text("Signup")
+                            .foregroundColor(.white)
+                            .font(.system(size: 15, weight: .semibold))
+                            .foregroundColor(.neutral100)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 12)
+                            .padding(.horizontal, 24)
+                    }
                 }
+                .disabled(isLoading)
                 .background(Color.black)
                 .cornerRadius(8)
                 .padding(.top, 12)
@@ -158,6 +168,7 @@ struct SignupView: View {
     }
 
     private func signup() {
+        isLoading = true
         Task {
             do {
                 if name.isEmpty || username.isEmpty || password.isEmpty {
@@ -185,6 +196,7 @@ struct SignupView: View {
                 alertMessage = "Failed to create account."
                 showAlert = true
             }
+            isLoading = false
         }
     }
 }

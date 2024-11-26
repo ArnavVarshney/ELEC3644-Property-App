@@ -40,13 +40,15 @@ struct LoginTextFieldStyle: TextFieldStyle {
 }
 
 struct LoginView: View {
-    @EnvironmentObject var viewModel: UserViewModel
+    @EnvironmentObject var userViewModel: UserViewModel
+    @EnvironmentObject var inboxViewModel: InboxViewModel
     @Environment(\.dismiss) var dismiss
     @State private var username: String = ""
     @State private var password: String = ""
     @State private var showAlert: Bool = false
     @State private var alertMessage: String = ""
     @State private var forgotPassword: Bool = false
+    @State private var isLoading: Bool = false
 
     var body: some View {
         NavigationStack {
@@ -81,14 +83,23 @@ struct LoginView: View {
             }
 
             Button(action: login) {
-                Text("Login")
-                    .foregroundColor(.white)
-                    .font(.system(size: 15, weight: .semibold))
-                    .foregroundColor(.neutral100)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 12)
-                    .padding(.horizontal, 24)
+                if isLoading {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 12)
+                        .padding(.horizontal, 24)
+                } else {
+                    Text("Login")
+                        .foregroundColor(.white)
+                        .font(.system(size: 15, weight: .semibold))
+                        .foregroundColor(.neutral100)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 12)
+                        .padding(.horizontal, 24)
+                }
             }
+            .disabled(isLoading)
             .background(Color.black)
             .cornerRadius(8)
             .padding(.top, 12)
@@ -125,25 +136,30 @@ struct LoginView: View {
     }
 
     private func login() {
+        isLoading = true
         Task {
             do {
                 if username.isEmpty || password.isEmpty {
                     alertMessage = "Please fill in all fields."
                     showAlert = true
+                    isLoading = false
                     return
                 } else if !username.contains("@") {
                     alertMessage = "Invalid email format."
                     showAlert = true
+                    isLoading = false
                     return
                 }
                 let user = try await UserViewModel.login(with: username, password: password)
-                viewModel.user = user
-                viewModel.initTask()
+                userViewModel.user = user
+                userViewModel.initTask()
+                inboxViewModel.initTask()
                 UserDefaults.standard.set(user.id.uuidString, forKey: "currentUserID")
             } catch {
                 alertMessage = "Invalid email or password."
                 showAlert = true
             }
+            isLoading = false
         }
     }
 }

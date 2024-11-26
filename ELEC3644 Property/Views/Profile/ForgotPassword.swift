@@ -13,6 +13,7 @@ struct ForgotPasswordView: View {
     @State private var username: String = ""
     @State private var showAlert: Bool = false
     @State private var alertMessage: String = ""
+    @State private var isLoading = false
 
     var body: some View {
         NavigationStack {
@@ -28,15 +29,24 @@ struct ForgotPasswordView: View {
                 .autocapitalization(.none)
                 .keyboardType(.emailAddress)
 
-            Button(action: login) {
-                Text("Submit")
-                    .foregroundColor(.white)
-                    .font(.system(size: 15, weight: .semibold))
-                    .foregroundColor(.neutral100)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 12)
-                    .padding(.horizontal, 24)
+            Button(action: forgotPassword) {
+                if isLoading {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 12)
+                        .padding(.horizontal, 24)
+                } else {
+                    Text("Submit")
+                        .foregroundColor(.white)
+                        .font(.system(size: 15, weight: .semibold))
+                        .foregroundColor(.neutral100)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 12)
+                        .padding(.horizontal, 24)
+                }
             }
+            .disabled(isLoading)
             .background(Color.black)
             .cornerRadius(8)
             .padding(.top, 12)
@@ -68,7 +78,8 @@ struct ForgotPasswordView: View {
         .padding()
     }
 
-    private func login() {
+    private func forgotPassword() {
+        isLoading = true
         Task {
             do {
                 if username.isEmpty {
@@ -82,12 +93,13 @@ struct ForgotPasswordView: View {
                 }
                 let _: User = try await NetworkManager.shared.post(
                     url: "/users/forgot-password", body: ["email": username])
-                alertMessage = "Password reset to \"pwd\"."
+                alertMessage = "An email has been sent to reset your password."
                 showAlert = true
             } catch {
                 alertMessage = "An error occurred. Please ensure this email is registered."
                 showAlert = true
             }
+            isLoading = false
         }
     }
 }
