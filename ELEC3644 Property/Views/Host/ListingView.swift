@@ -12,7 +12,7 @@ struct ListingView: View {
     @EnvironmentObject private var userViewModel: UserViewModel
     @State private var showListingModal: Bool = false
     @State private var searchText: String = ""
-    
+
     func queryString(properties: [Property], query: String) -> [Property] {
         return properties.filter({ property in
             return query.isEmpty ? true : property.name.contains(query)
@@ -22,7 +22,7 @@ struct ListingView: View {
     var body: some View {
         let properties = propertyViewModel.getByAgent(agentId: userViewModel.currentUserId())
         let filteredProperties = queryString(properties: properties, query: searchText)
-        
+
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
@@ -48,12 +48,12 @@ struct ListingView: View {
                     .padding()
                     .background(Color(.neutral20))
                     .cornerRadius(10)
-                        .padding(.bottom, 12)
+                    .padding(.bottom, 12)
                     Divider()
                     Text("Your listings")
                         .font(.title)
                         .fontWeight(.bold)
-                    
+
                     if filteredProperties.isEmpty {
                         Text("No listings found")
                             .foregroundColor(.neutral60)
@@ -77,8 +77,7 @@ struct ListingView: View {
                             .padding(.top, 12)
                     } else {
                         LazyVStack {
-                            ForEach(filteredProperties.getTransactions())
-                            { propertyTransactions in
+                            ForEach(filteredProperties.getTransactions()) { propertyTransactions in
                                 CompactTransactionRowView(propertyTransaction: propertyTransactions)
                                     .padding(.vertical, 4)
                                 Divider()

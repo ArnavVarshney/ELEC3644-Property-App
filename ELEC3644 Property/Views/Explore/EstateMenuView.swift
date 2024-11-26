@@ -148,4 +148,3 @@ struct EstateDetailedView: View {
         .padding(.horizontal)
     }
 }
-
