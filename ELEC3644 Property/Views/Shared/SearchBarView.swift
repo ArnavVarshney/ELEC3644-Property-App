@@ -27,7 +27,6 @@ struct SearchBarView: View {
             .background(.neutral10)
             .cornerRadius(48)
             .shadow(color: .black.opacity(0.15), radius: 8, x: 0, y: 3)
-            .background(.neutral10)
             Spacer()
             Button {
                 isActive.toggle()

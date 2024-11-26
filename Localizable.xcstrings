@@ -211,6 +211,9 @@
         }
       }
     },
+    "📷 Photo" : {
+
+    },
     "$%@" : {
       "localizations" : {
         "zh-HK" : {
@@ -564,9 +567,6 @@
         }
       }
     },
-    "Camera" : {
-
-    },
     "Cancel" : {
       "localizations" : {
         "zh-HK" : {
@@ -653,9 +653,6 @@
           }
         }
       }
-    },
-    "Choose a source" : {
-
     },
     "Chung Hom Kok" : {
       "extractionState" : "stale",
@@ -750,6 +747,9 @@
         }
       }
     },
+    "Contract type: %@" : {
+
+    },
     "Copy" : {
       "localizations" : {
         "zh-HK" : {
@@ -769,6 +769,9 @@
           }
         }
       }
+    },
+    "Create a new listing" : {
+
     },
     "Create wishlist" : {
       "localizations" : {
@@ -2047,6 +2050,9 @@
         }
       }
     },
+    "No listings found" : {
+
+    },
     "No Look Around Scene Available" : {
       "localizations" : {
         "zh-HK" : {
@@ -2066,6 +2072,9 @@
           }
         }
       }
+    },
+    "No transactions found" : {
+
     },
     "North" : {
       "extractionState" : "stale",
@@ -2251,9 +2260,6 @@
         }
       }
     },
-    "Photo Library" : {
-
-    },
     "Pick an album name" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -2297,6 +2303,9 @@
           }
         }
       }
+    },
+    "Posting date: %@" : {
+
     },
     "Previous" : {
       "localizations" : {
@@ -2462,6 +2471,9 @@
           }
         }
       }
+    },
+    "Recent transactions" : {
+
     },
     "Recently viewed properties will be recorded here" : {
 
@@ -2688,6 +2700,9 @@
         }
       }
     },
+    "Search listings & transactions" : {
+
+    },
     "Search..." : {
       "localizations" : {
         "zh-HK" : {
@@ -2750,9 +2765,6 @@
           }
         }
       }
-    },
-    "Select Image" : {
-
     },
     "Select Sub-District" : {
       "localizations" : {
@@ -3630,6 +3642,9 @@
           }
         }
       }
+    },
+    "Welcome Back, %@" : {
+
     },
     "Welcome back, %@!" : {
       "extractionState" : "stale",

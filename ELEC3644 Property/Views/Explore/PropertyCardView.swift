@@ -49,7 +49,6 @@ struct PropertyCardView: View {
             .font(.footnote)
         }
         .padding(.horizontal, 24)
-        .padding(.bottom, 24)
     }
 }
 

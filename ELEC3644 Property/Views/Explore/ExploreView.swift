@@ -10,8 +10,6 @@ struct ExploreView: View {
     @State private var searchText: String = ""
     @State private var currentMenu: MenuItem? = MenuItem.buy
     @State private var isSearchActive: Bool = false
-    @State private var showENlargeMpaView_V2: Bool = false
-    //    @State private var showpointSearchView = false
 
     @EnvironmentObject private var propertyViewModel: PropertyViewModel
     @EnvironmentObject private var agentViewModel: AgentViewModel
@@ -36,7 +34,8 @@ struct ExploreView: View {
                 SearchBarView(searchText: $searchText, isActive: $isSearchActive)
                 MenuItemListView(selectedMenu: $currentMenu)
             }
-            .padding(.bottom, 12)
+            .background(.white)
+            .shadow(color: .black.opacity(0.1), radius: 1, x: 0, y: 1)
             .sheet(isPresented: $isSearchActive) {
                 SearchFieldsView(currentMenu: currentMenu)
             }
@@ -117,19 +116,7 @@ struct ExploreView: View {
                         }
                     }
                 }
-                .sheet(isPresented: $showENlargeMpaView_V2) {
-                    EnlargeMapView_V2(
-                        currentMenu: $currentMenu,
-                        startMapCameraLocation: .customLocation(
-                            latitude: 22.3193, longitude: 114.1694)
-                    )
-                    .environmentObject(propertyViewModel)
-                    .presentationDetents([.height(700)])
-                    .presentationBackgroundInteraction(.enabled(upThrough: .height(700)))
-                    .presentationCornerRadius(24)
-                }
             }
-
         }
     }
 }
