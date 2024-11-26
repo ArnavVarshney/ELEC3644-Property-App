@@ -11,17 +11,23 @@ struct SearchBarView: View {
     @Binding var isActive: Bool
     var body: some View {
         HStack {
-            HStack(spacing: 12) {
+            HStack {
                 Image(systemName: "magnifyingglass")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 20, height: 20)
                     .padding(10)
-                TextField(text: $searchText) {
-                    Text("District | MTR | School Net | University | Estate")
-                        .font(.subheadline)
-                }
+                    .fontWeight(.semibold)
+
+                TextField("District | MTR | School Net | Estate", text: $searchText)
+                    .font(.system(size: 15))
+                    .foregroundColor(.gray)
             }
+            .padding(8)
+            .background(.neutral10)
+            .cornerRadius(48)
+            .shadow(color: .black.opacity(0.15), radius: 8, x: 0, y: 3)
+            .background(.neutral10)
             Spacer()
             Button {
                 isActive.toggle()
@@ -29,22 +35,18 @@ struct SearchBarView: View {
                 Image(systemName: "slider.horizontal.3")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 20, height: 20)
+                    .frame(width: 15, height: 15)
                     .padding(10)
-                    .foregroundColor(.neutral100)
+                    .foregroundColor(.black)
+                    .background(.neutral10)
+                    .cornerRadius(36)
                     .overlay(
-                        RoundedRectangle(cornerRadius: 1000).inset(by: 1)
-                            .strokeBorder(.neutral40, lineWidth: 1)
+                        RoundedRectangle(cornerRadius: 36)
+                            .stroke(Color.neutral50, lineWidth: 1)
                     )
             }
         }
-        .padding(12)
-        .overlay(
-            RoundedRectangle(cornerRadius: 48)
-                .stroke(.gray, lineWidth: 1)
-        )
-        .padding(.horizontal, 24)
-        .addShadow()
+        .padding(.horizontal)
     }
 }
 

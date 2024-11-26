@@ -460,24 +460,19 @@ struct EnlargeMapView_V2: View {
 
 }
 
-//#Preview {
-//    EnlargeMapView_V2()
-//}
-//
-//#Preview {
-//    struct EnlargeMapView_V2_Preview: View {
-//        @StateObject var propertyViewModelWithLocation = PropertyViewModelWithLocation()
-//        @StateObject var propertyViewModel = PropertyViewModel()
-//        @StateObject var propertyDetailViewModel = PropertyDetailViewModel(
-//            property: Mock.Properties[0])
-//        @State private var showEnlargeMapView = false
-//        var body: some View {
-//            EnlargeMapView(showEnlargeMapView: $showEnlargeMapView)
-//                .environmentObject(propertyDetailViewModel)
-//                .environmentObject(propertyViewModel)
-//                .environmentObject(UserViewModel())
-//                .environmentObject(PropertyViewModelWithLocation)
-//        }
-//    }
-//    return EnlargeMapView_V2_Preview()
-//}
+#Preview {
+    struct EnlargeMapView_V2_Preview: View {
+        @StateObject var propertyViewModel = PropertyViewModel()
+        @StateObject var propertyDetailViewModel = PropertyDetailViewModel(
+            property: Mock.Properties[0])
+        @State private var showEnlargeMapView = false
+        var body: some View {
+            EnlargeMapView(showEnlargeMapView: $showEnlargeMapView)
+                .environmentObject(propertyDetailViewModel)
+                .environmentObject(propertyViewModel)
+                .environmentObject(UserViewModel())
+                .environmentObject(MapSettingsViewModel())
+        }
+    }
+    return EnlargeMapView_V2_Preview()
+}

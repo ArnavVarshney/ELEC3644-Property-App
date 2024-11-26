@@ -1,3 +1,4 @@
+import PhotosUI
 //
 //  ChatView.swift
 //  ELEC3644 Property
@@ -17,6 +18,9 @@ struct ChatView: View {
     @State private var searchText: String = ""
     var initialMessage: String?
     @FocusState var foc: Bool?
+    @State private var isImagePickerPresented: Bool = false
+    @State private var isCamera: Bool = false
+    @State var selectedItems: [PhotosPickerItem] = []
 
     init(chat: Chat, initialMessage: String? = nil) {
         self.chat = chat
@@ -51,6 +55,15 @@ struct ChatView: View {
                                 message: message,
                                 isUser: message.senderId == userViewModel.currentUserId()
                             )
+                            .frame(
+                                maxWidth: UIScreen.main.bounds.width * 0.75,
+                                maxHeight: UIScreen.main.bounds.height * 0.4
+                            )
+                            .frame(
+                                maxWidth: .infinity,
+                                alignment: message.senderId == userViewModel.currentUserId()
+                                    ? .trailing : .leading
+                            )
                             .transition(.opacity)
                         }
                     }
@@ -70,16 +83,33 @@ struct ChatView: View {
                 .foregroundColor(.neutral100)
                 .cornerRadius(36)
                 .frame(maxWidth: .infinity)
-                Button(action: sendMessage) {
-                    Image(systemName: "paperplane")
+                PhotosPicker(
+                    selection: $selectedItems,
+                    maxSelectionCount: 1,
+                    matching: .images
+                ) {
+                    Image(systemName: "photo.on.rectangle")
                         .resizable()
                         .scaledToFit()
+                        .fontWeight(.semibold)
                         .frame(width: 18, height: 18)
                         .padding(18)
                         .background(.neutral30)
                         .cornerRadius(36)
                 }
-            }.padding((foc ?? false) ? .vertical : .top, 24)
+                Button(action: sendMessage) {
+                    Image(systemName: "paperplane")
+                        .resizable()
+                        .scaledToFit()
+                        .fontWeight(.semibold)
+                        .frame(width: 18, height: 18)
+                        .padding(18)
+                        .background(.neutral30)
+                        .cornerRadius(36)
+                }
+                .disabled(newMessage.isEmpty)
+            }
+            .padding((foc ?? false) ? .vertical : .top, 24)
         }
         .onTapGesture {
             foc = nil
@@ -149,6 +179,23 @@ struct ChatView: View {
         .onDisappear {
             webSocketService.disconnect()
         }
+        .onChange(
+            of: selectedItems
+        ) { _, newValue in
+            Task {
+                if let data = try? await newValue[0].loadTransferable(type: Data.self) {
+                    let res: Data = try await NetworkManager.shared.uploadImage(
+                        imageData: data)
+                    let json = try JSONSerialization.jsonObject(with: res, options: [])
+                    if let json = json as? [String: Any],
+                        let imageUrl = json["url"] as? String
+                    {
+                        newMessage = imageUrl
+                        sendMessage()
+                    }
+                }
+            }
+        }
     }
 
     private var groupedMessages: [(key: Date, value: [Message])] {
@@ -195,6 +242,7 @@ struct DateHeader: View {
             .fontWeight(.bold)
             .foregroundColor(.gray)
             .padding(.vertical, 8)
+            .frame(maxWidth: .infinity)
     }
 }
 
@@ -204,7 +252,18 @@ struct ChatBubble: View {
     @State private var showTranslation: Bool = false
     var body: some View {
         VStack(alignment: isUser ? .trailing : .leading) {
-            Text("\(message.content)")
+            if message.content.hasPrefix("https://chat-server.home-nas.xyz/images/") {
+                AsyncImage(url: URL(string: message.content)) { image in
+                    image
+                        .resizable()
+                        .scaledToFit()
+                        .cornerRadius(8)
+                } placeholder: {
+                    ProgressView()
+                }
+            } else {
+                Text("\(message.content)")
+            }
             Text("\(message.timestamp.formatted(.dateTime.hour().minute()))").font(.caption)
         }
         .padding(12)

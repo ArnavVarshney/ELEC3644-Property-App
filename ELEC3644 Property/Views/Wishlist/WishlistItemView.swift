@@ -28,6 +28,9 @@ struct WishlistItemView: View {
                         width: size, height: size)
             } placeholder: {
                 ProgressView()
+                    .scaledToFill()
+                    .frame(
+                        width: size, height: size)
             }
             .clipShape(RoundedRectangle(cornerRadius: 16))
             .overlay(

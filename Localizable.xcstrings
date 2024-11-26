@@ -564,6 +564,9 @@
         }
       }
     },
+    "Camera" : {
+
+    },
     "Cancel" : {
       "localizations" : {
         "zh-HK" : {
@@ -650,6 +653,9 @@
           }
         }
       }
+    },
+    "Choose a source" : {
+
     },
     "Chung Hom Kok" : {
       "extractionState" : "stale",
@@ -859,7 +865,11 @@
         }
       }
     },
+    "District | MTR | School Net | Estate" : {
+
+    },
     "District | MTR | School Net | University | Estate" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -2241,6 +2251,9 @@
         }
       }
     },
+    "Photo Library" : {
+
+    },
     "Pick an album name" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -2737,6 +2750,9 @@
           }
         }
       }
+    },
+    "Select Image" : {
+
     },
     "Select Sub-District" : {
       "localizations" : {
