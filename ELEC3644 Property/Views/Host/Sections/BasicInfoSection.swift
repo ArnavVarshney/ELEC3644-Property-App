@@ -15,6 +15,8 @@ struct BasicInfoSection: View {
     @Binding var selectedArea: String
     @Binding var selectedDistrict: String
     @Binding var selectedSubDistrict: String
+    @Binding var propertyType: String
+    
     var body: some View {
         Form {
             Section(header: Text("Property Information")) {
@@ -24,6 +26,7 @@ struct BasicInfoSection: View {
                 TextField("Building Direction", text: $buildingDirection)
                 TextField("Building Age", text: $buildingAge)
                     .keyboardType(.numberPad)
+                TextField("Property Type", text: $propertyType)
             }
             Section(header: Text("Location")) {
                 Picker("Area", selection: $selectedArea) {
@@ -64,7 +67,8 @@ struct BasicInfoSection_Previews: PreviewProvider {
             buildingAge: .constant(""),
             selectedArea: .constant(""),
             selectedDistrict: .constant(""),
-            selectedSubDistrict: .constant("")
+            selectedSubDistrict: .constant(""),
+            propertyType: .constant("")
         )
     }
 }

@@ -40,6 +40,22 @@ class PropertyViewModel: ObservableObject {
             print("Error fetching property data: \(error)")
         }
     }
+    
+    func postProperty<T: Encodable>(data: [String : T]) async {
+        do {
+            let _: [String: String] = try await apiClient.post(url: "/wishlists", body: data)
+        } catch {
+            print("Error fetching property data: \(error)")
+        }
+    }
+    
+    func postProperty<T: Encodable>(id:String ,data: [String : T]) async {
+        do {
+            let _: [String: String] = try await apiClient.post(url: "/wishlists", body: data)
+        } catch {
+            print("Error fetching property data: \(error)")
+        }
+    }
 
     func query(query: [String: String]) async {
         do {

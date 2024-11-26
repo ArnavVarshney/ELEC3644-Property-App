@@ -7,10 +7,15 @@
 import PhotosUI
 import SwiftUI
 
+
+//TODO: Acually submit the property
+//TODO: Add message after submit
+//TODO: Form validation; Type checking
 struct PropertyListingForm: View {
     @State private var propertyName = ""
     @State private var address = ""
     @State private var selectedArea = ""
+    @State private var selectedContractType = "buy"
     @State private var selectedDistrict = ""
     @State private var selectedSubDistrict = ""
     @State private var estate = ""
@@ -21,6 +26,7 @@ struct PropertyListingForm: View {
     @State private var grossFloorAreaTotalPrice = ""
     @State private var netPrice = ""
     @State private var buildingAge = ""
+    @State private var propertyType = ""
     @State private var primarySchoolNet = ""
     @State private var secondarySchoolNet = ""
     @State private var facilities: [(description: String, measure: String, unit: String)] = []
@@ -31,6 +37,7 @@ struct PropertyListingForm: View {
     @State private var selectedImages: [UIImage] = []
     @State private var selectedTab = 0
     @EnvironmentObject var propertyViewModel: PropertyViewModel
+    @EnvironmentObject var userViewModel: UserViewModel
 
     private var saleableAreaPricePerSqFt: String {
         guard let area = Double(saleableArea), area > 0,
@@ -54,14 +61,16 @@ struct PropertyListingForm: View {
                         propertyName: $propertyName, address: $address, estate: $estate,
                         buildingDirection: $buildingDirection, buildingAge: $buildingAge,
                         selectedArea: $selectedArea, selectedDistrict: $selectedDistrict,
-                        selectedSubDistrict: $selectedSubDistrict
+                        selectedSubDistrict: $selectedSubDistrict,
+                        propertyType: $propertyType
                     )
                     .tag(0)
                     PropertyDetailsSection(
                         netPrice: $netPrice, saleableArea: $saleableArea,
                         saleableAreaPricePerSqFt: saleableAreaPricePerSqFt,
                         grossFloorArea: $grossFloorArea,
-                        grossFloorAreaPricePerSqFt: grossFloorAreaPricePerSqFt
+                        grossFloorAreaPricePerSqFt: grossFloorAreaPricePerSqFt,
+                        contractType: $selectedContractType
                     )
                     .tag(1)
                     SchoolNetSection(
@@ -112,8 +121,9 @@ struct PropertyListingForm: View {
                         .font(.system(size: 16, weight: .medium))
                         .foregroundColor(.neutral10)
                         .padding()
-                        .background(Color.primary60)
+                        .background(disabledButton(at: selectedTab) ? Color.gray : Color.primary60)
                         .cornerRadius(10)
+                        .disabled(disabledButton(at: selectedTab))
                     } else {
                         Button("Submit") {
                             Task {
@@ -123,8 +133,9 @@ struct PropertyListingForm: View {
                         .font(.system(size: 16, weight: .medium))
                         .foregroundColor(.neutral10)
                         .padding()
-                        .background(Color.primary60)
+                        .background(disabledButton(at: selectedTab) ? Color.gray : Color.primary60)
                         .cornerRadius(10)
+                        .disabled(disabledButton(at: selectedTab))
                     }
                 }
                 .padding()
@@ -143,9 +154,31 @@ struct PropertyListingForm: View {
     }
 
     private func submitForm() async {
+        //TODO:
+        //1. Upload image
+        //2. Get the image URLs
+        //3. Post property <- Need to implement
+        let imageUrls: [String] = []
         for image in selectedImages {
             // Upload image to server
             // TODO: Implement image upload
+        }
+    }
+    
+    private func disabledButton(at selectedTab: Int) -> Bool{
+        switch selectedTab{
+        case 0:
+            return propertyName.isEmpty || address.isEmpty || estate.isEmpty || buildingDirection.isEmpty || buildingDirection.isEmpty || buildingAge.isEmpty || selectedArea.isEmpty || selectedDistrict.isEmpty || selectedSubDistrict.isEmpty || propertyType.isEmpty
+        case 1:
+            return netPrice.isEmpty || saleableArea.isEmpty || saleableAreaPricePerSqFt.isEmpty || grossFloorArea.isEmpty || grossFloorAreaPricePerSqFt.isEmpty || selectedContractType.isEmpty
+        case 2:
+            return primarySchoolNet.isEmpty || secondarySchoolNet.isEmpty
+        case 3:
+            return false
+        case 4:
+            return selectedImages.isEmpty
+        default:
+            return true
         }
     }
 }
@@ -156,9 +189,16 @@ struct PropertyDetailsSection: View {
     var saleableAreaPricePerSqFt: String
     @Binding var grossFloorArea: String
     var grossFloorAreaPricePerSqFt: String
+    @Binding var contractType: String
+    
     var body: some View {
         Form {
             Section {
+                Picker("Contract Type", selection: $contractType) {
+                    ForEach(ContractType.allCases, id: \.self) { contract in
+                        Text("\(contract)").tag("\(contract)")
+                    }
+                }
                 TextField("Net Price", text: $netPrice)
                     .keyboardType(.decimalPad)
             }
@@ -190,5 +230,6 @@ struct PropertyListingForm_Previews: PreviewProvider {
     static var previews: some View {
         PropertyListingForm()
             .environmentObject(PropertyViewModel())
+            .environmentObject(UserViewModel())
     }
 }
