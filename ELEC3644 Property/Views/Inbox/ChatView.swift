@@ -74,19 +74,7 @@ struct ChatView: View {
                 .animation(.default, value: searchText)
             }
             HStack {
-                HStack {
-                    PhotosPicker(
-                        selection: $selectedItems,
-                        maxSelectionCount: 1,
-                        matching: .images
-                    ) {
-                        Image(systemName: "photo.on.rectangle")
-                            .resizable()
-                            .scaledToFit()
-                            .fontWeight(.semibold)
-                            .frame(width: 18, height: 18)
-                            .padding(.horizontal, 12)
-                    }
+                HStack(spacing: 18) {
                     TextField("", text: $newMessage, axis: .vertical)
                         .focused(
                             $foc, equals: true
@@ -99,15 +87,26 @@ struct ChatView: View {
                         .foregroundColor(.neutral100)
                         .cornerRadius(12)
                         .frame(maxWidth: .infinity)
+                    PhotosPicker(
+                        selection: $selectedItems,
+                        maxSelectionCount: 1,
+                        matching: .images
+                    ) {
+                        Image(systemName: "photo.on.rectangle")
+                            .resizable()
+                            .scaledToFit()
+                            .fontWeight(.semibold)
+                            .frame(width: 18, height: 18)
+                    }
                     Button(action: sendMessage) {
                         Image(systemName: "paperplane")
                             .resizable()
                             .scaledToFit()
                             .fontWeight(.semibold)
                             .frame(width: 18, height: 18)
-                            .padding(.horizontal, 12)
                     }
                 }
+                .padding(.horizontal, 18)
                 .padding((foc ?? false) ? .vertical : .top, 12)
             }
             .background(.neutral30)
