@@ -10,16 +10,18 @@ struct AgentMenuView: View {
     @EnvironmentObject var agentViewModel: AgentViewModel
     var body: some View {
         VStack(alignment: .leading) {
-            HStack {
-                Text("\(agentViewModel.agents.count)")
-                    .fontWeight(.bold)
-                    .font(.subheadline)
-                Text("agents found")
-                    .font(.subheadline)
+            VStack {
+                HStack {
+                    Text("\(agentViewModel.agents.count)")
+                        .fontWeight(.bold)
+                        .font(.subheadline)
+                    Text("agent(s) found")
+                        .font(.subheadline)
+                    Spacer()
+                }
+                Divider()
             }
             .padding(.horizontal, 24)
-            Divider()
-                .clipped()
             List(agentViewModel.agents) { agent in
                 NavigationLink {
                     ProfileDetailedView(user: agent)

@@ -24,7 +24,7 @@ struct TransactionMenuView: View {
                 Text("\(transactions.count)")
                     .fontWeight(.bold)
                     .font(.subheadline)
-                Text("transactions found")
+                Text("transaction(s) found")
                     .font(.subheadline)
             }
             Divider()
