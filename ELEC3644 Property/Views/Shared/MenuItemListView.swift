@@ -11,7 +11,6 @@ enum MenuItem: String, CaseIterable {
     case rent = "Rent"
     case lease = "Lease"
     case transaction = "Transaction"
-    case estate = "Estate"
     case agents = "Agents"
     case map = "Map"
     var systemImage: String {
@@ -24,8 +23,6 @@ enum MenuItem: String, CaseIterable {
             return "text.document.fill"
         case .transaction:
             return "chart.line.uptrend.xyaxis"
-        case .estate:
-            return "building"
         case .agents:
             return "person.crop.circle"
         case .map:

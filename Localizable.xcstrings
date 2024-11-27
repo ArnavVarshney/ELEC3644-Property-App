@@ -62,16 +62,6 @@
         }
       }
     },
-    "%@ ・ %@" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$@ ・ %2$@"
-          }
-        }
-      }
-    },
     "%@, %@" : {
       "localizations" : {
         "zh-HK" : {
@@ -1041,6 +1031,7 @@
       }
     },
     "Estate Type" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -1074,6 +1065,7 @@
 
     },
     "Facilities" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -2709,16 +2701,6 @@
     "S.A. %lld ft²" : {
 
     },
-    "S.A. %lld ft² @ %@ /ft²" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "S.A. %1$lld ft² @ %2$@ /ft²"
-          }
-        }
-      }
-    },
     "S.A. %lldsqft @ %@/sqft" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -4010,6 +3992,7 @@
       }
     },
     "Year Built" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
