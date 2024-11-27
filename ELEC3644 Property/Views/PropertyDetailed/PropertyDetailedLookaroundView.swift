@@ -54,7 +54,6 @@ struct PropertyDetailLookaroundView: View {
     }
 }
 
-
 #Preview {
     PropertyDetailLookaroundView()
 }
