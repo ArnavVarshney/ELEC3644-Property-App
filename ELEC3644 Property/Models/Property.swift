@@ -47,6 +47,7 @@ struct PropertySearchField: Hashable {
     var district: String = "any"
     var subdistrict: String = "any"
     var amenities: Set<String> = []
+    var contractType: String = "Buy"
 }
 
 struct Transaction: Identifiable, Hashable, Codable {
