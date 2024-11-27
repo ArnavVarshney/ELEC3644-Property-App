@@ -22,6 +22,9 @@ struct SearchFieldsView: View {
                 case .agents:
                     AgentSearchFieldsView()
                         .presentationDetents([.height(560)])
+                case .transaction:
+                    TransactionSearchFieldsView()
+                        .presentationDetents([.height(200)])
                 case .map:
                     MapSearchFieldView()
                         .presentationDetents(
