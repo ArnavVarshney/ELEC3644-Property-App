@@ -32,7 +32,7 @@ struct ReviewFieldView: View {
                         Spacer()
                         ForEach(1...5, id: \.self) { star in
                             Image(systemName: star <= rating ? "star.fill" : "star")
-                                .foregroundColor(star <= rating ? .black : .neutral60)
+                                .foregroundColor(star <= rating ? .neutral100 : .neutral70)
                                 .onTapGesture {
                                     rating = star
                                 }
@@ -62,7 +62,7 @@ struct ReviewFieldView: View {
                             .padding(.horizontal, 24)
                     }
                 }
-                .background(Color.black)
+                .background(Color.neutral100)
                 .cornerRadius(8)
                 .disabled(reviewText.isEmpty || rating == 0)
                 Spacer()
@@ -77,7 +77,7 @@ struct ReviewFieldView: View {
                         Image(systemName: "xmark")
                             .resizable()
                             .frame(width: 15, height: 15)
-                            .foregroundColor(.black)
+                            .foregroundColor(.neutral100)
                     }
                 }
             }
@@ -181,14 +181,14 @@ struct ProfileDetailedView: View {
                     Button("Show all \(user.reviews.count) reviews") {
                         showReviewsModal = true
                     }
-                    .foregroundColor(.black)
+                    .foregroundColor(.neutral100)
                     .font(.system(size: 15, weight: .semibold))
                     .foregroundColor(.neutral100)
                     .padding(12)
                     .frame(maxWidth: .infinity)
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color.black, lineWidth: 1)
+                            .stroke(Color.neutral100, lineWidth: 1)
                     )
                     .padding(.top, 18)
                 }
@@ -203,7 +203,7 @@ struct ProfileDetailedView: View {
                             .frame(maxWidth: .infinity)
                             .padding(12)
                     }
-                    .background(Color.black)
+                    .background(Color.neutral100)
                     .cornerRadius(8)
                     .padding(.top, 18)
                 }
@@ -218,7 +218,7 @@ struct ProfileDetailedView: View {
                     } label: {
                         Image(systemName: "chevron.left")
                             .frame(width: 18, height: 18)
-                            .foregroundColor(.black)
+                            .foregroundColor(.neutral100)
                             .padding(12)
                     }
                 }
@@ -275,7 +275,7 @@ struct ReviewsListModal: View {
                                             Image(systemName: "star.fill")
                                                 .resizable()
                                                 .frame(width: 12, height: 12)
-                                                .foregroundColor(.black)
+                                                .foregroundColor(.neutral100)
                                                 .padding(-3)
                                                 .opacity(index < Int(review.rating) ? 1 : 0)
                                         }
@@ -283,7 +283,7 @@ struct ReviewsListModal: View {
                                     Text(relativeTime)
                                         .font(.footnote)
                                         .fontWeight(.semibold)
-                                        .foregroundColor(.neutral60)
+                                        .foregroundColor(.neutral70)
                                 }
                                 Spacer()
                             }
@@ -304,7 +304,7 @@ struct ReviewsListModal: View {
                         } label: {
                             Image(systemName: "xmark")
                                 .frame(width: 18, height: 18)
-                                .foregroundColor(.black)
+                                .foregroundColor(.neutral100)
                                 .padding(12)
                         }
                     }

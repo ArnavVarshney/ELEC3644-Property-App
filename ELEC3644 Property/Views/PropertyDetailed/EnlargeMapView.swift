@@ -32,11 +32,11 @@ struct EnlargeMapView: View {
                             Text(String(viewModel.property.netPrice))
                                 .font(.callout)
                                 .fontWeight(.bold)
-                                .foregroundColor(Color.black)
+                                .foregroundColor(Color.neutral100)
                             Text("HKD")
                                 .font(.callout)
                                 .fontWeight(.bold)
-                                .foregroundColor(Color.black)
+                                .foregroundColor(Color.neutral100)
                         }
                         .frame(width: 125, height: 25)
                         .background(.white)
@@ -118,7 +118,7 @@ struct EnlargeMapView: View {
                                 .padding(20)
                                 .frame(width: 45, height: 45)
                                 .background(Color.white)
-                                .foregroundColor(.black)
+                                .foregroundColor(.neutral100)
                                 .cornerRadius(8)
 
                                 .padding(.trailing, 5)  // Add some padding around the button
@@ -137,7 +137,7 @@ struct EnlargeMapView: View {
                         popUp.toggle()  // Show/Hide the PopUpView
                     } label: {
                         Image(systemName: popUp ? "xmark" : "plus")
-                            .foregroundStyle(.black)
+                            .foregroundStyle(.neutral100)
                             .background {
                                 Circle()
                                     .fill(.white)

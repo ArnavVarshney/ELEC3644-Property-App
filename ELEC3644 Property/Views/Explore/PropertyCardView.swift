@@ -19,15 +19,15 @@ struct PropertyCardView: View {
                         .fontWeight(.bold)
                         .foregroundColor(.neutral100)
                     Text("\(property.saleableArea)sqft")
-                        .foregroundColor(.neutral60)
+                        .foregroundColor(.neutral70)
                     HStack(spacing: 0) {
                         Text(LocalizedStringKey(property.subDistrict))
                         Text(", ")
                         Text(LocalizedStringKey(property.area))
                     }
-                    .foregroundColor(.neutral60)
+                    .foregroundColor(.neutral70)
                     Text("\(property.netPrice.toCompactCurrencyFormat())")
-                        .foregroundColor(.neutral60)
+                        .foregroundColor(.neutral70)
                         .fontWeight(.semibold)
                         .padding(.top, 1)
                 }

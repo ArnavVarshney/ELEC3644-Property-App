@@ -40,7 +40,7 @@ struct ProfileView: View {
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 18, height: 18)
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.neutral100)
                             }
                         }
 
@@ -63,7 +63,7 @@ struct ProfileView: View {
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 96, height: 96)
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.neutral100)
                                     .padding(.trailing, 12)
                             }
                             .background(.white)
@@ -144,7 +144,7 @@ struct ProfileView: View {
                                 .addShadow()
                             }
                             .padding(.horizontal, 4)
-                            .background(.black)
+                            .background(.neutral100)
                             .cornerRadius(36)
                             .padding(.vertical, 24)
                         }
@@ -161,7 +161,7 @@ struct ProfileView: View {
                         HStack(spacing: 4) {
                             Text("Don't have an account?")
                                 .font(.footnote)
-                                .foregroundColor(.black)
+                                .foregroundColor(.neutral100)
                             Button {
                                 showModal = true
                             } label: {
@@ -169,7 +169,7 @@ struct ProfileView: View {
                                     .font(.footnote)
                                     .fontWeight(.semibold)
                                     .underline()
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.neutral100)
                             }
                         }
                         Text("Settings")
@@ -214,16 +214,16 @@ struct SettingsList: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: 24, height: 24)
-                            .foregroundColor(.black)
+                            .foregroundColor(.neutral100)
                         Text(LocalizedStringKey(items[index].title))
                             .font(.footnote)
-                            .foregroundColor(.black)
+                            .foregroundColor(.neutral100)
                         Spacer()
                         Image(systemName: "chevron.right")
                             .resizable()
                             .scaledToFit()
                             .fontWeight(.semibold)
-                            .foregroundColor(.black)
+                            .foregroundColor(.neutral100)
                             .frame(width: 12, height: 12)
                     }
                     .padding(.vertical, 3)

@@ -50,7 +50,7 @@ struct MenuItemListView: View {
                             .onTapGesture {
                                 withAnimation(.snappy) { selectedMenu = item }
                             }
-                            .foregroundColor(.neutral80)
+                            .foregroundColor(.neutral70)
                     }
                 }
             }

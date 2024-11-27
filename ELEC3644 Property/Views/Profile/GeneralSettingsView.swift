@@ -27,7 +27,7 @@ struct GeneralSettingsView: View {
                         .padding()
                     Text("Loading...")
                         .font(.headline)
-                        .foregroundColor(.black)
+                        .foregroundColor(.neutral100)
                 }
                 .frame(maxWidth: .infinity)
                 .padding()
@@ -38,7 +38,7 @@ struct GeneralSettingsView: View {
                     Text(LocalizedStringKey("Language"))
                         .font(.headline)
                         .fontWeight(.semibold)
-                        .foregroundColor(.black)
+                        .foregroundColor(.neutral100)
                     Picker("Language", selection: $lang) {
                         Text("繁體中文").tag("zh-HK")
                         Text("English").tag("en")

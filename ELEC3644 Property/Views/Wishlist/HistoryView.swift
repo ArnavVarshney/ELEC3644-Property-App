@@ -76,7 +76,7 @@ struct HistoryView: View {
     @State var tickable: Bool = false
     @State var deleteButtonDisabled: Bool = false
     @State var backButtonDisabled: Bool = false
-    @State var deleteButtonColour: Color = .black
+    @State var deleteButtonColour: Color = .neutral100
 
     var body: some View {
         NavigationStack {
@@ -98,7 +98,7 @@ struct HistoryView: View {
 
                     Text("Recently viewed properties will be recorded here")
                         .font(.footnote)
-                        .foregroundColor(.neutral60)
+                        .foregroundColor(.neutral70)
                         .padding(4)
                     Spacer()
                 }
@@ -226,7 +226,7 @@ struct HistoryView: View {
             deleteButtonDisabled = false
             tickable = false
             backButtonDisabled = false
-            deleteButtonColour = .black
+            deleteButtonColour = .neutral100
         case .delete:
             deleteButtonDisabled = false
             tickable = true

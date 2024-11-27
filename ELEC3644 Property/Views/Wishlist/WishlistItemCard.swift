@@ -39,7 +39,7 @@ struct WishlistItemCard: View {
                             Image(systemName: picked ? "checkmark.circle.fill" : "checkmark.circle")
                                 .resizable()
                                 .scaledToFit()
-                                .foregroundColor(picked ? .blue : .black)
+                                .foregroundColor(picked ? .blue : .neutral100)
                                 .padding(1)
                                 .background(
                                     Circle()
@@ -57,7 +57,7 @@ struct WishlistItemCard: View {
                         HStack {
                             Image(systemName: "xmark")
                                 .frame(width: 3, height: 3)
-                                .foregroundColor(.black)
+                                .foregroundColor(.neutral100)
                                 .padding(12)
                                 .background(
                                     Circle()
@@ -80,20 +80,20 @@ struct WishlistItemCard: View {
 
             HStack {
                 VStack(alignment: moreDetail ? .leading : .center) {
-                    Text(property.name).font(.headline).foregroundStyle(.black)
+                    Text(property.name).font(.headline).foregroundStyle(.neutral100)
                     Text("\(property.area)")
                     if moreDetail {
                         HStack {
-                            Text("S.A \(property.saleableArea) ft²").foregroundStyle(.black)
+                            Text("S.A \(property.saleableArea) ft²").foregroundStyle(.neutral100)
                             Text("@ \(property.saleableAreaPricePerSquareFoot)")
                         }
                         HStack {
-                            Text("GFA \(property.grossFloorArea) ft²").foregroundStyle(.black)
+                            Text("GFA \(property.grossFloorArea) ft²").foregroundStyle(.neutral100)
                             Text("@ \(property.grossFloorAreaPricePerSquareFoot)")
                         }
                     }
                 }
-                .foregroundColor(.neutral60)
+                .foregroundColor(.neutral70)
                 .font(.system(size: 10))
                 .lineLimit(1)
 
@@ -116,7 +116,7 @@ struct WishlistItemCard: View {
                         {
                             Text("\(propertyNote)")
                                 .font(.footnote)
-                                .foregroundColor(.neutral60)
+                                .foregroundColor(.neutral70)
                                 .padding(10)
                         }
 
@@ -125,7 +125,7 @@ struct WishlistItemCard: View {
                                 .count > 0 ? "Edit" : "Add note"
                         )
                         .font(.footnote)
-                        .foregroundColor(.neutral60)
+                        .foregroundColor(.neutral70)
                         .padding(10)
                         .underline(true)
 
@@ -148,7 +148,7 @@ struct WishlistItemCard: View {
             }
         }
         .alignmentGuide(.listRowSeparatorLeading) { _ in 0 }
-        .foregroundStyle(.black)
+        .foregroundStyle(.neutral100)
         .onAppear {
             getNotes()
         }

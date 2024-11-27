@@ -32,7 +32,7 @@ struct FoldersView: View {
 
                         Text("When you create a new wishlist, it will appear here.")
                             .font(.footnote)
-                            .foregroundColor(.neutral60)
+                            .foregroundColor(.neutral70)
                             .padding(4)
                     }
                 } else {

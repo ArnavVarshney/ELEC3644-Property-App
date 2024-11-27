@@ -35,7 +35,7 @@ struct ExploreView: View {
                 MenuItemListView(selectedMenu: $currentMenu)
             }
             .background(.white)
-            .shadow(color: .black.opacity(0.1), radius: 1, x: 0, y: 1)
+            .shadow(color: .neutral100.opacity(0.1), radius: 1, x: 0, y: 1)
             .sheet(isPresented: $isSearchActive) {
                 SearchFieldsView(currentMenu: currentMenu)
             }
@@ -109,7 +109,7 @@ struct ExploreView: View {
                                     .padding(.trailing, 16)
                                     .addShadow()
                             }
-                            .background(.black)
+                            .background(.neutral100)
                             .cornerRadius(36)
                             .padding(.vertical, 24)
                             .ignoresSafeArea(.keyboard, edges: .bottom)

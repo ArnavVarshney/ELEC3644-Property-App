@@ -19,11 +19,11 @@ struct MapView: View {
                         Text(String(viewModel.property.netPrice))
                             .font(.callout)
                             .fontWeight(.bold)
-                            .foregroundColor(Color.black)
+                            .foregroundColor(Color.neutral100)
                         Text("HKD")
                             .font(.callout)
                             .fontWeight(.bold)
-                            .foregroundColor(Color.black)
+                            .foregroundColor(Color.neutral100)
                     }
                     .frame(width: 125, height: 25)
                     .background(.white)

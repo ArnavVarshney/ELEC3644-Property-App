@@ -42,7 +42,7 @@ struct ChatView: View {
                     .padding(4)
                 Text("Try searching for something else.")
                     .font(.footnote)
-                    .foregroundColor(.neutral60)
+                    .foregroundColor(.neutral70)
                     .padding(4)
                 Spacer()
             } else {
@@ -158,7 +158,7 @@ struct ChatView: View {
                                 .resizable()
                                 .frame(width: 12, height: 12)
                                 .padding(8)
-                                .foregroundColor(.black)
+                                .foregroundColor(.neutral100)
                                 .background(
                                     Circle()
                                         .fill(Color.white)
@@ -166,7 +166,7 @@ struct ChatView: View {
                                 .addShadow()
                         } else {
                             Image(systemName: "magnifyingglass")
-                                .foregroundColor(.black)
+                                .foregroundColor(.neutral100)
                         }
                     }
                 }

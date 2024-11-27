@@ -52,7 +52,7 @@ struct FavoriteSubmitForm: View {
                         .padding(.vertical, 12)
                         .padding(.horizontal, 24)
                 }
-                .background(Color.black)
+                .background(Color.neutral100)
                 .cornerRadius(8)
                 .padding(.top, 12)
             }
@@ -66,7 +66,7 @@ struct FavoriteSubmitForm: View {
                         Image(systemName: "xmark")
                             .resizable()
                             .frame(width: 15, height: 15)
-                            .foregroundColor(.black)
+                            .foregroundColor(.neutral100)
                     }
                 }
             }

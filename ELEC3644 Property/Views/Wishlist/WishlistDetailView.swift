@@ -49,8 +49,8 @@ struct WishlistDetailView: View {
     @State var compareButtonDisabled: Bool = false
     @State var backButtonDisabled: Bool = false
     @State var isActive = false
-    @State var deleteButtonColour: Color = .black
-    @State var compareButtonColour: Color = .black
+    @State var deleteButtonColour: Color = .neutral100
+    @State var compareButtonColour: Color = .neutral100
 
     let callback: (_: [Property]) -> Void
 
@@ -76,7 +76,7 @@ struct WishlistDetailView: View {
 
                         Text("You removed everything here. Go back to browsing!")
                             .font(.footnote)
-                            .foregroundColor(.neutral60)
+                            .foregroundColor(.neutral70)
                             .padding(4)
                         Spacer()
                     }
@@ -162,7 +162,7 @@ struct WishlistDetailView: View {
                     transition(to: .view)
                 }
                 .padding(10)
-                .background(Rectangle().fill(.black))
+                .background(Rectangle().fill(.neutral100))
                 .foregroundStyle(.white)
                 .clipShape(.rect(cornerRadius: 5))
             }
@@ -179,8 +179,8 @@ struct WishlistDetailView: View {
             showingLowerButton = false
             tickable = false
             backButtonDisabled = false
-            deleteButtonColour = .black
-            compareButtonColour = .black
+            deleteButtonColour = .neutral100
+            compareButtonColour = .neutral100
         case .delete:
             compareButtonDisabled = false
             deleteButtonDisabled = false

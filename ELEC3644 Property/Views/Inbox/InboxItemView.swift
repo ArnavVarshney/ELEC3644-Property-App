@@ -30,7 +30,7 @@ struct InboxItemView: View {
             Spacer()
             Text(message.timestamp, style: .time)
                 .font(.caption)
-                .foregroundColor(.neutral60)
+                .foregroundColor(.neutral70)
         }
         .padding(.vertical, 8)
     }

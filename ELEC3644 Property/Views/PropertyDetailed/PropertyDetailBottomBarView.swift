@@ -31,7 +31,7 @@ struct PropertyDetailBottomBarView: View {
                         .foregroundColor(.white)
                         .padding(.horizontal, 24)
                         .padding(.vertical, 12)
-                        .background(Color.black)
+                        .background(Color.neutral100)
                         .cornerRadius(10)
                 }
             )

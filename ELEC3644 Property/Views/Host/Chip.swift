@@ -21,7 +21,7 @@ struct Chip: View {
                 .padding(.vertical, 12)
                 .background(isSelected ? Color.primary60 : Color.neutral30)
                 .cornerRadius(40)
-                .foregroundColor(isSelected ? Color.neutral10 : Color.neutral80)
+                .foregroundColor(isSelected ? Color.neutral10 : Color.neutral70)
                 .animation(.snappy, value: isSelected)
                 .lineLimit(1)
         }

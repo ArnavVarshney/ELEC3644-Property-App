@@ -23,7 +23,7 @@ struct CreateWishlistForm: View {
                 Text(LocalizedStringKey("Name"))
                     .font(.footnote)
                     .fontWeight(.semibold)
-                    .foregroundColor(.black)
+                    .foregroundColor(.neutral100)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.top, 24)
 
@@ -50,7 +50,7 @@ struct CreateWishlistForm: View {
                         Text("Clear")
                             .font(.footnote)
                             .fontWeight(.semibold)
-                            .foregroundColor(.black)
+                            .foregroundColor(.neutral100)
                             .underline()
                     }
 
@@ -70,12 +70,12 @@ struct CreateWishlistForm: View {
                             .foregroundColor(.white)
                             .padding(.horizontal, 24)
                             .padding(.vertical, 12)
-                            .background(Color.black)
+                            .background(Color.neutral100)
                             .cornerRadius(10)
                     }
                     .foregroundStyle(.white)
                     .background(
-                        folderName.replacingOccurrences(of: " ", with: "").isEmpty ? .gray : .black
+                        folderName.replacingOccurrences(of: " ", with: "").isEmpty ? .gray : .neutral100
                     )
                     .clipShape(.buttonBorder)
                     .disabled(folderName.replacingOccurrences(of: " ", with: "").isEmpty)
@@ -91,7 +91,7 @@ struct CreateWishlistForm: View {
                         Image(systemName: "xmark")
                             .resizable()
                             .frame(width: 15, height: 15)
-                            .foregroundColor(.black)
+                            .foregroundColor(.neutral100)
                     }
                 }
             }

@@ -20,7 +20,7 @@ struct ForgotPasswordView: View {
             Text(LocalizedStringKey("Email"))
                 .font(.footnote)
                 .fontWeight(.semibold)
-                .foregroundColor(.black)
+                .foregroundColor(.neutral100)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, 24)
 
@@ -47,7 +47,7 @@ struct ForgotPasswordView: View {
                 }
             }
             .disabled(isLoading)
-            .background(Color.black)
+            .background(Color.neutral100)
             .cornerRadius(8)
             .padding(.top, 12)
 
@@ -62,7 +62,7 @@ struct ForgotPasswordView: View {
                             Image(systemName: "xmark")
                                 .resizable()
                                 .frame(width: 15, height: 15)
-                                .foregroundColor(.black)
+                                .foregroundColor(.neutral100)
                         }
                     }
                 }

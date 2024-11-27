@@ -28,12 +28,12 @@ struct WishlistNoteView: View {
                 ).multilineTextAlignment(.leading)
                 Text(
                     "\(note.replacingOccurrences(of: " ", with: "").count)/\(TEXT_LIMIT) characters"
-                ).font(.footnote).foregroundStyle(.neutral60).padding(
+                ).font(.footnote).foregroundStyle(.neutral70).padding(
                     .init(top: 10, leading: 0, bottom: 5, trailing: 0))
             }
             .padding(.init(top: 10, leading: 10, bottom: 10, trailing: 10))
             .overlay {
-                RoundedRectangle(cornerRadius: 10).stroke(.black)
+                RoundedRectangle(cornerRadius: 10).stroke(.neutral100)
             }
             .padding(10)
             Divider()
@@ -54,7 +54,7 @@ struct WishlistNoteView: View {
                 } label: {
                     Text(record == nil ? "Clear" : "Delete").underline()
                 }
-                .foregroundStyle(note.isEmpty ? .gray : .black)
+                .foregroundStyle(note.isEmpty ? .gray : .neutral100)
                 .disabled(note.isEmpty)
 
                 Spacer()
@@ -80,7 +80,7 @@ struct WishlistNoteView: View {
                         .init(top: 15, leading: 20, bottom: 15, trailing: 20))
                 }
                 .foregroundStyle(.white)
-                .background(note.isEmpty ? .gray : .black)
+                .background(note.isEmpty ? .gray : .neutral100)
                 .clipShape(.buttonBorder)
                 .disabled(note.isEmpty)
             }
@@ -94,7 +94,7 @@ struct WishlistNoteView: View {
                         Image(systemName: "xmark")
                             .resizable()
                             .frame(width: 15, height: 15)
-                            .foregroundColor(.black)
+                            .foregroundColor(.neutral100)
                     }
                 }
                 ToolbarItem(placement: .principal) {

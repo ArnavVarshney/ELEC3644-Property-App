@@ -28,7 +28,7 @@ struct BottomNavigationView: View {
             UITabBar.appearance().standardAppearance = appearance
             UITabBar.appearance().scrollEdgeAppearance = appearance
         }
-        .tint(.black)
+        .tint(.neutral100)
     }
 }
 

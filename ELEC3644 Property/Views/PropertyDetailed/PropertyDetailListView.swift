@@ -25,7 +25,7 @@ struct PropertyDetailListView: View {
                             .foregroundColor(.neutral100)
                         Text("VR View")
                             .font(.system(size: 10, weight: .regular))
-                            .foregroundColor(.neutral60)
+                            .foregroundColor(.neutral70)
                     }
                 }
             }

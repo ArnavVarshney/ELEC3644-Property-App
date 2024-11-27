@@ -33,7 +33,7 @@ struct PropertyRowView: View {
                         property.netPrice.toCompactCurrencyFormat()
                     )
                     .font(.subheadline)
-                    .foregroundColor(.neutral60)
+                    .foregroundColor(.neutral70)
                     Spacer()
                 }
                 HStack {

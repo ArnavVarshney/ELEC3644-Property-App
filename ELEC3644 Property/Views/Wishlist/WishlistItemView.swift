@@ -46,7 +46,7 @@ struct WishlistItemView: View {
                 .foregroundColor(.neutral100)
                 .frame(maxWidth: .infinity, alignment: .leading)
             Text("\(wishlist.properties.count) saved")
-                .foregroundColor(.neutral60)
+                .foregroundColor(.neutral70)
                 .fontWeight(.semibold)
                 .font(.caption)
                 .frame(maxWidth: .infinity, alignment: .leading)

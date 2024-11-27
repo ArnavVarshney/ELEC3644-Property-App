@@ -36,14 +36,14 @@ struct UserReviewCardView: View {
                             Image(systemName: "star.fill")
                                 .resizable()
                                 .frame(width: 12, height: 12)
-                                .foregroundColor(.black)
+                                .foregroundColor(.neutral100)
                                 .padding(-3)
                         }
                     }
                     Text(relativeTime)
                         .font(.footnote)
                         .fontWeight(.semibold)
-                        .foregroundColor(.neutral60)
+                        .foregroundColor(.neutral70)
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)

@@ -94,11 +94,11 @@ struct EnlargeMapView_V2: View {
                                     Text(String(property.netPrice))
                                         .font(.callout)
                                         .fontWeight(.bold)
-                                        .foregroundColor(Color.black)
+                                        .foregroundColor(Color.neutral100)
                                     Text("HKD")
                                         .font(.callout)
                                         .fontWeight(.bold)
-                                        .foregroundColor(Color.black)
+                                        .foregroundColor(Color.neutral100)
                                 }
                                 .frame(width: 125, height: 25)
                                 .background(.white)
@@ -142,7 +142,7 @@ struct EnlargeMapView_V2: View {
                                     .padding(20)
                                     .frame(width: 45, height: 45)
                                     .background(Color.white)
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.neutral100)
                                     .cornerRadius(8)
                             }
                             Button(action: {
@@ -153,7 +153,7 @@ struct EnlargeMapView_V2: View {
                                     .padding(25)
                                     .frame(width: 45, height: 45)
                                     .background(Color.white)
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.neutral100)
                                     .cornerRadius(8)
                             }
                             Spacer()
@@ -172,7 +172,7 @@ struct EnlargeMapView_V2: View {
                                     .padding(20)
                                     .frame(width: 45, height: 45)
                                     .background(Color.white)
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.neutral100)
                                     .cornerRadius(8)
                             }
                             Button(action: {
@@ -183,7 +183,7 @@ struct EnlargeMapView_V2: View {
                                     .padding(25)
                                     .frame(width: 45, height: 45)
                                     .background(Color.white)
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.neutral100)
                                     .cornerRadius(8)
                             }
                             Button(action: {
@@ -194,7 +194,7 @@ struct EnlargeMapView_V2: View {
                                     .padding(25)
                                     .frame(width: 45, height: 45)
                                     .background(Color.white)
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.neutral100)
                                     .cornerRadius(8)
                             }
                             Button(action: {
@@ -205,7 +205,7 @@ struct EnlargeMapView_V2: View {
                                     .padding(25)
                                     .frame(width: 45, height: 45)
                                     .background(Color.white)
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.neutral100)
                                     .cornerRadius(8)
                             }
                             Spacer()
@@ -225,7 +225,7 @@ struct EnlargeMapView_V2: View {
                                     .padding(20)
                                     .frame(width: 45, height: 45)
                                     .background(Color.white)
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.neutral100)
                                     .cornerRadius(8)
                             }
                             Button(action: {
@@ -236,7 +236,7 @@ struct EnlargeMapView_V2: View {
                                     .padding(25)
                                     .frame(width: 45, height: 45)
                                     .background(Color.white)
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.neutral100)
                                     .cornerRadius(8)
                             }
                             Button(action: {
@@ -247,7 +247,7 @@ struct EnlargeMapView_V2: View {
                                     .padding(20)
                                     .frame(width: 45, height: 45)
                                     .background(Color.white)
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.neutral100)
                                     .cornerRadius(8)
                             }
                             Button(action: {
@@ -258,7 +258,7 @@ struct EnlargeMapView_V2: View {
                                     .padding(25)
                                     .frame(width: 45, height: 45)
                                     .background(Color.white)
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.neutral100)
                                     .cornerRadius(8)
                             }
                             Button(action: {
@@ -269,7 +269,7 @@ struct EnlargeMapView_V2: View {
                                     .padding(25)
                                     .frame(width: 45, height: 45)
                                     .background(Color.white)
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.neutral100)
                                     .cornerRadius(8)
                             }
                             Button(action: {
@@ -280,7 +280,7 @@ struct EnlargeMapView_V2: View {
                                     .padding(25)
                                     .frame(width: 45, height: 45)
                                     .background(Color.white)
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.neutral100)
                                     .cornerRadius(8)
                             }
                             Spacer()
@@ -322,21 +322,21 @@ struct EnlargeMapView_V2: View {
                             "\(viewModel.getByContractType(contractType: currentMenu!.rawValue).count) properties on sale"
                         )
                         .font(.caption)
-                        .foregroundColor(.black)
+                        .foregroundColor(.neutral100)
                         .padding()
                     } else if currentMenu!.rawValue == "Rent" {
                         Text(
                             "\(viewModel.getByContractType(contractType: currentMenu!.rawValue).count) properties for rent"
                         )
                         .font(.caption)
-                        .foregroundColor(.black)
+                        .foregroundColor(.neutral100)
                         .padding()
                     } else if currentMenu!.rawValue == "Lease" {
                         Text(
                             "\(viewModel.getByContractType(contractType: currentMenu!.rawValue).count) properties for lease"
                         )
                         .font(.caption)
-                        .foregroundColor(.black)
+                        .foregroundColor(.neutral100)
                         .padding()
                     }
 

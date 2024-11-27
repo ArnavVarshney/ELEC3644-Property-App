@@ -26,7 +26,7 @@ struct PropertyDetailAgentView: View {
                                 .font(.system(size: 16, weight: .bold))
                             Text("Tel: \(viewModel.property.agent.phone)")
                                 .font(.system(size: 14, weight: .regular))
-                                .foregroundColor(.neutral60)
+                                .foregroundColor(.neutral70)
                         }
                     }
                 }
@@ -60,7 +60,7 @@ struct PropertyDetailAgentView: View {
                     )
                 }
             }
-            .foregroundColor(.black)
+            .foregroundColor(.neutral100)
         }
         .padding(.horizontal, 24)
         .padding(.vertical, 16)

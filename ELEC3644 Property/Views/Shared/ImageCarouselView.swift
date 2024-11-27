@@ -97,7 +97,7 @@ struct favoriteIcon: View {
         } label: {
             Image(systemName: propertyIdx != nil ? "heart.fill" : "heart")
                 .frame(width: 6, height: 6)
-                .foregroundColor(propertyIdx != nil ? .red : .black)
+                .foregroundColor(propertyIdx != nil ? .red : .neutral100)
                 .padding(12)
                 .background(
                     Circle()

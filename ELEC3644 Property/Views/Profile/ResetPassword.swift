@@ -22,7 +22,7 @@ struct ResetPasswordView: View {
             Text(LocalizedStringKey("New Password"))
                 .font(.footnote)
                 .fontWeight(.semibold)
-                .foregroundColor(.black)
+                .foregroundColor(.neutral100)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, 12)
 
@@ -32,7 +32,7 @@ struct ResetPasswordView: View {
             Text(LocalizedStringKey("Confirm Password"))
                 .font(.footnote)
                 .fontWeight(.semibold)
-                .foregroundColor(.black)
+                .foregroundColor(.neutral100)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, 12)
 
@@ -57,7 +57,7 @@ struct ResetPasswordView: View {
                 }
             }
             .disabled(isLoading)
-            .background(Color.black)
+            .background(Color.neutral100)
             .cornerRadius(8)
             .padding(.top, 12)
 
@@ -72,7 +72,7 @@ struct ResetPasswordView: View {
                             Image(systemName: "xmark")
                                 .resizable()
                                 .frame(width: 15, height: 15)
-                                .foregroundColor(.black)
+                                .foregroundColor(.neutral100)
                         }
                     }
                 }

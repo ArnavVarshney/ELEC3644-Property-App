@@ -30,7 +30,7 @@ struct ListingView: View {
                         showListingModal = true
                     }) {
                         Label("Create a new listing", systemImage: "plus")
-                            .foregroundStyle(.neutral80)
+                            .foregroundStyle(.neutral70)
                             .padding(12)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 12)
@@ -56,7 +56,7 @@ struct ListingView: View {
 
                     if filteredProperties.isEmpty {
                         Text("No listings found")
-                            .foregroundColor(.neutral60)
+                            .foregroundColor(.neutral70)
                             .padding(.top, 12)
                     } else {
                         LazyVStack {
@@ -73,7 +73,7 @@ struct ListingView: View {
                         .fontWeight(.bold)
                     if filteredProperties.isEmpty {
                         Text("No transactions found")
-                            .foregroundColor(.neutral60)
+                            .foregroundColor(.neutral70)
                             .padding(.top, 12)
                     } else {
                         LazyVStack {

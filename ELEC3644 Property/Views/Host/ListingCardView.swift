@@ -17,7 +17,7 @@ struct ListingCardView: View {
                         .fontWeight(.bold)
                         .foregroundColor(.neutral100)
                     Text("\(property.subDistrict), \(property.area)")
-                        .foregroundColor(.neutral60)
+                        .foregroundColor(.neutral70)
                 }
                 Spacer()
             }

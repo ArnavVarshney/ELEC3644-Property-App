@@ -193,7 +193,7 @@ struct ViewPropertyButtonView: View {
                     .padding(.vertical, 16)
                     .padding(.horizontal, 16)
                     .addShadow()
-                    .background(.black)
+                    .background(.neutral100)
                     .cornerRadius(36)
                     .ignoresSafeArea(.keyboard, edges: .bottom)
             }

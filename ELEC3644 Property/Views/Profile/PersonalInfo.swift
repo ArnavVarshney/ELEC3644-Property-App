@@ -34,7 +34,7 @@ struct PersonalInfoView: View {
                             .progressViewStyle(CircularProgressViewStyle(tint: .neutral100))
                             .scaleEffect(1.5)
                             .frame(width: 144, height: 144)
-                            .background(Color.black.opacity(0.5))
+                            .background(Color.neutral100.opacity(0.5))
                             .clipShape(Circle())
                             .padding(.top, 24)
                     }
@@ -47,7 +47,7 @@ struct PersonalInfoView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: 16, height: 16)
-                            .foregroundColor(.black)
+                            .foregroundColor(.neutral100)
                             .padding(8)
                             .background(Color.white)
                             .clipShape(Circle())
@@ -188,7 +188,7 @@ struct InfoItemRow: View {
                 Text(LocalizedStringKey(item.name))
                     .font(.footnote)
                     .fontWeight(.semibold)
-                    .foregroundColor(.black)
+                    .foregroundColor(.neutral100)
                 Spacer()
                 if item.edit {
                     Text(
@@ -197,7 +197,7 @@ struct InfoItemRow: View {
                     )
                     .font(.footnote)
                     .fontWeight(.semibold)
-                    .foregroundColor(.black)
+                    .foregroundColor(.neutral100)
                     .underline()
                     .onTapGesture {
                         if isEditing && editingIndex == index {
@@ -219,13 +219,13 @@ struct InfoItemRow: View {
                     saveChanges(index, editingText)
                 }) {
                     Text("Save")
-                        .foregroundColor(.black)
+                        .foregroundColor(.neutral100)
                         .font(.system(size: 12, weight: .semibold))
                         .foregroundColor(.neutral100)
                         .padding(12)
                         .overlay(
                             RoundedRectangle(cornerRadius: 8)
-                                .stroke(Color.black, lineWidth: 1)
+                                .stroke(Color.neutral100, lineWidth: 1)
                         )
                     Spacer()
                 }

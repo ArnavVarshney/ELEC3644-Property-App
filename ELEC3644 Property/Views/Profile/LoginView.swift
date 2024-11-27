@@ -12,14 +12,14 @@ struct LoginButton: View {
     var body: some View {
         Button(action: { showModal = true }) {
             Text("Login")
-                .foregroundColor(.black)
+                .foregroundColor(.neutral100)
                 .font(.system(size: 15, weight: .semibold))
                 .foregroundColor(.neutral100)
                 .padding(.vertical, 12)
                 .padding(.horizontal, 24)
                 .overlay(
                     RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color.black, lineWidth: 1)
+                        .stroke(Color.neutral100, lineWidth: 1)
                 )
         }
         .padding(.top, 24)
@@ -34,7 +34,7 @@ struct LoginTextFieldStyle: TextFieldStyle {
             .padding(15)
             .background(
                 RoundedRectangle(cornerRadius: 5)
-                    .stroke(Color.black, lineWidth: 1)
+                    .stroke(Color.neutral100, lineWidth: 1)
             )
     }
 }
@@ -55,7 +55,7 @@ struct LoginView: View {
             Text(LocalizedStringKey("Email"))
                 .font(.footnote)
                 .fontWeight(.semibold)
-                .foregroundColor(.black)
+                .foregroundColor(.neutral100)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, 24)
 
@@ -67,7 +67,7 @@ struct LoginView: View {
             Text(LocalizedStringKey("Password"))
                 .font(.footnote)
                 .fontWeight(.semibold)
-                .foregroundColor(.black)
+                .foregroundColor(.neutral100)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, 12)
 
@@ -77,7 +77,7 @@ struct LoginView: View {
             Button(action: { forgotPassword = true }) {
                 Text("Forgot password?")
                     .font(.footnote)
-                    .foregroundColor(.black)
+                    .foregroundColor(.neutral100)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.top, 12)
             }
@@ -100,7 +100,7 @@ struct LoginView: View {
                 }
             }
             .disabled(isLoading)
-            .background(Color.black)
+            .background(Color.neutral100)
             .cornerRadius(8)
             .padding(.top, 12)
 
@@ -115,7 +115,7 @@ struct LoginView: View {
                             Image(systemName: "xmark")
                                 .resizable()
                                 .frame(width: 15, height: 15)
-                                .foregroundColor(.black)
+                                .foregroundColor(.neutral100)
                         }
                     }
                 }

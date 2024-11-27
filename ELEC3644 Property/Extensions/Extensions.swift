@@ -21,7 +21,7 @@ struct BackButtonModifier: ViewModifier {
                         }) {
                             Image(systemName: "chevron.left")
                                 .frame(width: 18, height: 18)
-                                .foregroundColor(.black)
+                                .foregroundColor(.neutral100)
                                 .padding(12)
                                 .background(
                                     Circle()

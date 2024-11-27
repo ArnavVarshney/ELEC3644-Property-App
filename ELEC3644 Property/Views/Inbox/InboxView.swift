@@ -14,7 +14,7 @@ struct SearchTextFieldStyle: TextFieldStyle {
             .padding(.horizontal, 12)
             .background(
                 RoundedRectangle(cornerRadius: 36)
-                    .stroke(Color.black.opacity(0.7), lineWidth: 1)
+                    .stroke(Color.neutral100.opacity(0.7), lineWidth: 1)
             )
     }
 }
@@ -39,7 +39,7 @@ struct InboxView: View {
                             .padding(4)
                         Text("When you receive a new message, it will appear here.")
                             .font(.footnote)
-                            .foregroundColor(.neutral60)
+                            .foregroundColor(.neutral70)
                             .padding(4)
                     } else {
                         if inboxData.filteredChats(searchText: searchText).isEmpty {
@@ -53,7 +53,7 @@ struct InboxView: View {
                                     .padding(4)
                                 Text("Try searching for something else.")
                                     .font(.footnote)
-                                    .foregroundColor(.neutral60)
+                                    .foregroundColor(.neutral70)
                                     .padding(4)
                             }
                         } else {
@@ -109,7 +109,7 @@ struct InboxView: View {
                                     .resizable()
                                     .frame(width: 12, height: 12)
                                     .padding(8)
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.neutral100)
                                     .background(
                                         Circle()
                                             .fill(Color.white)
@@ -117,7 +117,7 @@ struct InboxView: View {
                                     .addShadow()
                             } else {
                                 Image(systemName: "magnifyingglass")
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.neutral100)
                             }
                         }
                     }

@@ -42,7 +42,7 @@ struct WishlistPropertyComparisonView: View {
                                         Text("\(property.netPrice.toCompactCurrencyFormat())")
                                         Spacer()
                                     }
-                                }.foregroundStyle(.black)
+                                }.foregroundStyle(.neutral100)
                             }
                         }
                     }
@@ -146,7 +146,7 @@ struct TableEntry: View {
             }
         }
 
-        return .black
+        return .neutral100
     }
 }
 

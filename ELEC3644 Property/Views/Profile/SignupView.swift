@@ -32,7 +32,7 @@ struct SignupView: View {
                             .progressViewStyle(CircularProgressViewStyle(tint: .neutral100))
                             .scaleEffect(1.5)
                             .frame(width: 144, height: 144)
-                            .background(Color.black.opacity(0.5))
+                            .background(Color.neutral100.opacity(0.5))
                             .clipShape(Circle())
                             .padding(.top, 24)
                     }
@@ -45,7 +45,7 @@ struct SignupView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: 16, height: 16)
-                            .foregroundColor(.black)
+                            .foregroundColor(.neutral100)
                             .padding(8)
                             .background(Color.white)
                             .clipShape(Circle())
@@ -58,7 +58,7 @@ struct SignupView: View {
                 Text(LocalizedStringKey("Name"))
                     .font(.footnote)
                     .fontWeight(.semibold)
-                    .foregroundColor(.black)
+                    .foregroundColor(.neutral100)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.top, 24)
 
@@ -68,7 +68,7 @@ struct SignupView: View {
                 Text(LocalizedStringKey("Phone"))
                     .font(.footnote)
                     .fontWeight(.semibold)
-                    .foregroundColor(.black)
+                    .foregroundColor(.neutral100)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.top, 12)
 
@@ -79,7 +79,7 @@ struct SignupView: View {
                 Text(LocalizedStringKey("Email"))
                     .font(.footnote)
                     .fontWeight(.semibold)
-                    .foregroundColor(.black)
+                    .foregroundColor(.neutral100)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.top, 12)
 
@@ -91,7 +91,7 @@ struct SignupView: View {
                 Text(LocalizedStringKey("Password"))
                     .font(.footnote)
                     .fontWeight(.semibold)
-                    .foregroundColor(.black)
+                    .foregroundColor(.neutral100)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.top, 12)
 
@@ -116,7 +116,7 @@ struct SignupView: View {
                     }
                 }
                 .disabled(isLoading)
-                .background(Color.black)
+                .background(Color.neutral100)
                 .cornerRadius(8)
                 .padding(.top, 12)
                 Spacer()
@@ -130,7 +130,7 @@ struct SignupView: View {
                                 Image(systemName: "xmark")
                                     .resizable()
                                     .frame(width: 15, height: 15)
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.neutral100)
                             }
                         }
                     }

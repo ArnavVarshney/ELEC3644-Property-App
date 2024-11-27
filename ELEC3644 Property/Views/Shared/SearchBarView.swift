@@ -26,7 +26,7 @@ struct SearchBarView: View {
             .padding(8)
             .background(.neutral10)
             .cornerRadius(48)
-            .shadow(color: .black.opacity(0.15), radius: 8, x: 0, y: 3)
+            .shadow(color: .neutral100.opacity(0.15), radius: 8, x: 0, y: 3)
             Spacer()
             Button {
                 isActive.toggle()
@@ -36,7 +36,7 @@ struct SearchBarView: View {
                     .scaledToFit()
                     .frame(width: 15, height: 15)
                     .padding(10)
-                    .foregroundColor(.black)
+                    .foregroundColor(.neutral100)
                     .background(.neutral10)
                     .cornerRadius(36)
                     .overlay(
