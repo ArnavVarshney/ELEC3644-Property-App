@@ -27,14 +27,18 @@ struct HostTransitionScreen: View {
                         )
                 }
                 Text(
-                    userViewModel.userRole == .host
+                    userViewModel.userRole == .host || userViewModel.userRole == .agent
                         ? "Switching to hosting" : "Switching to exploring"
                 )
                 .font(.system(size: 12, weight: .semibold))
             }
             .onAppear {
-                if userViewModel.userRole != .host {
-                    userViewModel.userRole = .host
+                if userViewModel.userRole == .guest {
+                    if userViewModel.isAgent(with: userViewModel.user) {
+                        userViewModel.userRole = .agent
+                    } else {
+                        userViewModel.userRole = .host
+                    }
                 } else {
                     userViewModel.userRole = .guest
                 }
