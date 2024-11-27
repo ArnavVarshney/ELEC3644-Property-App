@@ -65,8 +65,8 @@ struct EnlargeMapView_V2: View {
     @State private var zoomLevel: Double = 10000  // Default zoom level
     @State private var addedLatitude: Double = 0.0  // Default additional latitude
     @State private var addedLongitude: Double = 0.0  // Default additional longitude
-//    @State private var newLatitude: Double = 0.0
-//    @State private var newLongitude: Double = 0.0
+    //    @State private var newLatitude: Double = 0.0
+    //    @State private var newLongitude: Double = 0.0
     @State private var newCameraCenterLocation: CLLocationCoordinate2D?
     @State private var newCameraRect: CLLocationCoordinate2D?
     @State private var newCameraRegion: CLLocationCoordinate2D?
@@ -118,7 +118,7 @@ struct EnlargeMapView_V2: View {
                             .annotationTitles(.visible)
                         }
                     }
-                    
+
                     if let item = mapItem {
                         Marker(item: item)
                             .tint(.red)
@@ -134,8 +134,8 @@ struct EnlargeMapView_V2: View {
                     print(context.camera)
                     print("AAAAAAA   \(context.camera.centerCoordinate)     AAAAAAA")
                     newCameraCenterLocation = context.camera.centerCoordinate
-//                    newCameraRect = context.rect
-//                    newCameraRegion = context.region
+                    //                    newCameraRect = context.rect
+                    //                    newCameraRegion = context.region
                     print(newCameraCenterLocation)
                     print(context.region)
                     //print(context.rect)
@@ -151,7 +151,8 @@ struct EnlargeMapView_V2: View {
                         VStack {
                             Button(action: {
                                 zoomIn()
-                                setCameraZoom(latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
+                                setCameraZoom(
+                                    latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
                             }) {
                                 Image(systemName: "plus")
                                     .padding(20)
@@ -162,7 +163,8 @@ struct EnlargeMapView_V2: View {
                             }
                             Button(action: {
                                 zoomOut()
-                                setCameraZoom(latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
+                                setCameraZoom(
+                                    latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
                             }) {
                                 Image(systemName: "minus")
                                     .padding(25)
@@ -234,7 +236,8 @@ struct EnlargeMapView_V2: View {
                         VStack {
                             Button(action: {
                                 zoomIn()
-                                setCameraZoom(latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
+                                setCameraZoom(
+                                    latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
                             }) {
                                 Image(systemName: "plus")
                                     .padding(20)
@@ -245,7 +248,8 @@ struct EnlargeMapView_V2: View {
                             }
                             Button(action: {
                                 zoomOut()
-                                setCameraZoom(latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
+                                setCameraZoom(
+                                    latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
                             }) {
                                 Image(systemName: "minus")
                                     .padding(25)
@@ -364,8 +368,8 @@ struct EnlargeMapView_V2: View {
                 guard !searchText.isEmpty else { return }
                 searchPlaces()
                 showSearch = false
-//                newCameraCenterLocation = mapItem!.placemark.coordinate
-//                setCameraPan()
+                //                newCameraCenterLocation = mapItem!.placemark.coordinate
+                //                setCameraPan()
             }
         }
         .alert(errorMessage, isPresented: $showAlert) {
@@ -487,7 +491,7 @@ struct EnlargeMapView_V2: View {
 //        @Binding var currentMenu: MenuItem?
 //        // Accepting a PropertyLocation enum as a parameter
 //        var startMapCameraLocation: StartMapCameraLocation
-//        
+//
 //        var body: some View {
 //            EnlargeMapView_V2(currentMenu: $currentMeunu, startMapCameraLocation: startMapCameraLocation)
 ////                .environmentObject(propertyDetailViewModel)
