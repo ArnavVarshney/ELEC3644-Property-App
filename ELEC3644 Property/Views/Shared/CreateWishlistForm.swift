@@ -75,7 +75,8 @@ struct CreateWishlistForm: View {
                     }
                     .foregroundStyle(.white)
                     .background(
-                        folderName.replacingOccurrences(of: " ", with: "").isEmpty ? .gray : .neutral100
+                        folderName.replacingOccurrences(of: " ", with: "").isEmpty
+                            ? .gray : .neutral100
                     )
                     .clipShape(.buttonBorder)
                     .disabled(folderName.replacingOccurrences(of: " ", with: "").isEmpty)
