@@ -39,6 +39,16 @@ struct Property: Identifiable, Hashable, Codable {
     }
 }
 
+struct PropertySearchField: Hashable {
+    var lowerPrice: Double = 1_000
+    var upperPrice: Double = 100_000_000
+    var propertyType: String = "any"
+    var area: String = "any"
+    var district: String = "any"
+    var subdistrict: String = "any"
+    var amenities: Set<String> = []
+}
+
 struct Transaction: Identifiable, Hashable, Codable {
     var id = UUID()
     var date: Date

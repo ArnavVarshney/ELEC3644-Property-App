@@ -31,7 +31,7 @@ struct BottomBar: View {
                     .font(.system(size: 16, weight: .medium))
                     .foregroundColor(.neutral10)
                     .padding()
-                    .background(Color.primary60)
+                    .background(Color.neutral100)
                     .cornerRadius(10)
             }
         }

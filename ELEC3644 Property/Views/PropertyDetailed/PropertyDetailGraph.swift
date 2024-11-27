@@ -11,6 +11,7 @@ struct PropertyDetailGraphView: View {
     @StateObject var viewModel: PropertyDetailViewModel
     @State private var selectedDate: Date?
     var body: some View {
+        Divider()
         VStack(alignment: .leading) {
             HStack {
                 Text("Transaction History")

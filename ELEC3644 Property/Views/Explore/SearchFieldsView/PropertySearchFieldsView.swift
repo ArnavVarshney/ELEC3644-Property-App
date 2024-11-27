@@ -7,29 +7,23 @@
 import SwiftUI
 
 struct PropertySearchFieldsView: View {
-    @State private var lowerPrice: Double = 100_000
-    @State private var upperPrice: Double = 500_000
-    @State private var propertyType: String = "Any"
-
-    @State private var area: String = "Any"
-    @State private var district: String = "Any"
-    @State private var subdistrict: String = "Any"
-
-    @State private var amenities: Set<String> = []
     @EnvironmentObject private var viewModel: PropertyViewModel
 
     let propertyTypes = ["any", "house", "apartment", "townhouse", "villa"]
     let amenitiesList = ["parking", "pool", "gym", "elevator", "balcony", "pet-friendly"]
-    let priceRange: ClosedRange<Double> = 0...1_000_000
+    let priceRange: ClosedRange<Double> = 0...100_000_000
 
+    
+    
     func onSubmit() {
         var requestBody = [String: String]()
+        let searchFields = viewModel.searchFields
         requestBody["netPrice"] = "([\"min\": lowerPrice, \"max\": upperPrice])"
-        requestBody["propertyType"] = "\(propertyType)".lowercased()
-        requestBody["amenities"] = "\(Array(amenities))"
-        requestBody["area"] = "\(area)"
-        requestBody["district"] = "\(district)"
-        requestBody["subDistrict"] = "\(subdistrict)"
+        requestBody["propertyType"] = "\(searchFields.propertyType)".lowercased()
+        requestBody["amenities"] = "\(Array(searchFields.amenities))"
+        requestBody["area"] = "\(searchFields.area)"
+        requestBody["district"] = "\(searchFields.district)"
+        requestBody["subDistrict"] = "\(searchFields.subdistrict)"
         Task {
             await viewModel.query(query: requestBody)
         }
@@ -43,9 +37,9 @@ struct PropertySearchFieldsView: View {
                         Text("Property Type")
                             .fontWeight(.semibold)
                             .padding(.bottom, 4)
-                        Picker("Property Type", selection: $propertyType) {
+                        Picker("Property Type", selection: $viewModel.searchFields.propertyType) {
                             ForEach(propertyTypes, id: \.self) {
-                                Text(LocalizedStringKey($0.capitalized))
+                                Text(LocalizedStringKey($0.capitalized)).tag(   $0)
                             }
                         }
                         .pickerStyle(SegmentedPickerStyle())
@@ -58,21 +52,21 @@ struct PropertySearchFieldsView: View {
                             .font(.headline)
 
                         VStack {
-                            Text("Min: \(Int(lowerPrice))")
-                            Slider(value: $lowerPrice, in: priceRange, step: 1000)
-                                .onChange(of: lowerPrice) { _, newValue in
-                                    if newValue > upperPrice {
-                                        lowerPrice = upperPrice
+                            Text("Min: \(Int(viewModel.searchFields.lowerPrice).toCompactCurrencyFormat())")
+                            Slider(value: $viewModel.searchFields.lowerPrice, in: priceRange, step: 1000)
+                                .onChange(of: viewModel.searchFields.lowerPrice) { _, newValue in
+                                    if newValue > viewModel.searchFields.upperPrice {
+                                        viewModel.searchFields.lowerPrice = viewModel.searchFields.upperPrice
                                     }
                                 }
                         }
 
                         VStack {
-                            Text("Max: \(Int(upperPrice))")
-                            Slider(value: $upperPrice, in: priceRange, step: 1000)
-                                .onChange(of: upperPrice) { _, newValue in
-                                    if newValue < lowerPrice {
-                                        upperPrice = lowerPrice
+                            Text("Max: \(Int(viewModel.searchFields.upperPrice).toCompactCurrencyFormat())")
+                            Slider(value: $viewModel.searchFields.upperPrice, in: priceRange, step: 1000)
+                                .onChange(of: viewModel.searchFields.upperPrice) { _, newValue in
+                                    if newValue < viewModel.searchFields.lowerPrice {
+                                        viewModel.searchFields.upperPrice = viewModel.searchFields.lowerPrice
                                     }
                                 }
                         }
@@ -85,10 +79,8 @@ struct PropertySearchFieldsView: View {
                         HStack {
                             Text("Area")
                             Spacer()
-                            Picker("Area", selection: $area) {
-                                if area == "Any" {
-                                    Text("Any").tag("Any")
-                                }
+                            Picker("Area", selection: $viewModel.searchFields.area) {
+                                Text("Any").tag("any")
                                 ForEach(Location.areas, id: \.self) {
                                     Text(LocalizedStringKey($0))
                                 }
@@ -97,28 +89,40 @@ struct PropertySearchFieldsView: View {
                         HStack {
                             Text("District")
                             Spacer()
-                            Picker("District", selection: $district) {
-                                if district == "Any" {
-                                    Text("Any").tag("Any")
-                                }
-                                ForEach(Location.districts[area] ?? [], id: \.self) {
+                            Picker("District", selection: $viewModel.searchFields.district) {
+                                Text("Any").tag("any")
+                                ForEach(Location.districts[viewModel.searchFields.area] ?? [], id: \.self) {
                                     Text(LocalizedStringKey($0))
                                 }
                             }
-                            .disabled(area == "Any")
+                            .disabled(viewModel.searchFields.area == "any")
+                            .onChange(of: viewModel.searchFields.area) { oldValue, newValue in
+                                if newValue != oldValue {
+                                    viewModel.searchFields.district = "any"
+                                }
+                            }
                         }
                         HStack {
                             Text("Subdistrict")
                             Spacer()
-                            Picker("Subdistrict", selection: $subdistrict) {
-                                if district == "Any" {
-                                    Text("Any").tag("Any")
-                                }
-                                ForEach(Location.subDistricts[district] ?? [], id: \.self) {
+                            Picker("Subdistrict", selection: $viewModel.searchFields.subdistrict) {
+                                Text("Any").tag("any")
+                                ForEach(Location.subDistricts[viewModel.searchFields.district] ?? [], id: \.self) {
                                     Text(LocalizedStringKey($0))
                                 }
                             }
-                            .disabled(district == "Any")
+                            .disabled(viewModel.searchFields.district == "any")
+                            .onChange(of: viewModel.searchFields.area) { oldValue, newValue in
+                                if newValue != oldValue {
+                                    viewModel.searchFields.district = "any"
+                                }
+                            }
+                            .onChange(of: viewModel.searchFields.district) { oldValue, newValue in
+                                if newValue != oldValue {
+                                    viewModel.searchFields.subdistrict = "any"
+                                }
+                            }
+
                         }
                     }
                     Divider()
@@ -127,7 +131,7 @@ struct PropertySearchFieldsView: View {
                         Text("Amenities")
                             .fontWeight(.semibold)
                             .padding(.bottom, 4)
-                        ChipGrid(items: amenitiesList, selectedItems: $amenities)
+                        ChipGrid(items: amenitiesList, selectedItems: $viewModel.searchFields.amenities)
                     }
                 }
                 Spacer()

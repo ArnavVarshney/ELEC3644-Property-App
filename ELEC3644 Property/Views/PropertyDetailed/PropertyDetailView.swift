@@ -30,10 +30,12 @@ struct PropertyDetailView: View {
                     imageUrls: self.property.imageUrls, cornerRadius: 0, property: property
                 )
                 PropertyDetailListView(viewModel: viewModel)
-                PropertyDetailMapView()
-                    .environmentObject(viewModel)
-                PropertyDetailGraphView(viewModel: viewModel)
-                PropertyDetailAgentView(viewModel: viewModel)
+                if (viewModel.location.latitude != 0 && viewModel.location.longitude != 0) {
+                    PropertyDetailMapView()
+                        .environmentObject(viewModel)
+                    PropertyDetailGraphView(viewModel: viewModel)
+                    PropertyDetailAgentView(viewModel: viewModel)
+                }
             }
             Spacer()
             PropertyDetailBottomBarView(viewModel: viewModel)

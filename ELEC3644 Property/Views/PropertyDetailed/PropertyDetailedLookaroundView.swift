@@ -12,7 +12,6 @@ struct PropertyDetailLookaroundView: View {
     @State private var scene: SCNScene?
     @State private var cameraNode: SCNNode?
     @State private var sphereNode: SCNNode
-    @StateObject private var motionManager = MotionManager()
     init() {
         let sphereGeometry = SCNSphere(radius: 10)
         sphereGeometry.firstMaterial?.diffuse.contents = UIImage(named: "PropertyLookaround")
@@ -29,11 +28,6 @@ struct PropertyDetailLookaroundView: View {
             )
         }
         .onAppear(perform: setupScene)
-        .onReceive(motionManager.$attitude) { attitude in
-            if let attitude = attitude {
-                updateSphereRotation(with: attitude)
-            }
-        }
         .ignoresSafeArea()
         .backButton()
     }
@@ -41,50 +35,25 @@ struct PropertyDetailLookaroundView: View {
     private func setupScene() {
         scene = SCNScene()
         sphereNode.position = SCNVector3(x: 0, y: 0, z: -10)
+        sphereNode.rotation = SCNVector4(x: 1, y: 0, z: 0, w: .pi / 2)
         scene?.rootNode.addChildNode(sphereNode)
         cameraNode = SCNNode()
         cameraNode?.camera = SCNCamera()
         cameraNode?.position = SCNVector3(x: 0, y: 0, z: 0)
         scene?.rootNode.addChildNode(cameraNode!)
-        motionManager.startUpdates()
     }
 
     private func updateSphereRotation(with attitude: CMAttitude) {
         let rotationRate = -1.0
         let rotation = SCNVector3(
-            x: Float(attitude.pitch * rotationRate),
+            x: Float(attitude.pitch * -rotationRate),
             y: Float(attitude.roll * rotationRate),
             z: Float(attitude.yaw * rotationRate)
         )
-        sphereNode.eulerAngles = rotation
+        cameraNode?.eulerAngles = rotation
     }
 }
 
-class MotionManager: ObservableObject {
-    private let motionManager = CMMotionManager()
-    @Published var attitude: CMAttitude?
-    init() {
-        motionManager.deviceMotionUpdateInterval = 1.0 / 60.0
-    }
-
-    func startUpdates() {
-        guard motionManager.isDeviceMotionAvailable else {
-            print("Device motion is not available.")
-            return
-        }
-        motionManager.startDeviceMotionUpdates(to: .main) { [weak self] motion, error in
-            guard let motion = motion, error == nil else {
-                print("Error: \(error?.localizedDescription ?? "Unknown error")")
-                return
-            }
-            self?.attitude = motion.attitude
-        }
-    }
-
-    deinit {
-        motionManager.stopDeviceMotionUpdates()
-    }
-}
 
 #Preview {
     PropertyDetailLookaroundView()

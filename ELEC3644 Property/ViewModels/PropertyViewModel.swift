@@ -12,10 +12,12 @@ import MapKit
 
 class PropertyViewModel: ObservableObject {
     private let apiClient: APIClient
-    @Published var properties: [Property] = []
     private var propertyLocations: [String: CLLocationCoordinate2D] = [:]
     private var propertyMapItems: [UUID: MKMapItem] = [:]
 
+    @Published var properties: [Property] = []
+    @Published var searchFields: PropertySearchField = PropertySearchField()
+    
     private var cancellables = Set<AnyCancellable>()
 
     init(apiClient: APIClient = NetworkManager.shared) {
