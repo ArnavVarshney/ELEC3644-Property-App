@@ -10,7 +10,7 @@ struct BottomNavigationView: View {
     @EnvironmentObject var userViewModel: UserViewModel
     var body: some View {
         TabView {
-            if userViewModel.userRole == .host {
+            if userViewModel.userRole != .guest {
                 ListingView().tabItem { Label("Listings", systemImage: "house") }
             } else {
                 ExploreView().tabItem { Label("Explore", systemImage: "magnifyingglass") }
