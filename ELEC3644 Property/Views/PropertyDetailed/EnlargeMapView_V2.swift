@@ -65,8 +65,11 @@ struct EnlargeMapView_V2: View {
     @State private var zoomLevel: Double = 10000  // Default zoom level
     @State private var addedLatitude: Double = 0.0  // Default additional latitude
     @State private var addedLongitude: Double = 0.0  // Default additional longitude
-    @State private var newLatitude: Double = 0.0
-    @State private var newLongitude: Double = 0.0
+    //    @State private var newLatitude: Double = 0.0
+    //    @State private var newLongitude: Double = 0.0
+    @State private var newCameraCenterLocation: CLLocationCoordinate2D?
+    @State private var newCameraRect: CLLocationCoordinate2D?
+    @State private var newCameraRegion: CLLocationCoordinate2D?
 
     // Accepting a PropertyLocation enum as a parameter
     var startMapCameraLocation: StartMapCameraLocation
@@ -76,16 +79,13 @@ struct EnlargeMapView_V2: View {
         self.startMapCameraLocation = startMapCameraLocation
         self._camera = State(initialValue: .region(startMapCameraLocation.region))  // Initialize camera based on location
     }
-
-    //    @State var propertyLocations: [String: CLLocationCoordinate2D]
     var body: some View {
         NavigationStack {
-            //Text(String(viewModel.properties.count))
             ZStack {
                 Map(position: $camera, selection: $propertySelection) {
                     //UserAnnotation()
                     ForEach(
-                        viewModel.getByContractType(contractType: currentMenu!.rawValue), id: \.self
+                        viewModel.properties, id: \.self
                     ) { property in  //select either buy, rent or lease
                         if let location = viewModel.getLocation(for: property.name) {
                             //                            propertyMapItem = viewModel.getMapItem(for: property.id)
@@ -112,7 +112,7 @@ struct EnlargeMapView_V2: View {
                                 )
                             }
                             .tag(property.id)  // Set the tag for selection  !!!!!!!!!! Very Important, take me a while to find this bug. Or else, propertySelection will always be zero because user can select nothing by pressing property price bubble
-                            .annotationTitles(.visible)
+                            //                            .annotationTitles(.visible)
                         }
                     }
 
@@ -127,6 +127,9 @@ struct EnlargeMapView_V2: View {
                     MapPitchToggle()
                     MapScaleView()
                 }
+                .onMapCameraChange(frequency: .onEnd) { context in
+                    newCameraCenterLocation = context.camera.centerCoordinate
+                }
                 // Zoom and Pan Controls
                 HStack(spacing: 20) {
                     Spacer()
@@ -136,7 +139,8 @@ struct EnlargeMapView_V2: View {
                         VStack {
                             Button(action: {
                                 zoomIn()
-                                zoomIntoTheSelectedPlace()
+                                setCameraZoom(
+                                    latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
                             }) {
                                 Image(systemName: "plus")
                                     .padding(20)
@@ -147,7 +151,8 @@ struct EnlargeMapView_V2: View {
                             }
                             Button(action: {
                                 zoomOut()
-                                zoomIntoTheSelectedPlace()
+                                setCameraZoom(
+                                    latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
                             }) {
                                 Image(systemName: "minus")
                                     .padding(25)
@@ -219,7 +224,8 @@ struct EnlargeMapView_V2: View {
                         VStack {
                             Button(action: {
                                 zoomIn()
-                                zoomIntoTheSelectedPlace()
+                                setCameraZoom(
+                                    latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
                             }) {
                                 Image(systemName: "plus")
                                     .padding(20)
@@ -230,7 +236,8 @@ struct EnlargeMapView_V2: View {
                             }
                             Button(action: {
                                 zoomOut()
-                                zoomIntoTheSelectedPlace()
+                                setCameraZoom(
+                                    latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
                             }) {
                                 Image(systemName: "minus")
                                     .padding(25)
@@ -312,57 +319,18 @@ struct EnlargeMapView_V2: View {
                     }
                 }
             }
-            .searchable(text: $searchText, isPresented: $showSearch)
-            .navigationTitle("")
-            .navigationBarTitleDisplayMode(.inline)  // Use inline mode
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    if currentMenu!.rawValue == "Buy" {
-                        Text(
-                            "\(viewModel.getByContractType(contractType: currentMenu!.rawValue).count) properties on sale"
-                        )
-                        .font(.caption)
-                        .foregroundColor(.neutral100)
-                        .padding()
-                    } else if currentMenu!.rawValue == "Rent" {
-                        Text(
-                            "\(viewModel.getByContractType(contractType: currentMenu!.rawValue).count) properties for rent"
-                        )
-                        .font(.caption)
-                        .foregroundColor(.neutral100)
-                        .padding()
-                    } else if currentMenu!.rawValue == "Lease" {
-                        Text(
-                            "\(viewModel.getByContractType(contractType: currentMenu!.rawValue).count) properties for lease"
-                        )
-                        .font(.caption)
-                        .foregroundColor(.neutral100)
-                        .padding()
-                    }
-
-                }
-            }
         }
-        .backButton()
         .onSubmit(of: .search) {
             Task {
                 guard !searchText.isEmpty else { return }
                 searchPlaces()
                 showSearch = false
-
             }
         }
         .alert(errorMessage, isPresented: $showAlert) {
             Button("OK", role: .cancel) {}
         }
-        .onChange(of: showSearch) {
-            if !showSearch {
-                mapItem = nil
-                camera = .region(.userRegion)
-
-            }
-        }
-        .toolbar(.hidden, for: .tabBar)
+        .toolbarVisibility(.hidden, for: .automatic)
     }
 
     func searchPlaces() {
@@ -389,7 +357,7 @@ struct EnlargeMapView_V2: View {
     }
 
     func zoomIn() {
-        if zoomLevel > 500 {  // Prevent zooming in too much
+        if zoomLevel > 250 {  // Prevent zooming in too much
             zoomLevel /= 2  // Zoom in by halving the current level
         }
     }
@@ -401,68 +369,58 @@ struct EnlargeMapView_V2: View {
     }
 
     func panUp() {
+        newCameraCenterLocation?.latitude += 0.005
         addedLatitude += 0.005
     }
 
     func panDown() {
+        newCameraCenterLocation?.latitude -= 0.005
         addedLatitude -= 0.005
     }
 
     func panLeft() {
+        newCameraCenterLocation?.longitude -= 0.005
         addedLongitude -= 0.005
     }
 
     func panRight() {
+        newCameraCenterLocation?.longitude += 0.005
         addedLongitude += 0.005
     }
 
     func setCameraPan() {
-        if placemark != nil {
-            let updatedCenter = CLLocationCoordinate2D(
-                latitude: placemark!.location!.coordinate.latitude + addedLatitude,
-                longitude: placemark!.location!.coordinate.longitude + addedLongitude)
-            let newRegion = MKCoordinateRegion(
-                center: updatedCenter, latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
-
-            camera = .region(newRegion)
-        } else {
-            let updatedCenter = CLLocationCoordinate2D(
-                latitude: 22.3193 + addedLatitude, longitude: 114.1694 + addedLongitude)
-            let newRegion = MKCoordinateRegion(
-                center: updatedCenter, latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
-
-            camera = .region(newRegion)
-        }
+        let currentCenter = newCameraCenterLocation
+        let newRegion = MKCoordinateRegion(
+            center: currentCenter!,
+            latitudinalMeters: zoomLevel,
+            longitudinalMeters: zoomLevel)
+        camera = .region(newRegion)
+        //        }
+        //        print("\(camera.region?.center)")  //idk why when the user swipe the map then back using the buttons, the code collapses
     }
     //    func zoomIntoTheSelectedPlace(searchedLatitude: Double, searchedLongitude: Double) {
     func zoomIntoTheSelectedPlace() {
-        setCameraZoom(latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
-        //        if placemark != nil {
-        //            let searchedCoor = CLLocationCoordinate2D(
-        //                latitude: placemark!.location!.coordinate.latitude,
-        //                longitude: placemark!.location!.coordinate.longitude)
-        //
-        //            let searchedRegion = MKCoordinateRegion(
-        //                center: searchedCoor, latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
-        //
-        //            camera = .region(searchedRegion)
-        //        } else {
-        //            setCameraZoom(latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
-        //        }
+        //setCameraZoom(latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
+        if placemark != nil {
+            let searchedCoor = CLLocationCoordinate2D(
+                latitude: placemark!.location!.coordinate.latitude,
+                longitude: placemark!.location!.coordinate.longitude)
+
+            let searchedRegion = MKCoordinateRegion(
+                center: searchedCoor, latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
+
+            camera = .region(searchedRegion)
+        } else {
+            setCameraZoom(latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
+        }
     }
 
     func setCameraZoom(
         latitudinalMeters: CLLocationDistance, longitudinalMeters: CLLocationDistance
     ) {
-        //let currentCenter = CLLocationCoordinate2D.userLocation  // or any other coordinate you want to center on
-        //        if let c = camera.camera{
-        //        newLatitude = camera.camera!.centerCoordinate.latitude
-        //        newLongitude = camera.camera!.centerCoordinate.longitude
-
-        //            let currentCenter = CLLocationCoordinate2D.init(latitude: newLatitude, longitude: newLongitude)
-        let currentCenter = CLLocationCoordinate2D.userLocation
+        let currentCenter = newCameraCenterLocation
         let newRegion = MKCoordinateRegion(
-            center: currentCenter,
+            center: currentCenter!,
             latitudinalMeters: latitudinalMeters,
             longitudinalMeters: longitudinalMeters)
         camera = .region(newRegion)
@@ -472,19 +430,23 @@ struct EnlargeMapView_V2: View {
 
 }
 
-#Preview {
-    struct EnlargeMapView_V2_Preview: View {
-        @StateObject var propertyViewModel = PropertyViewModel()
-        @StateObject var propertyDetailViewModel = PropertyDetailViewModel(
-            property: Mock.Properties[0])
-        @State private var showEnlargeMapView = false
-        var body: some View {
-            EnlargeMapView(showEnlargeMapView: $showEnlargeMapView)
-                .environmentObject(propertyDetailViewModel)
-                .environmentObject(propertyViewModel)
-                .environmentObject(UserViewModel())
-                .environmentObject(MapSettingsViewModel())
-        }
-    }
-    return EnlargeMapView_V2_Preview()
-}
+//#Preview {
+//    struct EnlargeMapView_V2_Preview: View {
+//        @StateObject var propertyViewModel = PropertyViewModel()
+//        @StateObject var propertyDetailViewModel = PropertyDetailViewModel(
+//            property: Mock.Properties[0])
+//        @State private var showEnlargeMapView = false
+//        @Binding var currentMenu: MenuItem?
+//        // Accepting a PropertyLocation enum as a parameter
+//        var startMapCameraLocation: StartMapCameraLocation
+//
+//        var body: some View {
+//            EnlargeMapView_V2(currentMenu: $currentMeunu, startMapCameraLocation: startMapCameraLocation)
+////                .environmentObject(propertyDetailViewModel)
+//                .environmentObject(propertyViewModel)
+////                .environmentObject(UserViewModel())
+//                .environmentObject(MapSettingsViewModel())
+//        }
+//    }
+//    return EnlargeMapView_V2_Preview()
+//}

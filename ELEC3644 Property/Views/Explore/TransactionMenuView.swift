@@ -24,21 +24,19 @@ struct TransactionMenuView: View {
                 Text("\(transactions.count)")
                     .fontWeight(.bold)
                     .font(.subheadline)
-                Text(" transactions found")
+                Text("transaction(s) found")
                     .font(.subheadline)
             }
             Divider()
             ScrollView(showsIndicators: false) {
-                LazyVStack {
-                    ForEach(transactions, id: \.transaction.id) { propertyTransaction in
-                        NavigationLink(
-                            destination: TransactionDetailedView(
-                                propertyTransaction: propertyTransaction)
-                        ) {
-                            TransactionRowView(propertyTransaction: propertyTransaction)
-                        }
-                        Divider()
+                ForEach(transactions, id: \.transaction.id) { propertyTransaction in
+                    NavigationLink(
+                        destination: TransactionDetailedView(
+                            propertyTransaction: propertyTransaction)
+                    ) {
+                        TransactionRowView(propertyTransaction: propertyTransaction)
                     }
+                    Divider()
                 }
             }
             .refreshable {

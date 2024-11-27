@@ -63,7 +63,8 @@ struct PersonalInfoView: View {
                     InfoItem(
                         name: "Email", field: "email", value: userViewModel.user.email, edit: false),
                     InfoItem(
-                        name: "Phone", field: "phone", value: userViewModel.user.phone, edit: true),
+                        name: "Phone", field: "phone",
+                        value: userViewModel.user.phone.toPhoneNumberFormat(), edit: true),
                 ])
                 .padding(.top, 24)
                 Spacer()

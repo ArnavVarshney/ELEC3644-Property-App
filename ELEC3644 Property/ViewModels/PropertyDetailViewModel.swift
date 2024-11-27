@@ -29,7 +29,7 @@ class PropertyDetailViewModel: ObservableObject {
         geocoder.geocodeAddressString("\(property.address), \(property.subDistrict)") {
             placemarks, error in
             if let error = error {
-                print("Geocoding error: \(error.localizedDescription)")
+                print("[PropertyDetailViewModel] Geocoding error: \(error.localizedDescription)")
             } else if let placemark = placemarks?.first, let marker = placemark.location {
                 self.location = marker.coordinate
                 self.position = .region(

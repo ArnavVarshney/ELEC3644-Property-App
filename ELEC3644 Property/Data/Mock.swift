@@ -40,7 +40,8 @@ enum Mock {
             agent: Mock.Agents[1],
             amenities: ["pet-friendly"],
             propertyType: "apartment",
-            contractType: "Buy"
+            contractType: "Buy",
+            isActive: true
         ),
         Property(
             id: UUID(uuidString: "86c46f5f-0ff0-438b-873d-9e4e40beede7")!,
@@ -113,7 +114,8 @@ enum Mock {
             agent: Mock.Agents[0],
             amenities: ["gym", "balcony"],
             propertyType: "townhouse",
-            contractType: "Lease"
+            contractType: "Lease",
+            isActive: true
         ),
         Property(
             id: UUID(uuidString: "0e287890-277c-47fb-aafc-ff92ca770852")!,
@@ -186,7 +188,8 @@ enum Mock {
             agent: Mock.Agents[0],
             amenities: ["gym", "balcony"],
             propertyType: "townhouse",
-            contractType: "Lease"
+            contractType: "Lease",
+            isActive: true
         ),
     ]
     static var Chats: [Chat] = [
