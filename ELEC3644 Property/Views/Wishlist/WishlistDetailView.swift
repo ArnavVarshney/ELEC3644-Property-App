@@ -56,7 +56,6 @@ struct WishlistDetailView: View {
 
     var body: some View {
         NavigationStack {
-
             ScrollView {
                 if wishlist.properties.isEmpty {
                     VStack {
@@ -100,9 +99,9 @@ struct WishlistDetailView: View {
                                 }
                             }
 
-                            Divider().listRowSeparator(.hidden)
+                            Divider().listRowSeparator(.hidden).padding(.horizontal, 24)
                         }
-                    }.padding()
+                    }
                 }
             }
             .navigationTitle(wishlist.name)

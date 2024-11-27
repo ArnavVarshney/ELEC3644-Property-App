@@ -8,10 +8,15 @@ import SwiftUI
 
 struct PropertyCardView: View {
     let property: Property
+    var favoritable: Bool = true
+    var deletable: Bool = false
+    var picking: Bool = false
+    var picked: Bool = false
+    
     var body: some View {
         VStack(spacing: 8) {
             ImageCarouselView(
-                imageUrls: self.property.imageUrls, property: property, favoritable: true
+                imageUrls: self.property.imageUrls, property: property,favoritable: favoritable, deletable: deletable, pickable: picking, picked: picked
             )
             HStack(alignment: .top) {
                 VStack(alignment: .leading) {
