@@ -31,7 +31,8 @@ struct HistoryView: View {
 
     private var groups: [HistorySection] {
         let records = self.records.filter { p in
-            p.userId == UUID(uuidString: userViewModel.currentUserId())
+//            p.userId == UUID(uuidString: userViewModel.currentUserId())
+            true //DEBUG
         }
 
         var sections: [HistorySection] = []
@@ -130,22 +131,23 @@ struct HistoryView: View {
                                 "\(group.date == itemFormatter.string(from: Date()) ? "Today" : group.date)"
                             )
                             Spacer()
-                        }
+                        }.padding(.horizontal, 24)
 
                         ForEach(group.properties.indices.filter { $0 % 2 == 0 }, id: \.self) {
                             idx in
-                            HStack(spacing: 10) {
+                            HStack(spacing: 1) {
                                 if !tickable {
                                     NavigationLink {
                                         PropertyDetailView(property: group.properties[idx])
                                     } label: {
                                         WishlistItemCard(
                                             property: group.properties[idx],
-                                            imageHeight: 170,
+                                            imageHeight: Double(UIScreen.main.bounds.width / 2 - 80),
                                             moreDetail: false,
                                             showingSheet: false,
-                                            showNote: false)
-                                    }.frame(width: UIScreen.main.bounds.width / 2 - 32)
+                                            showNote: false
+                                        )
+                                    }.frame(width: UIScreen.main.bounds.width / 2)
 
                                     if idx + 1 < group.properties.count {
                                         NavigationLink {
@@ -153,11 +155,11 @@ struct HistoryView: View {
                                         } label: {
                                             WishlistItemCard(
                                                 property: group.properties[idx + 1],
-                                                imageHeight: 170,
+                                                imageHeight: Double(UIScreen.main.bounds.width / 2 - 80),
                                                 moreDetail: false,
                                                 showingSheet: false,
                                                 showNote: false)
-                                        }.frame(width: UIScreen.main.bounds.width / 2 - 32)
+                                        }.frame(width: UIScreen.main.bounds.width / 2)
                                     }
                                 } else {
                                     Button {
@@ -167,10 +169,10 @@ struct HistoryView: View {
                                         WishlistItemCard(
                                             property: group.properties[idx],
                                             deletable: true,
-                                            imageHeight: 170,
+                                            imageHeight: Double(UIScreen.main.bounds.width / 2 - 80),
                                             moreDetail: false,
                                             showNote: false)
-                                    }.frame(width: UIScreen.main.bounds.width / 2 - 32)
+                                    }.frame(width: UIScreen.main.bounds.width / 2)
 
                                     if idx + 1 < group.properties.count {
                                         Button {
@@ -180,9 +182,9 @@ struct HistoryView: View {
                                             WishlistItemCard(
                                                 property: group.properties[idx + 1],
                                                 deletable: true,
-                                                imageHeight: 170, moreDetail: false,
+                                                imageHeight: Double(UIScreen.main.bounds.width / 2 - 80), moreDetail: false,
                                                 showNote: false)
-                                        }.frame(width: UIScreen.main.bounds.width / 2 - 32)
+                                        }.frame(width: UIScreen.main.bounds.width / 2)
                                     }
                                 }
                                 Spacer()

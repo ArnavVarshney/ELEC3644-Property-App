@@ -173,7 +173,7 @@ struct FavoriteIcon: View {
 
 #Preview {
     ImageCarouselView(
-        imageUrls: Mock.Properties[0].imageUrls, property: Mock.Properties[0], favoritable: false, deletable: true, pickable: true, picked: true
+        imageUrls: Mock.Properties[0].imageUrls,property: Mock.Properties[0], favoritable: false, deletable: true, pickable: true, picked: true
     )
     .environmentObject(UserViewModel())
 }
