@@ -32,7 +32,6 @@
       }
     },
     "@ %lld" : {
-      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -802,6 +801,7 @@
       }
     },
     "Create a new listing" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -1149,16 +1149,6 @@
         }
       }
     },
-    "G.F.A. %lld ft² @ %@ /ft²" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "G.F.A. %1$lld ft² @ %2$@ /ft²"
-          }
-        }
-      }
-    },
     "G.F.A. %lldsqft @ %@/sqft" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -1180,7 +1170,6 @@
 
     },
     "GFA %lld ft²" : {
-      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -2168,6 +2157,7 @@
       }
     },
     "No transactions found" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -2593,6 +2583,7 @@
       }
     },
     "Recent transactions" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -2714,6 +2705,9 @@
           }
         }
       }
+    },
+    "S.A. %lld ft²" : {
+
     },
     "S.A. %lld ft² @ %@ /ft²" : {
       "localizations" : {
@@ -2869,7 +2863,11 @@
         }
       }
     },
+    "Search listings" : {
+
+    },
     "Search listings & transactions" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -3601,6 +3599,9 @@
     "transaction(s) found" : {
 
     },
+    "Transactions" : {
+
+    },
     "Translate" : {
       "localizations" : {
         "zh-HK" : {
@@ -3826,6 +3827,7 @@
       }
     },
     "Welcome Back, %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -4088,6 +4090,7 @@
       }
     },
     "Your listings" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -4096,6 +4099,9 @@
           }
         }
       }
+    },
+    "Your Listings" : {
+
     },
     "Yuen Long" : {
       "extractionState" : "stale",

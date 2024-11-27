@@ -15,6 +15,7 @@ struct ListingListView: View {
                 ForEach(properties) { property in
                     NavigationLink(destination: PropertyDetailView(property: property)) {
                         ListingCardView(property: property)
+                            .padding(.bottom, 24)
                     }
                 }
             }

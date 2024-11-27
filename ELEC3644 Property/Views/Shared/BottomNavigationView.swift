@@ -8,10 +8,14 @@ import SwiftUI
 
 struct BottomNavigationView: View {
     @EnvironmentObject var userViewModel: UserViewModel
+
     var body: some View {
         TabView {
             if userViewModel.userRole != .guest {
                 ListingView().tabItem { Label("Listings", systemImage: "house") }
+                TransactionListView().tabItem {
+                    Label("Transactions", systemImage: "dollarsign.bank.building")
+                }
             } else {
                 ExploreView().tabItem { Label("Explore", systemImage: "magnifyingglass") }
                 WishlistsView().tabItem { Label("Wishlists", systemImage: "heart.fill") }
@@ -41,4 +45,20 @@ struct BottomNavigationView: View {
         }
     }
     return MenuItemList_Preview()
+}
+
+struct TransactionListView: View {
+    @EnvironmentObject var userViewModel: UserViewModel
+    @EnvironmentObject var propertyViewModel: PropertyViewModel
+
+    var body: some View {
+        NavigationStack {
+            TransactionMenuView(
+                properties: propertyViewModel.properties.filter({ property in
+                    property.agent.id == UUID(uuidString: userViewModel.currentUserId())
+                })
+            )
+            .navigationTitle("Transactions")
+        }
+    }
 }

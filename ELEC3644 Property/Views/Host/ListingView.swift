@@ -24,76 +24,57 @@ struct ListingView: View {
         let filteredProperties = queryString(properties: properties, query: searchText)
 
         NavigationStack {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 20) {
-                    Button(action: {
-                        showListingModal = true
-                    }) {
-                        Label("Create a new listing", systemImage: "plus")
-                            .foregroundStyle(.neutral70)
-                            .padding(12)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 12)
-                                    .stroke(.neutral40, lineWidth: 1)
-                            )
-                            .addShadow()
-                    }
-                    .padding(.vertical, 12)
-
-                    HStack {
-                        Image(systemName: "magnifyingglass")
-                            .foregroundColor(.gray)
-                        TextField("Search listings & transactions", text: $searchText)
-                    }
-                    .padding()
-                    .background(Color(.neutral20))
-                    .cornerRadius(10)
-                    .padding(.bottom, 12)
-                    Divider()
-                    Text("Your listings")
-                        .font(.title)
-                        .fontWeight(.bold)
-
-                    if filteredProperties.isEmpty {
-                        Text("No listings found")
-                            .foregroundColor(.neutral70)
-                            .padding(.top, 12)
-                    } else {
-                        LazyVStack {
-                            ForEach(filteredProperties) { property in
-                                PropertyRowView(property: property)
-                                    .padding(.vertical, 4)
-                            }
-                        }
-                    }
-
-                    Divider()
-                    Text("Recent transactions")
-                        .font(.title)
-                        .fontWeight(.bold)
-                    if filteredProperties.isEmpty {
-                        Text("No transactions found")
-                            .foregroundColor(.neutral70)
-                            .padding(.top, 12)
-                    } else {
-                        LazyVStack {
-                            ForEach(filteredProperties.getTransactions()) { propertyTransactions in
-                                CompactTransactionRowView(propertyTransaction: propertyTransactions)
-                                    .padding(.vertical, 4)
-                                Divider()
-                            }
-                        }
-                    }
+            VStack {
+                HStack {
+                    Image(systemName: "magnifyingglass")
+                        .foregroundColor(.gray)
+                    TextField("Search listings", text: $searchText)
                 }
-                .padding(.horizontal)
+                .padding()
+                .background(Color(.neutral20))
+                .cornerRadius(10)
+
+                Divider()
+                    .padding(.vertical, 8)
+
+                if filteredProperties.isEmpty {
+                    Spacer()
+
+                    Image(systemName: "magnifyingglass")
+                        .font(.largeTitle)
+                        .padding()
+                    Text("No listings found")
+                        .font(.footnote)
+                        .fontWeight(.bold)
+                        .padding(4)
+                    Text("Try searching for something else.")
+                        .font(.footnote)
+                        .foregroundColor(.neutral70)
+                        .padding(4)
+                    
+                    Spacer()
+                } else {
+                    ListingListView(properties: filteredProperties)
+                }
             }
-            .navigationTitle("Welcome Back, \(userViewModel.user.name)")
+            .padding(.horizontal)
+            .navigationTitle("Your Listings")
             .sheet(isPresented: $showListingModal) {
                 PropertyListingForm()
             }
             .refreshable {
                 propertyViewModel.initTask()
                 agentViewModel.initTask()
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        showListingModal = true
+                    }) {
+                        Image(systemName: "plus")
+                            .foregroundColor(.black)
+                    }
+                }
             }
         }
     }

@@ -13,6 +13,7 @@ struct ExploreView: View {
 
     @EnvironmentObject private var propertyViewModel: PropertyViewModel
     @EnvironmentObject private var agentViewModel: AgentViewModel
+    @EnvironmentObject private var userViewModel: UserViewModel
 
     func queryString(properties: [Property], query: String) -> [Property] {
         return properties.filter({ property in
@@ -64,9 +65,6 @@ struct ExploreView: View {
                             )
                             .id(MenuItem.lease)
                             .frame(width: geometry.size.width)
-                            TransactionMenuView(properties: propertyViewModel.properties)
-                                .id(MenuItem.transaction)
-                                .frame(width: geometry.size.width)
                             EstateMenuView(properties: propertyViewModel.properties)
                                 .id(MenuItem.estate)
                                 .frame(width: geometry.size.width)

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TransactionMenuView: View {
     @EnvironmentObject private var viewModel: PropertyViewModel
+    @EnvironmentObject private var userViewModel: UserViewModel
 
     var properties: [Property]
     var transactions: [PropertyTransaction] = []
@@ -19,9 +20,10 @@ struct TransactionMenuView: View {
     }
 
     var body: some View {
-        var filteredTransactions = transactions.filter({ transaction in
+        let filteredTransactions = transactions.filter({ transaction in
             transaction.property.contractType == viewModel.searchFields.contractType
         })
+
         VStack(alignment: .leading) {
             HStack {
                 Text("\(filteredTransactions.count)")
@@ -56,64 +58,92 @@ struct TransactionMenuView: View {
         @EnvironmentObject var viewModel: PropertyViewModel
         var body: some View {
             TransactionMenuView(properties: viewModel.properties)
-                .environmentObject(UserViewModel())
         }
     }
     return TransactionMenuView_Preview()
         .environmentObject(PropertyViewModel())
+        .environmentObject(UserViewModel())
 }
 
 struct TransactionRowView: View {
     let propertyTransaction: PropertyTransaction
 
     var body: some View {
-        VStack(alignment: .leading) {
-            Text("\(propertyTransaction.property.name)")
-                .font(.title2)
-                .fontWeight(.medium)
-                .multilineTextAlignment(.leading)
-            Text("\(propertyTransaction.property.address)")
-                .font(.subheadline)
-                .fontWeight(.medium)
-            HStack(alignment: .bottom) {
-                VStack(alignment: .leading) {
-                    Text(
-                        "S.A. \(propertyTransaction.property.saleableArea) ft² @ \(propertyTransaction.pricePerSqft.toCompactCurrencyFormat()) /ft²"
-                    )
-                    .font(.subheadline)
-                    .foregroundColor(.neutral70)
+        HStack(alignment: .top) {
+            VStack(alignment: .leading) {
+                AsyncImage(url: URL(string: propertyTransaction.property.imageUrls[0])) { image in
+                    image
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 100)
+                } placeholder: {
+                    ProgressView()
+                        .frame(width: 80)
 
-                    Text(
-                        "G.F.A. \(propertyTransaction.property.grossFloorArea) ft² @ \(propertyTransaction.pricePerGrossArea.toCompactCurrencyFormat()) /ft²"
-                    )
-                    .font(.subheadline)
-                    .foregroundColor(.neutral70)
-
-                    Text(propertyTransaction.property.contractType)
-                        .font(.subheadline)
-                        .padding(.vertical, 4)
-                        .padding(.horizontal, 8)
-                        .background(.neutral100)
-                        .cornerRadius(4)
-                        .foregroundColor(.neutral10)
                 }
 
+                Text(propertyTransaction.property.contractType)
+                    .font(.subheadline)
+                    .padding(.vertical, 4)
+                    .padding(.horizontal, 8)
+                    .background(.neutral100)
+                    .cornerRadius(4)
+                    .foregroundColor(.neutral10)
+            }
+            .padding(.trailing, 8)
+            VStack(alignment: .leading) {
+                Text("\(propertyTransaction.property.name)")
+                    .font(.body)
+                    .fontWeight(.medium)
+                    .foregroundColor(.neutral100)
+                    .multilineTextAlignment(.leading)
+                Text("\(propertyTransaction.property.address)")
+                    .font(.footnote)
+                    .fontWeight(.medium)
+                Text(
+                    "\(propertyTransaction.property.area), \(propertyTransaction.property.subDistrict)"
+                )
+                .font(.footnote)
+                .fontWeight(.medium)
                 Spacer()
 
-                VStack(alignment: .trailing) {
-                    Text("\(propertyTransaction.transaction.price.toCompactCurrencyFormat())")
-                        .font(.title3)
-                        .fontWeight(.medium)
+                HStack(alignment: .bottom) {
+                    HStack {
+                        VStack {
+                            Text(
+                                "S.A. \(propertyTransaction.property.saleableArea) ft²"
+                            )
+                            Text(
+                                "GFA \(propertyTransaction.property.grossFloorArea) ft²"
+                            )
+                        }
+                        .font(.caption)
+                        .foregroundColor(.neutral100)
+                        VStack {
+                            Text("@ \(propertyTransaction.pricePerSqft)")
+                            Text("@ \(propertyTransaction.pricePerGrossArea)")
+                        }
+                        .font(.caption)
+                        .foregroundColor(.neutral70)
+                    }
+                    Spacer()
+                    VStack(alignment: .trailing) {
+                        Text("\(propertyTransaction.transaction.price.toCompactCurrencyFormat())")
+                            .font(.headline)
+                            .fontWeight(.semibold)
+                            .foregroundColor(.neutral100)
 
-                    Text(
-                        "\(propertyTransaction.transaction.date.formatted(.dateTime.year().month().day()))"
-                    )
-                    .font(.subheadline)
-                    .foregroundColor(.neutral100)
+                        Text(
+                            "\(propertyTransaction.transaction.date.formatted(.dateTime.year().month().day()))"
+                        )
+                        .font(.caption)
+                        .foregroundColor(.neutral70)
+                    }
+
                 }
             }
         }
-        .padding(.vertical)
+        .padding(.vertical, 6)
     }
 }
 
