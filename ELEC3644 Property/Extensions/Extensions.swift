@@ -80,6 +80,24 @@ extension Int {
     }
 }
 
+extension String {
+    func toPhoneNumberFormat() -> String {
+        let cleaned = self.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
+        let mask = "+XXX XXXX XXXX"
+        var result = ""
+        var index = cleaned.startIndex
+        for ch in mask where index < cleaned.endIndex {
+            if ch == "X" {
+                result.append(cleaned[index])
+                index = cleaned.index(after: index)
+            } else {
+                result.append(ch)
+            }
+        }
+        return result
+    }
+}
+
 extension Data {
     mutating func append(_ string: String) {
         if let data = string.data(using: .utf8) {

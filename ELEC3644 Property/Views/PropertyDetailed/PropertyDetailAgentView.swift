@@ -24,7 +24,7 @@ struct PropertyDetailAgentView: View {
                         VStack(alignment: .leading) {
                             Text(viewModel.property.agent.name)
                                 .font(.system(size: 16, weight: .bold))
-                            Text("Tel: \(viewModel.property.agent.phone)")
+                            Text("Tel: \(viewModel.property.agent.phone.toPhoneNumberFormat())")
                                 .font(.system(size: 14, weight: .regular))
                                 .foregroundColor(.neutral70)
                         }
