@@ -5,6 +5,7 @@
 
     },
     " transactions found" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -31,6 +32,7 @@
       }
     },
     "@ %lld" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -41,6 +43,7 @@
       }
     },
     "%.2f" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -131,7 +134,11 @@
         }
       }
     },
+    "%lld ft²" : {
+
+    },
     "%lld properties for lease" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -142,6 +149,7 @@
       }
     },
     "%lld properties for rent" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -152,6 +160,7 @@
       }
     },
     "%lld properties on sale" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -182,6 +191,7 @@
       }
     },
     "%lld sqft" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -202,6 +212,7 @@
       }
     },
     "%lldsqft" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -374,6 +385,9 @@
           }
         }
       }
+    },
+    "agent(s) found" : {
+
     },
     "Agents" : {
       "extractionState" : "manual",
@@ -743,6 +757,9 @@
           }
         }
       }
+    },
+    "contract type" : {
+
     },
     "Contract Type" : {
       "localizations" : {
@@ -1123,7 +1140,18 @@
         }
       }
     },
+    "G.F.A. %lld ft² @ %@ /ft²" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "G.F.A. %1$lld ft² @ %2$@ /ft²"
+          }
+        }
+      }
+    },
     "G.F.A. %lldsqft @ %@/sqft" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1143,6 +1171,7 @@
 
     },
     "GFA %lld ft²" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -1875,6 +1904,7 @@
       }
     },
     "Map" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -2198,6 +2228,9 @@
         }
       }
     },
+    "Oops!!! Please refresh this view." : {
+
+    },
     "Pan around the map with directional buttons" : {
       "localizations" : {
         "zh-HK" : {
@@ -2419,7 +2452,11 @@
         }
       }
     },
+    "Price/ft²" : {
+
+    },
     "Price/Sqft" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -2532,6 +2569,7 @@
       }
     },
     "Rating: " : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -2654,6 +2692,7 @@
       }
     },
     "S.A %lld ft²" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -2663,7 +2702,18 @@
         }
       }
     },
+    "S.A. %lld ft² @ %@ /ft²" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "S.A. %1$lld ft² @ %2$@ /ft²"
+          }
+        }
+      }
+    },
     "S.A. %lldsqft @ %@/sqft" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -3531,6 +3581,9 @@
           }
         }
       }
+    },
+    "transaction(s) found" : {
+
     },
     "Translate" : {
       "localizations" : {

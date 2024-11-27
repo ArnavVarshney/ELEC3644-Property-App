@@ -28,13 +28,14 @@ struct ReviewFieldView: View {
                 }
                 Section {
                     HStack(alignment: .center) {
-                        ForEach(0..<5, id: \.self) { index in
-                            Image(systemName: "star.fill")
-                                .resizable()
-                                .frame(width: 12, height: 12)
-                                .foregroundColor(.neutral100)
-                                .padding(-3)
-                                .opacity(index < Int(rating) ? 1 : 0.3)
+                        Text("Rating:")
+                        Spacer()
+                        ForEach(1...5, id: \.self) { star in
+                            Image(systemName: star <= rating ? "star.fill" : "star")
+                                .foregroundColor(star <= rating ? .neutral100 : .neutral70)
+                                .onTapGesture {
+                                    rating = star
+                                }
                         }
                     }
                     .padding(.vertical, 4)

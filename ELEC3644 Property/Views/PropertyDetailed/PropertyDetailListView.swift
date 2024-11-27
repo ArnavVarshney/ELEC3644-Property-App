@@ -41,9 +41,9 @@ struct PropertyDetailListView: View {
         return [
             ("Estate", viewModel.property.estate),
             ("Saleable Area", "\(viewModel.property.saleableArea)"),
-            ("Saleable Area/Sqft", "\(viewModel.property.saleableAreaPricePerSquareFoot)"),
+            ("Saleable Area/ft²", "\(viewModel.property.saleableAreaPricePerSquareFoot)"),
             ("Gross Floor Area", "\(viewModel.property.grossFloorArea)"),
-            ("Gross Floor Area/Sqft", "\(viewModel.property.grossFloorAreaPricePerSquareFoot)"),
+            ("Gross Floor Area/ft²", "\(viewModel.property.grossFloorAreaPricePerSquareFoot)"),
             ("Primary School Net", viewModel.property.schoolNet.primary),
             ("Secondary School Net", viewModel.property.schoolNet.secondary),
             ("Building Age", "\(viewModel.property.buildingAge)"),

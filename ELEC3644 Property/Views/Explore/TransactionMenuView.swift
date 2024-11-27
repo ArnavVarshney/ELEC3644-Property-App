@@ -24,21 +24,19 @@ struct TransactionMenuView: View {
                 Text("\(transactions.count)")
                     .fontWeight(.bold)
                     .font(.subheadline)
-                Text(" transactions found")
+                Text("transaction(s) found")
                     .font(.subheadline)
             }
             Divider()
             ScrollView(showsIndicators: false) {
-                LazyVStack {
-                    ForEach(transactions, id: \.transaction.id) { propertyTransaction in
-                        NavigationLink(
-                            destination: TransactionDetailedView(
-                                propertyTransaction: propertyTransaction)
-                        ) {
-                            TransactionRowView(propertyTransaction: propertyTransaction)
-                        }
-                        Divider()
+                ForEach(transactions, id: \.transaction.id) { propertyTransaction in
+                    NavigationLink(
+                        destination: TransactionDetailedView(
+                            propertyTransaction: propertyTransaction)
+                    ) {
+                        TransactionRowView(propertyTransaction: propertyTransaction)
                     }
+                    Divider()
                 }
             }
             .refreshable {
@@ -77,13 +75,13 @@ struct TransactionRowView: View {
             HStack(alignment: .bottom) {
                 VStack(alignment: .leading) {
                     Text(
-                        "S.A. \(propertyTransaction.property.saleableArea)sqft @ \(propertyTransaction.pricePerSqft.toCompactCurrencyFormat())/sqft"
+                        "S.A. \(propertyTransaction.property.saleableArea) ft² @ \(propertyTransaction.pricePerSqft.toCompactCurrencyFormat()) /ft²"
                     )
                     .font(.subheadline)
                     .foregroundColor(.neutral70)
 
                     Text(
-                        "G.F.A. \(propertyTransaction.property.grossFloorArea)sqft @ \(propertyTransaction.pricePerGrossArea.toCompactCurrencyFormat())/sqft"
+                        "G.F.A. \(propertyTransaction.property.grossFloorArea) ft² @ \(propertyTransaction.pricePerGrossArea.toCompactCurrencyFormat()) /ft²"
                     )
                     .font(.subheadline)
                     .foregroundColor(.neutral70)

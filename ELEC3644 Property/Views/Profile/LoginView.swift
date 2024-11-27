@@ -152,7 +152,10 @@ struct LoginView: View {
                 }
                 let user = try await UserViewModel.login(with: username, password: password)
                 userViewModel.user = user
+                UserViewModel.shared.user = user
                 userViewModel.initTask()
+                UserViewModel.shared.initTask()
+                inboxViewModel.chats = []
                 inboxViewModel.initTask()
                 UserDefaults.standard.set(user.id.uuidString, forKey: "currentUserID")
             } catch {

@@ -51,8 +51,8 @@ struct PropertyDetailView: View {
     private func initializePropertyHistory() {
         let p: PropertyHistory
         if let record = records.first(where: { p in
-            p.propertyId == property.id &&
-            p.userId == UUID(uuidString: userViewModel.currentUserId())
+            p.propertyId == property.id
+                && p.userId == UUID(uuidString: userViewModel.currentUserId())
         }) {
             p = record
         } else {

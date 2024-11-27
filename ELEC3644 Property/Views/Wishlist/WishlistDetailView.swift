@@ -56,7 +56,6 @@ struct WishlistDetailView: View {
 
     var body: some View {
         NavigationStack {
-
             ScrollView {
                 if wishlist.properties.isEmpty {
                     VStack {
@@ -85,7 +84,8 @@ struct WishlistDetailView: View {
                                 } label: {
                                     WishlistItemCard(
                                         property: wishlist.properties[idx], picking: tickable,
-                                        picked: pickedPropertiesIdx.contains(idx)
+                                        picked: pickedPropertiesIdx.contains(idx),
+                                        favoritable: true
                                     )
                                 }
                             } else {
@@ -100,9 +100,9 @@ struct WishlistDetailView: View {
                                 }
                             }
 
-                            Divider().listRowSeparator(.hidden)
+                            Divider().listRowSeparator(.hidden).padding(.horizontal, 24)
                         }
-                    }.padding()
+                    }
                 }
             }
             .navigationTitle(wishlist.name)
@@ -116,18 +116,18 @@ struct WishlistDetailView: View {
                     }.disabled(backButtonDisabled)
                 }
 
-                ToolbarItem(placement: .topBarTrailing) {
-                    //delete button
-                    Button {
-                        if state != .delete {
-                            transition(to: .delete)
-                        } else {
-                            transition(to: .view)
-                        }
-                    } label: {
-                        Image(systemName: "trash")
-                    }.foregroundStyle(deleteButtonColour).disabled(deleteButtonDisabled)
-                }
+                //                ToolbarItem(placement: .topBarTrailing) {
+                //                    //delete button
+                //                    Button {
+                //                        if state != .delete {
+                //                            transition(to: .delete)
+                //                        } else {
+                //                            transition(to: .view)
+                //                        }
+                //                    } label: {
+                //                        Image(systemName: "trash")
+                //                    }.foregroundStyle(deleteButtonColour).disabled(deleteButtonDisabled)
+                //                }
 
                 ToolbarItem(placement: .topBarTrailing) {
                     //compare button
@@ -144,7 +144,6 @@ struct WishlistDetailView: View {
                     }
                 }
             }
-            Spacer()
             if showingLowerButton {
                 LowerButton(
                     wishlist: wishlist,
