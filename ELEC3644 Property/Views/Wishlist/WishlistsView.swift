@@ -48,10 +48,9 @@ struct WishlistsView: View {
                         LoginButton()
                         Spacer()
                     }
-                    .padding(.horizontal)
+                    .padding(.horizontal, 24)
                 }
             }
-            .padding(.horizontal)
             .navigationTitle("Wishlists")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
