@@ -42,7 +42,7 @@ struct ImageCarouselView: View {
 
     var body: some View {
         ZStack {
-            if showCornerIcons && userViewModel.isLoggedIn(){
+            if showCornerIcons && userViewModel.isLoggedIn() {
                 if favoritable {
                     VStack {
                         HStack {
@@ -52,8 +52,8 @@ struct ImageCarouselView: View {
                         Spacer()
                     }.padding(5).zIndex(1)
                 }
-                
-                if deletable{ //Implementation of delete is not in this view
+
+                if deletable {  //Implementation of delete is not in this view
                     VStack {
                         HStack {
                             Image(systemName: "xmark")
@@ -70,8 +70,8 @@ struct ImageCarouselView: View {
                         Spacer()
                     }.padding(5).zIndex(1)
                 }
-                
-                if pickable{
+
+                if pickable {
                     VStack {
                         HStack {
                             Spacer()
@@ -89,7 +89,7 @@ struct ImageCarouselView: View {
                     }.padding(5).zIndex(1)
                 }
             }
-            
+
             TabView {
                 if imageUrls.isEmpty {
                     ForEach(images, id: \.self) { image in
@@ -173,7 +173,8 @@ struct FavoriteIcon: View {
 
 #Preview {
     ImageCarouselView(
-        imageUrls: Mock.Properties[0].imageUrls,property: Mock.Properties[0], favoritable: false, deletable: true, pickable: true, picked: true
+        imageUrls: Mock.Properties[0].imageUrls, property: Mock.Properties[0], favoritable: false,
+        deletable: true, pickable: true, picked: true
     )
     .environmentObject(UserViewModel())
 }

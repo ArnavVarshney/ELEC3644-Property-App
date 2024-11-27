@@ -31,8 +31,8 @@ struct HistoryView: View {
 
     private var groups: [HistorySection] {
         let records = self.records.filter { p in
-//            p.userId == UUID(uuidString: userViewModel.currentUserId())
-            true //DEBUG
+            //            p.userId == UUID(uuidString: userViewModel.currentUserId())
+            true  //DEBUG
         }
 
         var sections: [HistorySection] = []
@@ -142,7 +142,8 @@ struct HistoryView: View {
                                     } label: {
                                         WishlistItemCard(
                                             property: group.properties[idx],
-                                            imageHeight: Double(UIScreen.main.bounds.width / 2 - 80),
+                                            imageHeight: Double(
+                                                UIScreen.main.bounds.width / 2 - 80),
                                             moreDetail: false,
                                             showingSheet: false,
                                             showNote: false
@@ -155,7 +156,8 @@ struct HistoryView: View {
                                         } label: {
                                             WishlistItemCard(
                                                 property: group.properties[idx + 1],
-                                                imageHeight: Double(UIScreen.main.bounds.width / 2 - 80),
+                                                imageHeight: Double(
+                                                    UIScreen.main.bounds.width / 2 - 80),
                                                 moreDetail: false,
                                                 showingSheet: false,
                                                 showNote: false)
@@ -169,7 +171,8 @@ struct HistoryView: View {
                                         WishlistItemCard(
                                             property: group.properties[idx],
                                             deletable: true,
-                                            imageHeight: Double(UIScreen.main.bounds.width / 2 - 80),
+                                            imageHeight: Double(
+                                                UIScreen.main.bounds.width / 2 - 80),
                                             moreDetail: false,
                                             showNote: false)
                                     }.frame(width: UIScreen.main.bounds.width / 2)
@@ -182,7 +185,9 @@ struct HistoryView: View {
                                             WishlistItemCard(
                                                 property: group.properties[idx + 1],
                                                 deletable: true,
-                                                imageHeight: Double(UIScreen.main.bounds.width / 2 - 80), moreDetail: false,
+                                                imageHeight: Double(
+                                                    UIScreen.main.bounds.width / 2 - 80),
+                                                moreDetail: false,
                                                 showNote: false)
                                         }.frame(width: UIScreen.main.bounds.width / 2)
                                     }

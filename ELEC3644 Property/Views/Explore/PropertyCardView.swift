@@ -14,11 +14,12 @@ struct PropertyCardView: View {
     var picked: Bool = false
     var imageHeight: Double = 300
     var moreDetail: Bool = true
-    
+
     var body: some View {
         VStack(spacing: 8) {
             ImageCarouselView(
-                imageUrls: self.property.imageUrls, height: imageHeight, property: property,favoritable: favoritable, deletable: deletable, pickable: picking, picked: picked
+                imageUrls: self.property.imageUrls, height: imageHeight, property: property,
+                favoritable: favoritable, deletable: deletable, pickable: picking, picked: picked
             )
             HStack(alignment: .top) {
                 VStack(alignment: .leading) {
@@ -26,10 +27,10 @@ struct PropertyCardView: View {
                         .fontWeight(.bold)
                         .foregroundColor(.neutral100)
                         .lineLimit(moreDetail ? .max : 1)
-                    
+
                     Text("\(property.saleableArea)sqft")
                         .foregroundColor(.neutral70)
-                    if moreDetail{
+                    if moreDetail {
                         HStack(spacing: 0) {
                             Text(LocalizedStringKey(property.subDistrict))
                             Text(", ")
@@ -42,7 +43,7 @@ struct PropertyCardView: View {
                         .fontWeight(.semibold)
                         .padding(.top, 1)
                 }
-                if moreDetail{
+                if moreDetail {
                     Spacer()
                     VStack(alignment: .trailing) {
                         ForEach(property.facilities) { facility in
@@ -58,7 +59,7 @@ struct PropertyCardView: View {
                         }
                     }
                 }
-                
+
             }
             .font(.footnote)
         }
@@ -70,7 +71,8 @@ struct PropertyCardView: View {
     struct PropertyCard_Preview: View {
         @EnvironmentObject var propertyViewModel: PropertyViewModel
         var body: some View {
-            PropertyCardView(property: Mock.Properties[0], imageHeight: 120, moreDetail: false).frame(width: 200).border(.black)
+            PropertyCardView(property: Mock.Properties[0], imageHeight: 120, moreDetail: false)
+                .frame(width: 200).border(.black)
         }
     }
     return PropertyCard_Preview()

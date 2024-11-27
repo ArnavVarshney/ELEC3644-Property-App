@@ -32,9 +32,11 @@ struct WishlistItemCard: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            PropertyCardView(property: property,favoritable: favoritable, deletable: deletable, picking: picking, picked: picked, imageHeight: imageHeight, moreDetail: moreDetail
+            PropertyCardView(
+                property: property, favoritable: favoritable, deletable: deletable,
+                picking: picking, picked: picked, imageHeight: imageHeight, moreDetail: moreDetail
             )
-            
+
             //Note button
             if showNote {
                 Button {
