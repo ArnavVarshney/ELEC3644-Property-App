@@ -214,13 +214,11 @@ struct EnlargeMapView_V2: View {
                                     .cornerRadius(6)
                             }
                             Spacer()
-
                         }
                         .padding(.top, 105)
                     } else if mapSettingsViewModel.mapPanEnabled == true
                         && mapSettingsViewModel.mapZoomEnabled == true
                     {
-
                         VStack {
                             Button(action: {
                                 zoomIn()
