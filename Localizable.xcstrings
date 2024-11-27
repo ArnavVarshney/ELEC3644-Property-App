@@ -32,6 +32,7 @@
       }
     },
     "@ %lld" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -1154,6 +1155,7 @@
 
     },
     "GFA %lld ft²" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -2537,6 +2539,7 @@
       }
     },
     "Rating:" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -2670,6 +2673,7 @@
       }
     },
     "S.A %lld ft²" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {

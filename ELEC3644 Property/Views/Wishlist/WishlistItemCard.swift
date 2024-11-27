@@ -17,6 +17,7 @@ struct WishlistItemCard: View {
     var deletable: Bool = false
     var imageHeight: Double = 300
     var moreDetail: Bool = true
+    var favoritable: Bool = false
 
     @State var propertyNote: String = ""
     @State var showingSheet = false
@@ -31,78 +32,10 @@ struct WishlistItemCard: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            ZStack {
-                if picking {
-                    VStack {
-                        HStack {
-                            Spacer()
-                            Image(systemName: picked ? "checkmark.circle.fill" : "checkmark.circle")
-                                .resizable()
-                                .scaledToFit()
-                                .foregroundColor(picked ? .blue : .neutral100)
-                                .padding(1)
-                                .background(
-                                    Circle()
-                                        .fill(Color.white)
-                                )
-                                .shadow(color: .gray.opacity(0.3), radius: 4, x: 0, y: 4)
-                                .frame(width: 24, height: 24)
-                        }
-                        Spacer()
-                    }.padding(.init(top: 5, leading: 5, bottom: 5, trailing: 5)).zIndex(1)
-                }
-
-                if deletable {
-                    VStack {
-                        HStack {
-                            Image(systemName: "xmark")
-                                .frame(width: 3, height: 3)
-                                .foregroundColor(.neutral100)
-                                .padding(12)
-                                .background(
-                                    Circle()
-                                        .fill(Color.white)
-                                )
-                                .shadow(color: .gray.opacity(0.3), radius: 4, x: 0, y: 4)
-                            Spacer()
-                        }
-                        Spacer()
-                    }.padding(.init(top: 5, leading: 5, bottom: 5, trailing: 5)).zIndex(1)
-                }
-
-                AsyncImage(url: URL(string: property.imageUrls[0])) { image in
-                    image
-                        .resizable()
-                } placeholder: {
-                    ProgressView()
-                }
-            }.frame(height: imageHeight).cornerRadius(10)
-
-            HStack {
-                VStack(alignment: moreDetail ? .leading : .center) {
-                    Text(property.name).font(.headline).foregroundStyle(.neutral100)
-                    Text("\(property.area)")
-                    if moreDetail {
-                        HStack {
-                            Text("S.A \(property.saleableArea) ft²").foregroundStyle(.neutral100)
-                            Text("@ \(property.saleableAreaPricePerSquareFoot)")
-                        }
-                        HStack {
-                            Text("GFA \(property.grossFloorArea) ft²").foregroundStyle(.neutral100)
-                            Text("@ \(property.grossFloorAreaPricePerSquareFoot)")
-                        }
-                    }
-                }
-                .foregroundColor(.neutral70)
-                .font(.system(size: 10))
-                .lineLimit(1)
-
-                Spacer()
-
-                if moreDetail {
-                    Text("\(property.netPrice)")
-                }
-            }
+            PropertyCardView(
+                property: property, favoritable: favoritable, deletable: deletable,
+                picking: picking, picked: picked, imageHeight: imageHeight, moreDetail: moreDetail
+            )
 
             //Note button
             if showNote {
@@ -137,7 +70,8 @@ struct WishlistItemCard: View {
                             .opacity(0.3)
                     )
                     .cornerRadius(6)
-                }.sheet(isPresented: $showingSheet, onDismiss: getNotes) {
+                }
+                .sheet(isPresented: $showingSheet, onDismiss: getNotes) {
                     WishlistNoteView(
                         note: $propertyNote, record: noteRecord,
                         userId: UUID(uuidString: userViewModel.currentUserId())!,
@@ -145,6 +79,7 @@ struct WishlistItemCard: View {
                     )
                     .presentationDetents([.height(500)])
                 }
+                .padding(.horizontal, 24)
             }
         }
         .alignmentGuide(.listRowSeparatorLeading) { _ in 0 }
@@ -167,9 +102,11 @@ struct WishlistItemCard: View {
 
 #Preview {
     WishlistItemCard(
-        property: Mock.Properties.first!, picking: false, picked: true, deletable: true,
+        property: Mock.Properties.first!, picking: true, picked: false, deletable: false,
         imageHeight: 300,
-        moreDetail: false, showNote: true
+        moreDetail: true,
+        favoritable: false,
+        showNote: true
     )
     .environmentObject(UserViewModel())
     .environment(
