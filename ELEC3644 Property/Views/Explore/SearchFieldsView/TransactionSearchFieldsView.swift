@@ -9,12 +9,13 @@ import SwiftUI
 struct TransactionSearchFieldsView: View {
     @EnvironmentObject private var viewModel: PropertyViewModel
     @State private var contractType = "Buy"
-    
+
     func onSubmit() {
         contractType = viewModel.searchFields.contractType
-        viewModel.properties = viewModel.getByContractType(contractType: viewModel.searchFields.contractType)
+        viewModel.properties = viewModel.getByContractType(
+            contractType: viewModel.searchFields.contractType)
     }
-    
+
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading) {
