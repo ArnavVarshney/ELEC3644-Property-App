@@ -27,6 +27,9 @@ struct EnlargeMapView: View {
     @State private var addedLongitude: Double = 0.0  // Default
     @State private var showTravelInformation: Bool = false
 
+    // Accepting a PropertyLocation enum as a parameter
+    //var startMapCameraLocation: StartMapCameraLocation
+
     var body: some View {
         NavigationStack {
             ZStack(alignment: .center) {
@@ -90,6 +93,10 @@ struct EnlargeMapView: View {
                     MapPitchToggle()
                     MapScaleView()
                 }
+                .onMapCameraChange(frequency: .onEnd) { context in
+                    newCameraCenterLocation = context.camera.centerCoordinate
+                    print(context.camera.centerCoordinate)
+                }
                 VStack {
                     // Display travel information
                     if showTravelInformation {
@@ -118,10 +125,6 @@ struct EnlargeMapView: View {
                             }
                         }
                     }
-                }
-
-                .onMapCameraChange(frequency: .onEnd) { context in
-                    newCameraCenterLocation = context.camera.centerCoordinate
                 }
                 .mapControlVisibility(.visible)
                 .sheet(isPresented: $showLookAroundScene) {

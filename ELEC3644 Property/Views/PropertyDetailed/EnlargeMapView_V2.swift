@@ -129,6 +129,7 @@ struct EnlargeMapView_V2: View {
                 }
                 .onMapCameraChange(frequency: .onEnd) { context in
                     newCameraCenterLocation = context.camera.centerCoordinate
+                    print(context.camera.centerCoordinate)
                 }
                 // Zoom and Pan Controls
                 HStack(spacing: 20) {
@@ -214,13 +215,11 @@ struct EnlargeMapView_V2: View {
                                     .cornerRadius(6)
                             }
                             Spacer()
-
                         }
                         .padding(.top, 105)
                     } else if mapSettingsViewModel.mapPanEnabled == true
                         && mapSettingsViewModel.mapZoomEnabled == true
                     {
-
                         VStack {
                             Button(action: {
                                 zoomIn()

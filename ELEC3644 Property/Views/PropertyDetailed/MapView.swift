@@ -11,30 +11,45 @@ import SwiftUI
 struct MapView: View {
     @EnvironmentObject var viewModel: PropertyDetailViewModel
     @Binding var showEnlargeMapView: Bool
+    @State private var mapSelection: Int?  //to identify
     var body: some View {
         VStack {
-            Map(position: $viewModel.position) {
+            Map(position: $viewModel.position, selection: $mapSelection) {
                 Annotation(viewModel.property.name, coordinate: viewModel.location) {
-                    HStack {
-                        Text(String(viewModel.property.netPrice.toCompactCurrencyFormat()))
-                            .font(.callout)
-                            .fontWeight(.bold)
-                            .foregroundColor(Color.neutral100)
-                    }
-                    .frame(width: 125, height: 25)
-                    .background(.white)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                    .overlay(
-                        Capsule()
-                            .stroke(lineWidth: 0.5)
-                            .foregroundColor(.white)
-                            .addShadow()
-                            .clipShape(RoundedRectangle(cornerRadius: 1))
-                    )
-                    .onTapGesture {
-                        withAnimation(.spring()) { showEnlargeMapView.toggle() }
-                    }
+                    Image(systemName: "building")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 14, height: 14)
+                        .padding(.all, 8)
+                        .background(.black)
+                        .foregroundColor(.white)
+                        .clipShape(Circle())
+                        .onTapGesture {
+                            withAnimation(.spring()) { showEnlargeMapView.toggle() }
+                        }
+
                 }
+                //                Annotation(viewModel.property.name, coordinate: viewModel.location) {
+                //                    HStack {
+                //                        Text(String(viewModel.property.netPrice.toCompactCurrencyFormat()))
+                //                            .font(.callout)
+                //                            .fontWeight(.bold)
+                //                            .foregroundColor(Color.neutral100)
+                //                    }
+                //                    .frame(width: 125, height: 25)
+                //                    .background(.white)
+                //                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                //                    .overlay(
+                //                        Capsule()
+                //                            .stroke(lineWidth: 0.5)
+                //                            .foregroundColor(.white)
+                //                            .addShadow()
+                //                            .clipShape(RoundedRectangle(cornerRadius: 1))
+                //                    )
+                //                    .onTapGesture {
+                //                        withAnimation(.spring()) { showEnlargeMapView.toggle() }
+                //                    }
+                //                }
                 .annotationTitles(.visible)
                 ForEach(viewModel.places, id: \.self) { place in
                     Marker(
@@ -43,6 +58,7 @@ struct MapView: View {
                             for: place.pointOfInterestCategory),
                         coordinate: place.placemark.coordinate
                     )
+                    .tint(.blue)
                 }
             }
             .mapControlVisibility(.hidden)

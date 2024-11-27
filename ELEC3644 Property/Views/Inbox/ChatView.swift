@@ -68,53 +68,52 @@ struct ChatView: View {
                         }
                     }
                 }
+                .padding(.horizontal)
                 .defaultScrollAnchor(.bottom)
                 .scrollIndicators(.hidden)
                 .animation(.default, value: searchText)
             }
-            HStack(alignment: .bottom) {
-                TextField("Type a message...", text: $newMessage, axis: .vertical).focused(
-                    $foc, equals: true
-                )
-                .lineLimit(4)
-                .frame(minHeight: 30)
-                .padding(12)
-                .background(.neutral30)
-                .foregroundColor(.neutral100)
-                .cornerRadius(12)
-                .frame(maxWidth: .infinity)
-                PhotosPicker(
-                    selection: $selectedItems,
-                    maxSelectionCount: 1,
-                    matching: .images
-                ) {
-                    Image(systemName: "photo.on.rectangle")
-                        .resizable()
-                        .scaledToFit()
-                        .fontWeight(.semibold)
-                        .frame(width: 18, height: 18)
-                        .padding(18)
-                        .background(.neutral30)
-                        .cornerRadius(36)
+            HStack {
+                HStack(spacing: 18) {
+                    TextField("", text: $newMessage, axis: .vertical)
+                        .focused(
+                            $foc, equals: true
+                        )
+                        .lineLimit(4)
+                        .frame(minHeight: 30)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 6)
+                        .background(.neutral40)
+                        .foregroundColor(.neutral100)
+                        .cornerRadius(12)
+                        .frame(maxWidth: .infinity)
+                    PhotosPicker(
+                        selection: $selectedItems,
+                        maxSelectionCount: 1,
+                        matching: .images
+                    ) {
+                        Image(systemName: "photo.on.rectangle")
+                            .resizable()
+                            .scaledToFit()
+                            .fontWeight(.semibold)
+                            .frame(width: 18, height: 18)
+                    }
+                    Button(action: sendMessage) {
+                        Image(systemName: "paperplane")
+                            .resizable()
+                            .scaledToFit()
+                            .fontWeight(.semibold)
+                            .frame(width: 18, height: 18)
+                    }
                 }
-                Button(action: sendMessage) {
-                    Image(systemName: "paperplane")
-                        .resizable()
-                        .scaledToFit()
-                        .fontWeight(.semibold)
-                        .frame(width: 18, height: 18)
-                        .padding(18)
-                        .background(.neutral30)
-                        .cornerRadius(36)
-                }
-                .disabled(newMessage.isEmpty)
+                .padding(.horizontal, 18)
+                .padding((foc ?? false) ? .vertical : .top, 12)
             }
-            .padding((foc ?? false) ? .bottom : .top, 12)
+            .background(.neutral30)
         }
         .onTapGesture {
             foc = nil
         }
-        .padding(.horizontal, 24)
         .navigationBarBackButtonHidden()
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {

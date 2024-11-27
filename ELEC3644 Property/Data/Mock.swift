@@ -199,7 +199,11 @@ enum Mock {
                 Message(
                     timestamp: Date(), senderId: "10530025-4005-4c89-b814-b0ea9e389343",
                     receiverId: "10530025-4005-4c89-b814-b0ea9e389343", content: "Hello!"
-                )
+                ),
+                Message(
+                    timestamp: Date(), senderId: Users[0].id.uuidString,
+                    receiverId: "10530025-4005-4c89-b814-b0ea9e389343", content: "Hello!"
+                ),
             ]
         ),
         Chat(
