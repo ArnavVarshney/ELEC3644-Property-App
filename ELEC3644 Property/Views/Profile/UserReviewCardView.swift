@@ -29,15 +29,13 @@ struct UserReviewCardView: View {
                             .font(.footnote)
                             .fontWeight(.bold)
                         Spacer()
-                        Text("Rating: ")
-                            .font(.footnote)
-                            .fontWeight(.bold)
-                        ForEach(0..<Int(review.rating)) { _ in
+                        ForEach(0..<5, id: \.self) { index in
                             Image(systemName: "star.fill")
                                 .resizable()
                                 .frame(width: 12, height: 12)
                                 .foregroundColor(.neutral100)
                                 .padding(-3)
+                                .opacity(index < Int(review.rating) ? 1 : 0.3)
                         }
                     }
                     Text(relativeTime)

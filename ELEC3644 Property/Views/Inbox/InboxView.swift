@@ -86,7 +86,7 @@ struct InboxView: View {
                         LoginButton()
                         Spacer()
                     }
-                    .padding(.horizontal, 32)
+                    .padding(.horizontal, 24)
                 }
             }
             .background(.neutral10)

@@ -81,7 +81,7 @@ struct ChatView: View {
                 .padding(12)
                 .background(.neutral30)
                 .foregroundColor(.neutral100)
-                .cornerRadius(36)
+                .cornerRadius(12)
                 .frame(maxWidth: .infinity)
                 PhotosPicker(
                     selection: $selectedItems,
@@ -109,7 +109,7 @@ struct ChatView: View {
                 }
                 .disabled(newMessage.isEmpty)
             }
-            .padding((foc ?? false) ? .vertical : .top, 24)
+            .padding((foc ?? false) ? .bottom : .top, 12)
         }
         .onTapGesture {
             foc = nil
@@ -260,12 +260,14 @@ struct ChatBubble: View {
                         .cornerRadius(8)
                 } placeholder: {
                     ProgressView()
+                        .frame(width: 100, height: 100)
                 }
             } else {
                 Text("\(message.content)")
             }
-            Text("\(message.timestamp.formatted(.dateTime.hour().minute()))").font(.caption)
-        }
+            VStack(alignment: .trailing) {
+                Text("\(message.timestamp.formatted(.dateTime.hour().minute()))").font(.caption)
+            }}
         .padding(12)
         .background(isUser ? .primary60 : .neutral40)
         .foregroundColor(isUser ? .neutral10 : .neutral100)

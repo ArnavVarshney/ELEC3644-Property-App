@@ -80,10 +80,6 @@ struct HistoryView: View {
 
     var body: some View {
         NavigationStack {
-            HStack {
-                Text("\("Recently Viewed")").font(.largeTitle)
-                Spacer()
-            }.padding()
             if groups.isEmpty {
                 VStack {
                     Spacer()
@@ -119,11 +115,12 @@ struct HistoryView: View {
                                 transition(to: .view)
                             }
                         } label: {
-                            Image(systemName: "xmark.bin")
+                            Image(systemName: "trash")
                         }.foregroundStyle(deleteButtonColour).disabled(deleteButtonDisabled)
                     }
                 }
                 .navigationBarBackButtonHidden()
+                .navigationTitle("Recently Viewed")
             } else {
                 ScrollView {
                     ForEach(groups) {
@@ -193,6 +190,7 @@ struct HistoryView: View {
                         }
                     }.padding()
                 }
+                .navigationTitle("Recently Viewed")
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
                         Button {
@@ -210,13 +208,12 @@ struct HistoryView: View {
                                 transition(to: .view)
                             }
                         } label: {
-                            Image(systemName: "xmark.bin")
+                            Image(systemName: "trash")
                         }.foregroundStyle(deleteButtonColour).disabled(deleteButtonDisabled)
                     }
                 }
                 .navigationBarBackButtonHidden()
             }
-
         }
     }
 

@@ -99,7 +99,7 @@ struct TransactionDetailedView: View {
                             }
                         }
                     }
-                    .padding(.horizontal, 32)
+                    .padding(.horizontal, 24)
 
                 }
             }
@@ -197,7 +197,7 @@ struct ViewPropertyButtonView: View {
                     .cornerRadius(36)
                     .ignoresSafeArea(.keyboard, edges: .bottom)
             }
-            .padding(.horizontal, 32)
+            .padding(.horizontal, 24)
             .padding(.bottom, 16)
         }
     }

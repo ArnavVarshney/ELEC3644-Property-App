@@ -45,7 +45,8 @@ struct TransactionMenuView: View {
                 viewModel.initTask()
             }
         }
-        .padding(.horizontal, 32)
+        .padding(.horizontal, 24)
+        .padding(.top, 12)
     }
 }
 

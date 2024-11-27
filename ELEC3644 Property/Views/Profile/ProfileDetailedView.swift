@@ -28,14 +28,13 @@ struct ReviewFieldView: View {
                 }
                 Section {
                     HStack(alignment: .center) {
-                        Text("Rating:")
-                        Spacer()
-                        ForEach(1...5, id: \.self) { star in
-                            Image(systemName: star <= rating ? "star.fill" : "star")
-                                .foregroundColor(star <= rating ? .neutral100 : .neutral70)
-                                .onTapGesture {
-                                    rating = star
-                                }
+                        ForEach(0..<5, id: \.self) { index in
+                            Image(systemName: "star.fill")
+                                .resizable()
+                                .frame(width: 12, height: 12)
+                                .foregroundColor(.neutral100)
+                                .padding(-3)
+                                .opacity(index < Int(rating) ? 1 : 0.3)
                         }
                     }
                     .padding(.vertical, 4)
@@ -268,16 +267,13 @@ struct ReviewsListModal: View {
                                             .font(.headline)
                                             .fontWeight(.bold)
                                         Spacer()
-                                        Text("Rating: ")
-                                            .font(.footnote)
-                                            .fontWeight(.bold)
                                         ForEach(0..<5, id: \.self) { index in
                                             Image(systemName: "star.fill")
                                                 .resizable()
                                                 .frame(width: 12, height: 12)
                                                 .foregroundColor(.neutral100)
                                                 .padding(-3)
-                                                .opacity(index < Int(review.rating) ? 1 : 0)
+                                                .opacity(index < Int(review.rating) ? 1 : 0.3)
                                         }
                                     }
                                     Text(relativeTime)

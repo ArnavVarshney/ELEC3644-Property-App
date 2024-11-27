@@ -41,7 +41,7 @@ struct WishlistItemView: View {
             .addShadow()
 
             Text(wishlist.name)
-                .font(.footnote)
+                .font(.body)
                 .fontWeight(.semibold)
                 .foregroundColor(.neutral100)
                 .frame(maxWidth: .infinity, alignment: .leading)

@@ -70,7 +70,7 @@ struct EstateMenuView: View {
                 viewModel.initTask()
             }
         }
-        .padding(.horizontal, 32)
+        .padding(.horizontal, 24)
     }
 }
 

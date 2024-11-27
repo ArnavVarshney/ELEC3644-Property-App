@@ -28,6 +28,7 @@ struct BackButtonModifier: ViewModifier {
                                         .fill(Color.white)
                                 )
                                 .shadow(color: .gray.opacity(0.3), radius: 4, x: 0, y: 4)
+                                .padding(.vertical, 4)
                         }
                     }
                 }
@@ -38,7 +39,7 @@ struct BackButtonModifier: ViewModifier {
 struct AddShadow: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .shadow(color: .gray.opacity(0.3), radius: 4, x: 0, y: 4)
+            .shadow(color: .gray.opacity(0.2), radius: 3, x: 0, y: 4)
     }
 }
 

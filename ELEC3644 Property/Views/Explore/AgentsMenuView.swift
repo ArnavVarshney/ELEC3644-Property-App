@@ -39,7 +39,8 @@ struct AgentMenuView: View {
                 }
             }
         }
-        .padding(.horizontal)
+        .padding(.top, 12)
+        .padding(.horizontal, 24)
         .refreshable {
             agentViewModel.initTask()
         }

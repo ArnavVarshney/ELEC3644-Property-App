@@ -56,11 +56,7 @@ struct WishlistDetailView: View {
 
     var body: some View {
         NavigationStack {
-            //Title
-            HStack {
-                Text("\(wishlist.name)").font(.largeTitle)
-                Spacer()
-            }.padding()
+
             ScrollView {
                 if wishlist.properties.isEmpty {
                     VStack {
@@ -109,8 +105,8 @@ struct WishlistDetailView: View {
                     }.padding()
                 }
             }
+            .navigationTitle(wishlist.name)
             .navigationBarBackButtonHidden()
-            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
@@ -129,7 +125,7 @@ struct WishlistDetailView: View {
                             transition(to: .view)
                         }
                     } label: {
-                        Image(systemName: "xmark.bin")
+                        Image(systemName: "trash")
                     }.foregroundStyle(deleteButtonColour).disabled(deleteButtonDisabled)
                 }
 
