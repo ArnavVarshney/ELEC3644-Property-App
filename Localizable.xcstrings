@@ -892,6 +892,9 @@
         }
       }
     },
+    "Distance: %@ km" : {
+
+    },
     "District" : {
       "localizations" : {
         "zh-HK" : {
@@ -3506,6 +3509,9 @@
           }
         }
       }
+    },
+    "Time: %@ min" : {
+
     },
     "Tin Hau" : {
       "extractionState" : "stale",
