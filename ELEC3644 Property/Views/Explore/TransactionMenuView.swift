@@ -34,14 +34,16 @@ struct TransactionMenuView: View {
             }
             Divider()
             ScrollView(showsIndicators: false) {
-                ForEach(filteredTransactions, id: \.transaction.id) { propertyTransaction in
-                    NavigationLink(
-                        destination: TransactionDetailedView(
-                            propertyTransaction: propertyTransaction)
-                    ) {
-                        TransactionRowView(propertyTransaction: propertyTransaction)
+                LazyVStack {
+                    ForEach(filteredTransactions, id: \.transaction.id) { propertyTransaction in
+                        NavigationLink(
+                            destination: TransactionDetailedView(
+                                propertyTransaction: propertyTransaction)
+                        ) {
+                            TransactionRowView(propertyTransaction: propertyTransaction)
+                        }
+                        Divider()
                     }
-                    Divider()
                 }
             }
             .refreshable {
