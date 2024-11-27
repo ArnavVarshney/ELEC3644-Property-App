@@ -79,16 +79,13 @@ struct EnlargeMapView_V2: View {
         self.startMapCameraLocation = startMapCameraLocation
         self._camera = State(initialValue: .region(startMapCameraLocation.region))  // Initialize camera based on location
     }
-
-    //    @State var propertyLocations: [String: CLLocationCoordinate2D]
     var body: some View {
         NavigationStack {
-            //Text(String(viewModel.properties.count))
             ZStack {
                 Map(position: $camera, selection: $propertySelection) {
                     //UserAnnotation()
                     ForEach(
-                        viewModel.getByContractType(contractType: currentMenu!.rawValue), id: \.self
+                        viewModel.properties, id: \.self
                     ) { property in  //select either buy, rent or lease
                         if let location = viewModel.getLocation(for: property.name) {
                             //                            propertyMapItem = viewModel.getMapItem(for: property.id)
@@ -115,7 +112,7 @@ struct EnlargeMapView_V2: View {
                                 )
                             }
                             .tag(property.id)  // Set the tag for selection  !!!!!!!!!! Very Important, take me a while to find this bug. Or else, propertySelection will always be zero because user can select nothing by pressing property price bubble
-                            .annotationTitles(.visible)
+//                            .annotationTitles(.visible)
                         }
                     }
 
@@ -131,16 +128,7 @@ struct EnlargeMapView_V2: View {
                     MapScaleView()
                 }
                 .onMapCameraChange(frequency: .onEnd) { context in
-                    print(context.camera)
-                    print("AAAAAAA   \(context.camera.centerCoordinate)     AAAAAAA")
                     newCameraCenterLocation = context.camera.centerCoordinate
-                    //                    newCameraRect = context.rect
-                    //                    newCameraRegion = context.region
-                    print(newCameraCenterLocation)
-                    print(context.region)
-                    //print(context.rect)
-                    print("?????????/")
-                    print(camera.region)
                 }
                 // Zoom and Pan Controls
                 HStack(spacing: 20) {
@@ -331,58 +319,18 @@ struct EnlargeMapView_V2: View {
                     }
                 }
             }
-            .searchable(text: $searchText, isPresented: $showSearch)
-            .navigationTitle("")
-            .navigationBarTitleDisplayMode(.inline)  // Use inline mode
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    if currentMenu!.rawValue == "Buy" {
-                        Text(
-                            "\(viewModel.getByContractType(contractType: currentMenu!.rawValue).count) properties on sale"
-                        )
-                        .font(.caption)
-                        .foregroundColor(.neutral100)
-                        .padding()
-                    } else if currentMenu!.rawValue == "Rent" {
-                        Text(
-                            "\(viewModel.getByContractType(contractType: currentMenu!.rawValue).count) properties for rent"
-                        )
-                        .font(.caption)
-                        .foregroundColor(.neutral100)
-                        .padding()
-                    } else if currentMenu!.rawValue == "Lease" {
-                        Text(
-                            "\(viewModel.getByContractType(contractType: currentMenu!.rawValue).count) properties for lease"
-                        )
-                        .font(.caption)
-                        .foregroundColor(.neutral100)
-                        .padding()
-                    }
-
-                }
-            }
         }
-        .backButton()
         .onSubmit(of: .search) {
             Task {
                 guard !searchText.isEmpty else { return }
                 searchPlaces()
                 showSearch = false
-                //                newCameraCenterLocation = mapItem!.placemark.coordinate
-                //                setCameraPan()
             }
         }
         .alert(errorMessage, isPresented: $showAlert) {
             Button("OK", role: .cancel) {}
         }
-        .onChange(of: showSearch) {
-            if !showSearch {
-                mapItem = nil
-                camera = .region(.userRegion)
-
-            }
-        }
-        .toolbar(.hidden, for: .tabBar)
+        .toolbarVisibility(.hidden, for: .automatic)
     }
 
     func searchPlaces() {
@@ -409,7 +357,7 @@ struct EnlargeMapView_V2: View {
     }
 
     func zoomIn() {
-        if zoomLevel > 500 {  // Prevent zooming in too much
+        if zoomLevel > 250 {  // Prevent zooming in too much
             zoomLevel /= 2  // Zoom in by halving the current level
         }
     }

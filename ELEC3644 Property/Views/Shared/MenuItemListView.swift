@@ -13,6 +13,7 @@ enum MenuItem: String, CaseIterable {
     case transaction = "Transaction"
     case estate = "Estate"
     case agents = "Agents"
+    case map = "Map"
     var systemImage: String {
         switch self {
         case .buy:
@@ -27,6 +28,8 @@ enum MenuItem: String, CaseIterable {
             return "building"
         case .agents:
             return "person.crop.circle"
+        case .map:
+            return "map"
         }
     }
 }
