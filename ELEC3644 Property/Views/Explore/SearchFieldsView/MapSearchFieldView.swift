@@ -19,15 +19,15 @@ struct MapSearchFieldView: View {
     let amenitiesList = ["parking", "pool", "gym", "elevator", "balcony", "pet-friendly"]
     let priceRange: ClosedRange<Double> = 0...1_000_000
 
-//    func onSubmit() {
-//        var requestBody = [String: String]()
-//        requestBody["contractType"] = contractType
-//        requestBody["netPrice"] = "([\"min\": lowerPrice, \"max\": upperPrice])"
-//        Task {
-//            await viewModel.query(query: requestBody)
-//        }
-//    }
-//    
+    //    func onSubmit() {
+    //        var requestBody = [String: String]()
+    //        requestBody["contractType"] = contractType
+    //        requestBody["netPrice"] = "([\"min\": lowerPrice, \"max\": upperPrice])"
+    //        Task {
+    //            await viewModel.query(query: requestBody)
+    //        }
+    //    }
+    //
     func onSubmit() {
         var requestBody = [String: String]()
         let searchFields = viewModel.searchFields
@@ -54,22 +54,28 @@ struct MapSearchFieldView: View {
 
                         VStack {
                             Text("Min: \(Int(viewModel.searchFields.lowerPrice))")
-                            Slider(value: $viewModel.searchFields.lowerPrice, in: priceRange, step: 1000)
-                                .onChange(of: lowerPrice) { _, newValue in
-                                    if newValue > upperPrice {
-                                        lowerPrice = upperPrice
-                                    }
+                            Slider(
+                                value: $viewModel.searchFields.lowerPrice, in: priceRange,
+                                step: 1000
+                            )
+                            .onChange(of: lowerPrice) { _, newValue in
+                                if newValue > upperPrice {
+                                    lowerPrice = upperPrice
                                 }
+                            }
                         }
 
                         VStack {
                             Text("Max: \(Int(viewModel.searchFields.upperPrice))")
-                            Slider(value: $viewModel.searchFields.upperPrice, in: priceRange, step: 1000)
-                                .onChange(of: upperPrice) { _, newValue in
-                                    if newValue < lowerPrice {
-                                        upperPrice = lowerPrice
-                                    }
+                            Slider(
+                                value: $viewModel.searchFields.upperPrice, in: priceRange,
+                                step: 1000
+                            )
+                            .onChange(of: upperPrice) { _, newValue in
+                                if newValue < lowerPrice {
+                                    upperPrice = lowerPrice
                                 }
+                            }
                         }
                         HStack {
                             Text("Contract Type")

@@ -3732,6 +3732,7 @@
       }
     },
     "Type a message..." : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
