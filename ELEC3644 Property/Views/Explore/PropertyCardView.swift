@@ -28,7 +28,7 @@ struct PropertyCardView: View {
                         .foregroundColor(.neutral100)
                         .lineLimit(moreDetail ? .max : 1)
 
-                    Text("\(property.saleableArea)sqft")
+                    Text("\(property.saleableArea) ft²")
                         .foregroundColor(.neutral70)
                     if moreDetail {
                         HStack(spacing: 0) {

@@ -19,7 +19,7 @@ struct MapPopUpView: View {
                     Text(property.name)
                         .fontWeight(.bold)
                         .foregroundColor(.neutral100)
-                    Text("\(property.saleableArea)sqft")
+                    Text("\(property.saleableArea) ft²")
                         .foregroundColor(.neutral70)
                     Text("\(property.subDistrict), \(property.area)")
                         .foregroundColor(.neutral70)

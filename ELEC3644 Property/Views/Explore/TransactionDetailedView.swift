@@ -68,7 +68,7 @@ struct TransactionDetailedView: View {
                             Spacer()
 
                             VStack(alignment: .leading) {
-                                Text("Price/Sqft")
+                                Text("Price/ft²")
                                     .font(.subheadline)
                                     .foregroundColor(.neutral70)
                                 Text(propertyTransaction.pricePerSqft.toCompactCurrencyFormat())
@@ -82,7 +82,7 @@ struct TransactionDetailedView: View {
                                 Text("Saleable Area")
                                     .font(.subheadline)
                                     .foregroundColor(.neutral70)
-                                Text("\(propertyTransaction.property.saleableArea) sqft")
+                                Text("\(propertyTransaction.property.saleableArea) ft²")
                                     .font(.subheadline)
                                     .foregroundColor(.neutral100)
                             }
@@ -168,7 +168,7 @@ struct TransactionRow: View {
                     Text(
                         (propertyTransaction.transaction.price
                             / propertyTransaction.property.saleableArea)
-                            .toCompactCurrencyFormat() + "/sqft"
+                            .toCompactCurrencyFormat() + " /ft²"
                     )
                     .font(.subheadline)
                     .foregroundColor(.secondary)

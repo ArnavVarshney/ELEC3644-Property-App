@@ -103,7 +103,7 @@ struct EstateRowView: View {
             .foregroundColor(.neutral70)
             HStack(alignment: .center) {
                 Text(
-                    "S.A. \(estate.averageArea)sqft @ \(estate.averagePricePerSqFt.toCompactCurrencyFormat())/sqft"
+                    "S.A. \(estate.averageArea) ft² @ \(estate.averagePricePerSqFt.toCompactCurrencyFormat()) /ft²"
                 )
                 .font(.subheadline)
                 .foregroundColor(.neutral70)

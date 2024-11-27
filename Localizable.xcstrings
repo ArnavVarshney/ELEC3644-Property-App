@@ -134,6 +134,9 @@
         }
       }
     },
+    "%lld ft²" : {
+
+    },
     "%lld properties for lease" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -188,6 +191,7 @@
       }
     },
     "%lld sqft" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -208,6 +212,7 @@
       }
     },
     "%lldsqft" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -1135,7 +1140,18 @@
         }
       }
     },
+    "G.F.A. %lld ft² @ %@ /ft²" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "G.F.A. %1$lld ft² @ %2$@ /ft²"
+          }
+        }
+      }
+    },
     "G.F.A. %lldsqft @ %@/sqft" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2436,7 +2452,11 @@
         }
       }
     },
+    "Price/ft²" : {
+
+    },
     "Price/Sqft" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -2539,7 +2559,6 @@
       }
     },
     "Rating:" : {
-      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -2683,7 +2702,18 @@
         }
       }
     },
+    "S.A. %lld ft² @ %@ /ft²" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "S.A. %1$lld ft² @ %2$@ /ft²"
+          }
+        }
+      }
+    },
     "S.A. %lldsqft @ %@/sqft" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
