@@ -77,7 +77,7 @@ struct WishlistItemCard: View {
                         userId: UUID(uuidString: userViewModel.currentUserId())!,
                         propertyId: property.id
                     )
-                    .presentationDetents([.height(500)])
+                    .presentationDetents([.height(250)])
                 }
                 .padding(.horizontal, 24)
             }
