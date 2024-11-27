@@ -25,41 +25,34 @@ struct EnlargeMapView: View {
     @State private var zoomLevel: Double = 1500  // Default zoom level
     @State private var addedLatitude: Double = 0.0  // Default additional latitude
     @State private var addedLongitude: Double = 0.0  // Default
+    @State private var showTravelInformation: Bool = false
 
     var body: some View {
         NavigationStack {
             ZStack(alignment: .center) {
                 // The Map View
                 Map(position: $camera, selection: $mapSelection) {
-                    //                     Annotation for the target property
-                    Annotation(viewModel.property.address, coordinate: viewModel.location) {
-                        HStack {
-                            Text(String(viewModel.property.name))
-                                .font(.caption)
-                                .fontWeight(.bold)
-                                .foregroundColor(Color.neutral100)
+                    Marker(
+                        coordinate: viewModel.location,
+                        label: {
+                            VStack {
+                                Image(systemName: "building")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 30, height: 30)  // Larger size for building marker
+                                    .padding(.all, 8)
+                                    .background(Color.red)
+                                    .foregroundColor(.white)
+                                    .clipShape(Circle())
+
+                                Text(String(viewModel.property.name))
+                                    .font(.caption)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(Color.neutral100)
+                            }
                         }
-                        .frame(width: 125, height: 25)
-                        .background(.white)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                        .overlay(
-                            Capsule()
-                                .stroke(lineWidth: 0.5)
-                                .foregroundColor(.white)
-                                .addShadow()
-                                .clipShape(RoundedRectangle(cornerRadius: 1))
-                        )
-                    }
-                    //                    Marker(coordinate: viewModel.location, label: {
-                    //                                                Image(systemName: "mappin")
-                    //                                                    .resizable()
-                    //                                                    .scaledToFit()
-                    //                                                    .frame(width: 14, height: 14)
-                    //                                                    .padding(.all, 8)
-                    //                                                    .background(.red)
-                    //                                                    .foregroundColor(.white)
-                    //                                                    .clipShape(Circle())
-                    //                    })
+                    )
+
                     .annotationTitles(.visible)
 
                     // Markers for other places
@@ -97,6 +90,36 @@ struct EnlargeMapView: View {
                     MapPitchToggle()
                     MapScaleView()
                 }
+                VStack {
+                    // Display travel information
+                    if showTravelInformation {
+                        if let distance = travelDistance, let time = travelTime {
+                            VStack {
+                                Spacer()
+                                HStack {
+                                    Text(
+                                        "Distance: \(String(format: "%.1f", distance / 1000)) km"
+                                    )  // Convert meters to kilometers
+                                    .font(.caption)
+                                    .padding(5)
+                                    .background(Color.white.opacity(0.8))
+                                    .cornerRadius(5)
+
+                                    Text("Time: \(String(format: "%.0f", time / 60)) min")  // Convert seconds to minutes
+                                        .font(.caption)
+                                        .padding(5)
+                                        .background(Color.white.opacity(0.8))
+                                        .cornerRadius(5)
+                                }
+                                .padding()
+                                .background(Color.black.opacity(0.5))
+                                .cornerRadius(10)
+                                .padding(.bottom, 50)  // Adjust as needed for spacing from bottom
+                            }
+                        }
+                    }
+                }
+
                 .onMapCameraChange(frequency: .onEnd) { context in
                     newCameraCenterLocation = context.camera.centerCoordinate
                 }
@@ -339,6 +362,7 @@ struct EnlargeMapView: View {
             routeDestination = nil
             showDirection = false
             popUp = false
+            showTravelInformation = false
 
         }
         .onChange(
@@ -368,6 +392,11 @@ struct EnlargeMapView: View {
                     travelDistance = route?.distance
                     //                    print(travelTime)
                     //                    print(travelDistance)
+
+                    // Assign travel time and distance
+                    travelTime = route?.expectedTravelTime
+                    travelDistance = route?.distance
+                    showTravelInformation = true
 
                 }
             }

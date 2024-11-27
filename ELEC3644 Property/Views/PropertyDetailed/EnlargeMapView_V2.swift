@@ -42,7 +42,7 @@ extension MKCoordinateRegion {
 struct EnlargeMapView_V2: View {
     @EnvironmentObject var viewModel: PropertyViewModel
     @EnvironmentObject var mapSettingsViewModel: MapSettingsViewModel
-    @Binding var currentMenu: MenuItem?
+    //    @Binding var currentMenu: MenuItem?
     @State var camera: MapCameraPosition = .region(.userRegion)
     @State private var showAlert: Bool = false
     @State private var showSearch: Bool = false
@@ -74,11 +74,11 @@ struct EnlargeMapView_V2: View {
     // Accepting a PropertyLocation enum as a parameter
     var startMapCameraLocation: StartMapCameraLocation
 
-    init(currentMenu: Binding<MenuItem?>, startMapCameraLocation: StartMapCameraLocation) {
-        self._currentMenu = currentMenu
-        self.startMapCameraLocation = startMapCameraLocation
-        self._camera = State(initialValue: .region(startMapCameraLocation.region))  // Initialize camera based on location
-    }
+    //    init(currentMenu: Binding<MenuItem?>, startMapCameraLocation: StartMapCameraLocation) {
+    //        self._currentMenu = currentMenu
+    //        self.startMapCameraLocation = startMapCameraLocation
+    //        self._camera = State(initialValue: .region(startMapCameraLocation.region))  // Initialize camera based on location
+    //    }
     var body: some View {
         NavigationStack {
             ZStack {
@@ -91,14 +91,14 @@ struct EnlargeMapView_V2: View {
                             //                            propertyMapItem = viewModel.getMapItem(for: property.id)
                             Annotation(property.name, coordinate: location) {
                                 HStack {
-                                    Text(String(property.netPrice))
+                                    Text(String(property.netPrice.toCompactCurrencyFormat()))
                                         .font(.callout)
                                         .fontWeight(.bold)
                                         .foregroundColor(Color.neutral100)
-                                    Text("HKD")
-                                        .font(.callout)
-                                        .fontWeight(.bold)
-                                        .foregroundColor(Color.neutral100)
+                                    //                                    Text("HKD")
+                                    //                                        .font(.callout)
+                                    //                                        .fontWeight(.bold)
+                                    //                                        .foregroundColor(Color.neutral100)
                                 }
                                 .frame(width: 125, height: 25)
                                 .background(.white)

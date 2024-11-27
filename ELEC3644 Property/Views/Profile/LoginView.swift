@@ -74,12 +74,14 @@ struct LoginView: View {
             SecureField("Password", text: $password)
                 .textFieldStyle(LoginTextFieldStyle())
 
-            Button(action: { forgotPassword = true }) {
-                Text("Forgot password?")
-                    .font(.footnote)
-                    .foregroundColor(.neutral100)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.top, 12)
+            HStack {
+                Button(action: { forgotPassword = true }) {
+                    Text("Forgot password?")
+                        .font(.footnote)
+                        .foregroundColor(.neutral100)
+                        .padding(.top, 12)
+                }
+                Spacer()
             }
 
             Button(action: login) {
