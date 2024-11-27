@@ -129,6 +129,7 @@ struct EnlargeMapView_V2: View {
                 }
                 .onMapCameraChange(frequency: .onEnd) { context in
                     newCameraCenterLocation = context.camera.centerCoordinate
+                    print(context.camera.centerCoordinate)
                 }
                 // Zoom and Pan Controls
                 HStack(spacing: 20) {
