@@ -22,19 +22,19 @@ struct WishlistNoteView: View {
 
     var body: some View {
         NavigationStack {
-            VStack{
+            VStack {
                 Text(LocalizedStringKey("Name"))
                     .font(.footnote)
                     .fontWeight(.semibold)
                     .foregroundColor(.neutral100)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.top, 24)
-                
+
                 TextField("", text: $note)
                     .focused($foc, equals: true)
                     .textFieldStyle(LoginTextFieldStyle())
                     .multilineTextAlignment(.leading)
-                
+
                 Text(
                     "\(note.replacingOccurrences(of: " ", with: "").count)/\(TEXT_LIMIT) characters"
                 )
@@ -43,10 +43,10 @@ struct WishlistNoteView: View {
                 .foregroundStyle(.neutral70)
                 .padding(.top, 4)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                
+
                 Divider()
                     .padding(.vertical)
-                
+
                 HStack {
                     Button {
                         note = ""
