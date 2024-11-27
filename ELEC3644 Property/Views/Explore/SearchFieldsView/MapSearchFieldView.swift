@@ -64,7 +64,7 @@ struct MapSearchFieldView: View {
                                 if contractType == "Any" {
                                     Text("Any").tag("Any")
                                 }
-                                ForEach(contractTypes, id: \.self) {c in
+                                ForEach(contractTypes, id: \.self) { c in
                                     Text(c).tag(c.lowercased())
                                 }
                             }.pickerStyle(.menu)

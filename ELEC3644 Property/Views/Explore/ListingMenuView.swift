@@ -13,24 +13,22 @@ struct ListingMenuView: View {
     var body: some View {
         ScrollView(showsIndicators: false) {
             LazyVStack {
-                if !properties.isEmpty{
+                if !properties.isEmpty {
                     ForEach(properties) { property in
                         NavigationLink(destination: PropertyDetailView(property: property)) {
                             PropertyCardView(property: property)
                                 .padding(.top, 24)
-                            
-                            
+
                         }
                     }
-                }
-                else{
-                    HStack{
+                } else {
+                    HStack {
                         Text("Oops!!! Please refresh this view.")
                             .font(.headline)
                     }
                     .padding()
                     .frame(width: 400, height: 300)
-                    
+
                 }
             }
         }

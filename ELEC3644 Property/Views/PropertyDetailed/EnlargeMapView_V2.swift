@@ -112,7 +112,7 @@ struct EnlargeMapView_V2: View {
                                 )
                             }
                             .tag(property.id)  // Set the tag for selection  !!!!!!!!!! Very Important, take me a while to find this bug. Or else, propertySelection will always be zero because user can select nothing by pressing property price bubble
-//                            .annotationTitles(.visible)
+                            //                            .annotationTitles(.visible)
                         }
                     }
 
