@@ -170,7 +170,7 @@ struct ProfileView: View {
                                     .symbolEffect(.pulse, options: .speed(0.75))
                                     .padding(.leading, 16)
                                 Text(
-                                    userViewModel.userRole == .host
+                                    userViewModel.userRole != .guest
                                         ? "Switch to exploring" : "Switch to hosting"
                                 )
                                 .font(.headline)
