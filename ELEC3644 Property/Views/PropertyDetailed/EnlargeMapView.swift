@@ -32,26 +32,29 @@ struct EnlargeMapView: View {
             ZStack(alignment: .center) {
                 // The Map View
                 Map(position: $camera, selection: $mapSelection) {
-                    Marker(coordinate: viewModel.location, label: {
-                        VStack {
-                            Image(systemName: "building")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 30, height: 30) // Larger size for building marker
-                                .padding(.all, 8)
-                                .background(Color.red)
-                                .foregroundColor(.white)
-                                .clipShape(Circle())
-                            
-                            Text(String(viewModel.property.name))
-                                .font(.caption)
-                                .fontWeight(.bold)
-                                .foregroundColor(Color.neutral100)
+                    Marker(
+                        coordinate: viewModel.location,
+                        label: {
+                            VStack {
+                                Image(systemName: "building")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 30, height: 30)  // Larger size for building marker
+                                    .padding(.all, 8)
+                                    .background(Color.red)
+                                    .foregroundColor(.white)
+                                    .clipShape(Circle())
+
+                                Text(String(viewModel.property.name))
+                                    .font(.caption)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(Color.neutral100)
+                            }
                         }
-                    })
-                    
+                    )
+
                     .annotationTitles(.visible)
-                    
+
                     // Markers for other places
                     ForEach(viewModel.places, id: \.self) { place in
                         if showRoute {
@@ -75,7 +78,7 @@ struct EnlargeMapView: View {
                             .tint(.blue)
                         }
                     }
-                    
+
                     if let route {
                         MapPolyline(route.polyline)
                             .stroke(.blue, lineWidth: 6)
@@ -87,20 +90,22 @@ struct EnlargeMapView: View {
                     MapPitchToggle()
                     MapScaleView()
                 }
-                VStack{
+                VStack {
                     // Display travel information
-                    if showTravelInformation{
+                    if showTravelInformation {
                         if let distance = travelDistance, let time = travelTime {
                             VStack {
                                 Spacer()
                                 HStack {
-                                    Text("Distance: \(String(format: "%.1f", distance / 1000)) km") // Convert meters to kilometers
-                                        .font(.caption)
-                                        .padding(5)
-                                        .background(Color.white.opacity(0.8))
-                                        .cornerRadius(5)
-                                    
-                                    Text("Time: \(String(format: "%.0f", time / 60)) min") // Convert seconds to minutes
+                                    Text(
+                                        "Distance: \(String(format: "%.1f", distance / 1000)) km"
+                                    )  // Convert meters to kilometers
+                                    .font(.caption)
+                                    .padding(5)
+                                    .background(Color.white.opacity(0.8))
+                                    .cornerRadius(5)
+
+                                    Text("Time: \(String(format: "%.0f", time / 60)) min")  // Convert seconds to minutes
                                         .font(.caption)
                                         .padding(5)
                                         .background(Color.white.opacity(0.8))
@@ -109,12 +114,12 @@ struct EnlargeMapView: View {
                                 .padding()
                                 .background(Color.black.opacity(0.5))
                                 .cornerRadius(10)
-                                .padding(.bottom, 50) // Adjust as needed for spacing from bottom
+                                .padding(.bottom, 50)  // Adjust as needed for spacing from bottom
                             }
                         }
                     }
                 }
-                
+
                 .onMapCameraChange(frequency: .onEnd) { context in
                     newCameraCenterLocation = context.camera.centerCoordinate
                 }
@@ -387,7 +392,7 @@ struct EnlargeMapView: View {
                     travelDistance = route?.distance
                     //                    print(travelTime)
                     //                    print(travelDistance)
-                    
+
                     // Assign travel time and distance
                     travelTime = route?.expectedTravelTime
                     travelDistance = route?.distance
