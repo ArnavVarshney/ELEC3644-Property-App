@@ -44,35 +44,71 @@ struct ProfileView: View {
                             }
                         }
 
-                        NavigationLink(destination: HostTransitionScreen()) {
-                            HStack(spacing: 24) {
-                                VStack(spacing: 12) {
-                                    Text("List your property")
-                                        .font(.headline)
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                        .fontWeight(.semibold)
-                                    Text("It's easy to start hosting and earn extra income")
-                                        .font(.caption)
-                                        .foregroundColor(.neutral70)
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                }
-                                .padding(.leading, 24)
-                                .padding(.vertical, 24)
+                        if userViewModel.userRole != .host {
+                            NavigationLink(
+                                destination: HostTransitionScreen().toolbar(.hidden, for: .tabBar)
+                            ) {
+                                HStack(spacing: 24) {
+                                    VStack(spacing: 12) {
+                                        Text("List your property")
+                                            .font(.headline)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                            .fontWeight(.semibold)
+                                        Text("It's easy to start hosting and earn extra income")
+                                            .font(.caption)
+                                            .foregroundColor(.neutral70)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                    }
+                                    .padding(.leading, 24)
+                                    .padding(.vertical, 24)
 
-                                Image("hosting_advert")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 96, height: 96)
-                                    .foregroundColor(.neutral100)
-                                    .padding(.trailing, 12)
+                                    Image("hosting_advert")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 96, height: 96)
+                                        .foregroundColor(.neutral100)
+                                        .padding(.trailing, 12)
+                                }
+                                .background(.white)
+                                .cornerRadius(12)
+                                .addShadow()
+                                .padding(.horizontal, 3)
+                                .padding(.vertical, 24)
                             }
-                            .background(.white)
-                            .cornerRadius(12)
-                            .addShadow()
-                            .padding(.horizontal, 3)
-                            .padding(.vertical, 24)
+                            .buttonStyle(PlainButtonStyle())
+                        } else {
+                            NavigationLink(
+                                destination: HostTransitionScreen().toolbar(.hidden, for: .tabBar)
+                            ) {
+                                HStack(spacing: 24) {
+                                    VStack(spacing: 12) {
+                                        Text("Explore properties")
+                                            .font(.headline)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                            .fontWeight(.semibold)
+                                        Text("Find your next home or investment")
+                                            .font(.caption)
+                                            .foregroundColor(.neutral70)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                    }
+                                    .padding(.leading, 24)
+                                    .padding(.vertical, 24)
+
+                                    Image("hosting_advert")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 96, height: 96)
+                                        .foregroundColor(.neutral100)
+                                        .padding(.trailing, 12)
+                                }
+                                .background(.white)
+                                .cornerRadius(12)
+                                .addShadow()
+                                .padding(.horizontal, 3)
+                                .padding(.vertical, 24)
+                            }
+                            .buttonStyle(PlainButtonStyle())
                         }
-                        .buttonStyle(PlainButtonStyle())
 
                         Text("Settings")
                             .font(.headline)
