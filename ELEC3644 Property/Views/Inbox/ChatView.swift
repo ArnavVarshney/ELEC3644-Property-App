@@ -267,7 +267,8 @@ struct ChatBubble: View {
             }
             VStack(alignment: .trailing) {
                 Text("\(message.timestamp.formatted(.dateTime.hour().minute()))").font(.caption)
-            }}
+            }
+        }
         .padding(12)
         .background(isUser ? .primary60 : .neutral40)
         .foregroundColor(isUser ? .neutral10 : .neutral100)
