@@ -19,9 +19,12 @@ struct TransactionMenuView: View {
     }
 
     var body: some View {
+        var filteredTransactions = transactions.filter({ transaction in
+            transaction.property.contractType == viewModel.searchFields.contractType
+        })
         VStack(alignment: .leading) {
             HStack {
-                Text("\(transactions.count)")
+                Text("\(filteredTransactions.count)")
                     .fontWeight(.bold)
                     .font(.subheadline)
                 Text("transaction(s) found")
@@ -29,7 +32,7 @@ struct TransactionMenuView: View {
             }
             Divider()
             ScrollView(showsIndicators: false) {
-                ForEach(transactions, id: \.transaction.id) { propertyTransaction in
+                ForEach(filteredTransactions, id: \.transaction.id) { propertyTransaction in
                     NavigationLink(
                         destination: TransactionDetailedView(
                             propertyTransaction: propertyTransaction)
