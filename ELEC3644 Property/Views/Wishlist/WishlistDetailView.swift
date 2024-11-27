@@ -116,19 +116,6 @@ struct WishlistDetailView: View {
                     }.disabled(backButtonDisabled)
                 }
 
-                //                ToolbarItem(placement: .topBarTrailing) {
-                //                    //delete button
-                //                    Button {
-                //                        if state != .delete {
-                //                            transition(to: .delete)
-                //                        } else {
-                //                            transition(to: .view)
-                //                        }
-                //                    } label: {
-                //                        Image(systemName: "trash")
-                //                    }.foregroundStyle(deleteButtonColour).disabled(deleteButtonDisabled)
-                //                }
-
                 ToolbarItem(placement: .topBarTrailing) {
                     //compare button
                     Button {

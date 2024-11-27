@@ -30,7 +30,7 @@ struct PropertyDetailView: View {
                     imageUrls: self.property.imageUrls, cornerRadius: 0, property: property
                 )
                 PropertyDetailListView(viewModel: viewModel)
-                if (viewModel.location.latitude != 0 && viewModel.location.longitude != 0) {
+                if viewModel.location.latitude != 0 && viewModel.location.longitude != 0 {
                     PropertyDetailMapView()
                         .environmentObject(viewModel)
                     PropertyDetailGraphView(viewModel: viewModel)

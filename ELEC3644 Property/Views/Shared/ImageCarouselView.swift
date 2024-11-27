@@ -165,7 +165,7 @@ struct FavoriteIcon: View {
                     .presentationDragIndicator(.hidden)
             } else {
                 CreateWishlistForm(showSheet: $showingSheet, property: property)
-                    .presentationDetents([.height(350)])
+                    .presentationDetents([.height(250)])
             }
         }
     }

@@ -31,8 +31,8 @@ struct HistoryView: View {
 
     private var groups: [HistorySection] {
         let records = self.records.filter { p in
-            //            p.userId == UUID(uuidString: userViewModel.currentUserId())
-            true  //DEBUG
+            p.userId == UUID(uuidString: userViewModel.currentUserId())
+            //            true  //DEBUG
         }
 
         var sections: [HistorySection] = []

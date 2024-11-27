@@ -13,7 +13,7 @@ struct PropertyDetailNearestListView: View {
     var viewModel: PropertyDetailViewModel
     var pois: [MKMapItem] = []
     @State private var visible = false
-    
+
     init(title: String, category: MKPointOfInterestCategory, viewModel: PropertyDetailViewModel) {
         self.title = title
         self.category = category
@@ -21,9 +21,9 @@ struct PropertyDetailNearestListView: View {
         self.pois = PropertyDetailViewModel.threeClosestByCategory(
             from: category, currentLocation: viewModel.location, places: viewModel.places
         )
-        if self.pois.count > 0 {self.visible = true}
+        if self.pois.count > 0 { self.visible = true }
     }
-    
+
     var body: some View {
         Divider()
         VStack(alignment: .leading) {

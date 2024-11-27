@@ -17,7 +17,7 @@ class PropertyViewModel: ObservableObject {
 
     @Published var properties: [Property] = []
     @Published var searchFields: PropertySearchField = PropertySearchField()
-    
+
     private var cancellables = Set<AnyCancellable>()
 
     init(apiClient: APIClient = NetworkManager.shared) {

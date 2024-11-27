@@ -22,70 +22,89 @@ struct WishlistNoteView: View {
 
     var body: some View {
         NavigationStack {
-            VStack(alignment: .leading) {
-                TextField("", text: $note, axis: .vertical).font(.system(size: 15)).focused(
-                    $foc, equals: true
-                ).multilineTextAlignment(.leading)
+            VStack {
+                Text(LocalizedStringKey("Name"))
+                    .font(.footnote)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.neutral100)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.top, 24)
+
+                TextField("", text: $note)
+                    .focused($foc, equals: true)
+                    .textFieldStyle(LoginTextFieldStyle())
+                    .multilineTextAlignment(.leading)
+
                 Text(
                     "\(note.replacingOccurrences(of: " ", with: "").count)/\(TEXT_LIMIT) characters"
-                ).font(.footnote).foregroundStyle(.neutral70).padding(
-                    .init(top: 10, leading: 0, bottom: 5, trailing: 0))
-            }
-            .padding(.init(top: 10, leading: 10, bottom: 10, trailing: 10))
-            .overlay {
-                RoundedRectangle(cornerRadius: 10).stroke(.neutral100)
-            }
-            .padding(10)
-            Divider()
-            HStack {
-                Button {
-                    note = ""
-                    if record != nil {
-                        viewContext.delete(record!)
+                )
+                .font(.caption2)
+                .fontWeight(.bold)
+                .foregroundStyle(.neutral70)
+                .padding(.top, 4)
+                .frame(maxWidth: .infinity, alignment: .leading)
+
+                Divider()
+                    .padding(.vertical)
+
+                HStack {
+                    Button {
+                        note = ""
+                        if record != nil {
+                            viewContext.delete(record!)
+                            do {
+                                try viewContext.save()
+                            } catch {
+                                print("couldn't delete note: \(error)")
+                            }
+                            viewContext.refresh(record!, mergeChanges: true)
+
+                            dismiss()
+                        }
+                    } label: {
+                        Text(record == nil ? "Clear" : "Delete")
+                            .underline()
+                            .font(.footnote)
+                            .fontWeight(.semibold)
+                            .foregroundColor(.neutral100)
+                            .underline()
+                    }
+                    .disabled(note.isEmpty)
+
+                    Spacer()
+
+                    Button {
+                        if record == nil {
+                            record = PropertyNotes(context: viewContext)
+                            record!.id = UUID()
+                            record!.userId = userId
+                            record!.propertyId = propertyId
+                        }
+                        record!.note = note
+
                         do {
                             try viewContext.save()
                         } catch {
-                            print("couldn't delete note: \(error)")
+                            print("Couldn't save note: \(error)")
                         }
-                        viewContext.refresh(record!, mergeChanges: true)
 
                         dismiss()
+                    } label: {
+                        Text("Save").bold()
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 24)
+                            .padding(.vertical, 12)
+                            .cornerRadius(10)
                     }
-                } label: {
-                    Text(record == nil ? "Clear" : "Delete").underline()
+                    .foregroundStyle(.white)
+                    .background(note.isEmpty ? .gray : .neutral100)
+                    .clipShape(.buttonBorder)
+                    .disabled(note.isEmpty)
                 }
-                .foregroundStyle(note.isEmpty ? .gray : .neutral100)
-                .disabled(note.isEmpty)
-
-                Spacer()
-
-                Button {
-                    if record == nil {
-                        record = PropertyNotes(context: viewContext)
-                        record!.id = UUID()
-                        record!.userId = userId
-                        record!.propertyId = propertyId
-                    }
-                    record!.note = note
-
-                    do {
-                        try viewContext.save()
-                    } catch {
-                        print("Couldn't save note: \(error)")
-                    }
-
-                    dismiss()
-                } label: {
-                    Text("Save").bold().padding(
-                        .init(top: 15, leading: 20, bottom: 15, trailing: 20))
-                }
-                .foregroundStyle(.white)
-                .background(note.isEmpty ? .gray : .neutral100)
-                .clipShape(.buttonBorder)
-                .disabled(note.isEmpty)
             }
-            .padding()
-            .navigationBarBackButtonHidden()
+            .navigationTitle("Add note")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
@@ -97,11 +116,8 @@ struct WishlistNoteView: View {
                             .foregroundColor(.neutral100)
                     }
                 }
-                ToolbarItem(placement: .principal) {
-                    Text("Add note")
-                }
             }
-            Spacer()
+            .padding()
         }
         .onChange(of: note) { oldValue, newValue in
             if newValue.replacingOccurrences(of: " ", with: "").count > TEXT_LIMIT {
