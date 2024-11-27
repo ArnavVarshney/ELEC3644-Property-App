@@ -74,7 +74,6 @@ struct ExploreView: View {
                                 .id(MenuItem.agents)
                                 .frame(width: geometry.size.width)
                             EnlargeMapView_V2(
-                                currentMenu: .constant(MenuItem.buy),
                                 startMapCameraLocation: .customLocation(
                                     latitude: 22.3193, longitude: 114.1694)
                             )
