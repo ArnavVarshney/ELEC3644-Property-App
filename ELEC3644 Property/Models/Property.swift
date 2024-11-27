@@ -29,12 +29,13 @@ struct Property: Identifiable, Hashable, Codable {
     let amenities: [String]
     let propertyType: String
     let contractType: String
+    let isActive: Bool
     private enum CodingKeys: String, CodingKey {
         case name, address, area, district, subDistrict, facilities, schoolNet,
             saleableArea, saleableAreaPricePerSquareFoot, grossFloorArea,
             grossFloorAreaPricePerSquareFoot,
             netPrice, buildingAge, buildingDirection, estate, imageUrls, transactionHistory, agent,
-            propertyType, contractType, amenities, id
+            propertyType, contractType, amenities, id, isActive
     }
 }
 

@@ -8,14 +8,14 @@ import MapKit
 import SwiftUI
 
 struct PropertyDetailView: View {
-    var property: Property
-    @ObservedObject var viewModel: PropertyDetailViewModel
+    let property: Property
+    @StateObject private var viewModel: PropertyDetailViewModel
     @EnvironmentObject private var userViewModel: UserViewModel
     @Environment(\.managedObjectContext) private var viewContext
 
     init(property: Property) {
         self.property = property
-        viewModel = .init(property: property)
+        _viewModel = StateObject(wrappedValue: PropertyDetailViewModel(property: property))
     }
 
     @FetchRequest(
@@ -42,27 +42,30 @@ struct PropertyDetailView: View {
         .backButton()
         .ignoresSafeArea()
         .onAppear {
-            var p: PropertyHistory
+            initializePropertyHistory()
+        }
+    }
 
-            if let record = records.first(where: { p in
-                p.propertyId! == property.id
-                    && p.userId! == UUID(uuidString: userViewModel.currentUserId())!
-            }) {
-                p = record
-            } else {
-                p = PropertyHistory(context: viewContext)
-                p.id = UUID()
-                p.userId = UUID(uuidString: userViewModel.currentUserId())
-                p.propertyId = property.id
-            }
+    private func initializePropertyHistory() {
+        let p: PropertyHistory
+        if let record = records.first(where: { p in
+            p.propertyId == property.id &&
+            p.userId == UUID(uuidString: userViewModel.currentUserId())
+        }) {
+            p = record
+        } else {
+            p = PropertyHistory(context: viewContext)
+            p.id = UUID()
+            p.userId = UUID(uuidString: userViewModel.currentUserId())
+            p.propertyId = property.id
+        }
 
-            p.dateTime = Date()
+        p.dateTime = Date()
 
-            do {
-                try viewContext.save()
-            } catch {
-                print("Error saving history: \(error)")
-            }
+        do {
+            try viewContext.save()
+        } catch {
+            print("Error saving history: \(error)")
         }
     }
 }

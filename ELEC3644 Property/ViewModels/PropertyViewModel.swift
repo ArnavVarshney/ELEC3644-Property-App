@@ -90,7 +90,7 @@ class PropertyViewModel: ObservableObject {
         return await withCheckedContinuation { continuation in
             geocoder.geocodeAddressString(address) { placemarks, error in
                 if let error = error {
-                    print("Geocoding error for address \(address): \(error)")
+                    print("[PropertyViewModel] Geocoding error for address \(address): \(error)")
                     continuation.resume(returning: nil)
                     return
                 }
@@ -104,8 +104,8 @@ class PropertyViewModel: ObservableObject {
         }
     }
 
-    func getByContractType(contractType: String) -> [Property] {
-        return properties.filter { $0.contractType == contractType }
+    func getByContractType(contractType: String, isActive: Bool = true) -> [Property] {
+        return properties.filter { $0.contractType == contractType && $0.isActive == isActive }
     }
 
     func getLocation(for propertyName: String) -> CLLocationCoordinate2D? {
