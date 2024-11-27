@@ -143,11 +143,11 @@ struct EnlargeMapView_V2: View {
                                     latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
                             }) {
                                 Image(systemName: "plus")
-                                    .padding(20)
-                                    .frame(width: 45, height: 45)
+                                    .padding(15)
+                                    .frame(width: 40, height: 40)
                                     .background(Color.white)
                                     .foregroundColor(.neutral100)
-                                    .cornerRadius(8)
+                                    .cornerRadius(6)
                             }
                             Button(action: {
                                 zoomOut()
@@ -155,11 +155,11 @@ struct EnlargeMapView_V2: View {
                                     latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
                             }) {
                                 Image(systemName: "minus")
-                                    .padding(25)
-                                    .frame(width: 45, height: 45)
+                                    .padding(15)
+                                    .frame(width: 40, height: 40)
                                     .background(Color.white)
                                     .foregroundColor(.neutral100)
-                                    .cornerRadius(8)
+                                    .cornerRadius(6)
                             }
                             Spacer()
 
@@ -174,44 +174,44 @@ struct EnlargeMapView_V2: View {
                                 setCameraPan()
                             }) {
                                 Image(systemName: "chevron.up")
-                                    .padding(20)
-                                    .frame(width: 45, height: 45)
+                                    .padding(15)
+                                    .frame(width: 40, height: 40)
                                     .background(Color.white)
                                     .foregroundColor(.neutral100)
-                                    .cornerRadius(8)
+                                    .cornerRadius(6)
                             }
                             Button(action: {
                                 panDown()
                                 setCameraPan()
                             }) {
                                 Image(systemName: "chevron.down")
-                                    .padding(25)
-                                    .frame(width: 45, height: 45)
+                                    .padding(15)
+                                    .frame(width: 40, height: 40)
                                     .background(Color.white)
                                     .foregroundColor(.neutral100)
-                                    .cornerRadius(8)
+                                    .cornerRadius(6)
                             }
                             Button(action: {
                                 panLeft()
                                 setCameraPan()
                             }) {
                                 Image(systemName: "chevron.left")
-                                    .padding(25)
-                                    .frame(width: 45, height: 45)
+                                    .padding(15)
+                                    .frame(width: 40, height: 40)
                                     .background(Color.white)
                                     .foregroundColor(.neutral100)
-                                    .cornerRadius(8)
+                                    .cornerRadius(6)
                             }
                             Button(action: {
                                 panRight()
                                 setCameraPan()
                             }) {
                                 Image(systemName: "chevron.right")
-                                    .padding(25)
-                                    .frame(width: 45, height: 45)
+                                    .padding(15)
+                                    .frame(width: 40, height: 40)
                                     .background(Color.white)
                                     .foregroundColor(.neutral100)
-                                    .cornerRadius(8)
+                                    .cornerRadius(6)
                             }
                             Spacer()
 
@@ -228,11 +228,11 @@ struct EnlargeMapView_V2: View {
                                     latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
                             }) {
                                 Image(systemName: "plus")
-                                    .padding(20)
-                                    .frame(width: 45, height: 45)
+                                    .padding(15)
+                                    .frame(width: 40, height: 40)
                                     .background(Color.white)
                                     .foregroundColor(.neutral100)
-                                    .cornerRadius(8)
+                                    .cornerRadius(6)
                             }
                             Button(action: {
                                 zoomOut()
@@ -240,55 +240,55 @@ struct EnlargeMapView_V2: View {
                                     latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
                             }) {
                                 Image(systemName: "minus")
-                                    .padding(25)
-                                    .frame(width: 45, height: 45)
+                                    .padding(15)
+                                    .frame(width: 40, height: 40)
                                     .background(Color.white)
                                     .foregroundColor(.neutral100)
-                                    .cornerRadius(8)
+                                    .cornerRadius(6)
                             }
                             Button(action: {
                                 panUp()
                                 setCameraPan()
                             }) {
                                 Image(systemName: "chevron.up")
-                                    .padding(20)
-                                    .frame(width: 45, height: 45)
+                                    .padding(15)
+                                    .frame(width: 40, height: 40)
                                     .background(Color.white)
                                     .foregroundColor(.neutral100)
-                                    .cornerRadius(8)
+                                    .cornerRadius(6)
                             }
                             Button(action: {
                                 panDown()
                                 setCameraPan()
                             }) {
                                 Image(systemName: "chevron.down")
-                                    .padding(25)
-                                    .frame(width: 45, height: 45)
+                                    .padding(15)
+                                    .frame(width: 40, height: 40)
                                     .background(Color.white)
                                     .foregroundColor(.neutral100)
-                                    .cornerRadius(8)
+                                    .cornerRadius(6)
                             }
                             Button(action: {
                                 panLeft()
                                 setCameraPan()
                             }) {
                                 Image(systemName: "chevron.left")
-                                    .padding(25)
-                                    .frame(width: 45, height: 45)
+                                    .padding(15)
+                                    .frame(width: 40, height: 40)
                                     .background(Color.white)
                                     .foregroundColor(.neutral100)
-                                    .cornerRadius(8)
+                                    .cornerRadius(6)
                             }
                             Button(action: {
                                 panRight()
                                 setCameraPan()
                             }) {
                                 Image(systemName: "chevron.right")
-                                    .padding(25)
-                                    .frame(width: 45, height: 45)
+                                    .padding(15)
+                                    .frame(width: 40, height: 40)
                                     .background(Color.white)
                                     .foregroundColor(.neutral100)
-                                    .cornerRadius(8)
+                                    .cornerRadius(6)
                             }
                             Spacer()
 
@@ -395,8 +395,6 @@ struct EnlargeMapView_V2: View {
             latitudinalMeters: zoomLevel,
             longitudinalMeters: zoomLevel)
         camera = .region(newRegion)
-        //        }
-        //        print("\(camera.region?.center)")  //idk why when the user swipe the map then back using the buttons, the code collapses
     }
     //    func zoomIntoTheSelectedPlace(searchedLatitude: Double, searchedLongitude: Double) {
     func zoomIntoTheSelectedPlace() {
