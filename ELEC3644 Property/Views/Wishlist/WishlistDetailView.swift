@@ -144,7 +144,6 @@ struct WishlistDetailView: View {
                     }
                 }
             }
-            Spacer()
             if showingLowerButton {
                 LowerButton(
                     wishlist: wishlist,

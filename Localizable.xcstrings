@@ -2522,6 +2522,7 @@
       }
     },
     "Rating:" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -2532,6 +2533,7 @@
       }
     },
     "Rating: " : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
