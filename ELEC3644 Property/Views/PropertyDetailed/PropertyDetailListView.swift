@@ -11,21 +11,23 @@ struct PropertyDetailListView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             PropertyDetailHeaderView(property: viewModel.property)
-            HStack {
-                Spacer()
-                NavigationLink {
-                    PropertyDetailLookaroundView()
-                } label: {
-                    HStack(spacing: 0) {
-                        Image(systemName: "vision.pro")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 20, height: 20)
-                            .padding(10)
-                            .foregroundColor(.neutral100)
-                        Text("VR View")
-                            .font(.system(size: 10, weight: .regular))
-                            .foregroundColor(.neutral70)
+            if !viewModel.property.vrImageUrls.isEmpty {
+                HStack {
+                    Spacer()
+                    NavigationLink {
+                        PropertyDetailLookaroundView(property: viewModel.property)
+                    } label: {
+                        HStack(spacing: 0) {
+                            Image(systemName: "vision.pro")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 20, height: 20)
+                                .padding(10)
+                                .foregroundColor(.neutral100)
+                            Text("VR View")
+                                .font(.system(size: 10, weight: .regular))
+                                .foregroundColor(.neutral70)
+                        }
                     }
                 }
             }

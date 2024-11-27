@@ -24,6 +24,7 @@ struct Property: Identifiable, Hashable, Codable {
     let buildingDirection: String
     let estate: String
     var imageUrls: [String]
+    var vrImageUrls: [VRImage]
     var transactionHistory: [Transaction]
     var agent: User
     let amenities: [String]
@@ -34,7 +35,8 @@ struct Property: Identifiable, Hashable, Codable {
         case name, address, area, district, subDistrict, facilities, schoolNet,
             saleableArea, saleableAreaPricePerSquareFoot, grossFloorArea,
             grossFloorAreaPricePerSquareFoot,
-            netPrice, buildingAge, buildingDirection, estate, imageUrls, transactionHistory, agent,
+            netPrice, buildingAge, buildingDirection, estate, imageUrls, vrImageUrls,
+            transactionHistory, agent,
             propertyType, contractType, amenities, id, isActive
     }
 }
@@ -75,6 +77,13 @@ struct SchoolNet: Identifiable, Hashable, Codable {
     var primary: String
     var secondary: String
     private enum CodingKeys: String, CodingKey { case primary, secondary }
+}
+
+struct VRImage: Identifiable, Hashable, Codable {
+    var id = UUID()
+    var name: String
+    var url: String
+    private enum CodingKeys: String, CodingKey { case name, url }
 }
 
 struct Facility: Identifiable, Hashable, Codable {

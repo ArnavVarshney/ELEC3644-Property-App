@@ -93,7 +93,9 @@ struct TransactionDetailedView: View {
                                 .foregroundColor(.neutral100)
                                 .padding(.top, 16)
                             Divider()
-                            ForEach(propertyTransaction.property.getTransactions(), id: \.id) {
+                            ForEach(
+                                propertyTransaction.property.getTransactions().reversed(), id: \.id
+                            ) {
                                 transaction in
                                 TransactionRow(propertyTransaction: transaction)
                             }
@@ -136,21 +138,35 @@ struct TransactionRow: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 2) {
             HStack {
-                HStack {
-                    Image(
-                        systemName: propertyTransaction.priceDelta > 0 ? "arrow.up" : "arrow.down"
-                    )
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 8)
-                    Text(abs(propertyTransaction.priceDelta).toCompactCurrencyFormat())
+                if propertyTransaction.priceDelta != 0 {
+                    HStack {
+                        Image(
+                            systemName: propertyTransaction.priceDelta > 0
+                                ? "arrow.up" : "arrow.down"
+                        )
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 8)
+                        Text(abs(propertyTransaction.priceDelta).toCompactCurrencyFormat())
+                    }
+                    .frame(maxWidth: 100)
+                    .font(.subheadline)
+                    .padding(.vertical, 4)
+                    .padding(.horizontal, 8)
+                    .background(propertyTransaction.priceDelta > 0 ? .green : .red)
+                    .cornerRadius(4)
+                    .foregroundColor(.neutral10)
+                } else {
+                    Text("—")
+                        .font(.subheadline)
+                        .frame(maxWidth: 100)
+                        .padding(.vertical, 4)
+                        .padding(.horizontal, 8)
+                        .background(.black)
+                        .cornerRadius(4)
+                        .foregroundColor(.neutral10)
                 }
-                .font(.subheadline)
-                .padding(.vertical, 4)
-                .padding(.horizontal, 8)
-                .background(propertyTransaction.priceDelta > 0 ? .green : .red)
-                .cornerRadius(4)
-                .foregroundColor(.neutral10)
+
                 Spacer()
 
                 Text(

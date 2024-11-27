@@ -34,6 +34,7 @@ enum Mock {
                 "https://chat-server.home-nas.xyz/images/Property4.jpg",
                 "https://chat-server.home-nas.xyz/images/Property5.jpg",
             ],
+            vrImageUrls: [],
             transactionHistory: [
                 Transaction(date: Date(), price: 7_500_000)
             ],
@@ -69,6 +70,7 @@ enum Mock {
                 "https://chat-server.home-nas.xyz/images/Property4.jpg",
                 "https://chat-server.home-nas.xyz/images/Property5.jpg",
             ],
+            vrImageUrls: [],
             transactionHistory: [
                 Transaction(
                     date: Date(timeIntervalSince1970: 1_609_459_200),
@@ -143,6 +145,7 @@ enum Mock {
                 "https://chat-server.home-nas.xyz/images/Property4.jpg",
                 "https://chat-server.home-nas.xyz/images/Property5.jpg",
             ],
+            vrImageUrls: [],
             transactionHistory: [
                 Transaction(
                     date: Date(timeIntervalSince1970: 1_609_459_200),

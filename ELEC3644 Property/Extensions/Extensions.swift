@@ -20,17 +20,19 @@ struct BackButtonModifier: ViewModifier {
                             self.dismiss()
                         }) {
                             Image(systemName: "chevron.left")
+                                .resizable()
+                                .scaledToFit()
                                 .frame(width: 18, height: 18)
                                 .foregroundColor(.neutral100)
-                                .padding(12)
+                                .padding(8)
                                 .background(
                                     Circle()
                                         .fill(Color.white)
                                 )
                                 .shadow(color: .gray.opacity(0.3), radius: 4, x: 0, y: 4)
-                                .padding(.vertical, 4)
                         }
                     }
+                    .padding(.vertical, 4)
                 }
             }
     }
