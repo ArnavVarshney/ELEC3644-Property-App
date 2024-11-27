@@ -16,11 +16,7 @@ struct MapView: View {
             Map(position: $viewModel.position) {
                 Annotation(viewModel.property.name, coordinate: viewModel.location) {
                     HStack {
-                        Text(String(viewModel.property.netPrice))
-                            .font(.callout)
-                            .fontWeight(.bold)
-                            .foregroundColor(Color.neutral100)
-                        Text("HKD")
+                        Text(String(viewModel.property.netPrice.toCompactCurrencyFormat()))
                             .font(.callout)
                             .fontWeight(.bold)
                             .foregroundColor(Color.neutral100)

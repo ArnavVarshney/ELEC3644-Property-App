@@ -91,14 +91,14 @@ struct EnlargeMapView_V2: View {
                             //                            propertyMapItem = viewModel.getMapItem(for: property.id)
                             Annotation(property.name, coordinate: location) {
                                 HStack {
-                                    Text(String(property.netPrice))
+                                    Text(String(property.netPrice.toCompactCurrencyFormat()))
                                         .font(.callout)
                                         .fontWeight(.bold)
                                         .foregroundColor(Color.neutral100)
-                                    Text("HKD")
-                                        .font(.callout)
-                                        .fontWeight(.bold)
-                                        .foregroundColor(Color.neutral100)
+//                                    Text("HKD")
+//                                        .font(.callout)
+//                                        .fontWeight(.bold)
+//                                        .foregroundColor(Color.neutral100)
                                 }
                                 .frame(width: 125, height: 25)
                                 .background(.white)

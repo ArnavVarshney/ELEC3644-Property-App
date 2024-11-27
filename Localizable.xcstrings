@@ -1277,6 +1277,7 @@
       }
     },
     "HKD" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
