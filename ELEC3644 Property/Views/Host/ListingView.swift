@@ -51,7 +51,7 @@ struct ListingView: View {
                         .font(.footnote)
                         .foregroundColor(.neutral70)
                         .padding(4)
-                    
+
                     Spacer()
                 } else {
                     ListingListView(properties: filteredProperties)
