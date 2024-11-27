@@ -28,8 +28,10 @@ class UserViewModel: ObservableObject {
         Task {
             await fetchUser(with: currentUserId())
             await fetchWishlist()
-            if isAgent(with: user) {
-                userRole = .agent
+            DispatchQueue.main.async {
+                if self.isAgent(with: self.user) {
+                    self.userRole = .agent
+                }
             }
         }
     }

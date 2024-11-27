@@ -1067,6 +1067,9 @@
         }
       }
     },
+    "Explore properties" : {
+
+    },
     "Facilities" : {
       "localizations" : {
         "zh-HK" : {
@@ -1087,6 +1090,9 @@
           }
         }
       }
+    },
+    "Find your next home or investment" : {
+
     },
     "Fo Tan" : {
       "extractionState" : "stale",
@@ -1934,6 +1940,9 @@
         }
       }
     },
+    "Max: %@" : {
+
+    },
     "Max: %lld" : {
       "localizations" : {
         "zh-HK" : {
@@ -1995,6 +2004,9 @@
           }
         }
       }
+    },
+    "Min: %@" : {
+
     },
     "Min: %lld" : {
       "localizations" : {
