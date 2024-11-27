@@ -16,14 +16,17 @@ struct PropertySearchFieldsView: View {
     func onSubmit() {
         var requestBody = [String: String]()
         let searchFields = viewModel.searchFields
-        requestBody["netPrice"] = "([\"min\": lowerPrice, \"max\": upperPrice])"
+        requestBody["minNetPrice"] = "\(Int(searchFields.lowerPrice))"
+        requestBody["maxNetPrice"] = "\(Int(searchFields.upperPrice))"
         requestBody["propertyType"] = "\(searchFields.propertyType)".lowercased()
-        requestBody["amenities"] = "\(Array(searchFields.amenities))"
         requestBody["area"] = "\(searchFields.area)"
         requestBody["district"] = "\(searchFields.district)"
         requestBody["subDistrict"] = "\(searchFields.subdistrict)"
         Task {
             await viewModel.query(query: requestBody)
+        }
+        for property in viewModel.properties {
+            print(property.netPrice)
         }
     }
 
