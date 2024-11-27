@@ -31,7 +31,7 @@ struct EnlargeMapView: View {
             ZStack(alignment: .center) {
                 // The Map View
                 Map(position: $camera, selection: $mapSelection) {
-//                     Annotation for the target property
+                    //                     Annotation for the target property
                     Annotation(viewModel.property.address, coordinate: viewModel.location) {
                         HStack {
                             Text(String(viewModel.property.name))
@@ -50,16 +50,16 @@ struct EnlargeMapView: View {
                                 .clipShape(RoundedRectangle(cornerRadius: 1))
                         )
                     }
-//                    Marker(coordinate: viewModel.location, label: {
-//                                                Image(systemName: "mappin")
-//                                                    .resizable()
-//                                                    .scaledToFit()
-//                                                    .frame(width: 14, height: 14)
-//                                                    .padding(.all, 8)
-//                                                    .background(.red)
-//                                                    .foregroundColor(.white)
-//                                                    .clipShape(Circle())
-//                    })
+                    //                    Marker(coordinate: viewModel.location, label: {
+                    //                                                Image(systemName: "mappin")
+                    //                                                    .resizable()
+                    //                                                    .scaledToFit()
+                    //                                                    .frame(width: 14, height: 14)
+                    //                                                    .padding(.all, 8)
+                    //                                                    .background(.red)
+                    //                                                    .foregroundColor(.white)
+                    //                                                    .clipShape(Circle())
+                    //                    })
                     .annotationTitles(.visible)
 
                     // Markers for other places
@@ -116,7 +116,7 @@ struct EnlargeMapView: View {
                     // Button to reset camera location, reset all buttons/bool
                     HStack {
                         Spacer()  // Pushes the button to the right
-                        VStack{
+                        VStack {
                             Button {
                                 centerCameraOnUserLocation()
                                 popUp = false
@@ -168,7 +168,8 @@ struct EnlargeMapView: View {
                         VStack {
                             Button(action: {
                                 zoomIn()
-                                setCameraZoom(latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
+                                setCameraZoom(
+                                    latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
                             }) {
                                 Image(systemName: "plus")
                                     .padding(15)
@@ -179,7 +180,8 @@ struct EnlargeMapView: View {
                             }
                             Button(action: {
                                 zoomOut()
-                                setCameraZoom(latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
+                                setCameraZoom(
+                                    latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
                             }) {
                                 Image(systemName: "minus")
                                     .padding(15)
@@ -197,7 +199,7 @@ struct EnlargeMapView: View {
                     {
                         VStack {
                             Button(action: {
-       
+
                             }) {
                                 Image(systemName: "chevron.up")
                                     .padding(15)
@@ -217,7 +219,7 @@ struct EnlargeMapView: View {
                                     .cornerRadius(6)
                             }
                             Button(action: {
-                 
+
                             }) {
                                 Image(systemName: "chevron.left")
                                     .padding(15)
@@ -227,7 +229,7 @@ struct EnlargeMapView: View {
                                     .cornerRadius(6)
                             }
                             Button(action: {
-                     
+
                             }) {
                                 Image(systemName: "chevron.right")
                                     .padding(15)
@@ -247,7 +249,8 @@ struct EnlargeMapView: View {
                         VStack {
                             Button(action: {
                                 zoomIn()
-                                setCameraZoom(latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
+                                setCameraZoom(
+                                    latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
                             }) {
                                 Image(systemName: "plus")
                                     .padding(15)
@@ -258,7 +261,8 @@ struct EnlargeMapView: View {
                             }
                             Button(action: {
                                 zoomOut()
-                                setCameraZoom(latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
+                                setCameraZoom(
+                                    latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
                             }) {
                                 Image(systemName: "minus")
                                     .padding(15)
@@ -318,7 +322,7 @@ struct EnlargeMapView: View {
                     }
                 }
                 .padding(5)
-                
+
             }
             .backButton()
             .onAppear {
@@ -404,19 +408,19 @@ struct EnlargeMapView: View {
         // Update camera position to center on user's location.
         camera = .region(userRegion)  // Update view model's position directly
     }
-    
+
     func zoomIn() {
         if zoomLevel > 250 {  // Prevent zooming in too much
             zoomLevel /= 1.5  // Zoom in by halving the current level
         }
     }
-    
+
     func zoomOut() {
         if zoomLevel < 600000 {  // Prevent zooming out too much
             zoomLevel *= 1.5  // Zoom out by doubling the current level
         }
     }
-    
+
     func setCameraZoom(
         latitudinalMeters: CLLocationDistance, longitudinalMeters: CLLocationDistance
     ) {
@@ -429,7 +433,7 @@ struct EnlargeMapView: View {
         //        }
         //        print("\(camera.region?.center)")  //idk why when the user swipe the map then back using the buttons, the code collapses
     }
-    
+
     func panUp() {
         newCameraCenterLocation?.latitude += 0.005
         addedLatitude += 0.005
@@ -449,7 +453,7 @@ struct EnlargeMapView: View {
         newCameraCenterLocation?.longitude += 0.005
         addedLongitude += 0.005
     }
-    
+
     func setCameraPan() {
         let currentCenter = newCameraCenterLocation
         let newRegion = MKCoordinateRegion(
@@ -465,7 +469,7 @@ struct EnlargeMapView: View {
         @StateObject var propertyViewModel = PropertyViewModel()
         @StateObject var propertyDetailViewModel = PropertyDetailViewModel(
             property: Mock.Properties[0])
-        @StateObject var mapSettingsViewModel =  MapSettingsViewModel()
+        @StateObject var mapSettingsViewModel = MapSettingsViewModel()
         @State private var showEnlargeMapView = false
 
         var body: some View {
