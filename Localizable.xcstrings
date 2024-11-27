@@ -15,6 +15,9 @@
         }
       }
     },
+    "—" : {
+
+    },
     ", " : {
 
     },
@@ -2892,6 +2895,9 @@
         }
       }
     },
+    "Select a VR View" : {
+
+    },
     "Select Area" : {
       "localizations" : {
         "zh-HK" : {
@@ -3594,6 +3600,9 @@
         }
       }
     },
+    "Try searching for something else" : {
+
+    },
     "Try searching for something else." : {
       "localizations" : {
         "zh-HK" : {
@@ -4041,6 +4050,9 @@
           }
         }
       }
+    },
+    "You haven't created any listings" : {
+
     },
     "You must restart the app for the changes to take effect" : {
       "extractionState" : "stale",

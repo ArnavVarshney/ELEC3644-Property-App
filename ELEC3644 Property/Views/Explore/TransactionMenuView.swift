@@ -74,12 +74,12 @@ struct TransactionRowView: View {
                 AsyncImage(url: URL(string: propertyTransaction.property.imageUrls[0])) { image in
                     image
                         .resizable()
-                        .scaledToFit()
+                        .aspectRatio(16 / 9, contentMode: .fit)
                         .frame(width: 100)
                 } placeholder: {
                     ProgressView()
-                        .frame(width: 80)
-
+                        .aspectRatio(16 / 9, contentMode: .fit)
+                        .frame(width: 100)
                 }
 
                 Text(propertyTransaction.property.contractType)

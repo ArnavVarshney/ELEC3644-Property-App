@@ -37,7 +37,7 @@ struct ListingView: View {
                 Divider()
                     .padding(.vertical, 8)
 
-                if filteredProperties.isEmpty {
+                if filteredProperties.isEmpty || properties.isEmpty {
                     Spacer()
 
                     Image(systemName: "magnifyingglass")
@@ -47,10 +47,14 @@ struct ListingView: View {
                         .font(.footnote)
                         .fontWeight(.bold)
                         .padding(4)
-                    Text("Try searching for something else.")
-                        .font(.footnote)
-                        .foregroundColor(.neutral70)
-                        .padding(4)
+                    Text(
+                        properties.isEmpty
+                            ? "You haven't created any listings"
+                            : "Try searching for something else"
+                    )
+                    .font(.footnote)
+                    .foregroundColor(.neutral70)
+                    .padding(4)
 
                     Spacer()
                 } else {
