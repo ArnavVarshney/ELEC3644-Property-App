@@ -29,27 +29,27 @@ struct MapView: View {
                         }
 
                 }
-//                Annotation(viewModel.property.name, coordinate: viewModel.location) {
-//                    HStack {
-//                        Text(String(viewModel.property.netPrice.toCompactCurrencyFormat()))
-//                            .font(.callout)
-//                            .fontWeight(.bold)
-//                            .foregroundColor(Color.neutral100)
-//                    }
-//                    .frame(width: 125, height: 25)
-//                    .background(.white)
-//                    .clipShape(RoundedRectangle(cornerRadius: 8))
-//                    .overlay(
-//                        Capsule()
-//                            .stroke(lineWidth: 0.5)
-//                            .foregroundColor(.white)
-//                            .addShadow()
-//                            .clipShape(RoundedRectangle(cornerRadius: 1))
-//                    )
-//                    .onTapGesture {
-//                        withAnimation(.spring()) { showEnlargeMapView.toggle() }
-//                    }
-//                }
+                //                Annotation(viewModel.property.name, coordinate: viewModel.location) {
+                //                    HStack {
+                //                        Text(String(viewModel.property.netPrice.toCompactCurrencyFormat()))
+                //                            .font(.callout)
+                //                            .fontWeight(.bold)
+                //                            .foregroundColor(Color.neutral100)
+                //                    }
+                //                    .frame(width: 125, height: 25)
+                //                    .background(.white)
+                //                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                //                    .overlay(
+                //                        Capsule()
+                //                            .stroke(lineWidth: 0.5)
+                //                            .foregroundColor(.white)
+                //                            .addShadow()
+                //                            .clipShape(RoundedRectangle(cornerRadius: 1))
+                //                    )
+                //                    .onTapGesture {
+                //                        withAnimation(.spring()) { showEnlargeMapView.toggle() }
+                //                    }
+                //                }
                 .annotationTitles(.visible)
                 ForEach(viewModel.places, id: \.self) { place in
                     Marker(
