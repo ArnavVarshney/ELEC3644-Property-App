@@ -19,12 +19,7 @@ struct WishlistDetailView: View {
         GridItem(.flexible())
     ]
 
-    @State var showingSheet = false
     var wishlist: Wishlist {
-        if debug {
-            return userViewModel.user.wishlists.first ?? Wishlist(name: "Deleted", properties: [])
-        }
-
         return userViewModel.user.wishlists.first { w in
             w.id == wishlistId
         } ?? Wishlist(name: "Deleted", properties: [])
@@ -38,8 +33,6 @@ struct WishlistDetailView: View {
         return picked
     }
 
-    var debug = false
-
     //State management
     @State var state: WishlistState = .view
     @State var pickedPropertiesIdx: [Int] = []
@@ -51,11 +44,13 @@ struct WishlistDetailView: View {
     @State var isActive = false
     @State var deleteButtonColour: Color = .neutral100
     @State var compareButtonColour: Color = .neutral100
+    @State var showSheet = false
+    @State var index = 0
 
     let callback: (_: [Property]) -> Void
 
     var body: some View {
-        NavigationStack {
+        VStack {
             ScrollView {
                 if wishlist.properties.isEmpty {
                     VStack {
@@ -79,8 +74,9 @@ struct WishlistDetailView: View {
                     LazyVGrid(columns: coloumns) {
                         ForEach(wishlist.properties.indices, id: \.self) { idx in
                             if !tickable {
-                                NavigationLink {
-                                    PropertyDetailView(property: wishlist.properties[idx])
+                                Button {
+                                    index = idx
+                                    showSheet = true
                                 } label: {
                                     WishlistItemCard(
                                         property: wishlist.properties[idx], picking: tickable,
@@ -101,9 +97,13 @@ struct WishlistDetailView: View {
                             }
 
                             Divider().listRowSeparator(.hidden).padding(.horizontal, 24)
+                                .padding(.vertical, 12)
                         }
                     }
                 }
+            }
+            .sheet(isPresented: $showSheet) {
+                PropertyDetailView(property: wishlist.properties[index])
             }
             .navigationTitle(wishlist.name)
             .navigationBarBackButtonHidden()
@@ -250,16 +250,16 @@ struct LowerButton: View {
     }
 }
 
-struct WishlistDetailViewPreview: View {
-    @State var wishlist = Mock.Users[0].wishlists[0]
-    var body: some View {
-        WishlistDetailView(
-            wishlistId: UUID(uuidString: "FB7F5ED8-8673-4539-9F45-3BA51D148B10")!, debug: true,
-            callback: { _ in }
-        ).environmentObject(UserViewModel(user: Mock.Users[0]))
-    }
-}
-
-#Preview {
-    WishlistDetailViewPreview()
-}
+//struct WishlistDetailViewPreview: View {
+//    @State var wishlist = Mock.Users[0].wishlists[0]
+//    var body: some View {
+//        WishlistDetailView(
+//            wishlistId: UUID(uuidString: "FB7F5ED8-8673-4539-9F45-3BA51D148B10")!, debug: true,
+//            callback: { _ in }
+//        ).environmentObject(UserViewModel(user: Mock.Users[0]))
+//    }
+//}
+//
+//#Preview {
+//    WishlistDetailViewPreview()
+//}
