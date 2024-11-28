@@ -207,7 +207,7 @@ struct HistoryView: View {
                         }.disabled(backButtonDisabled)
                     }
 
-                    if userViewModel.isLoggedIn(){
+                    if userViewModel.isLoggedIn() {
                         ToolbarItem(placement: .topBarTrailing) {
                             Button {
                                 if state != .delete {
