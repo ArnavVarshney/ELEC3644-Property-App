@@ -201,6 +201,12 @@
             "state" : "new",
             "value" : "%1$lld/%2$lld characters"
           }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld/%2$lld "
+          }
         }
       }
     },
@@ -349,7 +355,14 @@
       }
     },
     "Add VR Photos" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新增虛擬實境圖片"
+          }
+        }
+      }
     },
     "Address" : {
       "localizations" : {
@@ -383,7 +396,14 @@
       }
     },
     "agent(s) found" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "代理"
+          }
+        }
+      }
     },
     "Agents" : {
       "extractionState" : "manual",
@@ -755,7 +775,14 @@
       }
     },
     "contract type" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "合約種類"
+          }
+        }
+      }
     },
     "Contract Type" : {
       "localizations" : {
@@ -890,7 +917,14 @@
       }
     },
     "Distance: %@ km" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "地區：%@ 公里"
+          }
+        }
+      }
     },
     "District" : {
       "localizations" : {
@@ -1069,7 +1103,14 @@
       }
     },
     "Explore properties" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "探索物業"
+          }
+        }
+      }
     },
     "Facilities" : {
       "extractionState" : "stale",
@@ -1094,7 +1135,14 @@
       }
     },
     "Find your next home or investment" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "尋找你下一個家或者是投資的機會"
+          }
+        }
+      }
     },
     "Fo Tan" : {
       "extractionState" : "stale",
@@ -1318,7 +1366,14 @@
       }
     },
     "How much did you sell/rent/lease this property for?" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "您以多少錢出售/出租/租賃該房產？"
+          }
+        }
+      }
     },
     "Hung Hom" : {
       "extractionState" : "stale",
@@ -1343,10 +1398,24 @@
       }
     },
     "Image Name" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "照片名稱"
+          }
+        }
+      }
     },
     "Images" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "照片"
+          }
+        }
+      }
     },
     "Inbox" : {
       "localizations" : {
@@ -1446,10 +1515,12 @@
       }
     },
     "Key" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "shouldTranslate" : false
     },
     "Key 1" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "shouldTranslate" : false
     },
     "King's Park" : {
       "extractionState" : "stale",
@@ -1942,10 +2013,24 @@
       }
     },
     "Mark as Sold" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "標記為賣出"
+          }
+        }
+      }
     },
     "Max: %@" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "最高：%@"
+          }
+        }
+      }
     },
     "Max: %lld" : {
       "extractionState" : "stale",
@@ -2011,7 +2096,14 @@
       }
     },
     "Min: %@" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "最低：%@"
+          }
+        }
+      }
     },
     "Min: %lld" : {
       "extractionState" : "stale",
@@ -2057,7 +2149,14 @@
       }
     },
     "Name Your VR Image" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "為你的"
+          }
+        }
+      }
     },
     "Net Price" : {
       "localizations" : {
@@ -2238,7 +2337,14 @@
       }
     },
     "on %@" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在%@"
+          }
+        }
+      }
     },
     "Once you login, you'll find messages here." : {
       "localizations" : {
@@ -2390,7 +2496,14 @@
       }
     },
     "Please enter a name for your VR image" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "請為你的虛擬實境圖片改名"
+          }
+        }
+      }
     },
     "Pok Fu Lam" : {
       "extractionState" : "stale",
@@ -2435,7 +2548,14 @@
       }
     },
     "Price" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "價格"
+          }
+        }
+      }
     },
     "Price (HKD)" : {
       "localizations" : {
@@ -2478,7 +2598,14 @@
       }
     },
     "Price/ft²" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "呎價"
+          }
+        }
+      }
     },
     "Price/Sqft" : {
       "extractionState" : "stale",
@@ -2486,7 +2613,7 @@
         "zh-HK" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "尺價"
+            "value" : "呎價"
           }
         }
       }
@@ -2553,7 +2680,14 @@
       }
     },
     "Property Sold" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此物業已被賣出"
+          }
+        }
+      }
     },
     "Property Type" : {
       "localizations" : {
@@ -2619,7 +2753,14 @@
       }
     },
     "Recently Viewed" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "近期瀏覽"
+          }
+        }
+      }
     },
     "Recently viewed properties will be recorded here" : {
       "localizations" : {
@@ -2735,7 +2876,14 @@
       }
     },
     "S.A. %lld ft²" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "實用面積 %lld 平方呎"
+          }
+        }
+      }
     },
     "S.A. %lldsqft @ %@/sqft" : {
       "extractionState" : "stale",
@@ -2882,7 +3030,14 @@
       }
     },
     "Search listings" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "搜尋上架的物業"
+          }
+        }
+      }
     },
     "Search listings & transactions" : {
       "extractionState" : "stale",
@@ -2916,7 +3071,14 @@
       }
     },
     "Security" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "安全"
+          }
+        }
+      }
     },
     "Select" : {
       "localizations" : {
@@ -2929,7 +3091,14 @@
       }
     },
     "Select a VR View" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "請選擇虛擬實境"
+          }
+        }
+      }
     },
     "Select Area" : {
       "localizations" : {
@@ -2972,7 +3141,14 @@
       }
     },
     "Selected Values" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "所選擇的項目"
+          }
+        }
+      }
     },
     "Settings" : {
       "localizations" : {
@@ -3528,7 +3704,14 @@
       }
     },
     "Time: %@ min" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "時間：%@分鐘"
+          }
+        }
+      }
     },
     "Tin Hau" : {
       "extractionState" : "stale",
@@ -3618,10 +3801,24 @@
       }
     },
     "transaction(s) found" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "項交易"
+          }
+        }
+      }
     },
     "Transactions" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "交易"
+          }
+        }
+      }
     },
     "Translate" : {
       "localizations" : {
@@ -3809,14 +4006,21 @@
       }
     },
     "VR Images" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "虛擬實境圖片"
+          }
+        }
+      }
     },
     "VR View" : {
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "VR 視圖"
+            "value" : "虛擬實境"
           }
         }
       }
@@ -4088,7 +4292,14 @@
       }
     },
     "You haven't created any listings" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "你還沒有創建任何列表"
+          }
+        }
+      }
     },
     "You must restart the app for the changes to take effect" : {
       "extractionState" : "stale",
@@ -4133,7 +4344,14 @@
       }
     },
     "Your Listings" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "你的物業列表"
+          }
+        }
+      }
     },
     "Yuen Long" : {
       "extractionState" : "stale",
