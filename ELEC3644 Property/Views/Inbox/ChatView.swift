@@ -248,6 +248,7 @@ struct DateHeader: View {
 struct ChatBubble: View {
     var message: Message
     var isUser: Bool
+    @Environment(\.managedObjectContext) private var viewContext
     @State private var showTranslation: Bool = false
     var body: some View {
         VStack(alignment: isUser ? .trailing : .leading) {

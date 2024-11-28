@@ -69,20 +69,16 @@ struct TransactionMenuView: View {
 
 struct TransactionRowView: View {
     let propertyTransaction: PropertyTransaction
+    @Environment(\.managedObjectContext) private var viewContext
 
     var body: some View {
         HStack(alignment: .top) {
             VStack(alignment: .leading) {
-                AsyncImage(url: URL(string: propertyTransaction.property.imageUrls[0])) { image in
-                    image
-                        .resizable()
-                        .aspectRatio(16 / 9, contentMode: .fit)
-                        .frame(width: 100)
-                } placeholder: {
-                    ProgressView()
-                        .aspectRatio(16 / 9, contentMode: .fit)
-                        .frame(width: 100)
-                }
+                AsyncImageView(
+                    url: URL(string: propertyTransaction.property.imageUrls[0])!,
+                    context: viewContext
+                )
+                .frame(width: 100)
 
                 Text(propertyTransaction.property.contractType)
                     .font(.subheadline)

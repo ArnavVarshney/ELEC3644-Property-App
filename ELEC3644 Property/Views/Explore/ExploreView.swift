@@ -43,7 +43,7 @@ struct ExploreView: View {
             ZStack {
                 GeometryReader { geometry in
                     ScrollView(.horizontal) {
-                        LazyHStack(spacing: 0) {
+                        HStack(spacing: 0) {
                             ListingMenuView(
                                 properties: queryString(
                                     properties: propertyViewModel.getByContractType(

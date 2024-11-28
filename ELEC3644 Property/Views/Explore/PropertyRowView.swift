@@ -9,19 +9,14 @@ import SwiftUI
 
 struct PropertyRowView: View {
     let property: Property
+    @Environment(\.managedObjectContext) private var viewContext
 
     var body: some View {
         HStack {
-            AsyncImage(url: URL(string: property.imageUrls[0])) { image in
-                image
-                    .resizable()
-                    .scaledToFill()
-            } placeholder: {
-                ProgressView()
-            }
-            .frame(width: 114, height: 70)
-            .clipShape(RoundedRectangle(cornerRadius: 4))
-            .padding(.trailing, 4)
+            AsyncImageView(url: URL(string: property.imageUrls[0])!, context: viewContext)
+                .frame(width: 114, height: 70)
+                .clipShape(RoundedRectangle(cornerRadius: 4))
+                .padding(.trailing, 4)
             Spacer()
             VStack(alignment: .leading) {
                 Text("\(property.name)")

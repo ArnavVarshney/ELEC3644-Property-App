@@ -8,6 +8,7 @@ import SwiftUI
 
 struct WishlistItemView: View {
     @EnvironmentObject var userViewModel: UserViewModel
+    @Environment(\.managedObjectContext) private var viewContext
     let wishlist: Wishlist
     let firstProperty: Property
     var size: CGFloat
@@ -20,25 +21,17 @@ struct WishlistItemView: View {
 
     var body: some View {
         VStack {
-            AsyncImage(url: URL(string: firstProperty.imageUrls[0])) { image in
-                image
-                    .resizable()
-                    .scaledToFill()
-                    .frame(
-                        width: size, height: size)
-            } placeholder: {
-                ProgressView()
-                    .scaledToFill()
-                    .frame(
-                        width: size, height: size)
-            }
-            .clipShape(RoundedRectangle(cornerRadius: 16))
-            .overlay(
-                RoundedRectangle(cornerRadius: 16)
-                    .stroke(.neutral20, lineWidth: 4)
-            )
-            .padding(.bottom, 4)
-            .addShadow()
+            AsyncImageView(url: URL(string: firstProperty.imageUrls[0])!, context: viewContext)
+                .frame(
+                    width: size, height: size
+                )
+                .clipShape(RoundedRectangle(cornerRadius: 16))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(.neutral20, lineWidth: 4)
+                )
+                .padding(.bottom, 4)
+                .addShadow()
 
             Text(wishlist.name)
                 .font(.body)

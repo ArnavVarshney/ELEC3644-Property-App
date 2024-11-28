@@ -5,6 +5,7 @@
 //  Created by Filbert Tejalaksana on 11/10/2024.
 //
 import AVKit
+import CoreData
 import SwiftUI
 
 struct BackButtonModifier: ViewModifier {
@@ -42,6 +43,83 @@ struct AddShadow: ViewModifier {
     func body(content: Content) -> some View {
         content
             .shadow(color: .gray.opacity(0.2), radius: 3, x: 0, y: 4)
+    }
+}
+
+class AsyncImageViewModel: ObservableObject {
+    @Published var uiImage: UIImage? = nil
+    private let url: URL
+    private let context: NSManagedObjectContext
+
+    init(url: URL, context: NSManagedObjectContext) {
+        self.url = url
+        self.context = context
+        Task {
+            await fetchImage()
+        }
+    }
+
+    @MainActor
+    private func fetchImage() async {
+        let fetchRequest: NSFetchRequest<CachedImage> = CachedImage.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "url == %@", url.absoluteString)
+
+        do {
+            let results = try context.fetch(fetchRequest)
+            if let cachedImage = results.first, let imageData = cachedImage.imageData,
+                let image = UIImage(data: imageData)
+            {
+                self.uiImage = image
+            } else {
+                await downloadImage()
+            }
+        } catch {
+            print("Failed to fetch image: \(error)")
+            await downloadImage()
+        }
+    }
+
+    @MainActor
+    private func downloadImage() async {
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            if let image = UIImage(data: data) {
+                self.uiImage = image
+                saveImageToCoreData(data: data)
+            }
+        } catch {
+            print("Failed to download image: \(error.localizedDescription)")
+        }
+    }
+
+    private func saveImageToCoreData(data: Data) {
+        let cachedImage = CachedImage(context: context)
+        cachedImage.url = url.absoluteString
+        cachedImage.imageData = data
+
+        do {
+            try context.save()
+        } catch {
+            print("Failed to save image: \(error)")
+        }
+    }
+}
+
+struct AsyncImageView: View {
+    @StateObject private var viewModel: AsyncImageViewModel
+
+    init(url: URL, context: NSManagedObjectContext) {
+        _viewModel = StateObject(wrappedValue: AsyncImageViewModel(url: url, context: context))
+    }
+
+    var body: some View {
+        if let uiImage = viewModel.uiImage {
+            Image(uiImage: uiImage)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+        } else {
+            ProgressView()
+        }
     }
 }
 

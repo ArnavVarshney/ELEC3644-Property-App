@@ -8,6 +8,8 @@ import SwiftUI
 
 struct ImageCarouselView: View {
     @EnvironmentObject var userViewModel: UserViewModel
+    @Environment(\.managedObjectContext) private var viewContext
+
     let property: Property
     let images: [String]
     let imageUrls: [String]
@@ -68,7 +70,7 @@ struct ImageCarouselView: View {
                             Spacer()
                         }
                         Spacer()
-                    }.padding(5).zIndex(1)
+                    }.padding(8).zIndex(1)
                 }
 
                 if pickable {
@@ -86,27 +88,13 @@ struct ImageCarouselView: View {
                                 .shadow(color: .gray.opacity(0.3), radius: 4, x: 0, y: 4)
                         }
                         Spacer()
-                    }.padding(5).zIndex(1)
+                    }.padding(8).zIndex(1)
                 }
             }
 
             TabView {
-                if imageUrls.isEmpty {
-                    ForEach(images, id: \.self) { image in
-                        Image(image)
-                            .resizable()
-                            .scaledToFill()
-                    }
-                } else {
-                    ForEach(imageUrls, id: \.self) { imageUrl in
-                        AsyncImage(url: URL(string: imageUrl)) { image in
-                            image
-                                .resizable()
-                                .scaledToFill()
-                        } placeholder: {
-                            ProgressView()
-                        }
-                    }
+                ForEach(imageUrls, id: \.self) { imageUrl in
+                    AsyncImageView(url: URL(string: imageUrl)!, context: viewContext)
                 }
             }
         }.frame(height: height)
