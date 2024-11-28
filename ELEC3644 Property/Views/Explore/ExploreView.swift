@@ -30,63 +30,63 @@ struct ExploreView: View {
     }
 
     var body: some View {
-        NavigationStack {
-            VStack {
-                SearchBarView(searchText: $searchText, isActive: $isSearchActive)
-                MenuItemListView(selectedMenu: $currentMenu)
-            }
-            .background(.white)
-            .shadow(color: .neutral100.opacity(0.1), radius: 1, x: 0, y: 1)
-            .sheet(isPresented: $isSearchActive) {
-                SearchFieldsView(currentMenu: currentMenu)
-            }
-            .border(.black, width: 1)
-            ZStack {
-                ScrollView(.horizontal) {
-                    HStack(spacing: 0) {
-                        ListingMenuView(
-                            properties: queryString(
-                                properties: propertyViewModel.getByContractType(
-                                    contractType: "Buy"), query: searchText)
-                        )
-                        .id(MenuItem.buy)
-                        .frame(width: UIScreen.main.bounds.width)
-                        ListingMenuView(
-                            properties: queryString(
-                                properties: propertyViewModel.getByContractType(
-                                    contractType: "Rent"), query: searchText)
-                        )
-                        .id(MenuItem.rent)
-                        .frame(width: UIScreen.main.bounds.width)
-                        ListingMenuView(
-                            properties: queryString(
-                                properties: propertyViewModel.getByContractType(
-                                    contractType: "Lease"), query: searchText)
-                        )
-                        .id(MenuItem.lease)
-                        .frame(width: UIScreen.main.bounds.width)
-                        TransactionMenuView(properties: propertyViewModel.properties)
-                            .id(MenuItem.transaction)
-                            .frame(width: UIScreen.main.bounds.width)
-                        AgentMenuView()
-                            .id(MenuItem.agents)
-                            .frame(width: UIScreen.main.bounds.width)
-                        EnlargeMapView_V2(
-                            startMapCameraLocation: .customLocation(
-                                latitude: 22.3193, longitude: 114.1694)
-                        )
-                        .id(MenuItem.map)
-                        .frame(width: UIScreen.main.bounds.width)
-
-                    }
+        NavigationStack() {
+            VStack(spacing: 0){
+                VStack {
+                    SearchBarView(searchText: $searchText, isActive: $isSearchActive)
+                    MenuItemListView(selectedMenu: $currentMenu)
                 }
-                .scrollPosition(id: $currentMenu)
-                .scrollIndicators(.hidden)
-                .scrollTargetBehavior(.paging)
-                .scrollDisabled(true)
-                .border(.blue, width: 1)
+                .background(.white)
+                .shadow(color: .neutral100.opacity(0.1), radius: 1, x: 0, y: 1)
+                .sheet(isPresented: $isSearchActive) {
+                    SearchFieldsView(currentMenu: currentMenu)
+                }
+                ZStack {
+                    ScrollView(.horizontal) {
+                        HStack(spacing: 0) {
+                            ListingMenuView(
+                                properties: queryString(
+                                    properties: propertyViewModel.getByContractType(
+                                        contractType: "Buy"), query: searchText)
+                            )
+                            .id(MenuItem.buy)
+                            .frame(width: UIScreen.main.bounds.width)
+                            ListingMenuView(
+                                properties: queryString(
+                                    properties: propertyViewModel.getByContractType(
+                                        contractType: "Rent"), query: searchText)
+                            )
+                            .id(MenuItem.rent)
+                            .frame(width: UIScreen.main.bounds.width)
+                            ListingMenuView(
+                                properties: queryString(
+                                    properties: propertyViewModel.getByContractType(
+                                        contractType: "Lease"), query: searchText)
+                            )
+                            .id(MenuItem.lease)
+                            .frame(width: UIScreen.main.bounds.width)
+                            TransactionMenuView(properties: propertyViewModel.properties)
+                                .id(MenuItem.transaction)
+                                .frame(width: UIScreen.main.bounds.width)
+                            AgentMenuView()
+                                .id(MenuItem.agents)
+                                .frame(width: UIScreen.main.bounds.width)
+                            EnlargeMapView_V2(
+                                startMapCameraLocation: .customLocation(
+                                    latitude: 22.3193, longitude: 114.1694)
+                            )
+                            .id(MenuItem.map)
+                            .frame(width: UIScreen.main.bounds.width)
+
+                        }
+                    }
+                    .scrollPosition(id: $currentMenu)
+                    .scrollIndicators(.hidden)
+                    .scrollTargetBehavior(.paging)
+                    .scrollDisabled(true)
+                }
             }
-            .border(.red, width: 1)
+            
         }
     }
 }

@@ -9,14 +9,15 @@ import SwiftUI
 
 struct BottomBar: View {
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var propertyViewModel: PropertyViewModel
     var onSubmit: () -> Void = {}
 
     var body: some View {
         HStack {
             Button {
-                dismiss()
+                propertyViewModel.searchFields = PropertySearchField()
             } label: {
-                Text("Cancel")
+                Text("Reset")
                     .font(.system(size: 16))
                     .foregroundColor(.neutral100)
                     .padding()
