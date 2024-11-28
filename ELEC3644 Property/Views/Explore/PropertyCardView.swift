@@ -43,8 +43,8 @@ struct PropertyCardView: View {
                         .fontWeight(.semibold)
                         .padding(.top, 1)
                 }
+                Spacer()
                 if moreDetail {
-                    Spacer()
                     VStack(alignment: .trailing) {
                         ForEach(property.facilities) { facility in
                             HStack {
