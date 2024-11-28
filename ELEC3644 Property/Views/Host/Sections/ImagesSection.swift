@@ -16,14 +16,14 @@ struct NamedImage: Identifiable {
 struct ImagesSection: View {
     @Binding var selectedItems: [PhotosPickerItem]
     @Binding var selectedImages: [UIImage]
-    
+
     @Binding var selectedVRItems: [PhotosPickerItem]
     @Binding var selectedVRImages: [NamedImage]
-    
+
     @State private var isNamingImage = false
     @State private var tempImage: UIImage?
     @State private var imageName = ""
-    
+
     var body: some View {
         Form {
             Section(header: Text("Images")) {
@@ -66,7 +66,7 @@ struct ImagesSection: View {
                         .foregroundColor(.neutral100)
                 }.foregroundColor(.neutral100)
             }
-            
+
             Section(header: Text("VR Images")) {
                 let columns = [
                     GridItem(.flexible(), spacing: 48),
@@ -134,7 +134,7 @@ struct ImagesSection: View {
             Task {
                 for item in newValue {
                     if let data = try? await item.loadTransferable(type: Data.self),
-                       let image = UIImage(data: data)
+                        let image = UIImage(data: data)
                     {
                         tempImage = image
                         isNamingImage = true
