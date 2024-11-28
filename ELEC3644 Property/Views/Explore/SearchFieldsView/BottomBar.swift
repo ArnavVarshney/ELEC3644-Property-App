@@ -41,7 +41,7 @@ struct BottomBar: View {
                         .padding()
                         .background(Color.neutral100)
                         .cornerRadius(10)
-                    
+
                 } else {
                     ProgressView()
                         .frame(maxWidth: 80)
