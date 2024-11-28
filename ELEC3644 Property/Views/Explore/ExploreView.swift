@@ -30,8 +30,8 @@ struct ExploreView: View {
     }
 
     var body: some View {
-        NavigationStack() {
-            VStack(spacing: 0){
+        NavigationStack {
+            VStack(spacing: 0) {
                 VStack {
                     SearchBarView(searchText: $searchText, isActive: $isSearchActive)
                     MenuItemListView(selectedMenu: $currentMenu)
@@ -86,7 +86,7 @@ struct ExploreView: View {
                     .scrollDisabled(true)
                 }
             }
-            
+
         }
     }
 }
