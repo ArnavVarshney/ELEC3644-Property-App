@@ -21,6 +21,8 @@ struct ChatView: View {
     @State private var isImagePickerPresented: Bool = false
     @State private var isCamera: Bool = false
     @State var selectedItems: [PhotosPickerItem] = []
+    @State private var isImageOverlayPresented: Bool = false
+    @State private var selectedImageUrl: String? = nil
 
     init(chat: Chat, initialMessage: String? = nil) {
         self.chat = chat
@@ -65,6 +67,14 @@ struct ChatView: View {
                                     ? .trailing : .leading
                             )
                             .transition(.opacity)
+                            .onTapGesture {
+                                if message.content.hasPrefix(
+                                    "https://chat-server.home-nas.xyz/images/")
+                                {
+                                    selectedImageUrl = message.content
+                                    isImageOverlayPresented = true
+                                }
+                            }
                         }
                     }
                 }
@@ -169,6 +179,11 @@ struct ChatView: View {
                         }
                     }
                 }
+            }
+        }
+        .sheet(isPresented: $isImageOverlayPresented) {
+            if let imageUrl = selectedImageUrl {
+                ImageOverlayView(imageUrl: imageUrl)
             }
         }
         .onAppear {
