@@ -22,7 +22,7 @@ struct IntSlider: View {
                     isEditing = editing
                 }
             )
-            .tint(.primary60)
+            .tint(.neutral100)
             Text("\(String(Int(range)))")
                 .foregroundColor(isEditing ? .neutral70 : .primary60)
         }

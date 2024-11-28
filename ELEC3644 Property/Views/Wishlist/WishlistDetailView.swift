@@ -50,7 +50,7 @@ struct WishlistDetailView: View {
     let callback: (_: [Property]) -> Void
 
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             ScrollView {
                 if wishlist.properties.isEmpty {
                     VStack {
@@ -143,12 +143,12 @@ struct WishlistDetailView: View {
                     callback(removedProperties)
                     transition(to: .view)
                 }
-                .padding(10)
+                .padding(12)
                 .background(Rectangle().fill(.neutral100))
                 .foregroundStyle(.white)
-                .clipShape(.rect(cornerRadius: 5))
+                .clipShape(.rect(cornerRadius: 4))
+                .padding()
             }
-
         }
     }
 

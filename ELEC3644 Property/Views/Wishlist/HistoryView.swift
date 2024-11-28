@@ -107,18 +107,6 @@ struct HistoryView: View {
                             Image(systemName: "chevron.left")
                         }.disabled(backButtonDisabled)
                     }
-
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button {
-                            if state != .delete {
-                                transition(to: .delete)
-                            } else {
-                                transition(to: .view)
-                            }
-                        } label: {
-                            Image(systemName: "trash")
-                        }.foregroundStyle(deleteButtonColour).disabled(deleteButtonDisabled)
-                    }
                 }
                 .navigationBarBackButtonHidden()
                 .navigationTitle("Recently Viewed")

@@ -139,13 +139,6 @@ struct TableEntry: View {
     }
 
     func getColour(cellValue: String) -> Color {
-        if let cV = Double(cellValue) {
-            let valuesInt = values.map { Double($0)! }
-            if cV <= valuesInt.max()! {
-                return .primary60
-            }
-        }
-
         return .neutral100
     }
 }
