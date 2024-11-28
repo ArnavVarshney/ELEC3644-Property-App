@@ -1948,6 +1948,7 @@
 
     },
     "Max: %lld" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -2013,6 +2014,7 @@
 
     },
     "Min: %lld" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {

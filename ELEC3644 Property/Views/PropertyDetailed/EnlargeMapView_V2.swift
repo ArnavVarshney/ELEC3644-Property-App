@@ -68,7 +68,7 @@ struct EnlargeMapView_V2: View {
     //    @State private var newLatitude: Double = 0.0
     //    @State private var newLongitude: Double = 0.0
     @State private var newCameraCenterLocation: CLLocationCoordinate2D?
-    @State private var newCameraRect: CLLocationCoordinate2D?
+    @State private var newCameraRect: MKMapRect?
     @State private var newCameraRegion: CLLocationCoordinate2D?
 
     // Accepting a PropertyLocation enum as a parameter
@@ -95,10 +95,6 @@ struct EnlargeMapView_V2: View {
                                         .font(.callout)
                                         .fontWeight(.bold)
                                         .foregroundColor(Color.neutral100)
-                                    //                                    Text("HKD")
-                                    //                                        .font(.callout)
-                                    //                                        .fontWeight(.bold)
-                                    //                                        .foregroundColor(Color.neutral100)
                                 }
                                 .frame(width: 125, height: 25)
                                 .background(.white)
