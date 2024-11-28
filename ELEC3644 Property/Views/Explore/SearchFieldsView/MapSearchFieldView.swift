@@ -79,14 +79,27 @@ struct MapSearchFieldView: View {
                             Text("Contract Type")
                             Spacer()
                             Picker("contract type", selection: $contractType) {
-                                if contractType == "Buy" {
-                                    Text("Buy").tag("Buy")
-                                }
+//                                
+//                                if contractType == "Buy" {
+//                                    Text("Buy").tag("Buy")
+//                                }
                                 ForEach(contractTypes, id: \.self) { c in
-                                    Text(c).tag(c.lowercased())
+                                    Text(c).tag(c)
                                 }
-                            }.pickerStyle(.menu)
+                            }.pickerStyle(.automatic)
                         }
+                        
+//                        HStack {
+//                            Text("Contract Type")
+//                            Spacer()
+//                            Picker("Contract Type", selection: $contractType) {
+//                                ForEach(contractTypes, id: \.self) { c in
+//                                    Text(c).tag(c) // Use the actual string as the tag
+//                                }
+//                            }
+//                            .pickerStyle(.menu)
+//                        }
+//                        .padding()
                     }
                     Divider()
 
