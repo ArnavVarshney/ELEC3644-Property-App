@@ -149,6 +149,8 @@ struct WishlistDetailView: View {
                 .clipShape(.rect(cornerRadius: 4))
                 .padding()
             }
+        }.onAppear{
+            transition(to: .view)
         }
     }
 
