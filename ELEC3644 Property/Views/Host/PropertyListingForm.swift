@@ -38,6 +38,7 @@ struct PropertyListingForm: View {
     @State private var selectedVRImages: [NamedImage] = []
     @State private var selectedTab = 0
     @EnvironmentObject var propertyViewModel: PropertyViewModel
+    @EnvironmentObject var agentViewModel: AgentViewModel
     @EnvironmentObject var userViewModel: UserViewModel
     @Environment(\.dismiss) var dismiss
 
@@ -119,6 +120,8 @@ struct PropertyListingForm: View {
                         Button("Submit") {
                             Task {
                                 await submitForm()
+                                propertyViewModel.initTask()
+                                agentViewModel.initTask()
                             }
                         }
                         .font(.system(size: 16, weight: .medium))
