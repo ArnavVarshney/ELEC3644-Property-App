@@ -207,16 +207,18 @@ struct HistoryView: View {
                         }.disabled(backButtonDisabled)
                     }
 
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button {
-                            if state != .delete {
-                                transition(to: .delete)
-                            } else {
-                                transition(to: .view)
-                            }
-                        } label: {
-                            Image(systemName: "trash")
-                        }.foregroundStyle(deleteButtonColour).disabled(deleteButtonDisabled)
+                    if userViewModel.isLoggedIn(){
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button {
+                                if state != .delete {
+                                    transition(to: .delete)
+                                } else {
+                                    transition(to: .view)
+                                }
+                            } label: {
+                                Image(systemName: "trash")
+                            }.foregroundStyle(deleteButtonColour).disabled(deleteButtonDisabled)
+                        }
                     }
                 }
                 .navigationBarBackButtonHidden()
