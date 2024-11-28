@@ -27,9 +27,6 @@ struct MapSearchFieldView: View {
         Task {
             await viewModel.query(query: requestBody)
         }
-        for property in viewModel.properties {
-            print(property.netPrice)
-        }
     }
 
     var body: some View {

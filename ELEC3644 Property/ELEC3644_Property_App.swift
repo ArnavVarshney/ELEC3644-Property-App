@@ -36,8 +36,6 @@ struct ELEC3644_Property_App: App {
                     if url.absoluteString.contains("reset-password") {
                         showResetPassword = true
                         userId = url.lastPathComponent
-                        print("Reset password for user: \(userId)")
-
                     }
                 }
                 .sheet(isPresented: $showResetPassword) {
