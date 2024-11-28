@@ -33,12 +33,69 @@ struct Property: Identifiable, Hashable, Codable {
     var isActive: Bool
     private enum CodingKeys: String, CodingKey {
         case name, address, area, district, subDistrict, facilities, schoolNet,
-            saleableArea, saleableAreaPricePerSquareFoot, grossFloorArea,
-            grossFloorAreaPricePerSquareFoot,
-            netPrice, buildingAge, buildingDirection, estate, imageUrls, vrImageUrls,
-            transactionHistory, agent,
-            propertyType, contractType, amenities, id, isActive
+             saleableArea, saleableAreaPricePerSquareFoot, grossFloorArea,
+             grossFloorAreaPricePerSquareFoot,
+             netPrice, buildingAge, buildingDirection, estate, imageUrls, vrImageUrls,
+             transactionHistory, agent,
+             propertyType, contractType, amenities, id, isActive
     }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(id, forKey: .id)
+        try container.encode(name, forKey: .name)
+        try container.encode(address, forKey: .address)
+        try container.encode(area, forKey: .area)
+        try container.encode(district, forKey: .district)
+        try container.encode(subDistrict, forKey: .subDistrict)
+        
+        let facilitiesData = try JSONEncoder().encode(facilities)
+        if let facilitiesString = String(data: facilitiesData, encoding: .utf8) {
+            try container.encode(facilitiesString, forKey: .facilities)
+        }
+        
+        let schoolNetData = try JSONEncoder().encode(schoolNet)
+        if let schoolNetString = String(data: schoolNetData, encoding: .utf8) {
+            try container.encode(schoolNetString, forKey: .schoolNet)
+        }
+        
+        try container.encode(saleableArea, forKey: .saleableArea)
+        try container.encode(saleableAreaPricePerSquareFoot, forKey: .saleableAreaPricePerSquareFoot)
+        try container.encode(grossFloorArea, forKey: .grossFloorArea)
+        try container.encode(grossFloorAreaPricePerSquareFoot, forKey: .grossFloorAreaPricePerSquareFoot)
+        try container.encode(netPrice, forKey: .netPrice)
+        try container.encode(buildingAge, forKey: .buildingAge)
+        
+        try container.encode(buildingDirection, forKey: .buildingDirection)
+        try container.encode(estate, forKey: .estate)
+        
+        let imageUrlsData = try JSONEncoder().encode(imageUrls)
+        if let imageUrlsString = String(data: imageUrlsData, encoding: .utf8) {
+            try container.encode(imageUrlsString, forKey: .imageUrls)
+        }
+        
+        let vrImageUrlsData = try JSONEncoder().encode(vrImageUrls)
+        if let vrImageUrlsString = String(data: vrImageUrlsData, encoding: .utf8) {
+            try container.encode(vrImageUrlsString, forKey: .vrImageUrls)
+        }
+        
+        let transactionHistoryData = try JSONEncoder().encode(transactionHistory)
+        if let transactionHistoryString = String(data: transactionHistoryData, encoding: .utf8) {
+            try container.encode(transactionHistoryString, forKey: .transactionHistory)
+        }
+        
+        try container.encode(agent.id, forKey: .agent)
+        try container.encodeIfPresent(propertyType, forKey: .propertyType)
+        let amenitiesData = try JSONEncoder().encode(amenities)
+        if let amenitiesString = String(data: amenitiesData, encoding: .utf8) {
+            try container.encode(amenitiesString, forKey: .amenities)
+        }
+        
+        try container.encodeIfPresent(contractType, forKey: .contractType)
+        try container.encode(isActive, forKey: .isActive)
+    }
+
 }
 
 struct PropertySearchField: Hashable {
@@ -57,6 +114,15 @@ struct Transaction: Identifiable, Hashable, Codable {
     var date: Date
     var price: Int
     private enum CodingKeys: String, CodingKey { case date, price }
+    
+    func encode(to encoder: any Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        let newDate = Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: date)!
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        try container.encode(formatter.string(from: newDate), forKey: .date)
+        try container.encode(price, forKey: .price)
+    }
 }
 
 struct PropertyTransaction: Identifiable, Hashable {

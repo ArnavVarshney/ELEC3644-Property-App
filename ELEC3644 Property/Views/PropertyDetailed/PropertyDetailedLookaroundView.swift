@@ -35,7 +35,7 @@ struct PropertyDetailLookaroundView: View {
             .gesture(
                 DragGesture(minimumDistance: 0).onChanged { value in
                     let translation = value.translation
-                    let rotationRate: CGFloat = 0.0003
+                    let rotationRate: CGFloat = 0.00015
                     let rotation = SCNVector3(
                         x: Float(translation.height * rotationRate),
                         y: Float(translation.width * rotationRate),

@@ -14,7 +14,7 @@ struct PropertyListingForm: View {
     @State private var propertyName = ""
     @State private var address = ""
     @State private var selectedArea = ""
-    @State private var selectedContractType = "buy"
+    @State private var selectedContractType = "Buy"
     @State private var selectedDistrict = ""
     @State private var selectedSubDistrict = ""
     @State private var estate = ""
@@ -28,7 +28,7 @@ struct PropertyListingForm: View {
     @State private var propertyType = ""
     @State private var primarySchoolNet = ""
     @State private var secondarySchoolNet = ""
-    @State private var facilities: [(description: String, measure: String, unit: String)] = []
+    @State private var facilities: [Facility] = []
     @State private var facilityDescription = ""
     @State private var facilityMeasure = ""
     @State private var facilityUnit = ""
@@ -39,6 +39,7 @@ struct PropertyListingForm: View {
     @State private var selectedTab = 0
     @EnvironmentObject var propertyViewModel: PropertyViewModel
     @EnvironmentObject var userViewModel: UserViewModel
+    @Environment(\.dismiss) var dismiss
 
     var body: some View {
         NavigationView {
@@ -135,8 +136,8 @@ struct PropertyListingForm: View {
     }
 
     private func addFacility() {
-        if !facilityDescription.isEmpty && !facilityMeasure.isEmpty && !facilityUnit.isEmpty {
-            facilities.append((facilityDescription, facilityMeasure, facilityUnit))
+        if !facilityDescription.isEmpty && !facilityMeasure.isEmpty && facilityMeasure.isNumber && !facilityUnit.isEmpty {
+            facilities.append(Facility(desc: facilityDescription, measure: Int(facilityMeasure) ?? 0, measureUnit: facilityUnit))
             facilityDescription = ""
             facilityMeasure = ""
             facilityUnit = ""
@@ -183,38 +184,37 @@ struct PropertyListingForm: View {
             }
         }
 
-        var requestBody = [String: String]()
-
-        requestBody["name"] = propertyName
-        requestBody["address"] = address
-        requestBody["area"] = selectedArea
-        requestBody["district"] = selectedDistrict
-        requestBody["subDistrict"] = selectedSubDistrict
-        requestBody["facilities"] = ""
-        requestBody["schoolNet"] = "\(primarySchoolNet),\(secondarySchoolNet)"
-        requestBody["saleableArea"] = saleableArea
-        requestBody["saleableAreaPricePerSquareFoot"] =
-            "\((Int(netPrice) ?? 0) / (Int(saleableArea) ?? 0))"
-        requestBody["grossFloorArea"] = grossFloorArea
-        requestBody["grossFloorAreaPricePerSquareFoot"] =
-            "\((Int(netPrice) ?? 0) / (Int(grossFloorArea) ?? 0))"
-        requestBody["netPrice"] = netPrice
-        requestBody["buildingAge"] = buildingAge
-        requestBody["buildingDirection"] = buildingDirection
-        requestBody["estate"] = estate
-        requestBody["imageUrls"] = imageUrls.joined(separator: ",")
-        requestBody["vrImageUrls"] = vrImageUrls.map { $0.url }.joined(separator: ",")
-        requestBody["transactionHistory"] = ""
-        requestBody["agentId"] = userViewModel.user.id.uuidString.lowercased()
-        requestBody["amenities"] = ""
-        requestBody["propertyType"] = propertyType
-        requestBody["contractType"] = selectedContractType
-        requestBody["isActive"] = "true"
-
+        let property = Property(
+            id: UUID(),
+            name: propertyName,
+            address: address,
+            area: selectedArea,
+            district: selectedDistrict,
+            subDistrict: selectedSubDistrict,
+            facilities: facilities,
+            schoolNet: SchoolNet(primary: primarySchoolNet, secondary: secondarySchoolNet),
+            saleableArea: Int(saleableArea) ?? 0,
+            saleableAreaPricePerSquareFoot: Int(netPrice) ?? 0,
+            grossFloorArea: Int(grossFloorArea) ?? 0,
+            grossFloorAreaPricePerSquareFoot: Int(grossFloorArea) ?? 0,
+            netPrice: Int(netPrice) ?? 0,
+            buildingAge: Int(buildingAge) ?? 0,
+            buildingDirection: buildingDirection,
+            estate: estate,
+            imageUrls: imageUrls,
+            vrImageUrls: vrImageUrls,
+            transactionHistory: [],
+            agent: userViewModel.user,
+            amenities: [],
+            propertyType: propertyType,
+            contractType: selectedContractType,
+            isActive: true
+        )
+        
         do {
-            let res: Property = try await NetworkManager.shared.post(
-                url: "/properties", body: requestBody)
-
+            let res: Property = try await NetworkManager.shared.post(url: "/properties", body: property)
+            print("[Property WORKING] \(res)")
+            dismiss()
         } catch {
             print("Error posting property: \(error)")
         }
@@ -255,7 +255,7 @@ struct PropertyDetailsSection: View {
             Section {
                 Picker("Contract Type", selection: $contractType) {
                     ForEach(ContractType.allCases, id: \.self) { contract in
-                        Text("\(contract)").tag("\(contract)")
+                        Text("\(contract)".capitalized).tag("\(contract)".capitalized)
                     }
                 }
                 TextField("Net Price", text: $netPrice)

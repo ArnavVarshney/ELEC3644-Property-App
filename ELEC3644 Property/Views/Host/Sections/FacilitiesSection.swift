@@ -7,18 +7,21 @@
 import SwiftUI
 
 struct FacilitiesSection: View {
-    @Binding var facilities: [(description: String, measure: String, unit: String)]
+    @Binding var facilities: [Facility]
     @Binding var facilityDescription: String
     @Binding var facilityMeasure: String
     @Binding var facilityUnit: String
     let addFacility: () -> Void
+    
     var body: some View {
         Form {
             Section(header: Text("Existing Facilities")) {
-                ForEach(facilities.indices, id: \.self) { index in
-                    Text(
-                        "\(facilities[index].description): \(facilities[index].measure) \(facilities[index].unit)"
-                    )
+                ForEach($facilities) { facility in
+                    HStack {
+                        Text("\(facility.desc)")
+                        Spacer()
+                        Text("\(facility.measure) \(facility.measureUnit)")
+                    }
                 }
                 if facilities.isEmpty {
                     Text("No facilities have been added yet.")

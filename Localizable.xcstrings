@@ -87,6 +87,7 @@
       }
     },
     "%@: %@ %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -1316,6 +1317,9 @@
         }
       }
     },
+    "How much did you sell/rent/lease this property for?" : {
+
+    },
     "Hung Hom" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -1937,6 +1941,9 @@
         }
       }
     },
+    "Mark as Sold" : {
+
+    },
     "Max: %@" : {
 
     },
@@ -2425,6 +2432,9 @@
         }
       }
     },
+    "Price" : {
+
+    },
     "Price (HKD)" : {
       "localizations" : {
         "zh-HK" : {
@@ -2539,6 +2549,9 @@
           }
         }
       }
+    },
+    "Property Sold" : {
+
     },
     "Property Type" : {
       "localizations" : {

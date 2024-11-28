@@ -55,6 +55,7 @@ class NetworkManager: APIClient {
             let decodedData = try decoder.decode(T.self, from: data)
             return decodedData
         } else {
+            print(response.debugDescription)
             throw APIError.invalidResponse
         }
     }
