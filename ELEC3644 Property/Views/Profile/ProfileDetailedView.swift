@@ -192,7 +192,7 @@ struct ProfileDetailedView: View {
                     )
                     .padding(.top, 18)
                 }
-                if user.id != userViewModel.user.id {
+                if user.id != userViewModel.user.id || !userViewModel.isAgent(with: user) {
                     Button(action: {
                         showWriteReviewModal = true
                     }) {
