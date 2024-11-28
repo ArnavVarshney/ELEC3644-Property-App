@@ -136,8 +136,13 @@ struct PropertyListingForm: View {
     }
 
     private func addFacility() {
-        if !facilityDescription.isEmpty && !facilityMeasure.isEmpty && facilityMeasure.isNumber && !facilityUnit.isEmpty {
-            facilities.append(Facility(desc: facilityDescription, measure: Int(facilityMeasure) ?? 0, measureUnit: facilityUnit))
+        if !facilityDescription.isEmpty && !facilityMeasure.isEmpty && facilityMeasure.isNumber
+            && !facilityUnit.isEmpty
+        {
+            facilities.append(
+                Facility(
+                    desc: facilityDescription, measure: Int(facilityMeasure) ?? 0,
+                    measureUnit: facilityUnit))
             facilityDescription = ""
             facilityMeasure = ""
             facilityUnit = ""
@@ -210,9 +215,10 @@ struct PropertyListingForm: View {
             contractType: selectedContractType,
             isActive: true
         )
-        
+
         do {
-            let res: Property = try await NetworkManager.shared.post(url: "/properties", body: property)
+            let res: Property = try await NetworkManager.shared.post(
+                url: "/properties", body: property)
             print("[Property WORKING] \(res)")
             dismiss()
         } catch {

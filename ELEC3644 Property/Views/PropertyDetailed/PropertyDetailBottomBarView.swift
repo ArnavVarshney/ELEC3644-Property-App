@@ -56,10 +56,14 @@ struct PropertyDetailBottomBarView: View {
                         Task {
                             do {
                                 print("transaction")
-                                viewModel.property.transactionHistory.append(Transaction(date: Date.now, price: Int(sellPrice)!))
+                                viewModel.property.transactionHistory.append(
+                                    Transaction(date: Date.now, price: Int(sellPrice)!))
                                 let _: Property = try await NetworkManager.shared.patch(
-                                    url: "/properties/\(viewModel.property.id.uuidString.lowercased())",
-                                    body: ["transactionHistory": viewModel.property.transactionHistory])
+                                    url:
+                                        "/properties/\(viewModel.property.id.uuidString.lowercased())",
+                                    body: [
+                                        "transactionHistory": viewModel.property.transactionHistory
+                                    ])
                             } catch {
                                 print(error)
                             }
@@ -68,7 +72,8 @@ struct PropertyDetailBottomBarView: View {
                             do {
                                 print("not active")
                                 let _: Property = try await NetworkManager.shared.patch(
-                                    url: "/properties/\(viewModel.property.id.uuidString.lowercased())",
+                                    url:
+                                        "/properties/\(viewModel.property.id.uuidString.lowercased())",
                                     body: ["isActive": false])
                             } catch {
                                 print(error)

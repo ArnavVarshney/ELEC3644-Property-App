@@ -12,7 +12,7 @@ struct FacilitiesSection: View {
     @Binding var facilityMeasure: String
     @Binding var facilityUnit: String
     let addFacility: () -> Void
-    
+
     var body: some View {
         Form {
             Section(header: Text("Existing Facilities")) {
