@@ -11,6 +11,7 @@ struct BottomBar: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var propertyViewModel: PropertyViewModel
     var onSubmit: () -> Void = {}
+    @State private var isLoading = false
 
     var body: some View {
         HStack {
@@ -25,15 +26,30 @@ struct BottomBar: View {
             }
             Spacer()
             Button {
+                isLoading = true
                 onSubmit()
-                dismiss()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    isLoading = false
+                    dismiss()
+                }
             } label: {
-                Text("Search")
-                    .font(.system(size: 16, weight: .medium))
-                    .foregroundColor(.neutral10)
-                    .padding()
-                    .background(Color.neutral100)
-                    .cornerRadius(10)
+                if !isLoading {
+                    Text("Search")
+                        .font(.system(size: 16, weight: .medium))
+                        .frame(maxWidth: 80)
+                        .foregroundColor(.neutral10)
+                        .padding()
+                        .background(Color.neutral100)
+                        .cornerRadius(10)
+                    
+                } else {
+                    ProgressView()
+                        .frame(maxWidth: 80)
+                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                        .padding()
+                        .background(Color.neutral100)
+                        .cornerRadius(10)
+                }
             }
         }
     }
