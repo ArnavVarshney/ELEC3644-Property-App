@@ -35,7 +35,14 @@
       }
     },
     "@ %@" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "@%@"
+          }
+        }
+      }
     },
     "@ %lld" : {
       "extractionState" : "stale",
@@ -132,7 +139,14 @@
       }
     },
     "%lld ft²" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld平方尺"
+          }
+        }
+      }
     },
     "%lld properties for lease" : {
       "extractionState" : "stale",
@@ -1218,7 +1232,14 @@
       }
     },
     "General" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "常規設置"
+          }
+        }
+      }
     },
     "GFA %lld ft²" : {
       "localizations" : {
@@ -2836,7 +2857,14 @@
       }
     },
     "Reset" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重設"
+          }
+        }
+      }
     },
     "Reset Password" : {
       "localizations" : {
@@ -3838,7 +3866,14 @@
       }
     },
     "Try searching for something else" : {
-
+      "localizations" : {
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "試試搜尋其他"
+          }
+        }
+      }
     },
     "Try searching for something else." : {
       "localizations" : {
