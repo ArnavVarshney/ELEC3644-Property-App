@@ -42,50 +42,50 @@ struct ExploreView: View {
             }
             .border(.black, width: 1)
             ZStack {
-                    ScrollView(.horizontal) {
-                        HStack(spacing: 0) {
-                            ListingMenuView(
-                                properties: queryString(
-                                    properties: propertyViewModel.getByContractType(
-                                        contractType: "Buy"), query: searchText)
-                            )
-                            .id(MenuItem.buy)
+                ScrollView(.horizontal) {
+                    HStack(spacing: 0) {
+                        ListingMenuView(
+                            properties: queryString(
+                                properties: propertyViewModel.getByContractType(
+                                    contractType: "Buy"), query: searchText)
+                        )
+                        .id(MenuItem.buy)
+                        .frame(width: UIScreen.main.bounds.width)
+                        ListingMenuView(
+                            properties: queryString(
+                                properties: propertyViewModel.getByContractType(
+                                    contractType: "Rent"), query: searchText)
+                        )
+                        .id(MenuItem.rent)
+                        .frame(width: UIScreen.main.bounds.width)
+                        ListingMenuView(
+                            properties: queryString(
+                                properties: propertyViewModel.getByContractType(
+                                    contractType: "Lease"), query: searchText)
+                        )
+                        .id(MenuItem.lease)
+                        .frame(width: UIScreen.main.bounds.width)
+                        TransactionMenuView(properties: propertyViewModel.properties)
+                            .id(MenuItem.transaction)
                             .frame(width: UIScreen.main.bounds.width)
-                            ListingMenuView(
-                                properties: queryString(
-                                    properties: propertyViewModel.getByContractType(
-                                        contractType: "Rent"), query: searchText)
-                            )
-                            .id(MenuItem.rent)
+                        AgentMenuView()
+                            .id(MenuItem.agents)
                             .frame(width: UIScreen.main.bounds.width)
-                            ListingMenuView(
-                                properties: queryString(
-                                    properties: propertyViewModel.getByContractType(
-                                        contractType: "Lease"), query: searchText)
-                            )
-                            .id(MenuItem.lease)
-                            .frame(width: UIScreen.main.bounds.width)
-                            TransactionMenuView(properties: propertyViewModel.properties)
-                                .id(MenuItem.transaction)
-                                .frame(width: UIScreen.main.bounds.width)
-                            AgentMenuView()
-                                .id(MenuItem.agents)
-                                .frame(width: UIScreen.main.bounds.width)
-                            EnlargeMapView_V2(
-                                startMapCameraLocation: .customLocation(
-                                    latitude: 22.3193, longitude: 114.1694)
-                            )
-                            .id(MenuItem.map)
-                            .frame(width: UIScreen.main.bounds.width)
- 
-                        }
+                        EnlargeMapView_V2(
+                            startMapCameraLocation: .customLocation(
+                                latitude: 22.3193, longitude: 114.1694)
+                        )
+                        .id(MenuItem.map)
+                        .frame(width: UIScreen.main.bounds.width)
+
                     }
-                    .scrollPosition(id: $currentMenu)
-                    .scrollIndicators(.hidden)
-                    .scrollTargetBehavior(.paging)
-                    .scrollDisabled(true)
-                    .border(.blue, width: 1)
                 }
+                .scrollPosition(id: $currentMenu)
+                .scrollIndicators(.hidden)
+                .scrollTargetBehavior(.paging)
+                .scrollDisabled(true)
+                .border(.blue, width: 1)
+            }
             .border(.red, width: 1)
         }
     }
