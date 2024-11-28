@@ -97,7 +97,7 @@ struct EnlargeMapView: View {
                 .onMapCameraChange(frequency: .onEnd) { context in
                     newCameraCenterLocation = context.camera.centerCoordinate
                     print(context.camera.centerCoordinate)
-                    
+
                 }
                 VStack {
                     // Display travel information

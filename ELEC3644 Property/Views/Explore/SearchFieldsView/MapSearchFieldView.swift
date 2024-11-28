@@ -10,7 +10,7 @@ import SwiftUI
 struct MapSearchFieldView: View {
     @State private var lowerPrice: Double = 100_000
     @State private var upperPrice: Double = 500_000
-    @State private var contractType: String = "Buy"   //Default contractType: "Buy"
+    @State private var contractType: String = "Buy"  //Default contractType: "Buy"
 
     @State private var amenities: Set<String> = []
     @EnvironmentObject private var viewModel: PropertyViewModel
