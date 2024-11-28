@@ -314,6 +314,13 @@ struct EnlargeMapView_V2: View {
                 }
             }
         }
+        .onAppear {
+            var requestBody = [String: String]()
+            requestBody["contractType"] = "Buy"
+            Task {
+                await viewModel.query(query: requestBody)
+            }
+        }
         .onSubmit(of: .search) {
             Task {
                 guard !searchText.isEmpty else { return }

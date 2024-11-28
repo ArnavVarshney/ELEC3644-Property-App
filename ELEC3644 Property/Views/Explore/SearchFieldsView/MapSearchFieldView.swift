@@ -18,6 +18,7 @@ struct MapSearchFieldView: View {
     let contractTypes = ["Buy", "Rent", "Lease"]
     let amenitiesList = ["parking", "pool", "gym", "elevator", "balcony", "pet-friendly"]
     let priceRange: ClosedRange<Double> = 0...100_000_000
+
     func onSubmit() {
         var requestBody = [String: String]()
         let searchFields = viewModel.searchFields
