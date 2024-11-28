@@ -31,8 +31,8 @@ struct HistoryView: View {
 
     private var groups: [HistorySection] {
         let records = self.records.filter { p in
-            p.userId == UUID(uuidString: userViewModel.currentUserId())
-            //            true  //DEBUG
+//            p.userId == UUID(uuidString: userViewModel.currentUserId())
+                        return true  //DEBUG
         }
 
         var sections: [HistorySection] = []
@@ -135,7 +135,7 @@ struct HistoryView: View {
 
                         ForEach(group.properties.indices.filter { $0 % 2 == 0 }, id: \.self) {
                             idx in
-                            HStack(spacing: 1) {
+                            HStack() {
                                 if !tickable {
                                     NavigationLink {
                                         PropertyDetailView(property: group.properties[idx])
@@ -195,7 +195,7 @@ struct HistoryView: View {
                                 Spacer()
                             }
                         }
-                    }.padding()
+                    }
                 }
                 .navigationTitle("Recently Viewed")
                 .toolbar {
