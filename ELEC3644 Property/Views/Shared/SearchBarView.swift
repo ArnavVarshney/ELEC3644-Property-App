@@ -19,9 +19,10 @@ struct SearchBarView: View {
                     .padding(10)
                     .fontWeight(.semibold)
 
-                TextField("District | MTR | School Net | Estate", text: $searchText)
+                TextField("District | MTR | School Net", text: $searchText)
                     .font(.system(size: 15))
-                    .foregroundColor(.gray)
+                    .foregroundColor(
+                        searchText == "District | MTR | School Net" ? .gray : .neutral100)
             }
             .padding(8)
             .background(.neutral10)

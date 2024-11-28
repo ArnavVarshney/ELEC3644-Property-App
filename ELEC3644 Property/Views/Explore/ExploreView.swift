@@ -20,11 +20,13 @@ struct ExploreView: View {
             if query.isEmpty {
                 return true
             } else {
-                return property.name.contains(query)
-                    || property.address.contains(query)
-                    || property.district.contains(query)
-                    || property.schoolNet.primary.contains(query)
-                    || property.schoolNet.secondary.contains(query)
+                return property.name.localizedCaseInsensitiveContains(query)
+                    || property.address.localizedCaseInsensitiveContains(query)
+                    || property.subDistrict.localizedCaseInsensitiveContains(query)
+                    || property.district.localizedCaseInsensitiveContains(query)
+                    || property.area.localizedCaseInsensitiveContains(query)
+                    || property.schoolNet.primary.localizedCaseInsensitiveContains(query)
+                    || property.schoolNet.secondary.localizedCaseInsensitiveContains(query)
             }
         })
     }
