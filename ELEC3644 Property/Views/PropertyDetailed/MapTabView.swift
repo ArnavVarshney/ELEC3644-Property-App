@@ -87,28 +87,30 @@ struct EnlargeMapView_V2: View {
                     ForEach(
                         viewModel.properties, id: \.self
                     ) { property in  //select either buy, rent or lease
-                        if let location = viewModel.getLocation(for: property.name) {
-                            //                            propertyMapItem = viewModel.getMapItem(for: property.id)
-                            Annotation(property.name, coordinate: location) {
-                                HStack {
-                                    Text(String(property.netPrice.toCompactCurrencyFormat()))
-                                        .font(.callout)
-                                        .fontWeight(.bold)
-                                        .foregroundColor(Color.neutral100)
+                        if property.isActive {
+                            if let location = viewModel.getLocation(for: property.name) {
+                                //                            propertyMapItem = viewModel.getMapItem(for: property.id)
+                                Annotation(property.name, coordinate: location) {
+                                    HStack {
+                                        Text(String(property.netPrice.toCompactCurrencyFormat()))
+                                            .font(.callout)
+                                            .fontWeight(.bold)
+                                            .foregroundColor(Color.neutral100)
+                                    }
+                                    .frame(width: 125, height: 25)
+                                    .background(.white)
+                                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                                    .overlay(
+                                        Capsule()
+                                            .stroke(lineWidth: 0.5)
+                                            .foregroundColor(.white)
+                                            .addShadow()
+                                            .clipShape(RoundedRectangle(cornerRadius: 1))
+                                    )
                                 }
-                                .frame(width: 125, height: 25)
-                                .background(.white)
-                                .clipShape(RoundedRectangle(cornerRadius: 8))
-                                .overlay(
-                                    Capsule()
-                                        .stroke(lineWidth: 0.5)
-                                        .foregroundColor(.white)
-                                        .addShadow()
-                                        .clipShape(RoundedRectangle(cornerRadius: 1))
-                                )
+                                .tag(property.id)  // Set the tag for selection  !!!!!!!!!! Very Important, take me a while to find this bug. Or else, propertySelection will always be zero because user can select nothing by pressing property price bubble
+                                //                            .annotationTitles(.visible)
                             }
-                            .tag(property.id)  // Set the tag for selection  !!!!!!!!!! Very Important, take me a while to find this bug. Or else, propertySelection will always be zero because user can select nothing by pressing property price bubble
-                            //                            .annotationTitles(.visible)
                         }
                     }
 

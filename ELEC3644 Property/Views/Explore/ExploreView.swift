@@ -81,6 +81,16 @@ struct ExploreView: View {
                             .frame(width: UIScreen.main.bounds.width)
 
                         }
+                        .onChange(of: currentMenu) {
+                            withAnimation {
+                                var requestBody = [String: String]()
+                                propertyViewModel.searchFields = PropertySearchField()
+                                Task {
+                                    await propertyViewModel.query(query: requestBody)
+                                }
+                                isSearchActive = false
+                            }
+                        }
                     }
                     .scrollPosition(id: $currentMenu)
                     .scrollIndicators(.hidden)
