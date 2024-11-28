@@ -38,7 +38,9 @@ struct PropertyDetailBottomBarView: View {
                             .cornerRadius(10)
                     }
                 )
-            } else if userViewModel.user.id == viewModel.property.agent.id {
+            } else if userViewModel.user.id == viewModel.property.agent.id
+                && viewModel.property.isActive
+            {
                 Button {
                     showPriceInputAlert = true
                 } label: {
@@ -55,7 +57,6 @@ struct PropertyDetailBottomBarView: View {
                     Button("Save") {
                         Task {
                             do {
-                                print("transaction")
                                 viewModel.property.transactionHistory.append(
                                     Transaction(date: Date.now, price: Int(sellPrice)!))
                                 let _: Property = try await NetworkManager.shared.patch(
@@ -70,7 +71,6 @@ struct PropertyDetailBottomBarView: View {
                         }
                         Task {
                             do {
-                                print("not active")
                                 let _: Property = try await NetworkManager.shared.patch(
                                     url:
                                         "/properties/\(viewModel.property.id.uuidString.lowercased())",
@@ -84,6 +84,18 @@ struct PropertyDetailBottomBarView: View {
                 } message: {
                     Text("How much did you sell/rent/lease this property for?")
                 }
+            } else if userViewModel.user.id == viewModel.property.agent.id {
+                Button {
+                } label: {
+                    Text("Sold")
+                        .font(.system(size: 16, weight: .medium))
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 24)
+                        .padding(.vertical, 12)
+                        .background(Color.neutral70)
+                        .cornerRadius(10)
+                }
+                .disabled(true)
             }
         }
         .padding()

@@ -3412,6 +3412,9 @@
         }
       }
     },
+    "Sold" : {
+
+    },
     "Southern" : {
       "extractionState" : "stale",
       "localizations" : {
