@@ -179,9 +179,7 @@ struct WishlistDetailView: View {
             backButtonDisabled = true
             deleteButtonColour = .gray
             compareButtonColour = .green
-
         }
-
         self.state = state
     }
 
@@ -193,7 +191,7 @@ struct WishlistDetailView: View {
         } else {
             //For comparison, we can only pick 2
             if pickedPropertiesIdx.count >= 2 && state == .compare {
-                pickedPropertiesIdx.removeLast()
+                return
             }
             pickedPropertiesIdx.append(idx)
         }
