@@ -8,29 +8,29 @@ import Foundation
 
 struct Property: Identifiable, Hashable, Codable {
     var id = UUID()
-    let name: String
-    let address: String
-    let area: String
-    let district: String
-    let subDistrict: String
-    let facilities: [Facility]
-    let schoolNet: SchoolNet
-    let saleableArea: Int
-    let saleableAreaPricePerSquareFoot: Int
-    let grossFloorArea: Int
-    let grossFloorAreaPricePerSquareFoot: Int
-    let netPrice: Int
-    let buildingAge: Int
-    let buildingDirection: String
-    let estate: String
+    var name: String
+    var address: String
+    var area: String
+    var district: String
+    var subDistrict: String
+    var facilities: [Facility]
+    var schoolNet: SchoolNet
+    var saleableArea: Int
+    var saleableAreaPricePerSquareFoot: Int
+    var grossFloorArea: Int
+    var grossFloorAreaPricePerSquareFoot: Int
+    var netPrice: Int
+    var buildingAge: Int
+    var buildingDirection: String
+    var estate: String
     var imageUrls: [String]
     var vrImageUrls: [VRImage]
     var transactionHistory: [Transaction]
     var agent: User
-    let amenities: [String]
-    let propertyType: String
-    let contractType: String
-    let isActive: Bool
+    var amenities: [String]
+    var propertyType: String
+    var contractType: String
+    var isActive: Bool
     private enum CodingKeys: String, CodingKey {
         case name, address, area, district, subDistrict, facilities, schoolNet,
             saleableArea, saleableAreaPricePerSquareFoot, grossFloorArea,

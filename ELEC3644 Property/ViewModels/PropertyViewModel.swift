@@ -45,7 +45,7 @@ class PropertyViewModel: ObservableObject {
 
     func postProperty<T: Encodable>(data: [String: T]) async {
         do {
-            let _: [String: String] = try await apiClient.post(url: "/wishlists", body: data)
+            let _: [String: String] = try await apiClient.post(url: "/properties", body: data)
         } catch {
             print("Error fetching property data: \(error)")
         }

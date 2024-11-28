@@ -33,24 +33,12 @@ struct PropertyListingForm: View {
     @State private var facilityMeasure = ""
     @State private var facilityUnit = ""
     @State private var selectedItems: [PhotosPickerItem] = []
+    @State private var selectedVRItems: [PhotosPickerItem] = []
     @State private var selectedImages: [UIImage] = []
+    @State private var selectedVRImages: [NamedImage] = []
     @State private var selectedTab = 0
     @EnvironmentObject var propertyViewModel: PropertyViewModel
     @EnvironmentObject var userViewModel: UserViewModel
-
-    private var saleableAreaPricePerSqFt: String {
-        guard let area = Double(saleableArea), area > 0,
-            let total = Double(netPrice)
-        else { return "0" }
-        return String(format: "%.2f", total / area)
-    }
-
-    private var grossFloorAreaPricePerSqFt: String {
-        guard let area = Double(grossFloorArea), area > 0,
-            let total = Double(netPrice)
-        else { return "0" }
-        return String(format: "%.2f", total / area)
-    }
 
     var body: some View {
         NavigationView {
@@ -66,9 +54,9 @@ struct PropertyListingForm: View {
                     .tag(0)
                     PropertyDetailsSection(
                         netPrice: $netPrice, saleableArea: $saleableArea,
-                        saleableAreaPricePerSqFt: saleableAreaPricePerSqFt,
+                        saleableAreaPricePerSqFt: "\(netPrice)",
                         grossFloorArea: $grossFloorArea,
-                        grossFloorAreaPricePerSqFt: grossFloorAreaPricePerSqFt,
+                        grossFloorAreaPricePerSqFt: "\(grossFloorArea)",
                         contractType: $selectedContractType
                     )
                     .tag(1)
@@ -82,8 +70,11 @@ struct PropertyListingForm: View {
                         addFacility: addFacility
                     )
                     .tag(3)
-                    ImagesSection(selectedItems: $selectedItems, selectedImages: $selectedImages)
-                        .tag(4)
+                    ImagesSection(
+                        selectedItems: $selectedItems, selectedImages: $selectedImages,
+                        selectedVRItems: $selectedVRItems, selectedVRImages: $selectedVRImages
+                    )
+                    .tag(4)
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
                 HStack(spacing: 4) {
@@ -157,10 +148,75 @@ struct PropertyListingForm: View {
         //1. Upload image
         //2. Get the image URLs
         //3. Post property <- Need to implement
-        let imageUrls: [String] = []
+        var imageUrls: [String] = []
         for image in selectedImages {
-            // Upload image to server
-            // TODO: Implement image upload
+            do {
+                if let data = image.jpegData(compressionQuality: 1) {
+                    let res: Data = try await NetworkManager.shared.uploadImage(
+                        imageData: data)
+                    let json = try JSONSerialization.jsonObject(with: res, options: [])
+                    if let json = json as? [String: Any],
+                        let imageUrl = json["url"] as? String
+                    {
+                        imageUrls.append(imageUrl)
+                    }
+                }
+            } catch {
+                print("Error uploading image: \(error)")
+            }
+        }
+        var vrImageUrls: [VRImage] = []
+        for image in selectedVRImages {
+            do {
+                if let data = image.image.jpegData(compressionQuality: 1) {
+                    let res: Data = try await NetworkManager.shared.uploadImage(
+                        imageData: data)
+                    let json = try JSONSerialization.jsonObject(with: res, options: [])
+                    if let json = json as? [String: Any],
+                        let imageUrl = json["url"] as? String
+                    {
+                        vrImageUrls.append(VRImage(name: image.name, url: imageUrl))
+                    }
+                }
+            } catch {
+                print("Error uploading VR image: \(error)")
+            }
+        }
+
+        var requestBody = [String: String]()
+
+        requestBody["name"] = propertyName
+        requestBody["address"] = address
+        requestBody["area"] = selectedArea
+        requestBody["district"] = selectedDistrict
+        requestBody["subDistrict"] = selectedSubDistrict
+        requestBody["facilities"] = ""
+        requestBody["schoolNet"] = "\(primarySchoolNet),\(secondarySchoolNet)"
+        requestBody["saleableArea"] = saleableArea
+        requestBody["saleableAreaPricePerSquareFoot"] =
+            "\((Int(netPrice) ?? 0) / (Int(saleableArea) ?? 0))"
+        requestBody["grossFloorArea"] = grossFloorArea
+        requestBody["grossFloorAreaPricePerSquareFoot"] =
+            "\((Int(netPrice) ?? 0) / (Int(grossFloorArea) ?? 0))"
+        requestBody["netPrice"] = netPrice
+        requestBody["buildingAge"] = buildingAge
+        requestBody["buildingDirection"] = buildingDirection
+        requestBody["estate"] = estate
+        requestBody["imageUrls"] = imageUrls.joined(separator: ",")
+        requestBody["vrImageUrls"] = vrImageUrls.map { $0.url }.joined(separator: ",")
+        requestBody["transactionHistory"] = ""
+        requestBody["agentId"] = userViewModel.user.id.uuidString.lowercased()
+        requestBody["amenities"] = ""
+        requestBody["propertyType"] = propertyType
+        requestBody["contractType"] = selectedContractType
+        requestBody["isActive"] = "true"
+
+        do {
+            let res: Property = try await NetworkManager.shared.post(
+                url: "/properties", body: requestBody)
+
+        } catch {
+            print("Error posting property: \(error)")
         }
     }
 
@@ -168,12 +224,11 @@ struct PropertyListingForm: View {
         switch selectedTab {
         case 0:
             return propertyName.isEmpty || address.isEmpty || estate.isEmpty
-                || buildingDirection.isEmpty || buildingDirection.isEmpty || buildingAge.isEmpty
-                || selectedArea.isEmpty || selectedDistrict.isEmpty || selectedSubDistrict.isEmpty
+                || buildingDirection.isEmpty || !buildingAge.isNumber || selectedArea.isEmpty
+                || selectedDistrict.isEmpty || selectedSubDistrict.isEmpty
                 || propertyType.isEmpty
         case 1:
-            return netPrice.isEmpty || saleableArea.isEmpty || saleableAreaPricePerSqFt.isEmpty
-                || grossFloorArea.isEmpty || grossFloorAreaPricePerSqFt.isEmpty
+            return !netPrice.isNumber || !saleableArea.isNumber || !grossFloorArea.isNumber
                 || selectedContractType.isEmpty
         case 2:
             return primarySchoolNet.isEmpty || secondarySchoolNet.isEmpty
