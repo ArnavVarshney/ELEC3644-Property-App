@@ -347,6 +347,9 @@
         }
       }
     },
+    "Add VR Photos" : {
+
+    },
     "Address" : {
       "localizations" : {
         "zh-HK" : {
@@ -1335,6 +1338,12 @@
         }
       }
     },
+    "Image Name" : {
+
+    },
+    "Images" : {
+
+    },
     "Inbox" : {
       "localizations" : {
         "zh-HK" : {
@@ -2038,6 +2047,9 @@
         }
       }
     },
+    "Name Your VR Image" : {
+
+    },
     "Net Price" : {
       "localizations" : {
         "zh-HK" : {
@@ -2367,6 +2379,9 @@
           }
         }
       }
+    },
+    "Please enter a name for your VR image" : {
+
     },
     "Pok Fu Lam" : {
       "extractionState" : "stale",
@@ -3774,6 +3789,9 @@
           }
         }
       }
+    },
+    "VR Images" : {
+
     },
     "VR View" : {
       "localizations" : {
