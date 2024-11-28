@@ -22,8 +22,8 @@ enum APIError: Error {
 
 class NetworkManager: APIClient {
     private let decoder = JSONDecoder()
-    //    private let baseURL = "https://chat-server.home-nas.xyz"
-    private let baseURL = "http://10.68.69.252:6969"
+        private let baseURL = "https://chat-server.home-nas.xyz"
+//    private let baseURL = "http://10.68.69.252:6969"
 
     static let shared = NetworkManager()
 
