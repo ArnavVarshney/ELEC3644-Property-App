@@ -22,6 +22,7 @@ struct EnlargeMapView: View {
     @State private var travelDistance: CLLocationDistance?
     @State private var travelTime: TimeInterval?
     @State private var newCameraCenterLocation: CLLocationCoordinate2D?
+    @State private var newCameraRegion: MKMapRect?
     @State private var zoomLevel: Double = 1500  // Default zoom level
     @State private var addedLatitude: Double = 0.0  // Default additional latitude
     @State private var addedLongitude: Double = 0.0  // Default
@@ -96,6 +97,7 @@ struct EnlargeMapView: View {
                 .onMapCameraChange(frequency: .onEnd) { context in
                     newCameraCenterLocation = context.camera.centerCoordinate
                     print(context.camera.centerCoordinate)
+                    
                 }
                 VStack {
                     // Display travel information
@@ -467,23 +469,23 @@ struct EnlargeMapView: View {
     }
 
     func panUp() {
-        newCameraCenterLocation?.latitude += 0.005
-        addedLatitude += 0.005
+        newCameraCenterLocation?.latitude += 0.003
+        addedLatitude += 0.003
     }
 
     func panDown() {
-        newCameraCenterLocation?.latitude -= 0.005
-        addedLatitude -= 0.005
+        newCameraCenterLocation?.latitude -= 0.003
+        addedLatitude -= 0.003
     }
 
     func panLeft() {
-        newCameraCenterLocation?.longitude -= 0.005
-        addedLongitude -= 0.005
+        newCameraCenterLocation?.longitude -= 0.003
+        addedLongitude -= 0.003
     }
 
     func panRight() {
-        newCameraCenterLocation?.longitude += 0.005
-        addedLongitude += 0.005
+        newCameraCenterLocation?.longitude += 0.003
+        addedLongitude += 0.003
     }
 
     func setCameraPan() {
