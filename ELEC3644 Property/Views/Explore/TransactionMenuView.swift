@@ -118,8 +118,8 @@ struct TransactionRowView: View {
                         .font(.caption)
                         .foregroundColor(.neutral100)
                         VStack {
-                            Text("@ \(propertyTransaction.pricePerSqft)")
-                            Text("@ \(propertyTransaction.pricePerGrossArea)")
+                            Text("@ \(propertyTransaction.pricePerSqft.toCompactCurrencyFormat())")
+                            Text("@ \(propertyTransaction.pricePerGrossArea.toCompactCurrencyFormat())")
                         }
                         .font(.caption)
                         .foregroundColor(.neutral70)

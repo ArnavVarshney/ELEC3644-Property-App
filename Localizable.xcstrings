@@ -34,7 +34,11 @@
         }
       }
     },
+    "@ %@" : {
+
+    },
     "@ %lld" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -937,7 +941,6 @@
       }
     },
     "District | MTR | School Net" : {
-      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
@@ -948,6 +951,7 @@
       }
     },
     "District | MTR | School Net | Estate" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-HK" : {
           "stringUnit" : {
