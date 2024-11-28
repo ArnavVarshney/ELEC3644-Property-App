@@ -98,7 +98,7 @@ extension String {
         }
         return result
     }
-    
+
     var isNumber: Bool {
         let characters = CharacterSet.decimalDigits
         return CharacterSet(charactersIn: self).isSubset(of: characters)
