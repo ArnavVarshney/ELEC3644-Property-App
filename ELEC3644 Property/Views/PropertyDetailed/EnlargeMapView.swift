@@ -56,7 +56,7 @@ struct EnlargeMapView: View {
                             }
                         }
                     )
-
+                    .tag(1)
                     .annotationTitles(.visible)
 
                     // Markers for other places
@@ -225,7 +225,8 @@ struct EnlargeMapView: View {
                     {
                         VStack {
                             Button(action: {
-
+                                panUp()
+                                setCameraPan()
                             }) {
                                 Image(systemName: "chevron.up")
                                     .padding(15)
@@ -235,7 +236,8 @@ struct EnlargeMapView: View {
                                     .cornerRadius(6)
                             }
                             Button(action: {
-
+                                panDown()
+                                setCameraPan()
                             }) {
                                 Image(systemName: "chevron.down")
                                     .padding(15)
@@ -245,7 +247,8 @@ struct EnlargeMapView: View {
                                     .cornerRadius(6)
                             }
                             Button(action: {
-
+                                panLeft()
+                                setCameraPan()
                             }) {
                                 Image(systemName: "chevron.left")
                                     .padding(15)
@@ -255,7 +258,8 @@ struct EnlargeMapView: View {
                                     .cornerRadius(6)
                             }
                             Button(action: {
-
+                                panRight()
+                                setCameraPan()
                             }) {
                                 Image(systemName: "chevron.right")
                                     .padding(15)
