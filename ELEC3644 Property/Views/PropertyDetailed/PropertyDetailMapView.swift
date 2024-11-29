@@ -14,6 +14,9 @@ struct PropertyDetailMapView: View {
         VStack {
             MapView(showEnlargeMapView: $showEnlargeMapView)
                 .environmentObject(viewModel)
+                .onTapGesture {
+                    withAnimation(.spring()) { showEnlargeMapView = true }
+                }
             PropertyDetailNearestListView(
                 title: "Hospitals", category: .hospital, viewModel: viewModel
             )
