@@ -12,6 +12,11 @@ struct PropertyDetailView: View {
     @StateObject private var viewModel: PropertyDetailViewModel
     @EnvironmentObject private var userViewModel: UserViewModel
     @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.dismiss) private var dismiss
+    @State var showAlert = false
+    @State var showConfirmation = false
+    @State var alertMessage = ""
+    @State var deleted = false
 
     init(property: Property) {
         self.property = property
@@ -41,7 +46,67 @@ struct PropertyDetailView: View {
             PropertyDetailBottomBarView(viewModel: viewModel)
                 .padding(.bottom, 8)
         }
+        .onChange(of: deleted) {
+            dismiss()
+        }
+        .alert(isPresented: $showAlert) {
+            if showConfirmation {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    showConfirmation = false
+                    showAlert = false
+                }
+                return Alert(
+                    title: Text("Are you sure?"),
+                    message: Text("This action cannot be undone."),
+                    primaryButton: .destructive(Text("Delete")) {
+                        Task {
+                            do {
+                                let _: Property = try await NetworkManager.shared.patch(
+                                    url:
+                                        "/properties/\(viewModel.property.id.uuidString.lowercased())",
+                                    body: ["isActive": false])
+                                deleted = true
+                            } catch {
+                                print(error)
+                            }
+                        }
+                    },
+                    secondaryButton: .cancel()
+                )
+            } else {
+                return Alert(
+                    title: Text("Error"), message: Text(alertMessage),
+                    dismissButton: .default(Text("OK")))
+            }
+        }
         .backButton()
+        .toolbar {
+            if (userViewModel.userRole == .host || userViewModel.userRole == .agent)
+                && viewModel.property.isActive
+            {
+                ToolbarItemGroup(placement: .topBarTrailing) {
+                    HStack {
+                        Button(action: {
+                            showConfirmation = true
+                            showAlert = true
+                        }) {
+                            Image(systemName: "trash")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 18, height: 18)
+                                .foregroundColor(.neutral100)
+                                .padding(8)
+                                .background(
+                                    Circle()
+                                        .fill(Color.white)
+                                )
+                                .shadow(color: .gray.opacity(0.3), radius: 4, x: 0, y: 4)
+                        }
+                    }
+                    .padding(.vertical, 4)
+                }
+            }
+        }
         .ignoresSafeArea()
         .onAppear {
             initializePropertyHistory()

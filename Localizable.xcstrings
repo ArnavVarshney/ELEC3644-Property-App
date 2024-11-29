@@ -518,6 +518,9 @@
         }
       }
     },
+    "Are you sure?" : {
+
+    },
     "Area" : {
       "localizations" : {
         "zh-HK" : {
@@ -1441,6 +1444,9 @@
           }
         }
       }
+    },
+    "Inactive" : {
+
     },
     "Inbox" : {
       "localizations" : {
@@ -3727,6 +3733,9 @@
           }
         }
       }
+    },
+    "This action cannot be undone." : {
+
     },
     "This wishlist is empty" : {
       "localizations" : {

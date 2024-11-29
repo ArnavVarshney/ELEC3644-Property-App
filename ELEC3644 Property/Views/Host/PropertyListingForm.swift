@@ -41,6 +41,7 @@ struct PropertyListingForm: View {
     @EnvironmentObject var agentViewModel: AgentViewModel
     @EnvironmentObject var userViewModel: UserViewModel
     @Environment(\.dismiss) var dismiss
+    @State var isLoading = false
 
     var body: some View {
         NavigationView {
@@ -82,7 +83,7 @@ struct PropertyListingForm: View {
                 HStack(spacing: 4) {
                     ForEach(0..<5) { index in
                         Rectangle()
-                            .fill(index <= selectedTab ? .primary60 : .neutral40)
+                            .fill(index <= selectedTab ? .neutral100 : .neutral40)
                             .frame(height: 8)
                     }
                 }
@@ -113,23 +114,33 @@ struct PropertyListingForm: View {
                         .font(.system(size: 16, weight: .medium))
                         .foregroundColor(.neutral10)
                         .padding()
-                        .background(disabledButton(at: selectedTab) ? Color.gray : Color.primary60)
+                        .background(disabledButton(at: selectedTab) ? Color.gray : Color.neutral100)
                         .cornerRadius(10)
                         .disabled(disabledButton(at: selectedTab))
                     } else {
-                        Button("Submit") {
+                        Button {
+                            isLoading = true
                             Task {
                                 await submitForm()
                                 propertyViewModel.initTask()
                                 agentViewModel.initTask()
+                                isLoading = false
+                            }
+                        } label: {
+                            if !isLoading {
+                                Text("Submit")
+                            } else {
+                                ProgressView()
+                                    .progressViewStyle(CircularProgressViewStyle(tint: .neutral10))
                             }
                         }
                         .font(.system(size: 16, weight: .medium))
                         .foregroundColor(.neutral10)
                         .padding()
-                        .background(disabledButton(at: selectedTab) ? Color.gray : Color.primary60)
+                        .background(disabledButton(at: selectedTab) ? Color.gray : Color.neutral100)
                         .cornerRadius(10)
                         .disabled(disabledButton(at: selectedTab))
+                        .disabled(isLoading)
                     }
                 }
                 .padding()

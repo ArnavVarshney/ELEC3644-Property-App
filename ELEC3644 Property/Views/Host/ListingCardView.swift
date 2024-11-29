@@ -18,6 +18,14 @@ struct ListingCardView: View {
                         .foregroundColor(.neutral100)
                     Text("\(property.subDistrict), \(property.area)")
                         .foregroundColor(.neutral60)
+                    if !property.isActive {
+                        Text("Inactive")
+                            .padding(.vertical, 4)
+                            .padding(.horizontal, 8)
+                            .background(.neutral100)
+                            .cornerRadius(4)
+                            .foregroundColor(.neutral10)
+                    }
                 }
                 Spacer()
             }

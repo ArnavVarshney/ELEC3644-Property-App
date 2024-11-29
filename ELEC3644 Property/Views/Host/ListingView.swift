@@ -63,12 +63,12 @@ struct ListingView: View {
             }
             .padding(.horizontal)
             .navigationTitle("Your Listings")
-            .sheet(isPresented: $showListingModal) {
-                PropertyListingForm()
-            }
             .refreshable {
                 propertyViewModel.initTask()
                 agentViewModel.initTask()
+            }
+            .sheet(isPresented: $showListingModal) {
+                PropertyListingForm()
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {

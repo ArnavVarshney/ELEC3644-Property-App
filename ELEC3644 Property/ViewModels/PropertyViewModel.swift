@@ -73,13 +73,15 @@ class PropertyViewModel: ObservableObject {
         let geocoder = CLGeocoder()
 
         for property in properties {
-            if let location = await geocodeAddress(geocoder, address: property.address) {
-                propertyLocations[property.name] = location
-                let placemark = MKPlacemark(coordinate: location, addressDictionary: nil)
-                let propertyMapItem = MKMapItem(placemark: placemark)
-                propertyMapItems[property.id] = propertyMapItem
-            } else {
-                print("Could not geocode address for \(property.name): \(property.address)")
+            if property.isActive {
+                if let location = await geocodeAddress(geocoder, address: property.address) {
+                    propertyLocations[property.name] = location
+                    let placemark = MKPlacemark(coordinate: location, addressDictionary: nil)
+                    let propertyMapItem = MKMapItem(placemark: placemark)
+                    propertyMapItems[property.id] = propertyMapItem
+                } else {
+                    print("Could not geocode address for \(property.name): \(property.address)")
+                }
             }
         }
     }
