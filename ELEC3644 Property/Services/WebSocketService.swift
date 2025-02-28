@@ -53,11 +53,11 @@ class WebSocketService: ObservableObject {
     private func receiveMessages() {
         webSocketTask?.receive { [weak self] result in
             switch result {
-            case let .failure(error):
+            case .failure(let error):
                 print("WebSocket receive error: \(error)")
-            case let .success(message):
+            case .success(let message):
                 switch message {
-                case let .string(text):
+                case .string(let text):
                     if let data = text.data(using: .utf8),
                         let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
                         let jsonDict = jsonObject as? [String: Any]
